@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.SignupFragment">
+
+    <LinearLayout
+        android:id="@+id/sideBar"
+        style="@style/sideBar"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sideBar"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/mainContainer_Bg"
+            android:padding="20dp"
+            android:scrollbars="none"
+            tools:context=".fragment.SignupFragment">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/mainContainer_H1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_account"/>
+
+                <TextView
+                    style="@style/mainContainer_H2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="to get started now!"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/username"
+                    app:hintTextColor="@color/mainContainer_SubHeadingText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/signupName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/mainContainer_HeadingText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/email_address"
+                    app:hintTextColor="@color/mainContainer_SubHeadingText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/signupEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/mainContainer_HeadingText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etLabelPassword"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:hint="@string/password"
+                    app:hintTextColor="@color/mainContainer_SubHeadingText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/signupPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@color/mainContainer_HeadingText" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/signupButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_button"
+                    android:clickable="true"
+                    android:elevation="4dp"
+                    android:focusable="true"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:text="@string/signup"
+                    android:textAllCaps="false"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content">
+
+                    <view
+                        android:id="@+id/viewLine"
+                        class="android.widget.ImageView"
+                        android:layout_width="150dp"
+                        android:layout_height="3dp"
+                        android:background="@color/mainContainer_SubHeadingText"
+                        android:padding="2dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/orWith"
+                        app:layout_constraintEnd_toEndOf="@+id/orWith"
+                        app:layout_constraintStart_toStartOf="@+id/orWith"
+                        app:layout_constraintTop_toTopOf="@+id/orWith" />
+
+                    <TextView
+                        android:id="@+id/orWith"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/mainContainer_Bg"
+                        android:fontFamily="@font/main_font_regular_2"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="Or With"
+                        android:textAllCaps="false"
+                        android:textColor="#335e4a"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:id="@+id/googleCntBtn"
+                    android:drawableStart="@drawable/sl_google_color"
+                    android:src="@drawable/svg_btn_continue_with_google"
+                    android:text="@string/continue_with_google"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textSize="@dimen/text_size_medium"
+                    android:layout_marginTop="16dp"
+                    style="@style/btn_social_media" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:id="@+id/facebookCntBtn"
+                    android:drawableStart="@drawable/sl_facebook_color"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:src="@drawable/svg_btn_continue_with_google"
+                    android:text="@string/continue_with_facebook"
+                    android:layout_marginTop="16dp"
+                    android:textSize="@dimen/text_size_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/googleCntBtn"
+                    style="@style/btn_social_media" />
+
+                <TextView
+                    android:id="@+id/tvAlreadyAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/changa_variable_wght"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Already have an account?"
+                    android:textAlignment="center"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-15dp"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Login Now"
+                    android:textAllCaps="false"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textStyle="bold"/>
+
+                <view
+                    android:id="@+id/view"
+                    class="android.widget.ImageView"
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="@dimen/size_medium"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/size_medium"
+                    android:background="@color/underlineText"
+                    android:padding="2dp"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

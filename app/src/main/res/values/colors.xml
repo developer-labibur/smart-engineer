@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ================================================================================================== -->
+    <!-- TODO: START                             CUSTOM COLOR => LIGHT                                      -->
+    <!-- ================================================================================================== -->
+
+    <!-- Login or Signup Button -->
+    <color name="googleContinue__Bg">#FFFFFF</color>
+    <color name="googleContinue__Text">#1F1F1F</color>
+    <color name="BtnGradientBlue__Dark">#8AA2FF</color>
+    <color name="BtnGradientBlue__Light">#A3F6FF</color>
+
+    <!-- Left Side Bar Color -->
+    <color name="sideBar_Bg">#FFFFFFFF</color>
+    <color name="sideBar_ActiveBtnBg">#f4f4f4</color>
+    <color name="sideBar_ActiveBtn">#242424</color>
+    <color name="sideBar_InactiveBtn">#656565</color>
+    <color name="sideBar_iconTint">#8692f7</color>
+
+    <!-- Main Container_bg Color -->
+    <color name="mainContainer_Bg">#f4f4f4</color>
+    <color name="mainContainer_Active">#FFFFFFFF</color>
+    <color name="mainContainer_HeadingText">#222222</color>
+    <color name="mainContainer_SubHeadingText">#545454</color>
+
+    <!-- For Unique Style -->
+    <color name="underlineText">#E3F30D</color>
+    <color name="ic_light">#1C274C</color>
+
+    <!-- ================================================================================================== -->
+    <!-- TODO: END                                CUSTOM COLOR => LIGHT                                     -->
+    <!-- ================================================================================================== -->
+
+    <!-- ================================================================================================== -->
+    <!--                                            Additional COLOR                                            -->
+    <!-- ================================================================================================== -->
+
+    <!-- Google Color -->
+    <color name="google__Red">#E94235</color>
+    <color name="google__Yellow">#FBBC04</color>
+    <color name="google__Green">#34A853</color>
+    <color name="google__Blue">#4285F4</color>
+
+    <!-- ================================================================================================== -->
+    <!--                                           EXTRA COLOR                                              -->
+    <!-- ================================================================================================== -->
+
+    <!-- Neumorphism color  ====================================================-->
+    <color name="text_color">#1E4175</color>
+    <color name="background_color">#ecf0f3</color>
+    <color name="highlight">#ffffff</color>
+    <color name="shadow_color">#d9dbde</color>
+
+    <!-- Default -->
+    <color name="lavender_1">#8692f7</color>
+
+    <!--    <color name="text_color">#000000</color>-->
+    <!--    <color name="background_color">#673AB7</color>-->
+    <color name="background">#F3E4BA</color>
+    <color name="shadow_color_top">#EFD079</color>
+    <color name="shadow_color_bottom">#F6F4F1</color>
+    <color name="shadow_home_top">#406D6D6D</color>
+    <color name="shadow_home_bottom">#102340</color>
+    <color name="slider_title_background">#40000000</color>
+    <color name="thankYou_title">#FF9800</color>
+    <color name="thankYou_des">#9E9393</color>
+
+    <!-- TODO: Bottom Nav Bar color -->
+    <color name="home">#1194AA</color>
+    <color name="book">#8692f7</color>
+    <color name="video">#AE7E0F</color>
+    <color name="explore">#C9379D</color>
+    <color name="profile">#5B37B7</color>
+
+    <color name="home_20">#331194AA</color>
+    <color name="book_20">#338692F7</color>
+    <color name="video_20">#33AE7E0F</color>
+    <color name="explore_20">#33C9379D</color>
+    <color name="profile_20">#335B37B7</color>
+
+    <color name="cat_name">#0020bf</color>
+
+    <!-- TODO: Gradient Text color -->
+    <color name="g1">#A64DFF</color>
+    <color name="g2">#57ADFF</color>
+    <color name="g3">#2DFF00</color>
+    <color name="g4">#EEFF00</color>
+    <color name="g5">#00FFFF</color>
+    <color name="g6">#FFFFFF</color>
+
+    <color name="violet_1">#790CE6</color>
+    <color name="darkViolet_1">#5B11A6</color>
+    <color name="blue_1">#0B82F3</color>
+    <color name="green_1">#39E813</color>
+    <color name="darkGreen_1">#0D8811</color>
+    <color name="yellow_1">#E3F30D</color>
+    <color name="orange_1">#EF7E09</color>
+    <color name="red_1">#F10F0B</color>
+
+    <!-- SMART ~ Gradient Text color -->
+    <color name="clr1">#AC00CF</color>
+    <color name="clr2">#1499FF</color>
+
+    <!-- E ~ Gradient Text color -->
+    <color name="clr1.1">#E3F30D</color>
+    <color name="clr2.1">#E91E63</color>
+
+    <!-- ENGINEER ~ Gradient Text color -->
+    <color name="clr2.1.1">#FF9800</color>
+    <color name="clr2.1.2">#E91E63</color>
+    <color name="clr2.1.3">#AC00CF</color>
+
+
+    <!-- DEPARTMENTS Gradient Text color -->
+    <color name="deepPink">#f3254f</color>
+    <color name="lightYellow">#fda04d</color>
+
+    <!-- TODO: Department Gradient Text color -->
+    <color name="lightDeepBlue">#154BAC</color>
+    <color name="midBlue">#0079b3</color>
+    <color name="simpleBlue">#88eafa</color>
+
+    <!-- TODO: SoftyLur Gradient Text color -->
+    <color name="deepBlue">#0003DD</color>
+    <color name="lightYRed">#E91E63</color>
+
+    <!-- ================================================================================================== -->
+    <!--                                        GRADIENT COLOR COMBO                                        -->
+    <!-- ================================================================================================== -->
+
+    <!-- Vivid Magenta and  Bright Violet -->
+    <color name="btn_gradient__vividMagenta_brightViolet_1">#DA22FF</color>
+    <color name="btn_gradient__vividMagenta_brightViolet_2">#9733EE</color>
+
+    <!-- Soft Blue and Soft Violet -->
+    <color name="btn_gradient__softBlue_softViolet_1">#4776E6</color>
+    <color name="btn_gradient__softBlue_softViolet_2">#8E54E9</color>
+
+    <!-- Pure (or mostly pure) Cyan and Moderate Blue -->
+    <color name="btn_gradient__pureCyan_moderateBlue_1">#00d2ff</color>
+    <color name="btn_gradient__pureCyan_moderateBlue_2">#0072ff</color>
+
+    <!-- Vivid Red and Bright Pink -->
+    <color name="btn_gradient__vividRed_brightPink_1">#FF512F</color>
+    <color name="btn_gradient__vividRed_brightPink_2">#DD2476</color>
+
+    <!-- Light Red and Vivid Orange -->
+    <color name="btn_gradient__lightRed_vividOrange_1">#FF4E50</color>
+    <color name="btn_gradient__lightRed_vividOrange_2">#F09819</color>
+
+    <!-- ================================================================================================== -->
+    <!--                                           MODERN COLOR                                             -->
+    <!-- ================================================================================================== -->
+
+    <!-- Blue ~ Modern -->
+    <color name="blue_active_color">#9ee6f0</color>
+    <color name="blue_light_color">#c5eae9</color>
+    <color name="blue_main_color">#42dffe</color>
+    <color name="blue_text_color">#00aaff</color>
+
+    <!-- Green ~ Modern -->
+    <color name="green_active_color">#b1edca</color>
+    <color name="green_light_color">#d0eed3</color>
+    <color name="green_main_color">#68ecb4</color>
+    <color name="green_text_color">#16b768</color>
+
+    <!-- Red ~ Modern -->
+    <color name="indian_red_active_color">#edb1b1</color>
+    <color name="indian_red_light_color">#f8d4d4</color>
+    <color name="indian_red_main_color">#f59595</color>
+    <color name="indian_red_text_color">#bd505a</color>
+
+    <!-- Orange ~ Modern -->
+    <color name="orange_active_color">#fae1bb</color>
+    <color name="orange_light_color">#f8e9d4</color>
+    <color name="orange_main_color">#ffcc80</color>
+    <color name="orange_text_color">#ff7700</color>
+
+    <!-- Pink ~ Modern -->
+    <color name="pink_active_color">#fecbe9</color>
+    <color name="pink_flow_color">#f8bbf0</color>
+    <color name="pink_light_color">#fddae5</color>
+    <color name="pink_main_color">#fea9f3</color>
+    <color name="pink_text_color">#ff6ccc</color>
+
+    <!-- Yellow ~ Modern -->
+    <color name="yellow_active_color">#f0e68c</color>
+    <color name="yellow_flow_color">#ffdf34</color>
+    <color name="yellow_light_color">#fffacd</color>
+    <color name="yellow_main_color">#ffda14</color>
+    <color name="yellow_text_color">#d5b405</color>
+
+    <!-- ================================================================================================== -->
+    <!--                               PROFESSIONAL COLOR CODE WITH NAME                                    -->
+    <!-- ================================================================================================== -->
+
+    <!-- Red -->
+    <color name="red__IndianRed">#CD5C5C</color>
+    <color name="red__Salmon">#FA8072</color>
+    <color name="red__LightSalmon">#FFA07A</color>
+    <color name="red__Vivid">#FF3131</color>
+    <color name="red">#FF0000</color>
+    <color name="red__DarkRed">#8B0000</color>
+
+    <!-- Pink -->
+    <color name="pink">#FFC0CB</color>
+    <color name="pink__LightPink">#FFB6C1</color>
+    <color name="pink__HotPink">#FF69B4</color>
+    <color name="pink__DeepPink">#FF1493</color>
+    <color name="rose">#FF007F</color>
+    <color name="pink__MediumVioletRed">#C71585</color>
+    <color name="pink__PaleVioletRed">#DB7093</color>
+
+    <!-- Orange -->
+    <color name="orange__LightSalmon">#FFA07A</color>
+    <color name="Coral">#FF7F50</color>
+    <color name="tomato">#FF6347</color>
+    <color name="orange__OrangeRed">#FF4500</color>
+    <color name="orange__DarkOrange">#FF8C00</color>
+    <color name="orange">#FFA500</color>
+
+    <!-- Yellow -->
+    <color name="gold">#FFD700</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="yellow__Vivid">#FFC107</color>
+    <color name="yellow__LightYellow">#FFFFE0</color>
+    <color name="yellow_LemonChiffon_">#FFFACD</color>
+    <color name="yellow__Moccasin">#FFE4B5</color>
+    <color name="yellow__Khaki">#F0E68C</color>
+
+    <!-- Purple -->
+    <color name="lavender">#E6E6FA</color>
+    <color name="violet">#EE82EE</color>
+    <color name="purple__Magenta">#FF00FF</color>
+    <color name="purple__SoftViolet">#BB86FC</color>
+    <color name="purple__MediumPurple">#9370DB</color>
+    <color name="purple__BlueViolet">#8A2BE2</color>
+    <color name="purple">#A020F0</color>
+    <color name="purple__DarkViolet">#9400D3</color>
+    <color name="purple__DarkMagenta">#8B008B</color>
+    <color name="indigo">#4B0082</color>
+    <color name="purple__DarkSlateBlue">#483D8B</color>
+    <color name="purple__MediumSlateBlue">#7B68EE</color>
+
+    <!-- Green -->
+    <color name="green__GreenYellow">#ADFF2F</color>
+    <color name="green__Chartreuse">#7FFF00</color>
+    <color name="green__Lime">#00FF00</color>
+    <color name="green__LightGreen">#90EE90</color>
+    <color name="green__SpringGreen">#00FF7F</color>
+    <color name="green__ForestGreen">#228B22</color>
+    <color name="green">#008000</color>
+    <color name="green__DarkGreen">#006400</color>
+    <color name="green__YellowGreen">#9ACD32</color>
+    <color name="olive">#808000</color>
+    <color name="green__VividCyan">#03DAC5</color>
+    <color name="green__DarkCyan">#008B8B</color>
+    <color name="teal">#008080</color>
+
+    <!-- Blue -->
+    <color name="blue__Aqua">#00FFFF</color>
+    <color name="blue__Cyan">#00FFFF</color>
+    <color name="blue__LightCyan">#E0FFFF</color>
+    <color name="blue__Turquoise">#40E0D0</color>
+    <color name="blue__LightBlue">#ADD8E6</color>
+    <color name="skyBlue">#87CEEB</color>
+    <color name="blue__LightSkyBlue">#87CEFA</color>
+    <color name="blue__DeepSkyBlue">#00BFFF</color>
+    <color name="blue__MediumSlateBlue">#7B68EE</color>
+    <color name="blue__LavenderBlue">#8692f7</color>          <!-- lavender replace -->
+    <color name="royalBlue">#4169E1</color>
+    <color name="blue">#0000FF</color>
+    <color name="navyBlue">#000080</color>
+    <color name="blue__MidnightBlue">#191970</color>
+
+    <!-- Brown -->
+    <color name="brown__Cornsilk">#FFF8DC</color>
+    <color name="brown__Bisque">#FFE4C4</color>
+    <color name="brown__SandyBrown">#F4A460</color>
+    <color name="chocolate">#D2691E</color>
+    <color name="brown">#A52A2A</color>
+
+    <!-- White -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="white__VeryLight">#FBFBFB</color>
+    <color name="white__LightGrayishBlue">#EDEEEF</color>
+    <color name="white__Snow">#FFFAFA</color>
+    <color name="white__Azure">#F0FFFF</color>
+    <color name="white__AliceBlue">#F0F8FF</color>
+    <color name="white__WhiteSmoke">#F5F5F5</color>
+    <color name="white__SeaShell">#FFF5EE</color>
+    <color name="white__lavenderBlush">#FFF0F5</color>
+    <color name="white__mistyRose">#FFE4E1</color>
+
+    <!-- Gray -->
+    <color name="gray__Light">#aaaaaa</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="gray__Dark">#A9A9A9</color>
+    <color name="gray">#808080</color>
+    <color name="gray__VeryDark">#424242</color>
+    <color name="gray__DarkSlateGray">#2F4F4F</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+</resources>

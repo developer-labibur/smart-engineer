@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- values-sw720dp/dimens.xml -->
+<resources>
+
+    <!--___________ MATERIEL DESIGN VALUES_____________________________ -->
+
+    <dimen name="size_defaultText_dsa">46sp</dimen>
+    <dimen name="size_defaultText_LetterSpacing_dsa">0.15dp</dimen>
+
+    <dimen name="size_Title_dsa">58sp</dimen>
+    <dimen name="size_Title_LetterSpacing_dsa">0.15dp</dimen>
+
+    <dimen name="size_SubTitle_dsa">46sp</dimen>
+    <dimen name="size_SubTitle_LetterSpacing_dsa">0.15dp</dimen>
+
+    <!-- more than one line is considered a paragraph -->
+    <dimen name="size_Text_1Line_dsa">46sp</dimen>
+
+    <dimen name="size_Paragraph_more_5Line_dsa">40sp</dimen>
+    <dimen name="size_ParagraphNormal_dsa">44sp</dimen>
+    <dimen name="size_Paragraph_minus_5Line_dsa">46sp</dimen>
+
+    <!-- H value Positive and Negative -->
+    <dimen name="size_H1_dsa">276sp</dimen>
+    <dimen name="size_H2_dsa">172sp</dimen>
+    <dimen name="size_H3_dsa">140sp</dimen>
+    <dimen name="size_H4_dsa">96sp</dimen>
+    <dimen name="size_H5_dsa">70sp</dimen>
+    <dimen name="size_H6_dsa">58sp</dimen>
+
+    <!--  component text size -->
+    <dimen name="size_componentText_Default_dsa">40sp</dimen>
+    <dimen name="size_componentText_LetterSpacing_dsa">1.25dp</dimen>
+
+    <dimen name="size_TextView_dsa">46sp</dimen>
+
+    <dimen name="size_RecyclerView_Text_dsa">40sp</dimen>
+
+    <dimen name="size_StatusBar_Text_dsa">58sp</dimen>
+
+    <dimen name="size_ToolBar_Text_dsa">40sp</dimen>
+
+    <dimen name="size_ListView_Text_dsa">40sp</dimen>
+
+    <dimen name="size_Button_Text_dsa">40sp</dimen>
+    <dimen name="size_Button_LetterSpacing_dsa">1.25dp</dimen>
+
+    <dimen name="size_EditText_Text_dsa">40sp</dimen>
+    <dimen name="size_EditText_Text_Error_dsa">40sp</dimen>
+    <!--_______________________________________________________________ -->
+
+    <!-- XSmall Positive and Negative -->
+    <dimen name="size_x_small">8dp</dimen>
+    <dimen name="size_x_small_neg">-8dp</dimen>
+
+    <!-- Small Positive and Negative -->
+    <dimen name="size_small">12dp</dimen>
+    <dimen name="size_small_neg">-12dp</dimen>
+
+    <!-- Medium Positive and Negative -->
+    <dimen name="size_medium">24dp</dimen>
+    <dimen name="size_medium_neg">-24dp</dimen>
+
+    <!-- Large Positive and Negative -->
+    <dimen name="size_large">36dp</dimen>
+    <dimen name="size_large_neg">-36dp</dimen>
+
+    <!-- XLarge Positive and Negative -->
+    <dimen name="size_xlarge">48dp</dimen>
+    <dimen name="size_xlarge_neg">-48dp</dimen>
+
+    <!-- XXLarge Positive and Negative -->
+    <dimen name="size_2xlarge">72dp</dimen>
+    <dimen name="size_2xlarge_neg">-72dp</dimen>
+
+    <!-- XXXLarge Positive and Negative -->
+    <dimen name="size_3xlarge">96dp</dimen>
+    <dimen name="size_3xlarge_neg">-96dp</dimen>
+
+    <!-- XXXXLarge Positive and Negative -->
+    <dimen name="size_4xlarge">120dp</dimen>
+    <dimen name="size_4xlarge_neg">-120dp</dimen>
+
+    <!-- SideBarWidth Positive and Negative -->
+    <dimen name="size_sidebar_width">155dp</dimen>
+    <dimen name="size_sidebar_pic">110dp</dimen>
+    <dimen name="size_sidebar_margin">52dp</dimen>
+    <dimen name="size_sidebar_padding">24dp</dimen>
+    <dimen name="size_sidebar_icon_size">95dp</dimen>
+
+    <!-- Text Sizes Positive and Negative -->
+    <dimen name="text_size_x_small">16sp</dimen>
+    <dimen name="text_size_x_small_neg">-16sp</dimen>
+    <dimen name="text_size_small">18sp</dimen>
+    <dimen name="text_size_small_neg">-18sp</dimen>
+    <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="text_size_medium_neg">-20sp</dimen>
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_large_neg">-22sp</dimen>
+    <dimen name="text_size_xlarge">26sp</dimen>
+    <dimen name="text_size_xlarge_neg">-26sp</dimen>
+    <dimen name="text_size_2xlarge">30sp</dimen>
+    <dimen name="text_size_2xlarge_neg">-30sp</dimen>
+    <dimen name="text_size_3xlarge">32sp</dimen>
+    <dimen name="text_size_3xlarge_neg">-32sp</dimen>
+
+    <!-- ================================================================================================== -->
+    <!--                                  CUSTOM SIZE => PADDING AND MARGIN                                 -->
+    <!-- ================================================================================================== -->
+
+    <!--     => DP    -->
+    <dimen name="_170dp">360dp</dimen>
+    <dimen name="_260dp">500dp</dimen>
+
+    <!--     => SP    -->
+    <dimen name="_16sp">32sp</dimen>
+
+</resources>

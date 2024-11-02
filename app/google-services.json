@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "389818419543",
+    "project_id": "smart-engineer-sl",
+    "storage_bucket": "smart-engineer-sl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389818419543:android:2b40d412eab98ded2f1612",
+        "android_client_info": {
+          "package_name": "com.rudhashi.smartengineer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8l_G0oTGGAatHtgGD7JfTikt5AEGsL-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

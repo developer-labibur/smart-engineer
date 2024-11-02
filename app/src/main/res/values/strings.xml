@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Smart Engineer</string>
+    <string name="myFullName">Labib UR Rahman</string>
+    <string name="myNickname">LaBiB</string>
+
+    <!-- ================================================================================================== -->
+    <!--                                           LOGIN & SIGNUP                                           -->
+    <!-- ================================================================================================== -->
+
+    <!-- Splash Activity -->
+    <string name="sloganSmartEngineer">\'উৎসর্গ সকল স্মার্ট ইঞ্জিনিয়ারদের প্রতি\'</string>
+
+    <!-- Side Bar -->
+    <string name="smart_engineer_logo">Smart Engineer Logo</string>
+    <string name="login">LogIn</string>
+    <string name="signup">SignUp</string>
+    <string name="sl_icon">SL Icon</string>
+    <string name="facebook">Facebook</string>
+
+    <!-- Login Fragment -->
+    <string name="welcome">Welcome,</string>
+    <string name="glad_to_see_you">Glad to see you!</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+
+    <!-- Signup Fragment -->
+    <string name="create_account">Create Account</string>
+    <string name="username">Username</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="continue_with_email">Continue with Email</string>
+    <string name="continue_with_social_media">Continue with Social Media</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

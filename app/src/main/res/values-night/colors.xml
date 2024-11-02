@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ================================================================================================== -->
+    <!--  TODO:                                  CUSTOM COLOR => DARK                                       -->
+    <!-- ================================================================================================== -->
+
+    <!-- Login or Signup Button -->
+    <color name="googleContinue__Bg">#000000</color>
+    <color name="googleContinue__Text">#D3D3D3</color>
+    <color name="BtnGradientBlue__Dark">#6585fd</color>
+    <color name="BtnGradientBlue__Light">#42d4e6</color>
+
+    <!-- Left Side Bar Color -->
+    <color name="sideBar_Bg">#656565</color>
+    <color name="sideBar_ActiveBtnBg">#242424</color>
+    <color name="sideBar_ActiveBtn">#FFFFFFFF</color>
+    <color name="sideBar_InactiveBtn">#A8A8A8</color>
+    <color name="sideBar_iconTint">#FBBC04</color>
+
+    <!-- Main Container_bg Color -->
+    <color name="mainContainer_Bg">#242424</color>
+    <color name="mainContainer_Active">#242424</color>
+    <color name="mainContainer_HeadingText">#F6F6F6</color>
+    <color name="mainContainer_SubHeadingText">#E1E1E1</color>
+
+    <!-- For Unique Style -->
+    <color name="underlineText">#80622A</color>
+    <color name="ic_light">#D5DDFA</color>
+
+</resources>
