@@ -13,6 +13,8 @@ class SmartData {
         const val SPLASH_SCREEN: Long = 2000
         // Google SignIn
         const val WEB_CLIENT_ID = "389818419543-sdlmnl0vdps19ka0ku0n76f4vub730cr.apps.googleusercontent.com"
+        // # milliseconds, desired
+        const val TIME_INTERVAL: Int = 2000
 
         // Function to display Toast
         fun lToast(context: Context, message: String, isShort: Boolean) {

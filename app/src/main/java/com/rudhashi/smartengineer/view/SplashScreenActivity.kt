@@ -57,8 +57,8 @@ class SplashScreenActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             // Check if user is already logged in and move to AllUserActivity if true, otherwise move to VerificationActivity
             if (auth.currentUser != null) {
-                // Start the home page activity
-                startActivity(Intent(this, MainActivity::class.java))
+                // Start the Dashboard activity
+                startActivity(Intent(this, DashboardActivity::class.java))
             } else {
                 // New User => Start the Main activity
                 startActivity(Intent(this, MainActivity::class.java))

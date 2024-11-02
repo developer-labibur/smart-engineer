@@ -28,4 +28,19 @@
     <color name="underlineText">#80622A</color>
     <color name="ic_light">#D5DDFA</color>
 
+    <!-- Bottom Nav Bar color -->
+    <color name="bottom_nav_bg">#1B1B1B</color>
+
+    <color name="home">#00D8FF</color>
+    <color name="book">#ABB3FF</color>
+    <color name="video">#FFBD26</color>
+    <color name="explore">#FF00B2</color>
+    <color name="profile">#976FFF</color>
+
+    <color name="home_20">#3300D8FF</color>
+    <color name="book_20">#33ABB3FF</color>
+    <color name="video_20">#33FFBD26</color>
+    <color name="explore_20">#33FF00B2</color>
+    <color name="profile_20">#33976FFF</color>
+
 </resources>

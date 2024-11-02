@@ -1,60 +1,71 @@
 package com.rudhashi.smartengineer.fragment
 
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.adapter.FeaturesAdapter
+import com.rudhashi.smartengineer.databinding.FragmentHomeBinding
+import com.rudhashi.smartengineer.model.FeaturesDataClass
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentHomeBinding
+    private var tagLog = "HomeFragment"
+    private lateinit var featuresDataList: ArrayList<FeaturesDataClass>
+    //private var arrayAppFeatureItems: ArrayList<HashMap<String, String>> = ArrayList()
+    //private lateinit var item: HashMap<String, String>
+
+    // Variable for String Array ---------------------------------------------------------------------------------
+    private lateinit var appFeatureId: Array<String>
+    private lateinit var appFeatureTitle: Array<String>
+    private lateinit var appFeatureImageUrl: Array<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        // String Array Hooks ------------------------------------------------------------------------------------
+        appFeatureId = resources.getStringArray(R.array.appFeatureId)
+        appFeatureTitle = resources.getStringArray(R.array.appFeatureTitle)
+        appFeatureImageUrl = resources.getStringArray(R.array.appFeatureImageUrl)
+
+        // Gradient Text color Set -----------------------------------------------------------------------------------------
+        binding.tvSmart.paint.shader = LinearGradient(0f,0f, binding.tvSmart.paint.measureText(binding.tvSmart.text.toString()), binding.tvSmart.textSize, intArrayOf(
+            resources.getColor(R.color.clr1, null), resources.getColor(R.color.clr2, null)), null, Shader.TileMode.CLAMP)
+        binding.tvE.paint.shader = LinearGradient(0f,0f, binding.tvE.paint.measureText(binding.tvE.text.toString()), binding.tvE.textSize, intArrayOf(
+            resources.getColor(R.color.clr2_1, null), resources.getColor(R.color.clr1_1, null), resources.getColor(R.color.clr2_1, null)), null, Shader.TileMode.CLAMP)
+        binding.tvEngineer.paint.shader = LinearGradient(0f,0f, binding.tvEngineer.paint.measureText(binding.tvEngineer.text.toString()), binding.tvEngineer.textSize, intArrayOf(
+            resources.getColor(R.color.clr2_1_1, null), resources.getColor(R.color.clr2_1_2, null), resources.getColor(R.color.clr2_1_3, null) ),null, Shader.TileMode.CLAMP )
+
+
+        // Adapter RecyclerView Category -----------------------------------------------------------------------------------
+        binding.recycleFeatures.layoutManager = GridLayoutManager(requireActivity(), 3, GridLayoutManager.VERTICAL, false)
+        binding.recycleFeatures.setHasFixedSize(true)
+        binding.recycleFeatures.isNestedScrollingEnabled = false;
+        featuresDataList = arrayListOf<FeaturesDataClass>()
+        getCategoryData()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    // =====================================================================================================================
+    // =====================================       Get Category Data                  ======================================
+    // =====================================================================================================================
+    private fun getCategoryData(){
+        for (i in appFeatureImageUrl.indices){
+            val categoryDataClass = FeaturesDataClass(appFeatureId[i], appFeatureTitle[i], appFeatureImageUrl[i])
+            featuresDataList.add(categoryDataClass)
+        }
+        binding.recycleFeatures.adapter = FeaturesAdapter(featuresDataList, requireActivity())
     }
 }

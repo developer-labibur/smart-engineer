@@ -30,7 +30,95 @@
     <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="continue_with_email">Continue with Email</string>
     <string name="continue_with_social_media">Continue with Social Media</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Home Fragment -->
+    <string name="home_page_top_background_image">Home Page Top Background Image</string>
+    <string name="smart">Smart</string>
+    <string name="e">E</string>
+    <string name="ngineer">ngineer</string>
+    <string name="ing">ing</string>
+    <string name="learning_app">Learning App</string>
+    <string name="rocket">Rocket</string>
+    <string name="everything_at_a_glance">Everything at a Glance</string>
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ App Feature Item ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <string-array name="appFeatureId">
+        <item>news</item>
+        <item>notice</item>
+        <item>institute</item>
+        <item>book</item>
+        <item>department</item>
+        <item>video</item>
+        <item>result</item>
+        <item>cgpa</item>
+        <item>jobs</item>
+        <!-- String[] id = findViewById(R.string.CT) {"news", "notice", "bookology", "book", "department", "video", "result", "cgpa", "institute"}; -->
+    </string-array>
+    <string-array name="appFeatureTitle">
+        <item>News Feed</item>
+        <item>Notice Board</item>
+        <item>All Institute</item>
+        <item>Academic\nBooks</item>
+        <item>All\nDepartment</item>
+        <item>Video\nClass</item>
+        <item>Diploma\nResult</item>
+        <item>CGPA\nCalculator</item>
+        <item>Search\nJobs</item>
+        <!-- String[] title = {"News Feed", "Notice Board", "Bookology", "Academic\nBooks", "All\nDepartment", "Video\nClass", "Diploma\nResult", "CGPA\nCalculator", "All\nInstitute"}; -->
+    </string-array>
+    <string-array name="appFeatureImageUrl">
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Dashboard%20Icon%2Fnews.png?alt=media&amp;token=92197abe-5e26-4400-b0d9-537a692bfd93</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Dashboard%20Icon%2Fspeaker.png?alt=media&amp;token=dc625da3-961e-4d94-a4bc-7b276ffaa036</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Dashboard%20Icon%2Funiversity.png?alt=media&amp;token=fb43c68d-b309-42ca-a59a-544e4e14fd95</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Dashboard%20Icon%2Fcourse.png?alt=media&amp;token=adc8536a-f09d-4542-8526-1049d59381be</item>
+        <item>https://i.ibb.co/8PQMPMm/department.png</item>
+        <item>https://i.ibb.co/JCg4LMT/online-meeting.png</item>
+        <item>https://i.ibb.co/TbKqJ3z/grades.png</item>
+        <item>https://i.ibb.co/vhzDDZG/summa-cum-laude.png</item>
+        <item>https://i.ibb.co/Wzshwn7/job-seeker.png</item>
+        <!-- String[] imageUrl = {"https://i.ibb.co/8731pPR/news.png", "https://i.ibb.co/cQnjNGn/speaker.png", "https://i.ibb.co/zZ8P5wc/study.png", "https://i.ibb.co/3yhbmXh/course.png", "https://i.ibb.co/8PQMPMm/department.png", "https://i.ibb.co/JCg4LMT/online-meeting.png", "https://i.ibb.co/TbKqJ3z/grades.png", "https://i.ibb.co/vhzDDZG/summa-cum-laude.png", "https://i.ibb.co/51Wcxb1/university.png"}; -->
+    </string-array>
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Category List ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <string-array name="arrayCategoryId">
+        <item>CT</item>
+        <item>MT</item>
+        <item>ET</item>
+        <item>CST</item>
+        <item>ENT</item>
+        <item>PT</item>
+        <item>CNT</item>
+        <item>AIDT</item>
+        <item>FT</item>
+    </string-array>
+    <string-array name="arrayCategoryTitle">
+        <item>Civil Technology</item>
+        <item>Mechanical Technology</item>
+        <item>Electrical Technology</item>
+        <item>Computer Science &amp; Technology</item>
+        <item>Electronics Technology</item>
+        <item>Power Technology</item>
+        <item>Construction Technology</item>
+        <item>Architecture &amp; Interior Design Technology</item>
+        <item>Food Technology</item>
+    </string-array>
+    <string-array name="arrayCategoryImageUrl">
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fcivil_engineers.png?alt=media&amp;token=e8c7f4f3-7953-4a1d-8f3c-18d656376178</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Frepair.png?alt=media&amp;token=13c28183-f540-4f77-82a6-20831f339319</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Felectric-pole.png?alt=media&amp;token=8e831fba-b54d-4f63-9d92-5a0502cbd0ea</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fcoding.png?alt=media&amp;token=a421ecd5-2a07-4026-acc4-0d51988008e7</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fgadgets.png?alt=media&amp;token=7cbc5316-8525-48a7-b31d-286da3b8e9b1</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fpower.png?alt=media&amp;token=b1e5f05a-94f8-4434-a41c-e0fa730fd236</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fconstruction_project.png?alt=media&amp;token=3fcf871e-3a3e-4c1a-81d4-990f333964c8</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Finterior.png?alt=media&amp;token=3029c814-0156-452a-b42a-4efb7f79f0b2</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Ffood-delivery.png?alt=media&amp;token=1924412a-d984-42e1-899d-37796f0efbc2</item>
+    </string-array>
+
+
+    <!-- Dashboard Activity -->
+    <string name="home">Home</string>
 
 </resources>

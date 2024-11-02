@@ -28,6 +28,21 @@
     <color name="underlineText">#E3F30D</color>
     <color name="ic_light">#1C274C</color>
 
+    <!-- Bottom Nav Bar color -->
+    <color name="bottom_nav_bg">#FFFFFFFF</color>
+
+    <color name="home">#1194AA</color>
+    <color name="book">#8692f7</color>
+    <color name="video">#AE7E0F</color>
+    <color name="explore">#C9379D</color>
+    <color name="profile">#5B37B7</color>
+
+    <color name="home_20">#331194AA</color>
+    <color name="book_20">#338692F7</color>
+    <color name="video_20">#33AE7E0F</color>
+    <color name="explore_20">#33C9379D</color>
+    <color name="profile_20">#335B37B7</color>
+
     <!-- ================================================================================================== -->
     <!-- TODO: END                                CUSTOM COLOR => LIGHT                                     -->
     <!-- ================================================================================================== -->
@@ -66,19 +81,6 @@
     <color name="thankYou_title">#FF9800</color>
     <color name="thankYou_des">#9E9393</color>
 
-    <!-- TODO: Bottom Nav Bar color -->
-    <color name="home">#1194AA</color>
-    <color name="book">#8692f7</color>
-    <color name="video">#AE7E0F</color>
-    <color name="explore">#C9379D</color>
-    <color name="profile">#5B37B7</color>
-
-    <color name="home_20">#331194AA</color>
-    <color name="book_20">#338692F7</color>
-    <color name="video_20">#33AE7E0F</color>
-    <color name="explore_20">#33C9379D</color>
-    <color name="profile_20">#335B37B7</color>
-
     <color name="cat_name">#0020bf</color>
 
     <!-- TODO: Gradient Text color -->
@@ -99,6 +101,9 @@
     <color name="red_1">#F10F0B</color>
 
     <!-- SMART ~ Gradient Text color -->
+    <color name="gradient_start">#AC00CF</color>
+    <color name="gradient_end">#F44336</color>
+
     <color name="clr1">#AC00CF</color>
     <color name="clr2">#1499FF</color>
 
