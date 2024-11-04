@@ -43,4 +43,13 @@
     <color name="explore_20">#33FF00B2</color>
     <color name="profile_20">#33976FFF</color>
 
+    <!-- Purple ~ Modern => Explore -->
+    <color name="purple_text_color">#7E4EFB</color>
+    <color name="purple_fill_color">#B77E4EFB</color>
+    <color name="purple_bg_color">#33976FFF</color>
+
+    <color name="green_main_love_color">#429471</color>
+    <color name="green_main_loved_color">#FFC0C0</color>
+
+
 </resources>

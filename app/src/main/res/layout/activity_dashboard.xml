@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/bottom_nav_bg"
+        android:background="@drawable/sl_bottom_nav_bg"
         android:baselineAligned="false"
         android:elevation="10dp"
         android:gravity="center"
@@ -36,14 +36,9 @@
         <!-- Home Bottom -->
         <LinearLayout
             android:id="@+id/llHome"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_back_home_100"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
+            style="@style/bottom_nav_bg"
+            tools:ignore="UseCompoundDrawables"
+            android:background="@drawable/round_back_home_100">
 
             <ImageView
                 android:id="@+id/ivHome"
@@ -51,115 +46,80 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/sl_icon"
-                android:src="@drawable/bottom_selected_home" />
+                android:src="@drawable/sl_home_smile_angle_fill" />
 
             <TextView
                 android:id="@+id/tvHome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/logo_font"
+                android:visibility="visible"
                 android:text="@string/home"
-                android:textColor="@color/home"
-                android:textSize="15sp" />
+                android:textColor="@color/orange_text_color"
+                style="@style/bottom_nav_text_style"/>
 
         </LinearLayout>
 
         <!-- Books Bottom -->
         <LinearLayout
             android:id="@+id/llBook"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
+            style="@style/bottom_nav_bg"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/ivBook"
+                android:layout_width="20dp"
+                android:contentDescription="@string/sl_icon"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/sl_notebook" />
+
+            <TextView
+                android:id="@+id/tvBook"
+                android:text="@string/books"
+                android:textColor="@color/blue_text_color"
+                style="@style/bottom_nav_text_style" />
+
+        </LinearLayout>
+
+        <!-- Notice Bottom -->
+        <LinearLayout
+            android:id="@+id/llNotice"
+            style="@style/bottom_nav_bg"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/ivNotice"
                 android:layout_width="22dp"
                 android:contentDescription="@string/sl_icon"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/bottom_book" />
+                android:src="@drawable/sl_academic_cap" />
 
             <TextView
-                android:id="@+id/tvBook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/logo_font"
-                android:text="Books"
-                android:textColor="@color/book"
-                android:textSize="15sp"
-                android:visibility="gone" />
+                android:id="@+id/tvNotice"
+                android:text="@string/notice"
+                android:textColor="@color/green_text_color"
+                style="@style/bottom_nav_text_style"/>
 
         </LinearLayout>
 
         <!-- Explore Bottom -->
         <LinearLayout
             android:id="@+id/llExplore"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
+            style="@style/bottom_nav_bg"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/ivExplore"
                 android:layout_width="20dp"
+                android:contentDescription="@string/sl_icon"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/sl_icon"
-                android:src="@drawable/bottom_explore" />
+                android:src="@drawable/sl_library" />
 
             <TextView
                 android:id="@+id/tvExplore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/changa_variable_wght"
-                android:text="Explore"
-                android:textColor="@color/explore"
-                android:textSize="15sp"
-                android:visibility="gone" />
-
-        </LinearLayout>
-        <!-- Profile Bottom -->
-        <LinearLayout
-            android:id="@+id/llProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-
-            <ImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="20dp"
-                android:contentDescription="@string/sl_icon"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/bottom_profile" />
-
-            <TextView
-                android:id="@+id/tvProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/changa_variable_wght"
-                android:text="Category"
-                android:textColor="@color/profile"
-                android:textSize="15sp"
-                android:visibility="gone" />
+                android:text="@string/explore"
+                android:textColor="@color/purple_text_color"
+                style="@style/bottom_nav_text_style"/>
 
         </LinearLayout>
 

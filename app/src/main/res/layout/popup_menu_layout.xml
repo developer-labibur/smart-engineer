@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/menu_background"
+    android:padding="8dp">
+
+    <!-- Share option with an icon -->
+    <LinearLayout
+        android:id="@+id/share_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/sl_icon"
+            android:src="@drawable/sl_share" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/share_this_notice"
+            android:textColor="@color/ic_light"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Add more menu items here if needed -->
+</LinearLayout>

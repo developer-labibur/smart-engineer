@@ -1,6 +1,5 @@
 package com.rudhashi.smartengineer.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -16,10 +15,12 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivityDashboardBinding
-import com.rudhashi.smartengineer.fragment.HomeFragment
+import com.rudhashi.smartengineer.fragment.BooksFragment
+import com.rudhashi.smartengineer.fragment.ExploreFragment
 import com.rudhashi.smartengineer.fragment.LoginFragment
 import com.rudhashi.smartengineer.fragment.SignupFragment
-import com.rudhashi.smartengineer.fragment.TechFragment
+import com.rudhashi.smartengineer.fragment.HomeFragment
+import com.rudhashi.smartengineer.fragment.NoticeFragment
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -55,21 +56,20 @@ class DashboardActivity : AppCompatActivity() {
 
                     // unselect others tabs expect home tab
                     tvBook.visibility = View.GONE
+                    tvNotice.visibility = View.GONE
                     tvExplore.visibility = View.GONE
-                    tvProfile.visibility = View.GONE
 
-                    ivBook.setImageResource(R.drawable.bottom_book)
-                    ivExplore.setImageResource(R.drawable.bottom_explore)
-                    ivProfile.setImageResource(R.drawable.bottom_profile)
+                    ivBook.setImageResource(R.drawable.sl_notebook)
+                    ivNotice.setImageResource(R.drawable.sl_academic_cap)
+                    ivExplore.setImageResource(R.drawable.sl_library)
 
                     llBook.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
-                    llBook.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
+                    llNotice.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
                     llExplore.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
-                    llProfile.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
 
                     // select home tab
                     tvHome.visibility = View.VISIBLE
-                    ivHome.setImageResource(R.drawable.bottom_selected_home)
+                    ivHome.setImageResource(R.drawable.sl_home_smile_angle_fill)
                     llHome.setBackgroundResource(R.drawable.round_back_home_100)
 
                     // create animation
@@ -92,26 +92,26 @@ class DashboardActivity : AppCompatActivity() {
                 if (selectedTab != 2) {
 
                     // set Book fragment
-                    true.loadFragment(SignupFragment())
+                    true.loadFragment(LoginFragment())
 
                     //loadFragment(BookFragment.getInstance(DEP_NAME, "MT1"), true);
 
                     // unselect others tabs expect book tab
                     tvHome.visibility = View.GONE
+                    tvNotice.visibility = View.GONE
                     tvExplore.visibility = View.GONE
-                    tvProfile.visibility = View.GONE
 
-                    ivHome.setImageResource(R.drawable.bottom_home)
-                    ivExplore.setImageResource(R.drawable.bottom_explore)
-                    ivProfile.setImageResource(R.drawable.bottom_profile)
+                    ivHome.setImageResource(R.drawable.sl_home_smile_angle)
+                    ivNotice.setImageResource(R.drawable.sl_academic_cap)
+                    ivExplore.setImageResource(R.drawable.sl_library)
 
                     llHome.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
+                    llNotice.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
                     llExplore.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
-                    llProfile.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
 
                     // select book tab
                     tvBook.visibility = View.VISIBLE
-                    ivBook.setImageResource(R.drawable.bottom_selected_book)
+                    ivBook.setImageResource(R.drawable.sl_notebook_fill)
                     llBook.setBackgroundResource(R.drawable.round_back_book_100)
 
                     // create animation
@@ -128,80 +128,74 @@ class DashboardActivity : AppCompatActivity() {
                 }
             }
 
-            llExplore.setOnClickListener{
-
-                // check if explore is already selected or not.
-                if (selectedTab != 3) {
-
-                    // set explore fragment
-                    true.loadFragment(LoginFragment())
-
-                    //startActivity(new Intent(this, BookViewActivity.class));
-
-                    // unselect others tabs expect explore tab
-                    tvHome.visibility = View.GONE
-                    tvBook.visibility = View.GONE
-                    tvProfile.visibility = View.GONE
-
-                    ivHome.setImageResource(R.drawable.bottom_home)
-                    ivBook.setImageResource(R.drawable.bottom_book)
-                    ivProfile.setImageResource(R.drawable.bottom_profile)
-
-                    llHome.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
-                    llBook.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
-                    llProfile.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
-
-                    // select explore tab
-                    tvExplore.visibility = View.VISIBLE
-                    ivExplore.setImageResource(R.drawable.bottom_selected_explore)
-                    llExplore.setBackgroundResource(R.drawable.round_back_explore_100)
-
-                    // create animation
-                    val scaleAnimation = ScaleAnimation(
-                        0.8f,
-                        1.0f,
-                        1f,
-                        1f,
-                        Animation.RELATIVE_TO_SELF,
-                        0.0f,
-                        Animation.RELATIVE_TO_SELF,
-                        0.0f
-                    )
-                    scaleAnimation.duration = 200
-                    scaleAnimation.fillAfter = true
-                    llExplore.animation = scaleAnimation
-
-                    // set 1st tab as selected
-                    selectedTab = 3
-                }
-            }
-
-            llProfile.setOnClickListener{
+            llNotice.setOnClickListener{
                 // check if profile is already selected or not.
-                if (selectedTab != 4) {
+                if (selectedTab != 3) {
                     // set Profile fragment
                     //loadFragment(new MenuFragment(), true);
 
                     //startActivity(Intent(this@DashboardActivity, MainActivity::class.java))
-                    true.loadFragment(TechFragment())
+                    true.loadFragment(NoticeFragment())
 
-                    // unselect others tabs expect profile tab
+                    // unselect others tabs expect notice tab
                     tvHome.visibility = View.GONE
                     tvBook.visibility = View.GONE
                     tvExplore.visibility = View.GONE
 
-                    ivHome.setImageResource(R.drawable.bottom_home)
-                    ivBook.setImageResource(R.drawable.bottom_book)
-                    ivExplore.setImageResource(R.drawable.bottom_explore)
+                    ivHome.setImageResource(R.drawable.sl_home_smile_angle)
+                    ivBook.setImageResource(R.drawable.sl_notebook)
+                    ivExplore.setImageResource(R.drawable.sl_library)
 
                     llHome.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
                     llBook.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
                     llExplore.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
 
                     // select profile tab
-                    tvProfile.visibility = View.VISIBLE
-                    ivProfile.setImageResource(R.drawable.bottom_selected_profile)
-                    llProfile.setBackgroundResource(R.drawable.round_back_profile_100)
+                    tvNotice.visibility = View.VISIBLE
+                    ivNotice.setImageResource(R.drawable.sl_academic_cap_fill)
+                    llNotice.setBackgroundResource(R.drawable.round_back_notice_100)
+
+                    // create animation
+                    val scaleAnimation = ScaleAnimation(0.8f, 1.0f, 1f, 1f,
+                        Animation.RELATIVE_TO_SELF, 0.0f,
+                        Animation.RELATIVE_TO_SELF, 0.0f
+                    )
+                    scaleAnimation.duration = 200
+                    scaleAnimation.fillAfter = true
+                    llNotice.animation = scaleAnimation
+
+                    // set 4th tab as selected
+                    selectedTab = 3
+                }
+            }
+
+            llExplore.setOnClickListener{
+
+                // check if explore is already selected or not.
+                if (selectedTab != 4) {
+
+                    // set explore fragment
+                    true.loadFragment(ExploreFragment())
+
+                    //startActivity(new Intent(this, BookViewActivity.class));
+
+                    // unselect others tabs expect explore tab
+                    tvHome.visibility = View.GONE
+                    tvBook.visibility = View.GONE
+                    tvNotice.visibility = View.GONE
+
+                    ivHome.setImageResource(R.drawable.sl_home_smile_angle)
+                    ivBook.setImageResource(R.drawable.sl_notebook)
+                    ivNotice.setImageResource(R.drawable.sl_academic_cap)
+
+                    llHome.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
+                    llBook.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
+                    llNotice.setBackgroundColor(ContextCompat.getColor(this@DashboardActivity, R.color.transparent))
+
+                    // select explore tab
+                    tvExplore.visibility = View.VISIBLE
+                    ivExplore.setImageResource(R.drawable.sl_library_fill)
+                    llExplore.setBackgroundResource(R.drawable.round_back_explore_100)
 
                     // create animation
                     val scaleAnimation = ScaleAnimation(0.8f, 1.0f, 1f, 1f,
@@ -210,9 +204,9 @@ class DashboardActivity : AppCompatActivity() {
                     )
                     scaleAnimation.duration = 200
                     scaleAnimation.fillAfter = true
-                    llProfile.animation = scaleAnimation
+                    llExplore.animation = scaleAnimation
 
-                    // set 4th tab as selected
+                    // set 1st tab as selected
                     selectedTab = 4
                 }
             }

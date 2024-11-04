@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    tools:context=".fragment.ExploreFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header, Menu and Logo  -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/topHeaderImage"
+                android:layout_width="320dp"
+                android:layout_height="210dp"
+                android:contentDescription="@string/home_page_top_background_image"
+                android:scaleType="fitXY"
+                android:src="@drawable/bg_home_page_top_blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ic_menuBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:background="@drawable/circle_shadow_icon"
+                android:elevation="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view">
+
+                <ImageView
+                    style="@style/dayNightLogo"
+                    android:contentDescription="@string/smart_engineer_logo" />
+
+            </LinearLayout>
+
+            <view
+                android:id="@+id/view"
+                class="android.widget.ImageView"
+                android:layout_width="match_parent"
+                android:layout_height="133dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSmart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="-22dp"
+                android:elevation="30dp"
+                android:fontFamily="@font/logo_font"
+                android:letterSpacing="0.0"
+                android:text="@string/smart"
+                android:textAllCaps="true"
+                android:textColor="@color/mainContainer_HeadingText"
+                android:textSize="33sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/ic_menuBtn"
+                app:layout_constraintTop_toTopOf="@+id/ic_menuBtn" />
+
+            <TextView
+                android:id="@+id/tvE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-34dp"
+                android:elevation="30dp"
+                android:fontFamily="@font/logo_font"
+                android:letterSpacing="0.05"
+                android:text="@string/e"
+                android:textAllCaps="true"
+                android:textColor="@color/mainContainer_HeadingText"
+                android:textSize="33sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tvSmart"
+                app:layout_constraintTop_toBottomOf="@+id/tvSmart" />
+
+            <TextView
+                android:id="@+id/tvEngineer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:elevation="30dp"
+                android:fontFamily="@font/logo_font"
+                android:text="@string/ngineer"
+                android:textAllCaps="true"
+                android:textColor="@color/mainContainer_SubHeadingText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/tvE"
+                app:layout_constraintTop_toTopOf="@+id/tvE" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="30dp"
+                android:fontFamily="@font/logo_font"
+                android:text="@string/ing"
+                android:textAllCaps="true"
+                android:textColor="@color/mainContainer_SubHeadingText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/tvEngineer"
+                app:layout_constraintTop_toTopOf="@+id/tvEngineer" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:elevation="30dp"
+                android:fontFamily="@font/logo_font"
+                android:text="@string/learning_app"
+                android:textAllCaps="true"
+                android:textColor="@color/mainContainer_SubHeadingText"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvE"
+                app:layout_constraintStart_toEndOf="@+id/tvE" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="95dp"
+                android:contentDescription="@string/rocket"
+                android:elevation="3dp"
+                android:src="@drawable/rocket"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="60dp"
+                android:contentDescription="@string/rocket"
+                android:src="@drawable/rocket"
+                app:layout_constraintBottom_toTopOf="@+id/tvSmart"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Search box and App Features - Grid  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-40dp"
+            android:orientation="vertical"
+            android:scrollbars="none">
+
+
+            <!-- TODO: Grid View - Per item 140dp  -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleFeatures"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="27dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                android:scrollbars="none"
+                android:overScrollMode="never"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_features" />
+
+
+        </LinearLayout>
+
+        <view
+            class="android.widget.ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="133dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+</ScrollView>

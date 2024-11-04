@@ -120,5 +120,16 @@
 
     <!-- Dashboard Activity -->
     <string name="home">Home</string>
+    <string name="explore">Explore</string>
+    <string name="notice">Notice</string>
+    <string name="books">Books</string>
+    <string name="notice_demo">ডিপ্লোমা-ইন-টেক্সটাইল ইঞ্জিনিয়ারিং শিক্ষাক্রমের শিক্ষার্থীদের পুনঃভর্তির বিজ্ঞপ্তি প্রকাশিত হয়েছে।\n✅ শিক্ষার্থী কর্তৃক প্রতিষ্ঠান বরাবর আবেদনের সময়সীমাঃ ০৫/০৯/২০২৪ ইং থেকে ৩০/০৯/২০২৪ ইং তারিখ পর্যন্ত।</string>
+    <string name="notice_title">📛 নোটিশ 📛</string>
+    <string name="my_birthday">Oct 20, 2024</string>
+    <string name="love">Love</string>
+    <string name="_27_loves">27 Loves</string>
+    <string name="loved">Loved</string>
+    <string name="loves">%1$s Loves</string>
+    <string name="share_this_notice">Share this Notice</string>
 
 </resources>

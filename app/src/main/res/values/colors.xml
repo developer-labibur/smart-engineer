@@ -158,29 +158,45 @@
     <!--                                           MODERN COLOR                                             -->
     <!-- ================================================================================================== -->
 
-    <!-- Blue ~ Modern -->
+    <!-- Orange ~ Modern => Home -->
+    <color name="orange_active_color">#fae1bb</color>
+    <color name="orange_light_color">#f8e9d4</color>
+    <color name="orange_main_color">#ffcc80</color>
+    <color name="orange_text_color">#FF4000</color>
+    <color name="orange_fill_color">#B7FF4000</color>
+    <color name="orange_bg_color">#33FF4000</color>
+
+    <!-- Blue ~ Modern => Books -->
     <color name="blue_active_color">#9ee6f0</color>
     <color name="blue_light_color">#c5eae9</color>
     <color name="blue_main_color">#42dffe</color>
-    <color name="blue_text_color">#00aaff</color>
+    <color name="blue_text_color">#1194AA</color>
+    <color name="blue_fill_color">#1194AA</color>
+    <color name="blue_bg_color">#331194AA</color>
 
-    <!-- Green ~ Modern -->
+    <!-- Green ~ Modern => Notice -->
     <color name="green_active_color">#b1edca</color>
     <color name="green_light_color">#d0eed3</color>
     <color name="green_main_color">#68ecb4</color>
+    <color name="green_main_love_color">#68ecb4</color>
+    <color name="green_main_loved_color">#FFC0C0</color>
     <color name="green_text_color">#16b768</color>
+    <color name="green_fill_color">#B716b768</color>
+    <color name="green_bg_color">#3316b768</color>
+
+    <!-- Purple ~ Modern => Explore -->
+    <color name="purple_active_color">#A3A7FB</color>
+    <color name="purple_light_color">#C9CCFF</color>
+    <color name="purple_main_color">#8692f7</color>
+    <color name="purple_text_color">#5B37B7</color>
+    <color name="purple_fill_color">#B75B37B7</color>
+    <color name="purple_bg_color">#335B37B7</color>
 
     <!-- Red ~ Modern -->
     <color name="indian_red_active_color">#edb1b1</color>
     <color name="indian_red_light_color">#f8d4d4</color>
     <color name="indian_red_main_color">#f59595</color>
     <color name="indian_red_text_color">#bd505a</color>
-
-    <!-- Orange ~ Modern -->
-    <color name="orange_active_color">#fae1bb</color>
-    <color name="orange_light_color">#f8e9d4</color>
-    <color name="orange_main_color">#ffcc80</color>
-    <color name="orange_text_color">#ff7700</color>
 
     <!-- Pink ~ Modern -->
     <color name="pink_active_color">#fecbe9</color>

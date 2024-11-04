@@ -137,8 +137,8 @@ class LoginFragment : Fragment() {
                             Log.d(tagLog, "lifecycleScope")
                             val isLoginSuccess = authRepository.login(email, pass)
                             if (isLoginSuccess) {
-                                val intent = Intent(context, SettingActivity::class.java)
-                                startActivity(intent)
+                                it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
+
                                 Toast.makeText(context, "Sign in successfully", Toast.LENGTH_SHORT)
                                     .show()
                             } else {
