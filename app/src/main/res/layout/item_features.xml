@@ -4,9 +4,8 @@
     android:id="@+id/clickItem"
     android:layout_width="100dp"
     android:layout_height="wrap_content"
-    android:layout_marginStart="18dp"
-    android:layout_marginEnd="18dp"
     android:gravity="center"
+    android:layout_marginStart="5dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView

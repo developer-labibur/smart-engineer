@@ -64,13 +64,14 @@
                     app:hintTextColor="@color/mainContainer_SubHeadingText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvSubHeading">
+                    app:layout_constraintTop_toBottomOf="@+id/tvSubHeading"
+                    app:shapeAppearance="@style/Rounded">
 
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/loginEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
                         android:textColor="@color/mainContainer_HeadingText" />
 
@@ -87,12 +88,13 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etLabelEmail"
-                    app:passwordToggleEnabled="true">
+                    app:passwordToggleEnabled="true"
+                    app:shapeAppearance="@style/Rounded">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/loginPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:textColor="@color/mainContainer_HeadingText" />
 
@@ -108,7 +110,7 @@
                     android:fontFamily="@font/logo_font"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="Forgot Password?"
+                    android:text="@string/forgot_password"
                     android:textAllCaps="false"
                     android:textColor="@color/mainContainer_SubHeadingText"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -168,7 +170,7 @@
                     android:fontFamily="@font/main_font_regular_2"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="OR"
+                    android:text="@string/or"
                     android:textAllCaps="false"
                     android:textColor="#335e4a"
                     app:layout_constraintBottom_toBottomOf="@+id/viewLine"

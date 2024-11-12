@@ -51,5 +51,6 @@
     <color name="green_main_love_color">#429471</color>
     <color name="green_main_loved_color">#FFC0C0</color>
 
+    <color name="orange_active_color">#5DFF6F00</color>
 
 </resources>

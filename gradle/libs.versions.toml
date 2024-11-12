@@ -18,7 +18,8 @@ googleid = "1.1.1"
 googleGmsGoogleServices = "4.4.2"
 firebaseBom = "33.5.1"
 firebaseAuth = "23.1.0"
-glide = "4.16.0"
+glide = "4.16.0" # or latest version
+viewpager2 = "1.0.0" # for ViewPager2
 
 
 [libraries]
@@ -49,7 +50,9 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 
-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+
 
 
 [plugins]

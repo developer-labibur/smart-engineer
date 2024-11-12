@@ -131,5 +131,20 @@
     <string name="loved">Loved</string>
     <string name="loves">%1$s Loves</string>
     <string name="share_this_notice">Share this Notice</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="we_will_email_you_a_link_to_reset_your_password">We will email you a link to reset your password</string>
+    <string name="enter_the_email_address_associated_with_your_account">Enter the email address associated with your account</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or">OR</string>
+    <string name="login_now">Login Now</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_up_with_facebook">Sign up with Facebook</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
+    <string name="labib_ur_rahman">Labib UR Rahman</string>
+    <string name="my_favorites">My Favorites</string>
+    <string name="my_library">My Library</string>
+    <string name="read_now">Read Now</string>
+    <string name="_21085">21085</string>
 
 </resources>

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,10 +16,13 @@
         android:theme="@style/Theme.SmartEngineer"
         tools:targetApi="31">
         <activity
+            android:name=".view.SplashScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".view.SplashScreenActivity"
+            android:name=".TestActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +36,6 @@
         <activity
             android:name=".activity.SettingActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>

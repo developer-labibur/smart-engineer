@@ -55,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/username"
-                    app:hintTextColor="@color/mainContainer_SubHeadingText">
+                    app:hintTextColor="@color/mainContainer_SubHeadingText"
+                    app:shapeAppearance="@style/Rounded">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/signupName"
@@ -72,7 +73,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/email_address"
-                    app:hintTextColor="@color/mainContainer_SubHeadingText">
+                    app:hintTextColor="@color/mainContainer_SubHeadingText"
+                    app:shapeAppearance="@style/Rounded">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/signupEmail"
@@ -90,7 +92,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:hint="@string/password"
-                    app:hintTextColor="@color/mainContainer_SubHeadingText">
+                    app:hintTextColor="@color/mainContainer_SubHeadingText"
+                    app:passwordToggleEnabled="true"
+                    app:shapeAppearance="@style/Rounded">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/signupPassword"
@@ -157,7 +161,7 @@
                     android:layout_height="46dp"
                     android:id="@+id/googleCntBtn"
                     android:drawableStart="@drawable/sl_google_color"
-                    android:text="@string/continue_with_google"
+                    android:text="@string/sign_up_with_google"
                     android:textColor="@color/mainContainer_HeadingText"
                     android:textSize="@dimen/text_size_medium"
                     android:layout_marginTop="16dp"
@@ -169,7 +173,7 @@
                     android:id="@+id/facebookCntBtn"
                     android:drawableStart="@drawable/sl_facebook_color"
                     android:textColor="@color/mainContainer_HeadingText"
-                    android:text="@string/continue_with_facebook"
+                    android:text="@string/sign_up_with_facebook"
                     android:layout_marginTop="16dp"
                     android:textSize="@dimen/text_size_medium"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -177,42 +181,54 @@
                     app:layout_constraintTop_toBottomOf="@+id/googleCntBtn"
                     style="@style/btn_social_media" />
 
-                <TextView
-                    android:id="@+id/tvAlreadyAccount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/logo_font"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="Already have an account?"
-                    android:textAlignment="center"/>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="-15dp"
-                    android:background="@color/transparent"
-                    android:fontFamily="@font/main_font_regular_2"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="Login Now"
-                    android:textAllCaps="false"
-                    android:textColor="@color/mainContainer_HeadingText"
-                    android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/tvAlreadyAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/logo_font"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="@string/already_have_an_account"
+                        android:textAlignment="center"/>
 
-                <view
-                    android:id="@+id/view"
-                    class="android.widget.ImageView"
-                    android:layout_width="0dp"
-                    android:layout_height="5dp"
-                    android:layout_marginStart="@dimen/size_medium"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="@dimen/size_medium"
-                    android:background="@color/underlineText"
-                    android:padding="2dp"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-15dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/transparent"
+                        android:fontFamily="@font/main_font_regular_2"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="@string/login_now"
+                        android:textAllCaps="false"
+                        android:textColor="@color/mainContainer_HeadingText"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <view
+                        android:id="@+id/view"
+                        class="android.widget.ImageView"
+                        android:layout_width="0dp"
+                        android:layout_height="5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/underlineText"
+                        android:padding="2dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnLogin"
+                        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+                        app:layout_constraintStart_toStartOf="@+id/btnLogin"
+                        app:layout_constraintTop_toTopOf="@+id/btnLogin" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
         </ScrollView>

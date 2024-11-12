@@ -180,13 +180,17 @@
 
         </LinearLayout>
 
-        <view
-            class="android.widget.ImageView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/carouselRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="133dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="120dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            tools:listitem="@layout/item_carousel"
+            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"/>
 
     </LinearLayout>
 

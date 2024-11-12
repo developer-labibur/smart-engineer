@@ -6,28 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
-import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.adapter.NoticeAdapter
-import com.rudhashi.smartengineer.databinding.FragmentLoginBinding
 import com.rudhashi.smartengineer.databinding.FragmentNoticeBinding
 import com.rudhashi.smartengineer.model.Notice
 
 class NoticeFragment : Fragment() {
 
     private lateinit var binding: FragmentNoticeBinding
-    private lateinit var dialogView: View
     private var db : FirebaseFirestore? = null
     private val noticeList = mutableListOf<Notice>()
     // RecyclerView Adapter
     private lateinit var noticeAdapter: NoticeAdapter // Replace with your RecyclerView adapter
-    private var listenerRegistration: ListenerRegistration? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

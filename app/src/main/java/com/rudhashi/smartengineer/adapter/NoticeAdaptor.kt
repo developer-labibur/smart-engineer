@@ -5,26 +5,24 @@ import android.content.Context
 import android.content.Intent
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
-import com.rudhashi.smartengineer.R
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.rudhashi.smartengineer.model.Notice
-import com.google.firebase.firestore.SetOptions
-import com.rudhashi.smartengineer.util.formatTimestampToRelativeTime
 import android.view.MenuInflater
-import android.view.ViewTreeObserver
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.PopupWindow
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemNoticeBinding
+import com.rudhashi.smartengineer.model.Notice
+import com.rudhashi.smartengineer.util.formatTimestampToRelativeTime
 
-class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
+class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) :
+    RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
     // ViewHolder class to hold the views
     private val db = FirebaseFirestore.getInstance()
@@ -52,16 +50,17 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
         notifyDataSetChanged() // Notify the adapter that the data has changed
     }
 
-    inner class NoticeViewHolder(private val binding: ItemNoticeBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class NoticeViewHolder(private val binding: ItemNoticeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         // Bind the notice data to the views
         fun bind(notice: Notice) {
-            binding.apply{
+            binding.apply {
                 tvNoticeText.text = notice.notice
                 tvLovesCount.text = context.getString(R.string.loves, notice.likes.toString())
 
                 // Set initial like button text based on userLiked
-                if (notice.userLiked){
+                if (notice.userLiked) {
                     btnLove.visibility = View.INVISIBLE
                     btnLoved.visibility = View.VISIBLE
                 } else {
@@ -83,7 +82,8 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
 
         private fun showCustomPopupMenu(anchorView: View, notice: Notice) {
             // Inflate the custom menu layout
-            val popupView = LayoutInflater.from(anchorView.context).inflate(R.layout.popup_menu_layout, null)
+            val popupView =
+                LayoutInflater.from(anchorView.context).inflate(R.layout.popup_menu_layout, null)
 
             // Create the PopupWindow
             val popupWindow = PopupWindow(
@@ -94,7 +94,12 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
             )
 
             // Set custom background drawable (optional if background is set in XML)
-            popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.menu_background))
+            popupWindow.setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.menu_background
+                )
+            )
 
             // Handle menu item clicks
             val shareNote = popupView.findViewById<LinearLayout>(R.id.share_note)
@@ -125,6 +130,7 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
             // Show the PopupWindow at the calculated position
             popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, xPos, location[1])
         }
+
         private fun showPopupMenu(notice: Notice) {
             val popupMenu = PopupMenu(binding.root.context, binding.menuImageView)
             val inflater: MenuInflater = popupMenu.menuInflater
@@ -137,6 +143,7 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
                         shareNotice(notice.notice)
                         true
                     }
+
                     else -> false
                 }
             }
@@ -158,6 +165,7 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
                 popupMenu.show()
             }
         }
+
         private fun shareNotice(noticeText: String) {
             val context = itemView.context
             val shareIntent = Intent().apply {
@@ -167,6 +175,7 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
             }
             context.startActivity(Intent.createChooser(shareIntent, "Share this Note via"))
         }
+
         private fun toggleLike(notice: Notice) {
             if (currentUserUid == null) return
 
@@ -196,7 +205,7 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
                 binding.apply {
                     // Update UI to reflect the new like count and button text
                     tvLovesCount.text = context.getString(R.string.loves, notice.likes.toString())
-                    if (notice.userLiked){
+                    if (notice.userLiked) {
                         btnLove.visibility = View.INVISIBLE
                         btnLoved.visibility = View.VISIBLE
                     } else {

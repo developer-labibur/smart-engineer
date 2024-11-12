@@ -20,7 +20,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.Users
 import com.rudhashi.smartengineer.activity.SettingActivity
@@ -68,27 +71,72 @@ class LoginFragment : Fragment() {
 
             googleCntBtn.setOnClickListener {
                 lifecycleScope.launch {
+
                     val isSignIn = googleAuthClient.signIn(true)
                     if (isSignIn) {
                         val id = auth.currentUser?.uid
-                        val name = auth.currentUser?.displayName
                         val email = auth.currentUser?.email
-                        val image = auth.currentUser?.photoUrl.toString()
+                        val name = auth.currentUser?.displayName
+                        try {
+                            id?.let { it1 ->
+                                database.reference.child("Users")
+                                    .child(it1)
+                                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                                        override fun onDataChange(snapshot: DataSnapshot) {
+                                            val user: Users? = snapshot.getValue(Users::class.java)
 
-                        Toast.makeText(context, "SignIn Successfully", Toast.LENGTH_SHORT).show()
+                                            val role = user?.role.toString()
 
-                        // If Google SignIn Successfully => Then go to DashboardActivity and pressing the back button
-                        // from DashboardActivity will close the app instead of navigating back to MainActivity.
-                        val intent = Intent(requireContext(), DashboardActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
+                                            try{
+                                                when (role) {
+                                                    "Main Admin" -> {
+                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else ""
+                                                        val userInfo = Users(id, name, isImageNull, email, "Main Admin")
+                                                        database.reference.child("Users").child(id).setValue(userInfo)
 
-                        val userInfo = Users(id, name, image, email)
-                        // Profile update kora hole o sob change hoa jay ata thik kora lagbe pore ============================= TODO =================================
-                        id?.let { it1 -> database.reference.child("Users").child(it1).setValue(userInfo) }
+                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
+                                                        SmartData.lToast(requireActivity(), "Success, You are an Main Admin", true)
+                                                    }
+                                                    "Admin" -> {
+                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else ""
+                                                        val userInfo = Users(id, name, isImageNull, email, "Admin")
+                                                        database.reference.child("Users").child(id).setValue(userInfo)
+
+                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
+                                                        SmartData.lToast(requireActivity(), "Success, You are an Administrator", true)
+                                                    }
+                                                    else -> {
+                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else ""
+                                                        val userInfo = Users(id, name, isImageNull, email, "User")
+                                                        database.reference.child("Users").child(id).setValue(userInfo)
+
+                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
+                                                        SmartData.lToast(requireActivity(), "Login Successfully", true)
+                                                    }
+                                                }
+                                            } catch (e: Exception) {
+                                                val userInfo = Users(id, name, "", email, "User")
+                                                database.reference.child("Users").child(id).setValue(userInfo)
+
+                                                val intent = Intent(requireContext(), DashboardActivity::class.java)
+                                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                startActivity(intent)
+                                                SmartData.lToast(requireActivity(), "SignIn Successfully", true)
+                                            }
+                                        }
+                                        override fun onCancelled(error: DatabaseError) {
+                                            SmartData.lToast(requireActivity(), "Something went wrong...", true)
+                                        }
+                                    })
+                            }
+                        } catch (e: Exception){
+                            Log.d(tag, "Catch exception", e)
+                            SmartData.lToast(requireActivity(), "Something went wrong...", true)
+                        }
                     } else {
-                        Toast.makeText(context, "SignIn Failed", Toast.LENGTH_SHORT).show()
+                        SmartData.lToast(requireActivity(), "SignIn Failed", true)
                     }
+
                 }
             }
 
@@ -207,6 +255,95 @@ class LoginFragment : Fragment() {
             sideBarBtnSignUp.setOnClickListener { fragmentSwitch(SignupFragment()) }
             sideBarBtnGoogle.setOnClickListener {
                 lifecycleScope.launch {
+
+                    val isSignIn = googleAuthClient.signIn(false)
+                    if (isSignIn) {
+                        val id = auth.currentUser?.uid
+                        val email = auth.currentUser?.email
+                        val name = auth.currentUser?.displayName
+                        try {
+                            id?.let { it1 ->
+                                database.reference.child("Users")
+                                    .child(it1)
+                                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                                        override fun onDataChange(snapshot: DataSnapshot) {
+                                            val user: Users? = snapshot.getValue(Users::class.java)
+
+                                            val role = user?.role.toString()
+
+                                            try{
+                                                when (role) {
+                                                    "Main Admin" -> {
+                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else ""
+                                                        val userInfo = Users(id, name, isImageNull, email, "Main Admin")
+                                                        database.reference.child("Users").child(id).setValue(userInfo)
+
+                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
+                                                        SmartData.lToast(requireActivity(), "Success, You are an Main Admin", true)
+                                                    }
+                                                    "Admin" -> {
+                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else ""
+                                                        val userInfo = Users(id, name, isImageNull, email, "Admin")
+                                                        database.reference.child("Users").child(id).setValue(userInfo)
+
+                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
+                                                        SmartData.lToast(requireActivity(), "Success, You are an Administrator", true)
+                                                    }
+                                                    else -> {
+                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else ""
+                                                        val userInfo = Users(id, name, isImageNull, email, "User")
+                                                        database.reference.child("Users").child(id).setValue(userInfo)
+
+                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
+                                                        SmartData.lToast(requireActivity(), "Login Successfully", true)
+                                                    }
+                                                }
+                                            } catch (e: Exception) {
+                                                val userInfo = Users(id, name, "", email, "User")
+                                                database.reference.child("Users").child(id).setValue(userInfo)
+
+                                                val intent = Intent(requireContext(), DashboardActivity::class.java)
+                                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                startActivity(intent)
+                                                SmartData.lToast(requireActivity(), "SignIn Successfully", true)
+                                            }
+                                        }
+                                        override fun onCancelled(error: DatabaseError) {
+                                            SmartData.lToast(requireActivity(), "Something went wrong...", true)
+                                        }
+                                    })
+                            }
+                        } catch (e: Exception){
+                            Log.d(tag, "Catch exception", e)
+                            SmartData.lToast(requireActivity(), "Something went wrong...", true)
+                        }
+                    } else {
+                        SmartData.lToast(requireActivity(), "SignIn Failed", true)
+                    }
+
+                    /*val isSignIn = googleAuthClient.signIn(true)
+                    if (isSignIn) {
+                        val id = auth.currentUser?.uid
+                        val name = auth.currentUser?.displayName
+                        val email = auth.currentUser?.email
+                        val image = auth.currentUser?.photoUrl.toString()
+
+                        Toast.makeText(context, "SignIn Successfully", Toast.LENGTH_SHORT).show()
+
+                        // If Google SignIn Successfully => Then go to DashboardActivity and pressing the back button
+                        // from DashboardActivity will close the app instead of navigating back to MainActivity.
+                        val intent = Intent(requireContext(), DashboardActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+
+                        val userInfo = Users(id, name, image, email)
+                        // Profile update kora hole o sob change hoa jay ata thik kora lagbe pore ============================= TODO =================================
+                        id?.let { it1 -> database.reference.child("Users").child(it1).setValue(userInfo) }
+                    } else {
+                        Toast.makeText(context, "SignIn Failed", Toast.LENGTH_SHORT).show()
+                    }*/
+                }
+                /*lifecycleScope.launch {
                     val isSignIn = googleAuthClient.signIn(false)
                     if (isSignIn) {
                         val id = auth.currentUser?.uid
@@ -222,7 +359,7 @@ class LoginFragment : Fragment() {
                     } else {
                         Toast.makeText(context, "SignIn Failed", Toast.LENGTH_SHORT).show()
                     }
-                }
+                }*/
             }
             sideBarBtnFacebook.setOnClickListener {
                 lifecycleScope.launch {

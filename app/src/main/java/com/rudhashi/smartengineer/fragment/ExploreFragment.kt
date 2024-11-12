@@ -3,15 +3,21 @@ package com.rudhashi.smartengineer.fragment
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.carousel.CarouselSnapHelper
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.adapter.CarouselAdapter
 import com.rudhashi.smartengineer.adapter.FeaturesAdapter
 import com.rudhashi.smartengineer.databinding.FragmentExploreBinding
+import com.rudhashi.smartengineer.model.CarouselItem
 import com.rudhashi.smartengineer.model.FeaturesDataClass
+import com.rudhashi.smartengineer.util.ParallaxPageTransformer
 
 class ExploreFragment : Fragment() {
 
@@ -23,6 +29,7 @@ class ExploreFragment : Fragment() {
     private lateinit var appFeatureId: Array<String>
     private lateinit var appFeatureTitle: Array<String>
     private lateinit var appFeatureImageUrl: Array<String>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +59,8 @@ class ExploreFragment : Fragment() {
         featuresDataList = arrayListOf<FeaturesDataClass>()
         getCategoryData()
 
+        setUpCarouselRecyclerView()
+
         return binding.root
     }
 
@@ -64,5 +73,19 @@ class ExploreFragment : Fragment() {
             featuresDataList.add(categoryDataClass)
         }
         binding.recycleFeatures.adapter = FeaturesAdapter(featuresDataList, requireActivity())
+    }
+
+    private fun setUpCarouselRecyclerView() {
+        CarouselSnapHelper().attachToRecyclerView(binding.carouselRecyclerView)
+        val images = getImages()
+        Log.d("ExploreFragment", "Images to load: $images") // Debugging line
+        binding.carouselRecyclerView.adapter = CarouselAdapter(images)
+    }
+    private fun getImages(): List<String>{
+        return listOf(
+            "https://i.ibb.co.com/WcrBR30/slider-1.jpg",
+            "https://i.ibb.co.com/Xz5PPgG/slider-2.jpg",
+            "https://i.ibb.co.com/rsdV5St/slider-3.jpg"
+        )
     }
 }

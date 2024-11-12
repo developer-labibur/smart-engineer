@@ -29,7 +29,7 @@ class AuthRepository {
         return false
     }
 
-    suspend fun register(user: String, email: String, password: String): Boolean {
+    suspend fun register(name: String, email: String, password: String): Boolean {
         try {
             val result = suspendCoroutine { continuation ->
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -39,7 +39,7 @@ class AuthRepository {
                                 Log.e(tag, "register success")
 
                                 val id = task.result.user!!.uid
-                                val userInfo = Users(id, user, email)
+                                val userInfo = Users(id, name, "", email, "User")
                                 database.reference.child("Users").child(id).setValue(userInfo)
 
                                 continuation.resume(login(email, password))

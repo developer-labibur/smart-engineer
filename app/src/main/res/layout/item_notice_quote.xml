@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clickNoticeItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:padding="16dp">
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_book_item"
+            app:layout_constraintBottom_toBottomOf="@+id/clNotice"
+            app:layout_constraintEnd_toEndOf="@+id/clNotice"
+            app:layout_constraintStart_toStartOf="@+id/clNotice"
+            app:layout_constraintTop_toTopOf="@+id/clNotice" />
+
+        <ImageView
+            android:id="@+id/itemImg"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="13dp"
+            android:contentDescription="@string/smart_engineer_logo"
+            android:padding="8dp"
+            android:src="@drawable/sl_quote"
+            app:layout_constraintBottom_toTopOf="@id/clNotice"
+            app:layout_constraintStart_toStartOf="@id/clNotice"
+            app:layout_constraintTop_toTopOf="@id/clNotice" />
+
+        <LinearLayout
+            android:id="@+id/clNotice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical"
+            android:padding="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvNoticeQTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:text="@string/notice_title"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/menuQImageView"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_dots_horizontal_alt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvNoticeQTitle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvNoticeQText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/main_font_regular_2"
+                android:text="@string/notice_demo"
+                android:textColor="@color/mainContainer_HeadingText"
+                android:textSize="15sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/icLove"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_heart_not_fill"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnQLove"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btnQLove"
+                    app:layout_constraintVertical_bias="0.70" />
+
+                <TextView
+                    android:id="@+id/tvLovesQCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:text="@string/_27_loves"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icLove"
+                    app:layout_constraintStart_toEndOf="@+id/icLove"
+                    app:layout_constraintTop_toTopOf="@+id/icLove" />
+
+                <ImageView
+                    android:id="@+id/icCalander"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="10dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_calendar"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnQLove"
+                    app:layout_constraintStart_toEndOf="@+id/tvLovesQCount"
+                    app:layout_constraintTop_toTopOf="@+id/btnQLove"
+                    app:layout_constraintVertical_bias="0.70" />
+
+                <TextView
+                    android:id="@+id/tvNoticeQDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:text="@string/my_birthday"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icLove"
+                    app:layout_constraintStart_toEndOf="@+id/icCalander"
+                    app:layout_constraintTop_toTopOf="@+id/icLove"
+                    app:layout_constraintVertical_bias="0.30" />
+
+                <LinearLayout
+                    android:id="@+id/btnQLove"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_notice_item_love"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@id/btnQLoved"
+                    app:layout_constraintEnd_toEndOf="@id/btnQLoved"
+                    app:layout_constraintStart_toStartOf="@+id/btnQLoved"
+                    app:layout_constraintTop_toTopOf="@+id/btnQLoved">
+
+                    <ImageView
+                        android:id="@+id/btnIconLove"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="@string/smart_engineer_logo"
+                        android:src="@drawable/sl_heart_not_fill" />
+
+                    <TextView
+                        android:id="@+id/btnTextLove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/main_font_regular_2"
+                        android:text="@string/love"
+                        android:textColor="@color/ic_light"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/icLove"
+                        app:layout_constraintStart_toEndOf="@+id/icLove"
+                        app:layout_constraintTop_toTopOf="@+id/icLove" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnQLoved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_notice_item_loved"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <ImageView
+                        android:id="@+id/btnIconLoved"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="@string/smart_engineer_logo"
+                        android:src="@drawable/sl_heart_red" />
+
+                    <TextView
+                        android:id="@+id/btnTextLoved"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/main_font_regular_2"
+                        android:text="@string/loved"
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/icLove"
+                        app:layout_constraintStart_toEndOf="@+id/icLove"
+                        app:layout_constraintTop_toTopOf="@+id/icLove" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

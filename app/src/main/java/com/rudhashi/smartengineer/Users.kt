@@ -9,6 +9,7 @@ class Users{
     var department: String? = null
     var institute: String? = null
     var gender: String? = null
+    var role: String? = null
 
     constructor() {}
 
@@ -20,7 +21,8 @@ class Users{
         semester: String?,
         department: String?,
         institute: String?,
-        gender: String?
+        gender: String?,
+        role: String?
     ) {
         this.userId = userId
         this.name = name
@@ -30,6 +32,7 @@ class Users{
         this.department = department
         this.institute = institute
         this.gender = gender
+        this.role = role
     }
 
     // Signup Constructor
@@ -50,6 +53,21 @@ class Users{
         this.name = name
         this.picture = picture
         this.email = email
+    }
+
+    // Google SignIn Constructor
+    constructor(
+        userId: String?,
+        name: String?,
+        picture: String?,
+        email: String?,
+        role: String?
+    ) {
+        this.userId = userId
+        this.name = name
+        this.picture = picture
+        this.email = email
+        this.role = role
     }
 
 }

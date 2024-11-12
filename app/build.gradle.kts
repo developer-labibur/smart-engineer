@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
     id("androidx.navigation.safeargs.kotlin")
+    kotlin("kapt") // This line enables kapt in Kotlin DSL
 }
 
 android {
@@ -73,5 +74,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    implementation (libs.glide) // Image from Glide
+    implementation(libs.glide)
+    implementation(libs.viewpager2)
+    kapt("com.github.bumptech.glide:compiler:${libs.versions.glide.get()}") // For Glide annotation processing
+    implementation("io.coil-kt:coil:2.5.0")
 }
