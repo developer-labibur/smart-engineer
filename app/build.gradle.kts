@@ -70,12 +70,27 @@ dependencies {
     implementation(libs.firebase.analytics) // Firebase Analytics
     implementation(libs.firebase.storage) // Firebase Storage
 
+    implementation(libs.circleimageview) // CircleImageView
+    implementation (libs.imagepicker) // Pick Gallery Image & Capture Camera Image
+    implementation (libs.amazingspinner) // Amazing Spinner
+
+    implementation (libs.material.dialogs.core)
+    implementation (libs.input)
+
+    implementation(libs.shimmer) // Shimmer Effect for Facebook
+
+    // API Integrations
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
     // Navigation Component
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    implementation(libs.glide)
+    implementation(libs.glide) // Image from Glide
     implementation(libs.viewpager2)
     kapt("com.github.bumptech.glide:compiler:${libs.versions.glide.get()}") // For Glide annotation processing
     implementation("io.coil-kt:coil:2.5.0")
+    implementation("com.tbuonomo:dotsindicator:5.0")
 }

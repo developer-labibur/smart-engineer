@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/mainContainer_Bg"
+    tools:context=".view.DepartmentActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/depCover"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:contentDescription="@string/home_page_top_background_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/department_cover"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_top_image"
+                app:layout_constraintBottom_toBottomOf="@id/depCover"
+                app:layout_constraintEnd_toEndOf="@id/depCover"
+                app:layout_constraintStart_toStartOf="@id/depCover"
+                app:layout_constraintTop_toTopOf="@id/depCover" />
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/circle_shadow_icon"
+                android:elevation="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    style="@style/sl_header_button"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/back" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnShare"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/circle_shadow_icon"
+                android:elevation="20dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    style="@style/sl_header_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="8dp"
+                    android:src="@drawable/info" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/depName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/main_font_regular_2"
+                android:gravity="center"
+                android:lineHeight="30dp"
+                android:maxLines="2"
+                android:text="@string/computer_science_and_technology"
+                android:textColor="@color/mainContainer_HeadingText"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/depCover"
+                app:layout_constraintEnd_toStartOf="@+id/btnShare"
+                app:layout_constraintStart_toEndOf="@+id/btnBack"
+                app:layout_constraintTop_toBottomOf="@+id/depCover"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cst_85"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginTop="-10dp"
+                android:textColor="@color/mainContainer_SubHeadingText"
+                app:layout_constraintEnd_toEndOf="@+id/depName"
+                app:layout_constraintStart_toStartOf="@+id/depName"
+                app:layout_constraintTop_toBottomOf="@id/depName" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clHeader">
+
+            <!-- 1st Semester  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@drawable/hp_nblue_right_radius"
+                android:id="@+id/dep1st"
+                style="@style/department_left">
+
+                <TextView
+                    android:text="@string/_1st_semester"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/dep_text" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/number_one"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- 2nd Semester  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dep2nd"
+                style="@style/dep_right"
+                android:background="@drawable/hp_green_left_radius">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/number_two"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_2nd_semester"
+                    style="@style/dep_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- 3rd Semester  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dep3rd"
+                style="@style/department_left"
+                android:background="@drawable/hp_orange_right_radius">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/dep_text"
+                    android:text="@string/_3rd_semester"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/number_three"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- 4th Semester  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dep4th"
+                style="@style/dep_right"
+                android:background="@drawable/hp_pink_left_radius">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/number_four"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/dep_text"
+                    android:text="@string/_4th_semester"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- 5th Semester  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dep5th"
+                style="@style/department_left"
+                android:background="@drawable/hp_yellow_right_radius">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/dep_text"
+                    android:text="@string/_5th_semester"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/number_five"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- 6th Semester  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dep6th"
+                style="@style/dep_right"
+                android:background="@drawable/hp_green_left_radius">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/number_six"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/dep_text"
+                    android:text="@string/_6th_semester"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- 7th Semester  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dep7th"
+                style="@style/department_left"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/hp_nblue_right_radius">
+
+                <TextView
+                    style="@style/dep_text"
+                    android:text="@string/_7th_semester"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/number_seven"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

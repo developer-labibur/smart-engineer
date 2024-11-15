@@ -6,29 +6,34 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.rudhashi.smartengineer.adapter.DynamicHeightPagerAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.toObject
+import com.rudhashi.smartengineer.adapter.NoticeQuoteAdapter
 import com.rudhashi.smartengineer.databinding.ActivityTestBinding
 import com.rudhashi.smartengineer.model.Notice
 
 class TestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTestBinding
-    private lateinit var adapter: DynamicHeightPagerAdapter
+    private lateinit var noticeQuoteAdapter: NoticeQuoteAdapter
+
+    private var db: FirebaseFirestore? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val items = listOf(
-            Notice(category = "Page 1", notice = "This is the description for page 1."),
-            Notice(category = "Page 2", notice = "This is a longer description for page 2. It should make the ViewPager dynamically increase in height."),
-            Notice(category = "Page 3", notice = "Short description."),
-            Notice(category = "Page 4", notice = "This is another page with a longer description, which should also adjust the height accordingly.")
-        )
+        db = FirebaseFirestore.getInstance()
 
-        adapter = DynamicHeightPagerAdapter(items)
-        binding.viewPager.adapter = adapter
+        noticeQuoteAdapter = NoticeQuoteAdapter(emptyList(), this)
+
+
+        binding.viewPager.adapter = noticeQuoteAdapter
+
+        fetchNotices()
 
         // Set height based on the currently selected page
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -53,5 +58,46 @@ class TestActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun fetchNotices() {
+        db?.collection("polytechnic_notice")
+            ?.orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp
+            ?.limit(5)
+            ?.addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    // Handle Firestore error
+                    error.printStackTrace()
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && !snapshot.isEmpty) {
+                    val notices = mutableListOf<Notice>()
+                    for (document in snapshot.documents) {
+                        val notice = document.toObject<Notice>()
+                        if (notice != null) {
+                            notice.id = document.id // Set the Firestore document ID
+                            checkUserLikeStatus(notice) // Check and set user like status
+                            notices.add(notice)
+                        }
+                    }
+                    noticeQuoteAdapter.updateNoticeList(notices) // Update the adapter
+                }
+            }
+    }
+
+    private fun checkUserLikeStatus(notice: Notice) {
+        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        db?.collection("polytechnic_notice")
+            ?.document(notice.id)
+            ?.collection("likes")
+            ?.document(currentUserUid)
+            ?.get()
+            ?.addOnSuccessListener { document ->
+                // Check if the user has liked this notice
+                notice.userLiked = document.getBoolean("liked") ?: false
+                noticeQuoteAdapter.notifyDataSetChanged()
+            }
     }
 }

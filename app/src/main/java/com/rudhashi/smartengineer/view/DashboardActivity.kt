@@ -211,7 +211,6 @@ class DashboardActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     // ----------------------------------------------------------------
@@ -224,6 +223,14 @@ class DashboardActivity : AppCompatActivity() {
     private fun Boolean.loadFragment(fragment: Fragment) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
+
+        when(fragment){
+            is HomeFragment -> ft.setCustomAnimations(R.anim.slide_in_left, R.anim.useless1, R.anim.useless, R.anim.useless)
+            is LoginFragment -> ft.setCustomAnimations(R.anim.slide_in_left, R.anim.useless1, R.anim.useless, R.anim.useless)
+            is NoticeFragment -> ft.setCustomAnimations(R.anim.slide_in_left, R.anim.useless1, R.anim.useless, R.anim.useless)
+            is ExploreFragment -> ft.setCustomAnimations(R.anim.slide_in_right, R.anim.useless, R.anim.useless, R.anim.useless)
+        }
+
         if (!this)  // If Flag is not equal != to True then add Fragment
             ft.add(R.id.navHostDashboardFragmentContainerView, fragment)
         else  // If Flag is equal to True then replace Fragment

@@ -16,13 +16,19 @@
         android:theme="@style/Theme.SmartEngineer"
         tools:targetApi="31">
         <activity
-            android:name=".view.SplashScreenActivity"
+            android:name=".view.DepartmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TestActivity"
             android:exported="false" />
         <activity
             android:name=".view.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".TestActivity"
+            android:name=".view.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

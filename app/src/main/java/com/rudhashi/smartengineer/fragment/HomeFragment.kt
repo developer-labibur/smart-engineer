@@ -1,5 +1,7 @@
 package com.rudhashi.smartengineer.fragment
 
+import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.LinearGradient
 import android.graphics.Shader
@@ -9,15 +11,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.core.app.ActivityCompat.finishAfterTransition
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.carousel.CarouselSnapHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.TestActivity
 import com.rudhashi.smartengineer.adapter.BookGridAdapter
 import com.rudhashi.smartengineer.adapter.CarouselAdapter
 import com.rudhashi.smartengineer.adapter.CategoryAdapter
@@ -28,113 +38,59 @@ import com.rudhashi.smartengineer.model.CategoryDataClass
 import com.rudhashi.smartengineer.model.Notice
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.view.MainActivity
+import com.rudhashi.smartengineer.view.ProfileActivity
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private var tagLog = "HomeFragment"
-
-    // Variable for String Array ---------------------------------------------------------------------------------
     private lateinit var categoryDataList: ArrayList<CategoryDataClass>
     private lateinit var catImageList: Array<String>
     private lateinit var catTitleList: Array<String>
     private lateinit var catIdList: Array<String>
-
-    // Book Grid Code --------------------------------------------------------------------------------
     private lateinit var bookGridAdapter: BookGridAdapter
-
-    private lateinit var noticeQuoteAdapter: NoticeQuoteAdapter // Replace with your RecyclerView adapter
-    private val db = FirebaseFirestore.getInstance()
-    private val booksCollection = db.collection("books")
+    private lateinit var noticeQuoteAdapter: NoticeQuoteAdapter
+    private var db: FirebaseFirestore? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        db = FirebaseFirestore.getInstance()
         noticeQuoteAdapter = NoticeQuoteAdapter(emptyList(), requireActivity())
 
-        // Initialize category data list
+        // Initialize category data list and String Array for category image, title, and id --------------------------------
         categoryDataList = ArrayList()
-
-        // Initialize String Array for category image, title, and id
         catImageList = resources.getStringArray(R.array.arrayCategoryImageUrl)
         catTitleList = resources.getStringArray(R.array.arrayCategoryTitle)
         catIdList = resources.getStringArray(R.array.arrayCategoryId)
 
-        // Gradient Text color Set -----------------------------------------------------------------------------------------
-        binding.tvSmart.paint.shader = LinearGradient(
-            0f,
-            0f,
-            binding.tvSmart.paint.measureText(binding.tvSmart.text.toString()),
-            binding.tvSmart.textSize,
-            intArrayOf(
-                resources.getColor(R.color.gradient_start, null),
-                resources.getColor(R.color.gradient_start, null),
-                resources.getColor(R.color.gradient_end, null)
-            ),
-            null,
-            Shader.TileMode.CLAMP
-        )
-        binding.tvE.paint.shader = LinearGradient(
-            0f,
-            0f,
-            binding.tvE.paint.measureText(binding.tvE.text.toString()),
-            binding.tvE.textSize,
-            intArrayOf(
-                resources.getColor(R.color.clr2_1, null),
-                resources.getColor(R.color.clr1_1, null),
-                resources.getColor(R.color.clr2_1, null)
-            ),
-            null,
-            Shader.TileMode.CLAMP
-        )
-        binding.tvEngineer.paint.shader = LinearGradient(
-            0f,
-            0f,
-            binding.tvEngineer.paint.measureText(binding.tvEngineer.text.toString()),
-            binding.tvEngineer.textSize,
-            intArrayOf(
-                resources.getColor(R.color.clr2_1_1, null),
-                resources.getColor(R.color.clr2_1_2, null),
-                resources.getColor(R.color.clr2_1_3, null)
-            ),
-            null,
-            Shader.TileMode.CLAMP
-        )
-        binding.tvPoly.paint.shader = LinearGradient(
-            0f,
-            0f,
-            binding.tvPoly.paint.measureText(binding.tvPoly.text.toString()),
-            binding.tvPoly.textSize,
-            intArrayOf(
-                resources.getColor(R.color.clr2_1_2, null),
-                resources.getColor(R.color.clr2_1_1, null),
-                resources.getColor(R.color.clr2_1_1, null)
-            ),
-            null,
-            Shader.TileMode.CLAMP
-        )
+        setGradientTextColor()
 
-        // Adapter RecyclerView Category -----------------------------------------------------------------------------------
-        binding.recycleCategory.layoutManager =
-            GridLayoutManager(requireActivity(), 3, GridLayoutManager.VERTICAL, false)
-        binding.recycleCategory.setHasFixedSize(true)
-        binding.recycleCategory.isNestedScrollingEnabled = false;
-        //todo: catAdapter.notifyDataSetChanged(); // Extra
-        categoryDataList = arrayListOf<CategoryDataClass>()
-        getCategoryData()
-
-        setUpCarouselRecyclerView()
-
-
-        bookGridAdapter = BookGridAdapter { bookCode ->
-            val intent = Intent(requireActivity(), MainActivity::class.java)
-            intent.putExtra("BOOK_CODE", bookCode)
-            startActivity(intent)
+        // Category or Department Set Up -----------------------------------------------------------------------------------
+        binding.apply {
+            recycleCategory.layoutManager = GridLayoutManager(requireActivity(), 3, GridLayoutManager.VERTICAL, false)
+            recycleCategory.setHasFixedSize(true)
+            recycleCategory.isNestedScrollingEnabled = false
+            categoryDataList = arrayListOf<CategoryDataClass>()
+            getCategoryData()
         }
 
+        // CarouselSet Up -----------------------------------------------------------------------------------
+        setUpCarouselRecyclerView()
+
+        // Book Grid Set Up -----------------------------------------------------------------------------------
+        bookGridAdapter = BookGridAdapter { bookCode ->
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+
+            intent.putExtra("BOOK_CODE", bookCode)
+            // Start the Activity with the options
+            startActivity(intent)
+        }
         binding.apply {
             recycleBooks.layoutManager = GridLayoutManager(requireActivity(),1, GridLayoutManager.HORIZONTAL,false)
             recycleBooks.adapter = bookGridAdapter
@@ -143,14 +99,67 @@ class HomeFragment : Fragment() {
             btnMyFavorites.setOnClickListener { fetchBooks() }
         }
 
-        // Set up RecyclerView (assuming you have a RecyclerView with ID recyclerView)
-        binding.rv.adapter = noticeQuoteAdapter
-        binding.rv.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        // Notice Quote Set Up -----------------------------------------------------------------------------------
+        binding.viewPager.adapter = noticeQuoteAdapter
 
-        // Fetch notices from Firestore, ordered by timestamp in descending order
-        fetchNotices()
+        // Set height based on the currently selected page
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.viewPager.post {
+                    updatePagerHeight(position)
+                }
+            }
+        })
+        binding.dotsIndicator.attachTo(binding.viewPager)
+
+        binding.btnProfile.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_profileActivity)
+        }
 
         return binding.root
+    }
+
+    // =====================================================================================================================
+    // =====================     Gradient Text color  &  ViewPager Dynamic Height                  =========================
+    // =====================================================================================================================
+    private fun setGradientTextColor(){
+        binding.apply {
+            // Gradient Text color Set -----------------------------------------------------------------------------------------
+            tvSmart.paint.shader = LinearGradient(0f, 0f, tvSmart.paint.measureText(tvSmart.text.toString()), tvSmart.textSize, intArrayOf(
+                resources.getColor(R.color.gradient_start, null),
+                resources.getColor(R.color.gradient_start, null),
+                resources.getColor(R.color.gradient_end, null)
+            ), null, Shader.TileMode.CLAMP)
+            tvE.paint.shader = LinearGradient(0f, 0f, tvE.paint.measureText(tvE.text.toString()), tvE.textSize, intArrayOf(
+                resources.getColor(R.color.clr2_1, null),
+                resources.getColor(R.color.clr1_1, null),
+                resources.getColor(R.color.clr2_1, null)
+            ), null, Shader.TileMode.CLAMP)
+            tvEngineer.paint.shader = LinearGradient(0f, 0f, tvEngineer.paint.measureText(tvEngineer.text.toString()), tvEngineer.textSize, intArrayOf(
+                resources.getColor(R.color.clr2_1_1, null),
+                resources.getColor(R.color.clr2_1_2, null),
+                resources.getColor(R.color.clr2_1_3, null)
+            ), null, Shader.TileMode.CLAMP)
+            tvPoly.paint.shader = LinearGradient(0f, 0f, tvPoly.paint.measureText(binding.tvPoly.text.toString()), tvPoly.textSize, intArrayOf(
+                resources.getColor(R.color.clr2_1_2, null),
+                resources.getColor(R.color.clr2_1_1, null),
+                resources.getColor(R.color.clr2_1_1, null)
+            ), null, Shader.TileMode.CLAMP)
+        }
+    }
+    private fun updatePagerHeight(position: Int) {
+        val view = (binding.viewPager[0] as RecyclerView).layoutManager?.findViewByPosition(position)
+        view?.let {
+            val widthSpec = View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
+            val heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            view.measure(widthSpec, heightSpec)
+            val height = view.measuredHeight
+            if (binding.viewPager.layoutParams.height != height) {
+                binding.viewPager.layoutParams = binding.viewPager.layoutParams.apply {
+                    this.height = height
+                }
+            }
+        }
     }
 
     // =====================================================================================================================
@@ -164,14 +173,12 @@ class HomeFragment : Fragment() {
         }
         binding.recycleCategory.adapter = CategoryAdapter(categoryDataList, requireActivity())
     }
-
     private fun setUpCarouselRecyclerView() {
         CarouselSnapHelper().attachToRecyclerView(binding.carouselRecyclerView)
         val images = getImages()
         Log.d("ExploreFragment", "Images to load: $images") // Debugging line
         binding.carouselRecyclerView.adapter = CarouselAdapter(images)
     }
-
     private fun getImages(): List<String> {
         return listOf(
             "https://i.ibb.co.com/WcrBR30/slider-1.jpg",
@@ -179,25 +186,23 @@ class HomeFragment : Fragment() {
             "https://i.ibb.co.com/rsdV5St/slider-3.jpg"
         )
     }
-
     // =====================================================================================================================
-    // =====================================       Get Book Data                  ======================================
+    // =======================================       Get Book Data                  ========================================
     // =====================================================================================================================
     private fun fetchBooks() {
-        Log.d(tagLog, "fetchBooks: isCalled")
-        booksCollection.orderBy("TimeStamp", Query.Direction.DESCENDING) // Or DESCENDING for reverse order
-            .get().addOnSuccessListener { querySnapshot ->
+        db?.collection("books")?.orderBy("TimeStamp", Query.Direction.DESCENDING) // Or DESCENDING for reverse order
+            ?.get()?.addOnSuccessListener { querySnapshot ->
                 val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
                 bookGridAdapter.submitList(books)
-            }.addOnFailureListener { e ->
+            }?.addOnFailureListener { e ->
                 Toast.makeText(requireActivity(), "Failed to fetch books: ${e.message}", Toast.LENGTH_SHORT)
                     .show()
             }
     }
 
-    //=================================
-
-
+    // =====================================================================================================================
+    // =======================================       Notice Quote                  =========================================
+    // =====================================================================================================================
     private fun fetchNotices() {
         db?.collection("polytechnic_notice")
             ?.orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp
@@ -223,7 +228,7 @@ class HomeFragment : Fragment() {
                 }
             }
     }
-
+    @SuppressLint("NotifyDataSetChanged")
     private fun checkUserLikeStatus(notice: Notice) {
         val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
@@ -239,10 +244,11 @@ class HomeFragment : Fragment() {
             }
     }
 
-    //=================================
+    //=======================================================================================================================
     override fun onResume() {
         super.onResume()
-        // If data is available then Shimmer Effect will be gone
         fetchBooks()
+        fetchNotices()
     }
+
 }

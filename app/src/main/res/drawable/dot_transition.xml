@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- First item is the initial state, second item is the final state -->
+    <item android:drawable="@drawable/dot_unselected" />
+    <item android:drawable="@drawable/dot_selected" />
+</transition>

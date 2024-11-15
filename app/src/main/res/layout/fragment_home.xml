@@ -148,7 +148,7 @@
 
             <!-- Polytechnic Section -->
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/btnProfile"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="30dp"
@@ -209,7 +209,7 @@
                 android:scrollbars="none"
                 app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/btnProfile"
                 tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/item_features" />
 
@@ -269,7 +269,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="20dp"
             android:gravity="center_horizontal"
             android:nestedScrollingEnabled="false"
             android:orientation="horizontal"
@@ -278,17 +277,30 @@
             tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/item_book_grid" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+        <!-- ViewPager2 for dynamic height functionality -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <!-- PageIndicatorView for dot indicators -->
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dotsColor="@color/sideBar_InactiveBtn"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="10dp"
+            app:dotsSpacing="4dp"
+            app:dotsWidthFactor="2.5"
+            app:selectedDotColor="@color/Coral"
+            app:progressMode="true"
             android:layout_marginBottom="20dp"
-            android:nestedScrollingEnabled="false"
-            android:orientation="horizontal"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_notice_quote" />
+            />
 
     </LinearLayout>
 

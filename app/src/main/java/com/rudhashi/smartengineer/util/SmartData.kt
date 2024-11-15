@@ -2,7 +2,6 @@ package com.rudhashi.smartengineer.util
 
 import android.content.Context
 import android.widget.Toast
-import org.checkerframework.checker.units.qual.Length
 
 class SmartData {
     companion object {
@@ -17,13 +16,7 @@ class SmartData {
         const val TIME_INTERVAL: Int = 2000
 
         // Function to display Toast
-        fun lToast(context: Context, message: String, isShort: Boolean) {
-            if (isShort){
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-            }
-        }
-
+        fun lToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
+        fun sToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
     }
 }

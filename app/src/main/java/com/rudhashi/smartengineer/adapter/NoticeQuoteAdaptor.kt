@@ -1,15 +1,16 @@
 package com.rudhashi.smartengineer.adapter
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.TransitionDrawable
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.PopupMenu
 import android.widget.PopupWindow
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -28,32 +29,8 @@ class NoticeQuoteAdapter(private var noticeList: List<Notice>, var context: Cont
     private val db = FirebaseFirestore.getInstance()
     private val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
 
-    // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticeQuoteViewHolder {
-        val binding =
-            ItemNoticeQuoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return NoticeQuoteViewHolder(binding)
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(holder: NoticeQuoteViewHolder, position: Int) {
-        holder.bind(noticeList[position])
-    }
-
-    // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount(): Int = noticeList.size
-
-    // Update the notice list with new data
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateNoticeList(newNoticeList: List<Notice>) {
-        noticeList = newNoticeList
-        notifyDataSetChanged() // Notify the adapter that the data has changed
-    }
-
     inner class NoticeQuoteViewHolder(private val binding: ItemNoticeQuoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        // Bind the notice data to the views
         fun bind(notice: Notice) {
             binding.apply {
                 tvNoticeQText.text = notice.notice
@@ -80,7 +57,6 @@ class NoticeQuoteAdapter(private var noticeList: List<Notice>, var context: Cont
                 menuQImageView.setOnClickListener { showCustomPopupMenu(it, notice) }
             }
         }
-
         private fun showCustomPopupMenu(anchorView: View, notice: Notice) {
             // Inflate the custom menu layout
             val popupView =
@@ -130,41 +106,6 @@ class NoticeQuoteAdapter(private var noticeList: List<Notice>, var context: Cont
 
             // Show the PopupWindow at the calculated position
             popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, xPos, location[1])
-        }
-
-        private fun showPopupMenu(notice: Notice) {
-            val popupMenu = PopupMenu(binding.root.context, binding.menuQImageView)
-            val inflater: MenuInflater = popupMenu.menuInflater
-            inflater.inflate(R.menu.menu_notice_item, popupMenu.menu)
-
-            // Adjust menu location using offset if it clips
-            popupMenu.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.share_note -> {
-                        shareNotice(notice.notice)
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-
-            // Show the menu with an offset if it’s close to the screen edge
-            binding.menuQImageView.post {
-                val screenWidth = binding.root.context.resources.displayMetrics.widthPixels
-                val location = IntArray(2)
-                binding.menuQImageView.getLocationOnScreen(location)
-
-                // Calculate the remaining space on the right side of the menu
-                val remainingSpace = screenWidth - location[0]
-
-                // If remaining space is too narrow, apply offset
-                if (remainingSpace < 200) { // Adjust 200 to control how much space is needed
-                    popupMenu.gravity = Gravity.END
-                }
-
-                popupMenu.show()
-            }
         }
 
         private fun shareNotice(noticeText: String) {
@@ -221,4 +162,22 @@ class NoticeQuoteAdapter(private var noticeList: List<Notice>, var context: Cont
         }
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticeQuoteViewHolder {
+        val binding = ItemNoticeQuoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return NoticeQuoteViewHolder(binding)
+    }
+
+
+    override fun onBindViewHolder(holder: NoticeQuoteViewHolder, position: Int) {
+        holder.bind(noticeList[position])
+    }
+
+    override fun getItemCount(): Int = noticeList.size
+
+    // Update the notice list with new data
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateNoticeList(newNoticeList: List<Notice>) {
+        noticeList = newNoticeList
+        notifyDataSetChanged() // Notify the adapter that the data has changed
+    }
 }

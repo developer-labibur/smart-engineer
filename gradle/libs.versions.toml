@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.2"
+amazingspinner = "2.0.0"
 kotlin = "1.9.24"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -15,14 +16,23 @@ preference = "1.2.1"
 
 credentialsPlayServicesAuth = "1.5.0-beta01"
 googleid = "1.1.1"
+core = "3.3.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseBom = "33.5.1"
 firebaseAuth = "23.1.0"
+input = "3.3.0"
 glide = "4.16.0" # or latest version
-viewpager2 = "1.0.0" # for ViewPager2
+viewpager2 = "1.1.0" # for ViewPager2
+imagepicker = "2.1"
+circleimageview = "3.1.0"
+shimmer = "0.5.0"
+retrofit = "2.11.0"
+converterGson = "2.11.0"
+loggingInterceptor = "4.9.0"
 
 
 [libraries]
+amazingspinner = { module = "com.github.Mamoon-Alhawamdeh:AmazingSpinner", version.ref = "amazingspinner" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -50,8 +60,20 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+imagepicker = { group = "com.github.dhaval2404", name = "imagepicker", version.ref = "imagepicker" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
+material-dialogs-core = { module = "com.afollestad.material-dialogs:core", version.ref = "core" }
+shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
+input = { module = "com.afollestad.material-dialogs:input", version.ref = "input" }
+
+
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson" }
+logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
+
+
 
 
 

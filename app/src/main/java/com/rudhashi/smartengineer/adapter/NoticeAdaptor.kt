@@ -57,6 +57,7 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
         fun bind(notice: Notice) {
             binding.apply {
                 tvNoticeText.text = notice.notice
+                tvNoticeTitle.text = notice.category
                 tvLovesCount.text = context.getString(R.string.loves, notice.likes.toString())
 
                 // Set initial like button text based on userLiked

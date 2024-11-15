@@ -114,7 +114,7 @@
             android:layout_marginStart="5dp"
             android:fontFamily="@font/main_font_regular_2"
             android:text="@string/read_now"
-            android:textColor="@color/ic_light"
+            android:textColor="#1C274C"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/icLove"
             app:layout_constraintStart_toEndOf="@+id/icLove"
@@ -125,7 +125,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:contentDescription="@string/smart_engineer_logo"
-            android:src="@drawable/sl_double_alt_arrow_right" />
+            android:src="@drawable/sl_double_alt_arrow_right__black" />
 
     </LinearLayout>
 
