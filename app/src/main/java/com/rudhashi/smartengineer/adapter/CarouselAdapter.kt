@@ -18,8 +18,8 @@ class CarouselAdapter(private val images: List<String>) : RecyclerView.Adapter<C
             carouselImageView.load(imageUrl) {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(8f))
-                placeholder(R.drawable.slider_1) // Set a placeholder for loading images
-                error(R.drawable.slider_2) // Error image if the load fails
+                placeholder(R.drawable.department_cover) // Set a placeholder for loading images
+                error(R.drawable.department_cover) // Error image if the load fails
             }
         }
     }

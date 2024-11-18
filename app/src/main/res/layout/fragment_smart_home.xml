@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@drawable/bg_sl_scroll_box_golden"
+    tools:context=".fragment.SmartHomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/btnActivity"
+                style="@style/btn_features_layout"
+                app:layout_constraintEnd_toStartOf="@+id/btnInstitute"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    style="@style/btn_features_image"
+                    android:background="@drawable/bg_sl_m_orange"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_m_activity" />
+
+                <TextView
+                    style="@style/btn_features_text"
+                    android:text="@string/activity" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnInstitute"
+                style="@style/btn_features_layout"
+                app:layout_constraintEnd_toStartOf="@+id/btnRecycling"
+                app:layout_constraintStart_toEndOf="@+id/btnActivity"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    style="@style/btn_features_image"
+                    android:background="@drawable/bg_sl_m_blue"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_m_institute" />
+
+                <TextView
+                    style="@style/btn_features_text"
+                    android:text="@string/institute" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnRecycling"
+                style="@style/btn_features_layout"
+                app:layout_constraintEnd_toStartOf="@+id/btnCommunity"
+                app:layout_constraintStart_toEndOf="@+id/btnInstitute"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:paddingTop="12dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="8dp"
+                    android:background="@drawable/bg_sl_m_green"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_m_recycling"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"/>
+
+                <TextView
+                    style="@style/btn_features_text"
+                    android:text="@string/recycling" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnCommunity"
+                style="@style/btn_features_layout"
+                app:layout_constraintEnd_toStartOf="@+id/btnCalculator"
+                app:layout_constraintStart_toEndOf="@+id/btnRecycling"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    style="@style/btn_features_image"
+                    android:background="@drawable/bg_sl_m_red"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_m_community" />
+
+                <TextView
+                    style="@style/btn_features_text"
+                    android:text="@string/community" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnCalculator"
+                style="@style/btn_features_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnCommunity"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    style="@style/btn_features_image"
+                    android:background="@drawable/bg_sl_m_purple"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_m_calculator" />
+
+                <TextView
+                    style="@style/btn_features_text"
+                    android:text="@string/calculator" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_sl_notice_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                style="@style/btn_features_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_sl_notice_icon"
+                android:contentDescription="@string/sl_icon"
+                android:padding="2dp"
+                android:src="@drawable/live"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="5dp"
+                android:ellipsize="marquee"
+                android:fontFamily="@font/main_font_regular_2"
+                android:singleLine="true"
+                android:text="@string/notice_demo"
+                android:textColor="@color/sl_primary_text"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/main_font_regular_2"
+            android:includeFontPadding="false"
+            android:text="D"
+            android:textColor="@color/sl_action_text_middle_red"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/main_font_regular_2"
+            android:includeFontPadding="false"
+            android:text="epartment"
+            android:textColor="@color/sl_primary_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvD"
+            app:layout_constraintStart_toEndOf="@+id/tvD"
+            app:layout_constraintTop_toTopOf="@+id/tvD" />
+
+        <ImageView
+            android:id="@+id/icDep"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/sl_icon"
+            android:src="@drawable/sl_academic_caps_fill"
+            app:layout_constraintBottom_toBottomOf="@+id/tvD"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvD" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvD"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_features"/>
+
+        <TextView
+            android:id="@+id/tvJ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/changa_variable_wght"
+            android:includeFontPadding="false"
+            android:text="J"
+            android:textColor="@color/sl_action_text_middle_red"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycleCategory" />
+
+        <TextView
+            android:id="@+id/tvFullLetter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/main_font_regular_2"
+            android:includeFontPadding="false"
+            android:text="ust for you"
+            android:textColor="@color/sl_primary_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvJ"
+            app:layout_constraintStart_toEndOf="@+id/tvJ"
+            app:layout_constraintTop_toTopOf="@+id/tvJ" />
+
+        <ImageView
+            android:id="@+id/icJust"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="@string/sl_icon"
+            android:src="@drawable/sl_hashtag_circle_fill"
+            app:layout_constraintBottom_toBottomOf="@+id/tvFullLetter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvFullLetter" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleSemester"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:nestedScrollingEnabled="false"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            tools:itemCount="2"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvJ"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_semester_number" />
+
+        <!-- Footer  -->
+        <ImageView
+            android:id="@+id/bgBottomWave"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/ocean_watter_flow_background_color"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_home_page_bottom_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycleSemester" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baumans_regular"
+            android:layout_marginBottom="7dp"
+            android:text="@string/copyright"
+            android:textColor="@color/sl_primary_text"
+            app:layout_constraintBottom_toBottomOf="@+id/bgBottomWave"
+            app:layout_constraintEnd_toEndOf="@+id/bgBottomWave"
+            app:layout_constraintStart_toStartOf="@+id/bgBottomWave" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

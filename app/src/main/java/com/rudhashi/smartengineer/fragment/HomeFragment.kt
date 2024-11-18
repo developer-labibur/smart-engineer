@@ -108,9 +108,12 @@ class HomeFragment : Fragment() {
                 binding.viewPager.post {
                     updatePagerHeight(position)
                 }
+                binding.btnMyLibrary.text = position.toString()
             }
         })
         binding.dotsIndicator.attachTo(binding.viewPager)
+
+        binding.btnMyLibrary.setOnClickListener { startActivity(Intent(requireActivity(), TestActivity::class.java)) }
 
         binding.btnProfile.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_profileActivity)

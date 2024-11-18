@@ -198,5 +198,16 @@
     <string name="_6th_semester">6th Semester</string>
     <string name="_7th_semester">7th Semester</string>
     <string name="cst_85">CST  |  85</string>
+    <string name="engineer_avatar">Engineer Avatar</string>
+    <string name="membership_plus">Membership Plus</string>
+    <string name="_10_tk">10 TK</string>
+    <string name="month">/Month</string>
+    <string name="activity">Activity</string>
+    <string name="recycling">Recycling</string>
+    <string name="community">Community</string>
+    <string name="calculator">Calculator</string>
+    <string name="cst">CST</string>
+    <string name="copyright">© Smart Engineer ♥ Labib UR Rahman</string>
+    <string name="ocean_watter_flow_background_color">Ocean watter flow background color</string>
 
 </resources>

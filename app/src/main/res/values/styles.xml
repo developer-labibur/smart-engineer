@@ -158,4 +158,48 @@
         <item name="android:paddingEnd">35dp</item>
     </style>
 
+    <style name="btn_features_layout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="btn_features_image">
+        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="btn_features_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/main_font_regular_2</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/sl_primary_text</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="sem_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">-8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/main_font_regular_2</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/sl_primary_text</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>

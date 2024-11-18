@@ -1,39 +1,31 @@
 package com.rudhashi.smartengineer
 
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.toObject
-import com.rudhashi.smartengineer.adapter.NoticeQuoteAdapter
+import com.rudhashi.smartengineer.adapter.FragmentPageAdapter
 import com.rudhashi.smartengineer.databinding.ActivityTestBinding
-import com.rudhashi.smartengineer.model.Notice
 
 class TestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTestBinding
-    private lateinit var noticeQuoteAdapter: NoticeQuoteAdapter
-
-    private var db: FirebaseFirestore? = null
+    private lateinit var adapter: FragmentPageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        db = FirebaseFirestore.getInstance()
+        setGradientTextColor()
 
-        noticeQuoteAdapter = NoticeQuoteAdapter(emptyList(), this)
+        adapter = FragmentPageAdapter(supportFragmentManager,lifecycle)
 
-
-        binding.viewPager.adapter = noticeQuoteAdapter
-
-        fetchNotices()
+        binding.viewPager.adapter = adapter
 
         // Set height based on the currently selected page
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -60,44 +52,27 @@ class TestActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchNotices() {
-        db?.collection("polytechnic_notice")
-            ?.orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp
-            ?.limit(5)
-            ?.addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    // Handle Firestore error
-                    error.printStackTrace()
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && !snapshot.isEmpty) {
-                    val notices = mutableListOf<Notice>()
-                    for (document in snapshot.documents) {
-                        val notice = document.toObject<Notice>()
-                        if (notice != null) {
-                            notice.id = document.id // Set the Firestore document ID
-                            checkUserLikeStatus(notice) // Check and set user like status
-                            notices.add(notice)
-                        }
-                    }
-                    noticeQuoteAdapter.updateNoticeList(notices) // Update the adapter
-                }
-            }
-    }
-
-    private fun checkUserLikeStatus(notice: Notice) {
-        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-
-        db?.collection("polytechnic_notice")
-            ?.document(notice.id)
-            ?.collection("likes")
-            ?.document(currentUserUid)
-            ?.get()
-            ?.addOnSuccessListener { document ->
-                // Check if the user has liked this notice
-                notice.userLiked = document.getBoolean("liked") ?: false
-                noticeQuoteAdapter.notifyDataSetChanged()
-            }
+    // =====================================================================================================================
+    // =====================     Gradient Text color  &  ViewPager Dynamic Height                  =========================
+    // =====================================================================================================================
+    private fun setGradientTextColor(){
+        binding.apply {
+            // Gradient Text color Set -----------------------------------------------------------------------------------------
+            tvSmart.paint.shader = LinearGradient(0f, 0f, tvSmart.paint.measureText(tvSmart.text.toString()), tvSmart.textSize, intArrayOf(
+                resources.getColor(R.color.gradient_start, null),
+                resources.getColor(R.color.gradient_start, null),
+                resources.getColor(R.color.gradient_end, null)
+            ), null, Shader.TileMode.CLAMP)
+            tvE.paint.shader = LinearGradient(0f, 0f, tvE.paint.measureText(tvE.text.toString()), tvE.textSize, intArrayOf(
+                resources.getColor(R.color.clr2_1, null),
+                resources.getColor(R.color.clr1_1, null),
+                resources.getColor(R.color.clr2_1, null)
+            ), null, Shader.TileMode.CLAMP)
+            tvEngineer.paint.shader = LinearGradient(0f, 0f, tvEngineer.paint.measureText(tvEngineer.text.toString()), tvEngineer.textSize, intArrayOf(
+                resources.getColor(R.color.clr2_1_1, null),
+                resources.getColor(R.color.clr2_1_2, null),
+                resources.getColor(R.color.clr2_1_3, null)
+            ), null, Shader.TileMode.CLAMP)
+        }
     }
 }

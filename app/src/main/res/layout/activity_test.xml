@@ -1,30 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lavender"
+    android:background="@color/sl_primary"
     android:orientation="vertical"
     tools:context=".TestActivity">
 
-    <!-- ViewPager2 for dynamic height functionality -->
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue__DeepSkyBlue"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
 
+    <!-- Engineer Avatar -->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-25dp"
+        android:contentDescription="@string/engineer_avatar"
+        android:src="@drawable/engineer_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPremium" />
+
+    <!-- Smart Engineer E-Learning App -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="700dp"
-        android:text="@string/labib_ur_rahman"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:background="@color/red__DarkRed"/>
+        android:id="@+id/tvSmart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/logo_font"
+        android:letterSpacing="0.0"
+        android:text="@string/smart"
+        android:textAllCaps="true"
+        android:textColor="@color/sl_primary_text"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/btnProfile"
+        app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
+    <TextView
+        android:id="@+id/tvE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-34dp"
+        android:fontFamily="@font/logo_font"
+        android:letterSpacing="0.05"
+        android:text="@string/e"
+        android:textAllCaps="true"
+        android:textColor="@color/sl_primary_text"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvSmart"
+        app:layout_constraintTop_toBottomOf="@+id/tvSmart" />
+    <TextView
+        android:id="@+id/tvEngineer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/logo_font"
+        android:text="@string/ngineer"
+        android:textAllCaps="true"
+        android:textColor="@color/mainContainer_SubHeadingText"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvE"
+        app:layout_constraintTop_toTopOf="@+id/tvE" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/logo_font"
+        android:text="@string/ing"
+        android:textAllCaps="true"
+        android:textColor="@color/mainContainer_SubHeadingText"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvEngineer"
+        app:layout_constraintTop_toTopOf="@+id/tvEngineer" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/logo_font"
+        android:text="@string/learning_app"
+        android:textAllCaps="true"
+        android:textColor="@color/mainContainer_SubHeadingText"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvE"
+        app:layout_constraintStart_toEndOf="@+id/tvE" />
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/rocket"
+        android:layout_margin="15dp"
+        android:src="@drawable/rocket"
+        app:layout_constraintTop_toTopOf="@+id/tvSmart"
+        app:layout_constraintStart_toEndOf="@+id/tvSmart" />
 
-</LinearLayout>
+    <!-- Profile -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_sl_premium_text_green"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/ll_profile_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/bg_sl_premium_box_green"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/student_avatar" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/main_font_regular_2"
+            android:includeFontPadding="false"
+            android:lineHeight="13dp"
+            android:maxWidth="100dp"
+            android:maxLines="2"
+            android:text="@string/myFullName"
+            android:textColor="@color/sl_primary_text"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ll_profile_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ll_profile_icon"
+            app:layout_constraintTop_toTopOf="@+id/ll_profile_icon"
+            tools:ignore="UnusedAttribute" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Membership Plus -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnPremium"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_sl_profile_text_golden"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/ll_premium_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/bg_sl_profile_box_golden"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/premium_avatar" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPremium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/main_font_regular_2"
+            android:includeFontPadding="false"
+            android:text="@string/membership_plus"
+            android:textColor="@color/sl_primary_text"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
+            app:layout_constraintTop_toTopOf="@+id/ll_premium_icon" />
+
+        <TextView
+            android:id="@+id/tvTaka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/main_font_regular_2"
+            android:includeFontPadding="false"
+            android:text="@string/_10_tk"
+            android:textColor="@color/sl_action_text_middle_red"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
+            app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
+            app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:fontFamily="@font/main_font_regular_2"
+            android:includeFontPadding="false"
+            android:text="@string/month"
+            android:textColor="@color/sl_primary_text"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvTaka"
+            app:layout_constraintStart_toEndOf="@+id/tvTaka"
+            app:layout_constraintTop_toTopOf="@+id/tvTaka" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Main Container -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Top View -->
+            <View
+                android:id="@+id/viewTop"
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+                android:background="@color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_sl_scroll_box_golden"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewTop" />
+
+            <LinearLayout
+                android:id="@+id/ll_cat"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:layout_margin="5dp"
+                android:paddingBottom="3dp"
+                android:background="@drawable/bg_sl_cat_golden"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/viewPager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/viewPager">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/cute_cat" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:id="@+id/btnSemester"
+    android:orientation="vertical"
+    android:background="@color/sl_secoundary"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter">
+
+    <View
+        android:id="@+id/semView"
+        android:layout_width="4dp"
+        android:layout_height="65dp"
+        android:background="@color/orange_main_color"
+        app:layout_constraintEnd_toEndOf="@+id/semAbbr"
+        app:layout_constraintStart_toStartOf="@+id/semAbbr"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/semAbbr"
+        style="@style/btn_features_text"
+        android:background="@color/sl_secoundary"
+        android:text="@string/cst"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/semView" />
+
+    <ImageView
+        android:id="@+id/semIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
+        android:contentDescription="@string/sl_icon"
+        android:src="@drawable/sl_sort_right"
+        app:layout_constraintBottom_toBottomOf="@+id/semView"
+        app:layout_constraintStart_toEndOf="@+id/semAbbr"
+        app:layout_constraintTop_toTopOf="@+id/semView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/semLayout"
+        android:layout_width="0dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/bg_sl_notice_box"
+        app:layout_constraintBottom_toBottomOf="@+id/semView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/semIcon"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/semImage"
+            style="@style/btn_features_image"
+            android:background="@drawable/bg_sl_m_orange"
+            android:contentDescription="@string/sl_icon"
+            android:src="@drawable/number_one"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/semNumber"
+            style="@style/btn_features_text"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/_1st_semester"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/semImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/sem_text"
+            android:text="@string/computer_science_and_technology"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/semImage"
+            app:layout_constraintTop_toBottomOf="@id/semNumber" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

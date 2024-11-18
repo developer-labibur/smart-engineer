@@ -5,6 +5,22 @@
     <!-- TODO: START                             CUSTOM COLOR => LIGHT                                      -->
     <!-- ================================================================================================== -->
 
+    <!-- Main Color - SL-->
+    <color name="sl_primary">#f8e9d4</color>
+    <color name="sl_primary_text">#3e444b</color>
+    <color name="sl_secoundary">#fcf0df</color>
+    <color name="sl_optional">#fae1bb</color>
+    <color name="sl_optional_green">#cdeacb</color>
+    <color name="sl_useless">#33FFCC80</color>
+    <color name="sl_action">#ffcc80</color>
+    <color name="sl_action_green">#68ecb4</color>
+    <color name="sl_action_text_middle_red">#b9505c</color>
+
+    <!-- Wave -->
+    <color name="wave_top">#f8e9d4</color>
+    <color name="wave_center">#fae1bb</color>
+    <color name="wave_bottom">#ffcc80</color>
+
     <!-- Login or Signup Button -->
     <color name="googleContinue__Bg">#FFFFFF</color>
     <color name="googleContinue__Text">#1F1F1F</color>

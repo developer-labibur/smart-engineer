@@ -5,6 +5,21 @@
     <!--  TODO:                                  CUSTOM COLOR => DARK                                       -->
     <!-- ================================================================================================== -->
 
+    <!-- Main Color - SL-->
+    <color name="sl_primary">#292929</color>
+    <color name="sl_primary_text">#e6d8c3</color>
+    <color name="sl_secoundary">#323232</color>
+    <color name="sl_optional">#6c5e49</color>
+    <color name="sl_optional_green">#3c636d</color>
+    <color name="sl_action">#fccb83</color>
+    <color name="sl_action_green">#55defd</color>
+    <color name="sl_action_text_middle_red">#c65662</color>
+
+    <!-- Wave -->
+    <color name="wave_top">#292929</color>
+    <color name="wave_center">#433D31</color>
+    <color name="wave_bottom">#6c5e49</color>
+
     <!-- Login or Signup Button -->
     <color name="googleContinue__Bg">#000000</color>
     <color name="googleContinue__Text">#D3D3D3</color>
@@ -22,7 +37,7 @@
     <color name="mainContainer_Bg">#242424</color>
     <color name="mainContainer_Active">#242424</color>
     <color name="mainContainer_HeadingText">#F6F6F6</color>
-    <color name="mainContainer_SubHeadingText">#E1E1E1</color>
+    <color name="mainContainer_SubHeadingText">#D3D3D3</color>
 
     <!-- For Unique Style -->
     <color name="underlineText">#80622A</color>

@@ -49,7 +49,7 @@
         android:maxLines="2"
         android:text="@string/app_name"
         android:textAlignment="center"
-        android:textColor="@color/mainContainer_HeadingText"
+        android:textColor="@color/sl_primary_text"
         android:textSize="@dimen/text_size_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
