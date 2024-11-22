@@ -1,10 +1,12 @@
 package com.rudhashi.smartengineer.view
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.ArrayAdapter
@@ -56,8 +58,13 @@ class ProfileActivity : AppCompatActivity() {
         fbDB = Firebase.database.reference
         currentUser = auth.currentUser!!
 
-        loadProfilePicture()
-        loadProfileInfo()
+        try {
+            Log.e(tagLog, "Try: All okay")
+            loadProfilePicture()
+            loadProfileInfo()
+        } catch (e: Exception) {
+            Log.e(tagLog, "Catch: Is called")
+        }
 
         binding.apply {
             proPic.setOnClickListener { callImagePicker() }
@@ -208,6 +215,7 @@ class ProfileActivity : AppCompatActivity() {
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }
+    @SuppressLint("InflateParams")
     private fun setLogOut(){
         val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_logout_warning, null)

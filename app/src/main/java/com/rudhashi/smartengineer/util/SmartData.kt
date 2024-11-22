@@ -1,7 +1,14 @@
 package com.rudhashi.smartengineer.util
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
+import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.databinding.DialogComingSoonBinding
+import kotlin.time.times
 
 class SmartData {
     companion object {
@@ -18,5 +25,20 @@ class SmartData {
         // Function to display Toast
         fun lToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
         fun sToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
+
+        @SuppressLint("InflateParams")
+        fun comingSoon(context: Context){
+            val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog).create()
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_coming_soon, null)
+            val dialogBinding: DialogComingSoonBinding = DialogComingSoonBinding.bind(dialogView)
+            builder.setView(dialogBinding.root)
+            builder.show()
+
+            dialogBinding.btnOk.setOnClickListener { builder.dismiss() }
+
+            if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+            builder.show()
+        }
+        fun randomNumber(int: Int): Int { return (Math.random() * int).toInt() }
     }
 }

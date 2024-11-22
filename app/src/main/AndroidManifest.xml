@@ -41,8 +41,15 @@
             android:name=".activity.SettingActivity"
             android:exported="false" />
         <activity
-            android:name=".TestActivity"
+            android:name=".view.SmartDashboardActivity"
             android:exported="false" />
+        <activity
+            android:name=".view.AllBookActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
 

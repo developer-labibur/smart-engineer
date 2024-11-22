@@ -14,7 +14,7 @@
             app:destination="@id/signupFragment" />
         <action
             android:id="@+id/action_loginFragment_to_dashboardActivity"
-            app:destination="@id/dashboardActivity"
+            app:destination="@id/smartDashboardActivity"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@anim/animation1" />
     </fragment>
@@ -28,8 +28,8 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <activity
-        android:id="@+id/dashboardActivity"
-        android:name="com.rudhashi.smartengineer.view.DashboardActivity"
-        android:label="activity_dashboard"
-        tools:layout="@layout/activity_dashboard" />
+        android:id="@+id/smartDashboardActivity"
+        android:name="com.rudhashi.smartengineer.view.SmartDashboardActivity"
+        android:label="activity_smart_dashboard"
+        tools:layout="@layout/activity_smart_dashboard" />
 </navigation>

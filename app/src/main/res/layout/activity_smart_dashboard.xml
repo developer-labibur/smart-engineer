@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="-20dp"
+    android:paddingTop="20dp"
     android:background="@color/sl_primary"
     android:orientation="vertical"
-    tools:context=".TestActivity">
-
+    tools:context=".view.SmartDashboardActivity">
 
     <!-- Engineer Avatar -->
     <ImageView
@@ -27,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/logo_font"
         android:letterSpacing="0.0"
         android:text="@string/smart"
@@ -100,8 +101,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnProfile"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="16dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:background="@drawable/bg_sl_premium_text_green"
         android:gravity="center_vertical"
@@ -111,8 +113,8 @@
 
         <LinearLayout
             android:id="@+id/ll_profile_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_margin="5dp"
             android:background="@drawable/bg_sl_premium_box_green"
             android:orientation="horizontal"
@@ -142,7 +144,7 @@
             android:maxLines="2"
             android:text="@string/myFullName"
             android:textColor="@color/sl_primary_text"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/ll_profile_icon"
             app:layout_constraintEnd_toEndOf="parent"
@@ -156,8 +158,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnPremium"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_margin="16dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:background="@drawable/bg_sl_profile_text_golden"
         android:gravity="center_vertical"
@@ -167,8 +170,8 @@
 
         <LinearLayout
             android:id="@+id/ll_premium_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_margin="5dp"
             android:background="@drawable/bg_sl_profile_box_golden"
             android:orientation="horizontal"
@@ -196,7 +199,7 @@
             android:includeFontPadding="false"
             android:text="@string/membership_plus"
             android:textColor="@color/sl_primary_text"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
@@ -212,7 +215,7 @@
             android:includeFontPadding="false"
             android:text="@string/_10_tk"
             android:textColor="@color/sl_action_text_middle_red"
-            android:textSize="11sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
@@ -227,7 +230,7 @@
             android:includeFontPadding="false"
             android:text="@string/month"
             android:textColor="@color/sl_primary_text"
-            android:textSize="11sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/tvTaka"
             app:layout_constraintStart_toEndOf="@+id/tvTaka"
             app:layout_constraintTop_toTopOf="@+id/tvTaka" />
@@ -235,63 +238,137 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Main Container -->
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scrollbars="none"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <!-- Footer -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@drawable/bg_sl_bottom_nav_bar"
+        android:elevation="5dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-            <!-- Top View -->
-            <View
-                android:id="@+id/viewTop"
-                android:layout_width="0dp"
-                android:layout_height="190dp"
-                android:background="@color/transparent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <!-- Home Bottom -->
+        <LinearLayout
+            android:id="@+id/llHome"
+            style="@style/bottom_nav_bg"
+            android:layout_marginEnd="3dp"
+            android:layout_marginStart="3dp"
+            app:layout_constraintEnd_toStartOf="@+id/llBook"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/round_back_home_100">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_sl_scroll_box_golden"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewTop" />
+            <ImageView
+                android:id="@+id/ivHome"
+                android:gravity="center"
+                android:layout_marginStart="5dp"
+                style="@style/shape_bottom_nav_bar_image"
+                android:background="@drawable/bg_sl_shape_box_golden"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/sl_f_home" />
 
-            <LinearLayout
-                android:id="@+id/ll_cat"
-                android:layout_width="70dp"
-                android:layout_height="35dp"
-                android:layout_margin="5dp"
-                android:paddingBottom="3dp"
-                android:background="@drawable/bg_sl_cat_golden"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/viewPager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/viewPager">
+            <TextView
+                android:id="@+id/tvHome"
+                style="@style/bottom_nav_text_style"
+                android:text="@string/home"
+                android:visibility="visible"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/sl_icon"
-                    android:src="@drawable/cute_cat" />
+        </LinearLayout>
+        <!-- Books Bottom -->
+        <LinearLayout
+            android:id="@+id/llBook"
+            style="@style/bottom_nav_bg"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintEnd_toStartOf="@+id/llUpdates"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/llHome"
+            tools:ignore="UseCompoundDrawables">
 
+            <ImageView
+                android:id="@+id/ivBook"
+                style="@style/shape_bottom_nav_bar_image"
+                android:background="@drawable/bg_sl_shape_box_blue"
+                android:contentDescription="@string/sl_icon"
+                android:layout_marginStart="5dp"
+                android:padding="4dp"
+                android:src="@drawable/sl_f_book" />
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvBook"
+                style="@style/bottom_nav_text_style"
+                android:text="@string/books" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+        <!-- Updates Bottom -->
+        <LinearLayout
+            android:id="@+id/llUpdates"
+            style="@style/bottom_nav_bg"
+            android:layout_marginStart="3dp"
+            tools:ignore="UseCompoundDrawables"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintEnd_toStartOf="@+id/llSetting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/llBook">
 
+            <ImageView
+                android:id="@+id/ivUpdates"
+                style="@style/shape_bottom_nav_bar_image"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/bg_sl_shape_box_green"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/sl_f_updates" />
 
-    </ScrollView>
+            <TextView
+                android:id="@+id/tvUpdates"
+                style="@style/bottom_nav_text_style"
+                android:text="@string/notice" />
+
+        </LinearLayout>
+        <!-- Setting Bottom -->
+        <LinearLayout
+            android:id="@+id/llSetting"
+            style="@style/bottom_nav_bg"
+            android:layout_marginEnd="3dp"
+            android:layout_marginStart="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="UseCompoundDrawables"
+            app:layout_constraintStart_toEndOf="@+id/llUpdates">
+
+            <ImageView
+                android:id="@+id/ivSetting"
+                style="@style/shape_bottom_nav_bar_image"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/bg_sl_shape_box_purple"
+                android:contentDescription="@string/sl_icon"
+                android:padding="4dp"
+                android:src="@drawable/sl_f_settings" />
+
+            <TextView
+                android:id="@+id/tvSetting"
+                style="@style/bottom_nav_text_style"
+                android:text="@string/explore"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

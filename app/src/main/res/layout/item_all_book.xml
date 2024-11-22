@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clickNoticeItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="horizontal"
+    android:padding="13dp">
+
+    <LinearLayout
+        android:id="@+id/ll_itemBG"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_book_item_picture">
+
+        <ImageView
+            android:id="@+id/bookImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/smart_engineer_logo"
+            android:padding="8dp"
+            android:src="@drawable/book" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnRead"
+            app:layout_constraintStart_toEndOf="@+id/ll_itemBG"
+            app:layout_constraintTop_toTopOf="@+id/ll_itemBG">
+
+            <TextView
+                android:id="@+id/bookTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toStartOf="@id/clBookCode"
+                android:ellipsize="end"
+                android:fontFamily="@font/main_font_regular_2"
+                android:maxLines="1"
+                android:text="@string/book_name"
+                android:textColor="@color/sl_primary_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clBookCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true">
+
+                <TextView
+                    android:id="@+id/bookCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:text="@string/_21011"
+                    android:textColor="@color/mainContainer_SubHeadingText"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnLove"
+                    app:layout_constraintEnd_toStartOf="@+id/btnLove"
+                    app:layout_constraintTop_toTopOf="@+id/btnLove" />
+
+                <ImageView
+                    android:id="@+id/btnLove"
+                    android:layout_width="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_height="18dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_heart_not_fill"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/btnRead"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/icLove"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_eye"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/bookViewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:text="@string/_254"
+                    android:textColor="@color/mainContainer_SubHeadingText"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icLove"
+                    app:layout_constraintStart_toEndOf="@+id/icLove"
+                    app:layout_constraintTop_toTopOf="@+id/icLove" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/btnRead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_book_item_picture"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:layout_alignParentEnd="true"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:text="@string/read_now"
+                    android:textSize="16sp"
+                    android:textColor="@color/ic_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/icLove"
+                    app:layout_constraintStart_toEndOf="@+id/icLove"
+                    app:layout_constraintTop_toTopOf="@+id/icLove" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@string/smart_engineer_logo"
+                    android:src="@drawable/sl_double_alt_arrow_right" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

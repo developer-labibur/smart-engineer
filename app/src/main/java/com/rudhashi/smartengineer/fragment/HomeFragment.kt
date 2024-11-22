@@ -1,7 +1,6 @@
 package com.rudhashi.smartengineer.fragment
 
 import android.annotation.SuppressLint
-import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.LinearGradient
 import android.graphics.Shader
@@ -11,14 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.addCallback
-import androidx.core.app.ActivityCompat.finishAfterTransition
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.carousel.CarouselSnapHelper
@@ -27,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.TestActivity
+import com.rudhashi.smartengineer.view.SmartDashboardActivity
 import com.rudhashi.smartengineer.adapter.BookGridAdapter
 import com.rudhashi.smartengineer.adapter.CarouselAdapter
 import com.rudhashi.smartengineer.adapter.CategoryAdapter
@@ -36,13 +31,7 @@ import com.rudhashi.smartengineer.databinding.FragmentHomeBinding
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.CategoryDataClass
 import com.rudhashi.smartengineer.model.Notice
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.view.MainActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -62,12 +51,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         db = FirebaseFirestore.getInstance()
         noticeQuoteAdapter = NoticeQuoteAdapter(emptyList(), requireActivity())
-
-        // Initialize category data list and String Array for category image, title, and id --------------------------------
-        categoryDataList = ArrayList()
-        catImageList = resources.getStringArray(R.array.arrayCategoryImageUrl)
-        catTitleList = resources.getStringArray(R.array.arrayCategoryTitle)
-        catIdList = resources.getStringArray(R.array.arrayCategoryId)
 
         setGradientTextColor()
 
@@ -113,7 +96,7 @@ class HomeFragment : Fragment() {
         })
         binding.dotsIndicator.attachTo(binding.viewPager)
 
-        binding.btnMyLibrary.setOnClickListener { startActivity(Intent(requireActivity(), TestActivity::class.java)) }
+        binding.btnMyLibrary.setOnClickListener { startActivity(Intent(requireActivity(), SmartDashboardActivity::class.java)) }
 
         binding.btnProfile.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_profileActivity)
@@ -169,12 +152,7 @@ class HomeFragment : Fragment() {
     // ============================       Get Category and Carousal Data                  ==================================
     // =====================================================================================================================
     private fun getCategoryData() {
-        for (i in catImageList.indices) {
-            val categoryDataClass =
-                CategoryDataClass(catIdList[i], catTitleList[i], catImageList[i])
-            categoryDataList.add(categoryDataClass)
-        }
-        binding.recycleCategory.adapter = CategoryAdapter(categoryDataList, requireActivity())
+        //binding.recycleCategory.adapter = CategoryAdapter(categoryDataList, requireActivity())
     }
     private fun setUpCarouselRecyclerView() {
         CarouselSnapHelper().attachToRecyclerView(binding.carouselRecyclerView)

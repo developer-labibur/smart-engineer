@@ -83,41 +83,6 @@
     </string-array>
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Category List ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <string-array name="arrayCategoryId">
-        <item>CT</item>
-        <item>MT</item>
-        <item>ET</item>
-        <item>CST</item>
-        <item>ENT</item>
-        <item>PT</item>
-        <item>CNT</item>
-        <item>AIDT</item>
-        <item>FT</item>
-    </string-array>
-    <string-array name="arrayCategoryTitle">
-        <item>Civil Technology</item>
-        <item>Mechanical Technology</item>
-        <item>Electrical Technology</item>
-        <item>Computer Science &amp; Technology</item>
-        <item>Electronics Technology</item>
-        <item>Power Technology</item>
-        <item>Construction Technology</item>
-        <item>Architecture &amp; Interior Design Technology</item>
-        <item>Food Technology</item>
-    </string-array>
-    <string-array name="arrayCategoryImageUrl">
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fcivil_engineers.png?alt=media&amp;token=e8c7f4f3-7953-4a1d-8f3c-18d656376178</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Frepair.png?alt=media&amp;token=13c28183-f540-4f77-82a6-20831f339319</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Felectric-pole.png?alt=media&amp;token=8e831fba-b54d-4f63-9d92-5a0502cbd0ea</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fcoding.png?alt=media&amp;token=a421ecd5-2a07-4026-acc4-0d51988008e7</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fgadgets.png?alt=media&amp;token=7cbc5316-8525-48a7-b31d-286da3b8e9b1</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fpower.png?alt=media&amp;token=b1e5f05a-94f8-4434-a41c-e0fa730fd236</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Fconstruction_project.png?alt=media&amp;token=3fcf871e-3a3e-4c1a-81d4-990f333964c8</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Finterior.png?alt=media&amp;token=3029c814-0156-452a-b42a-4efb7f79f0b2</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/category_item%2Ffood-delivery.png?alt=media&amp;token=1924412a-d984-42e1-899d-37796f0efbc2</item>
-    </string-array>
-
-
     <string-array name="department">
         <item>Architecture Technology</item>
         <item>Civil Technology</item>
@@ -209,5 +174,29 @@
     <string name="cst">CST</string>
     <string name="copyright">© Smart Engineer ♥ Labib UR Rahman</string>
     <string name="ocean_watter_flow_background_color">Ocean watter flow background color</string>
+    <string name="sordCode">%1$s | %2$s</string>
+    <string name="all_book_list">All Book List</string>
+    <string name="create_a_new_book">Create a new book</string>
+    <string name="book_name">Book Name</string>
+    <string name="_21011">21011</string>
+    <string name="course_structure">Course Structure</string>
+    <string name="read_details">Read Details</string>
+    <string name="_254">254</string>
+    <string name="j">J</string>
+    <string name="d">D</string>
+    <string name="epartment">epartment</string>
+    <string name="ust_for_you">ust for you</string>
+    <string name="ok">OK</string>
+    <string name="coming_soon_text">ফিচারটি শীঘ্রই Smart Engineer অ্যাপে যুক্ত হবে। সাথে থাকার জন্য ধন্যবাদ।</string>
+    <string name="just_for_you_info_text">The Just for you section will only show all semesters from the department you have added to your profile, you can go to the profile page if you want to change the department</string>
+
+    <string name="number_one"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_one.png?alt=media&token=d5c547a5-59f7-44cd-bfe4-eb20dff9648e]]></string>
+    <string name="number_two"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_two.png?alt=media&token=95d63286-39c2-4b5e-9c7e-1a3721e3faa7]]></string>
+    <string name="number_three"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_three.png?alt=media&token=a0e6092e-34ab-4a3d-b7c2-b951827c56e2]]></string>
+    <string name="number_four"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_four.png?alt=media&token=77c6de97-a2d7-4d4c-9ae2-a4db1b2897af]]></string>
+    <string name="number_five"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_five.png?alt=media&token=30ab5d9d-d3c8-4a21-907c-eaf10f8005d5]]></string>
+    <string name="number_six"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_six.png?alt=media&token=bf0efde2-1fdf-4ac6-8a25-2a33fe47dcb8]]></string>
+    <string name="number_seven"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_seven.png?alt=media&token=c3de428c-1122-4917-9374-166f93c9b73e]]></string>
+    <string name="number_else"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Flove.png?alt=media&token=e315a58a-7408-4058-bbd7-d4def88a93d2]]></string>
 
 </resources>

@@ -5,311 +5,986 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    android:background="@drawable/bg_sl_scroll_box_golden"
+    android:background="@color/transparent"
     tools:context=".fragment.SmartHomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:background="@color/transparent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+
+        <!-- Top View -->
+        <LinearLayout
+            android:id="@+id/llTopView"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:background="@color/transparent"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/btnActivity"
-                style="@style/btn_features_layout"
-                app:layout_constraintEnd_toStartOf="@+id/btnInstitute"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UseCompoundDrawables">
+            <View
+                android:id="@+id/btnViewProfile"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_weight="1" />
 
-                <ImageView
-                    style="@style/btn_features_image"
-                    android:background="@drawable/bg_sl_m_orange"
-                    android:contentDescription="@string/sl_icon"
-                    android:src="@drawable/sl_m_activity" />
+            <View
+                android:id="@+id/btnViewPremium"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1" />
 
-                <TextView
-                    style="@style/btn_features_text"
-                    android:text="@string/activity" />
+        </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnInstitute"
-                style="@style/btn_features_layout"
-                app:layout_constraintEnd_toStartOf="@+id/btnRecycling"
-                app:layout_constraintStart_toEndOf="@+id/btnActivity"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    style="@style/btn_features_image"
-                    android:background="@drawable/bg_sl_m_blue"
-                    android:contentDescription="@string/sl_icon"
-                    android:src="@drawable/sl_m_institute" />
-
-                <TextView
-                    style="@style/btn_features_text"
-                    android:text="@string/institute" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnRecycling"
-                style="@style/btn_features_layout"
-                app:layout_constraintEnd_toStartOf="@+id/btnCommunity"
-                app:layout_constraintStart_toEndOf="@+id/btnInstitute"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:paddingTop="12dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="8dp"
-                    android:background="@drawable/bg_sl_m_green"
-                    android:contentDescription="@string/sl_icon"
-                    android:src="@drawable/sl_m_recycling"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"/>
-
-                <TextView
-                    style="@style/btn_features_text"
-                    android:text="@string/recycling" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnCommunity"
-                style="@style/btn_features_layout"
-                app:layout_constraintEnd_toStartOf="@+id/btnCalculator"
-                app:layout_constraintStart_toEndOf="@+id/btnRecycling"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    style="@style/btn_features_image"
-                    android:background="@drawable/bg_sl_m_red"
-                    android:contentDescription="@string/sl_icon"
-                    android:src="@drawable/sl_m_community" />
-
-                <TextView
-                    style="@style/btn_features_text"
-                    android:text="@string/community" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnCalculator"
-                style="@style/btn_features_layout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnCommunity"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    style="@style/btn_features_image"
-                    android:background="@drawable/bg_sl_m_purple"
-                    android:contentDescription="@string/sl_icon"
-                    android:src="@drawable/sl_m_calculator" />
-
-                <TextView
-                    style="@style/btn_features_text"
-                    android:text="@string/calculator" />
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <!-- Main Container -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout4"
+            android:id="@+id/clContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/bg_sl_notice_box"
+            android:padding="20dp"
+            android:background="@drawable/bg_sl_scroll_box_golden"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+            app:layout_constraintTop_toBottomOf="@+id/llTopView" >
 
-            <ImageView
-                android:id="@+id/imageView3"
-                style="@style/btn_features_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/bg_sl_notice_icon"
-                android:contentDescription="@string/sl_icon"
-                android:padding="2dp"
-                android:src="@drawable/live"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <!-- App Features -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textView"
+                <LinearLayout
+                    android:id="@+id/btnActivity"
+                    style="@style/btn_features_layout"
+                    app:layout_constraintEnd_toStartOf="@+id/btnInstitute"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        style="@style/btn_features_image"
+                        android:background="@drawable/bg_sl_m_orange"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_m_activity" />
+
+                    <TextView
+                        style="@style/btn_features_text"
+                        android:text="@string/activity" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnInstitute"
+                    style="@style/btn_features_layout"
+                    app:layout_constraintEnd_toStartOf="@+id/btnRecycling"
+                    app:layout_constraintStart_toEndOf="@+id/btnActivity"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        style="@style/btn_features_image"
+                        android:background="@drawable/bg_sl_m_blue"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_m_institute" />
+
+                    <TextView
+                        style="@style/btn_features_text"
+                        android:text="@string/institute" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnRecycling"
+                    style="@style/btn_features_layout"
+                    app:layout_constraintEnd_toStartOf="@+id/btnCommunity"
+                    app:layout_constraintStart_toEndOf="@+id/btnInstitute"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:paddingTop="12dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="8dp"
+                        android:background="@drawable/bg_sl_m_green"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_m_recycling"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"/>
+
+                    <TextView
+                        style="@style/btn_features_text"
+                        android:text="@string/recycling" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnCommunity"
+                    style="@style/btn_features_layout"
+                    app:layout_constraintEnd_toStartOf="@+id/btnCalculator"
+                    app:layout_constraintStart_toEndOf="@+id/btnRecycling"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        style="@style/btn_features_image"
+                        android:background="@drawable/bg_sl_m_red"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_m_community" />
+
+                    <TextView
+                        style="@style/btn_features_text"
+                        android:text="@string/community" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnCalculator"
+                    style="@style/btn_features_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnCommunity"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        style="@style/btn_features_image"
+                        android:background="@drawable/bg_sl_m_purple"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_m_calculator" />
+
+                    <TextView
+                        style="@style/btn_features_text"
+                        android:text="@string/calculator" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Marquee Notice -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="5dp"
-                android:ellipsize="marquee"
-                android:fontFamily="@font/main_font_regular_2"
-                android:singleLine="true"
-                android:text="@string/notice_demo"
-                android:textColor="@color/sl_primary_text"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_sl_notice_box"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    style="@style/btn_features_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/bg_sl_notice_icon"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="2dp"
+                    android:src="@drawable/live"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/marqueeTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="5dp"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:text="@string/notice_demo"
+                    android:textColor="@color/sl_primary_text"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- D -> Text -->
+            <TextView
+                android:id="@+id/tvD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/main_font_regular_2"
+                android:includeFontPadding="false"
+                android:text="@string/d"
+                android:textColor="@color/sl_action_text_middle_red"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+            <!-- epartment -> Text -->
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font_regular_2"
+                android:includeFontPadding="false"
+                android:text="@string/epartment"
+                android:textColor="@color/sl_primary_text"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvD"
+                app:layout_constraintStart_toEndOf="@+id/tvD"
+                app:layout_constraintTop_toTopOf="@+id/tvD" />
+
+            <!-- Department Icon -->
+            <ImageView
+                android:id="@+id/icDep"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/sl_academic_caps_fill"
+                app:layout_constraintBottom_toBottomOf="@+id/tvD"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvD" />
+
+            <!-- Department Section -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleCategory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                android:foregroundGravity="center"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvD"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_features"/>
+
+            <!-- J -> Text -->
+            <TextView
+                android:id="@+id/tvJ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/changa_variable_wght"
+                android:includeFontPadding="false"
+                android:text="@string/j"
+                android:textColor="@color/sl_action_text_middle_red"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycleCategory" />
+
+            <!-- ust for you -> Text -->
+            <TextView
+                android:id="@+id/tvFullLetter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font_regular_2"
+                android:includeFontPadding="false"
+                android:text="@string/ust_for_you"
+                android:textColor="@color/sl_primary_text"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvJ"
+                app:layout_constraintStart_toEndOf="@+id/tvJ"
+                app:layout_constraintTop_toTopOf="@+id/tvJ" />
+
+            <!-- Just for you Icon -->
+            <ImageView
+                android:id="@+id/icJust"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/sl_hashtag_circle_fill"
+                app:layout_constraintBottom_toBottomOf="@+id/tvFullLetter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvFullLetter" />
+
+            <!-- Semester Section -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleSemester"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvJ"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_semester_number"
+                tools:itemCount="2"/>
+
+            <!-- Semester Information -->
+            <TextView
+                android:id="@+id/tvSemesterInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/hind_siliguri"
+                android:lineSpacingExtra="-3dp"
+                android:includeFontPadding="false"
+                android:text="@string/just_for_you_info_text"
+                android:textColor="@color/sl_primary_text"
+                android:textSize="12sp"
+                android:paddingBottom="100dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@id/recycleSemester"/>
+
+            <!--LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvJ">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center"
+                    android:id="@+id/btnSemester1"
+                    android:orientation="vertical"
+                    android:background="@color/sl_secoundary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter">
+
+                    <View
+                        android:id="@+id/semView1"
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange_main_color"
+                        app:layout_constraintEnd_toEndOf="@+id/semAbbr1"
+                        app:layout_constraintStart_toStartOf="@+id/semAbbr1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/semAbbr1"
+                        style="@style/btn_features_text"
+                        android:background="@color/sl_secoundary"
+                        android:text="@string/cst"
+                        android:textSize="@dimen/text_size_large"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/semView1" />
+
+                    <ImageView
+                        android:id="@+id/semIcon1"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_sort_right"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView1"
+                        app:layout_constraintStart_toEndOf="@+id/semAbbr1"
+                        app:layout_constraintTop_toTopOf="@+id/semView1" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/semLayout1"
+                        android:layout_width="0dp"
+                        android:layout_height="57dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_sl_notice_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/semIcon1"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/semImage1"
+                            style="@style/btn_features_image"
+                            android:background="@drawable/bg_sl_m_orange"
+                            android:contentDescription="@string/sl_icon"
+                            android:src="@drawable/number_one"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/semNumber1"
+                            style="@style/btn_features_text"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/_1st_semester"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toEndOf="@+id/semImage1"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            style="@style/sem_text"
+                            android:text="@string/computer_science_and_technology"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/semImage1"
+                            app:layout_constraintTop_toBottomOf="@id/semNumber1" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center"
+                    android:id="@+id/btnSemester2"
+                    android:orientation="vertical"
+                    android:background="@color/sl_secoundary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter">
+
+                    <View
+                        android:id="@+id/semView2"
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange_main_color"
+                        app:layout_constraintEnd_toEndOf="@+id/semAbbr2"
+                        app:layout_constraintStart_toStartOf="@+id/semAbbr2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/semAbbr2"
+                        style="@style/btn_features_text"
+                        android:background="@color/sl_secoundary"
+                        android:text="@string/cst"
+                        android:textSize="@dimen/text_size_large"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/semView2" />
+
+                    <ImageView
+                        android:id="@+id/semIcon2"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_sort_right"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView2"
+                        app:layout_constraintStart_toEndOf="@+id/semAbbr2"
+                        app:layout_constraintTop_toTopOf="@+id/semView2" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/semLayout2"
+                        android:layout_width="0dp"
+                        android:layout_height="57dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_sl_notice_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/semIcon2"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/semImage2"
+                            style="@style/btn_features_image"
+                            android:background="@drawable/bg_sl_m_orange"
+                            android:contentDescription="@string/sl_icon"
+                            android:src="@drawable/number_two"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/semNumber2"
+                            style="@style/btn_features_text"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/_1st_semester"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toEndOf="@+id/semImage2"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            style="@style/sem_text"
+                            android:text="@string/computer_science_and_technology"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/semImage2"
+                            app:layout_constraintTop_toBottomOf="@id/semNumber2" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center"
+                    android:id="@+id/btnSemester3"
+                    android:orientation="vertical"
+                    android:background="@color/sl_secoundary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter">
+
+                    <View
+                        android:id="@+id/semView3"
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange_main_color"
+                        app:layout_constraintEnd_toEndOf="@+id/semAbbr3"
+                        app:layout_constraintStart_toStartOf="@+id/semAbbr3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/semAbbr3"
+                        style="@style/btn_features_text"
+                        android:background="@color/sl_secoundary"
+                        android:text="@string/cst"
+                        android:textSize="@dimen/text_size_large"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/semView3" />
+
+                    <ImageView
+                        android:id="@+id/semIcon3"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_sort_right"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView3"
+                        app:layout_constraintStart_toEndOf="@+id/semAbbr3"
+                        app:layout_constraintTop_toTopOf="@+id/semView3" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/semLayout3"
+                        android:layout_width="0dp"
+                        android:layout_height="57dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_sl_notice_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/semIcon3"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/semImage3"
+                            style="@style/btn_features_image"
+                            android:background="@drawable/bg_sl_m_orange"
+                            android:contentDescription="@string/sl_icon"
+                            android:src="@drawable/number_three"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/semNumber3"
+                            style="@style/btn_features_text"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/_1st_semester"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toEndOf="@+id/semImage3"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            style="@style/sem_text"
+                            android:text="@string/computer_science_and_technology"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/semImage3"
+                            app:layout_constraintTop_toBottomOf="@id/semNumber3" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center"
+                    android:id="@+id/btnSemester4"
+                    android:orientation="vertical"
+                    android:background="@color/sl_secoundary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter">
+
+                    <View
+                        android:id="@+id/semView4"
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange_main_color"
+                        app:layout_constraintEnd_toEndOf="@+id/semAbbr4"
+                        app:layout_constraintStart_toStartOf="@+id/semAbbr4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/semAbbr4"
+                        style="@style/btn_features_text"
+                        android:background="@color/sl_secoundary"
+                        android:text="@string/cst"
+                        android:textSize="@dimen/text_size_large"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/semView4" />
+
+                    <ImageView
+                        android:id="@+id/semIcon4"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_sort_right"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView4"
+                        app:layout_constraintStart_toEndOf="@+id/semAbbr4"
+                        app:layout_constraintTop_toTopOf="@+id/semView4" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/semLayout4"
+                        android:layout_width="0dp"
+                        android:layout_height="57dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_sl_notice_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/semIcon4"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/semImage4"
+                            style="@style/btn_features_image"
+                            android:background="@drawable/bg_sl_m_orange"
+                            android:contentDescription="@string/sl_icon"
+                            android:src="@drawable/number_four"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/semNumber4"
+                            style="@style/btn_features_text"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/_1st_semester"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toEndOf="@+id/semImage4"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            style="@style/sem_text"
+                            android:text="@string/computer_science_and_technology"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/semImage4"
+                            app:layout_constraintTop_toBottomOf="@id/semNumber4" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center"
+                    android:id="@+id/btnSemester5"
+                    android:orientation="vertical"
+                    android:background="@color/sl_secoundary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter">
+
+                    <View
+                        android:id="@+id/semView5"
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange_main_color"
+                        app:layout_constraintEnd_toEndOf="@+id/semAbbr5"
+                        app:layout_constraintStart_toStartOf="@+id/semAbbr5"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/semAbbr5"
+                        style="@style/btn_features_text"
+                        android:background="@color/sl_secoundary"
+                        android:text="@string/cst"
+                        android:textSize="@dimen/text_size_large"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/semView5" />
+
+                    <ImageView
+                        android:id="@+id/semIcon5"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_sort_right"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView5"
+                        app:layout_constraintStart_toEndOf="@+id/semAbbr5"
+                        app:layout_constraintTop_toTopOf="@+id/semView5" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/semLayout5"
+                        android:layout_width="0dp"
+                        android:layout_height="57dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_sl_notice_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/semIcon5"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/semImage5"
+                            style="@style/btn_features_image"
+                            android:background="@drawable/bg_sl_m_orange"
+                            android:contentDescription="@string/sl_icon"
+                            android:src="@drawable/number_five"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/semNumber5"
+                            style="@style/btn_features_text"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/_1st_semester"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toEndOf="@+id/semImage5"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            style="@style/sem_text"
+                            android:text="@string/computer_science_and_technology"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/semImage5"
+                            app:layout_constraintTop_toBottomOf="@id/semNumber5" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center"
+                    android:id="@+id/btnSemester6"
+                    android:orientation="vertical"
+                    android:background="@color/sl_secoundary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter6">
+
+                    <View
+                        android:id="@+id/semView6"
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange_main_color"
+                        app:layout_constraintEnd_toEndOf="@+id/semAbbr6"
+                        app:layout_constraintStart_toStartOf="@+id/semAbbr6"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/semAbbr6"
+                        style="@style/btn_features_text"
+                        android:background="@color/sl_secoundary"
+                        android:text="@string/cst"
+                        android:textSize="@dimen/text_size_large"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/semView6" />
+
+                    <ImageView
+                        android:id="@+id/semIcon6"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_sort_right"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView6"
+                        app:layout_constraintStart_toEndOf="@+id/semAbbr6"
+                        app:layout_constraintTop_toTopOf="@+id/semView6" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/semLayout6"
+                        android:layout_width="0dp"
+                        android:layout_height="57dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_sl_notice_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/semIcon6"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/semImage6"
+                            style="@style/btn_features_image"
+                            android:background="@drawable/bg_sl_m_orange"
+                            android:contentDescription="@string/sl_icon"
+                            android:src="@drawable/number_six"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/semNumber6"
+                            style="@style/btn_features_text"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/_1st_semester"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toEndOf="@+id/semImage6"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            style="@style/sem_text"
+                            android:text="@string/computer_science_and_technology"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/semImage6"
+                            app:layout_constraintTop_toBottomOf="@id/semNumber6" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center"
+                    android:id="@+id/btnSemester7"
+                    android:orientation="vertical"
+                    android:background="@color/sl_secoundary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter7"
+                    tools:ignore="TooManyViews">
+
+                    <View
+                        android:id="@+id/semView7"
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/orange_main_color"
+                        app:layout_constraintEnd_toEndOf="@+id/semAbbr7"
+                        app:layout_constraintStart_toStartOf="@+id/semAbbr7"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/semAbbr7"
+                        style="@style/btn_features_text"
+                        android:background="@color/sl_secoundary"
+                        android:text="@string/cst"
+                        android:textSize="@dimen/text_size_large"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/semView7" />
+
+                    <ImageView
+                        android:id="@+id/semIcon7"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/sl_sort_right"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView7"
+                        app:layout_constraintStart_toEndOf="@+id/semAbbr7"
+                        app:layout_constraintTop_toTopOf="@+id/semView7" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/semLayout7"
+                        android:layout_width="0dp"
+                        android:layout_height="57dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_sl_notice_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/semView7"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/semIcon7"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/semImage7"
+                            style="@style/btn_features_image"
+                            android:background="@drawable/bg_sl_m_orange"
+                            android:contentDescription="@string/sl_icon"
+                            android:src="@drawable/number_seven"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/semNumber7"
+                            style="@style/btn_features_text"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/_1st_semester"
+                            android:textSize="@dimen/text_size_large"
+                            app:layout_constraintStart_toEndOf="@+id/semImage7"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            style="@style/sem_text"
+                            android:text="@string/computer_science_and_technology"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/semImage7"
+                            app:layout_constraintTop_toBottomOf="@id/semNumber7" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tvD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/main_font_regular_2"
-            android:includeFontPadding="false"
-            android:text="D"
-            android:textColor="@color/sl_action_text_middle_red"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/main_font_regular_2"
-            android:includeFontPadding="false"
-            android:text="epartment"
-            android:textColor="@color/sl_primary_text"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tvD"
-            app:layout_constraintStart_toEndOf="@+id/tvD"
-            app:layout_constraintTop_toTopOf="@+id/tvD" />
-
-        <ImageView
-            android:id="@+id/icDep"
-            android:layout_width="20dp"
+        <!-- Cat Icon View -->
+        <View
+            android:layout_width="75dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="20dp"
-            android:contentDescription="@string/sl_icon"
-            android:src="@drawable/sl_academic_caps_fill"
-            app:layout_constraintBottom_toBottomOf="@+id/tvD"
+            android:background="@drawable/bg_sl_cat_golden"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvD" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llTopView" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleCategory"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:nestedScrollingEnabled="false"
+        <!-- Cat Icon -->
+        <LinearLayout
+            android:id="@+id/ll_cat"
+            android:layout_width="80dp"
+            android:layout_height="43dp"
+            android:layout_margin="5dp"
             android:orientation="horizontal"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:paddingBottom="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/clContainer"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvD"
-            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_features"/>
+            app:layout_constraintTop_toTopOf="@+id/clContainer">
 
-        <TextView
-            android:id="@+id/tvJ"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/changa_variable_wght"
-            android:includeFontPadding="false"
-            android:text="J"
-            android:textColor="@color/sl_action_text_middle_red"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycleCategory" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/cute_cat" />
 
-        <TextView
-            android:id="@+id/tvFullLetter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/main_font_regular_2"
-            android:includeFontPadding="false"
-            android:text="ust for you"
-            android:textColor="@color/sl_primary_text"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tvJ"
-            app:layout_constraintStart_toEndOf="@+id/tvJ"
-            app:layout_constraintTop_toTopOf="@+id/tvJ" />
 
-        <ImageView
-            android:id="@+id/icJust"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="20dp"
-            android:contentDescription="@string/sl_icon"
-            android:src="@drawable/sl_hashtag_circle_fill"
-            app:layout_constraintBottom_toBottomOf="@+id/tvFullLetter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvFullLetter" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleSemester"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:nestedScrollingEnabled="false"
-            android:orientation="vertical"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            tools:itemCount="2"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvJ"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_semester_number" />
-
-        <!-- Footer  -->
-        <ImageView
-            android:id="@+id/bgBottomWave"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="30dp"
-            android:contentDescription="@string/ocean_watter_flow_background_color"
-            android:scaleType="fitXY"
-            android:src="@drawable/bg_home_page_bottom_blue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycleSemester" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/baumans_regular"
-            android:layout_marginBottom="7dp"
-            android:text="@string/copyright"
-            android:textColor="@color/sl_primary_text"
-            app:layout_constraintBottom_toBottomOf="@+id/bgBottomWave"
-            app:layout_constraintEnd_toEndOf="@+id/bgBottomWave"
-            app:layout_constraintStart_toStartOf="@+id/bgBottomWave" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </ScrollView>

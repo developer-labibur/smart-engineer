@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.rudhashi.smartengineer.fragment.ExploreFragment
 import com.rudhashi.smartengineer.fragment.HomeFragment
+import com.rudhashi.smartengineer.fragment.LoginFragment
 import com.rudhashi.smartengineer.fragment.NoticeFragment
 import com.rudhashi.smartengineer.fragment.SmartHomeFragment
 
@@ -19,7 +20,7 @@ class FragmentPageAdapter (
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        return 3
+        return 4
     }
 
     /**
@@ -38,8 +39,9 @@ class FragmentPageAdapter (
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> SmartHomeFragment()
-            1 -> ExploreFragment()
-            2 -> NoticeFragment()
+            1 -> NoticeFragment()
+            2 -> SmartHomeFragment()
+            3 -> LoginFragment()
             else -> SmartHomeFragment() // Default to HomeFragment if position is out of range
         }
     }

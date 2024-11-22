@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="65dp"
     android:gravity="center"
     android:id="@+id/btnSemester"
     android:orientation="vertical"
@@ -14,49 +14,52 @@
     <View
         android:id="@+id/semView"
         android:layout_width="4dp"
-        android:layout_height="65dp"
-        android:background="@color/orange_main_color"
-        app:layout_constraintEnd_toEndOf="@+id/semAbbr"
-        app:layout_constraintStart_toStartOf="@+id/semAbbr"
+        android:layout_height="match_parent"
+        android:background="@color/blue_main_color"
+        app:layout_constraintEnd_toStartOf="@+id/semLayout"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/semAbbr"
         style="@style/btn_features_text"
         android:background="@color/sl_secoundary"
-        android:text="@string/cst"
         android:textSize="@dimen/text_size_large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/semView"
+        app:layout_constraintStart_toStartOf="@id/semView"
+        app:layout_constraintEnd_toEndOf="@id/semView"
         app:layout_constraintTop_toTopOf="@+id/semView" />
 
     <ImageView
         android:id="@+id/semIcon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="2dp"
         android:layout_marginBottom="2dp"
         android:contentDescription="@string/sl_icon"
         android:src="@drawable/sl_sort_right"
         app:layout_constraintBottom_toBottomOf="@+id/semView"
-        app:layout_constraintStart_toEndOf="@+id/semAbbr"
-        app:layout_constraintTop_toTopOf="@+id/semView" />
+        app:layout_constraintEnd_toStartOf="@+id/semLayout"
+        app:layout_constraintTop_toTopOf="@+id/semView"
+        app:layout_constraintVertical_bias="0.52" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/semLayout"
         android:layout_width="0dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="5dp"
-        android:background="@drawable/bg_sl_notice_box"
+        android:layout_height="59dp"
+        android:layout_marginStart="60dp"
+        android:background="@drawable/abc_blue_active"
         app:layout_constraintBottom_toBottomOf="@+id/semView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/semIcon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:layout_margin="5dp"
             android:id="@+id/semImage"
             style="@style/btn_features_image"
-            android:background="@drawable/bg_sl_m_orange"
+            android:background="@drawable/abc_blue_main"
             android:contentDescription="@string/sl_icon"
             android:src="@drawable/number_one"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,15 +70,14 @@
             android:id="@+id/semNumber"
             style="@style/btn_features_text"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="6dp"
-            android:text="@string/_1st_semester"
+            android:layout_marginTop="5dp"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintStart_toEndOf="@+id/semImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tvDep"
             style="@style/sem_text"
-            android:text="@string/computer_science_and_technology"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/semImage"

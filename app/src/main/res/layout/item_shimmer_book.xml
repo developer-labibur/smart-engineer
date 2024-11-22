@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clickNoticeItem"
+    android:layout_width="wrap_content"
+    android:layout_height="90dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="15dp"
+    android:orientation="horizontal"
+    android:padding="13dp">
+
+    <LinearLayout
+        android:id="@+id/ll_itemBG"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@color/shimmer"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnRead"
+            app:layout_constraintStart_toEndOf="@+id/ll_itemBG"
+            app:layout_constraintTop_toTopOf="@+id/ll_itemBG">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_toStartOf="@id/clBookCode"
+                android:layout_marginStart="16dp"
+                android:layout_alignParentStart="true"
+                android:background="@color/shimmer"
+                android:textColor="@color/black" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clBookCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true">
+
+                <TextView
+                    android:id="@+id/bookCode"
+                    android:layout_width="60dp"
+                    android:layout_height="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/shimmer"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnLove"
+                    app:layout_constraintEnd_toStartOf="@+id/btnLove"
+                    app:layout_constraintTop_toTopOf="@+id/btnLove" />
+
+                <ImageView
+                    android:id="@+id/btnLove"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@color/shimmer"
+                    android:contentDescription="@string/sl_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/btnRead"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/icLove"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/shimmer"
+                    android:contentDescription="@string/sl_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/bookViewCount"
+                    android:layout_width="50dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/shimmer"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:textColor="@color/mainContainer_SubHeadingText"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icLove"
+                    app:layout_constraintStart_toEndOf="@+id/icLove"
+                    app:layout_constraintTop_toTopOf="@+id/icLove" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/btnRead"
+                android:layout_width="120dp"
+                android:layout_height="20dp"
+                android:background="@color/shimmer"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:visibility="visible">
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

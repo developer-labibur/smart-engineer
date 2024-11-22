@@ -15,10 +15,8 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivityDashboardBinding
-import com.rudhashi.smartengineer.fragment.BooksFragment
 import com.rudhashi.smartengineer.fragment.ExploreFragment
 import com.rudhashi.smartengineer.fragment.LoginFragment
-import com.rudhashi.smartengineer.fragment.SignupFragment
 import com.rudhashi.smartengineer.fragment.HomeFragment
 import com.rudhashi.smartengineer.fragment.NoticeFragment
 
@@ -28,7 +26,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding
 
     // Default value is 1 because 1st tab is selected by default
-    private var selectedTab = 1
+    private var selectedTab = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -153,7 +151,7 @@ class DashboardActivity : AppCompatActivity() {
                     // select profile tab
                     tvNotice.visibility = View.VISIBLE
                     ivNotice.setImageResource(R.drawable.sl_academic_cap_fill)
-                    llNotice.setBackgroundResource(R.drawable.round_back_notice_100)
+                    llNotice.setBackgroundResource(R.drawable.round_back_updates_100)
 
                     // create animation
                     val scaleAnimation = ScaleAnimation(0.8f, 1.0f, 1f, 1f,
@@ -195,7 +193,7 @@ class DashboardActivity : AppCompatActivity() {
                     // select explore tab
                     tvExplore.visibility = View.VISIBLE
                     ivExplore.setImageResource(R.drawable.sl_library_fill)
-                    llExplore.setBackgroundResource(R.drawable.round_back_explore_100)
+                    llExplore.setBackgroundResource(R.drawable.round_back_setting_100)
 
                     // create animation
                     val scaleAnimation = ScaleAnimation(0.8f, 1.0f, 1f, 1f,
