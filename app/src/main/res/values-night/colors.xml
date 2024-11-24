@@ -68,4 +68,12 @@
 
     <color name="orange_active_color">#5DFF6F00</color>
 
+    <!-- Modern Light Color -->
+    <color name="orange_light_color">#33f8e9d4</color>
+    <color name="blue_light_color">#33c5eae9</color>
+    <color name="green_light_color">#33d0eed3</color>
+    <color name="pink_light_color">#33fddae5</color>
+    <color name="indian_red_light_color">#33f8d4d4</color>
+    <color name="purple_light_color">#33C9CCFF</color>
+
 </resources>

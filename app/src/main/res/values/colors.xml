@@ -213,7 +213,7 @@
 
     <!-- Purple ~ Modern => Explore -->
     <color name="purple_active_color">#A3A7FB</color>
-    <color name="purple_light_color">#C9CCFF</color>
+    <color name="purple_light_color">#CED1FF</color>
     <color name="purple_main_color">#8692f7</color>
     <color name="purple_text_color">#5B37B7</color>
     <color name="purple_fill_color">#B75B37B7</color>
@@ -236,7 +236,7 @@
     <color name="yellow_active_color">#f0e68c</color>
     <color name="yellow_flow_color">#ffdf34</color>
     <color name="yellow_light_color">#fffacd</color>
-    <color name="yellow_main_color">#ffda14</color>
+    <color name="yellow_main_color">#FFDA00</color>
     <color name="yellow_text_color">#d5b405</color>
 
     <!-- ================================================================================================== -->

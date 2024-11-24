@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ProfileActivity"
-    android:background="@color/mainContainer_Bg">
+    android:background="@color/sl_primary">
 
     <ScrollView
         android:layout_width="match_parent"

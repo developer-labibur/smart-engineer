@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
+import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.adapter.CategoryAdapter
 import com.rudhashi.smartengineer.adapter.SemesterAdapter
 import com.rudhashi.smartengineer.databinding.FragmentSmartHomeBinding
@@ -58,10 +59,8 @@ class SmartHomeFragment : Fragment() {
 
         // Category or Department Set Up -----------------------------------------------------------------------------------
         binding.apply {
-            recycleCategory.layoutManager =
-                GridLayoutManager(requireActivity(), 3, GridLayoutManager.VERTICAL, false)
-            recycleSemester.layoutManager =
-                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+            recycleCategory.layoutManager = GridLayoutManager(requireActivity(), 3)
+            recycleSemester.layoutManager = LinearLayoutManager(requireActivity())
             recycleCategory.setHasFixedSize(true)
             recycleSemester.setHasFixedSize(true)
             recycleCategory.isNestedScrollingEnabled = false
@@ -72,12 +71,9 @@ class SmartHomeFragment : Fragment() {
 
         // Button Click ----------------------------------------------------------------
         binding.apply {
-            btnViewProfile.setOnClickListener {
-                startActivity(Intent(requireActivity(), ProfileActivity::class.java))
-                SmartData.sToast(requireActivity(), "Profile button clicked")
-            }
-
+            btnViewProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
             btnViewPremium.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+
             btnActivity.setOnClickListener { SmartData.comingSoon(requireActivity()) }
             btnInstitute.setOnClickListener { SmartData.comingSoon(requireActivity()) }
             btnRecycling.setOnClickListener { SmartData.comingSoon(requireActivity()) }
@@ -139,46 +135,83 @@ class SmartHomeFragment : Fragment() {
             .addOnSuccessListener {
                 val departmentCode = it.value?.let { it1 -> ConvertFB.covertDepartmentToCode(it1) }
 
-                // Check user department data available or not.. If user add department then show all semester.. Else Show please complete your profile..
-                if (departmentCode?.isNotEmpty() == true) {
+                // Check user department data available or not.. If user add department then show all semester.. Other wise Show please complete your profile..
+                if (departmentCode?.isEmpty() == true) {
+                    binding.recycleSemester.visibility = View.GONE
+                    binding.tvSemesterInfo.visibility = View.GONE
+                    binding.animationView.visibility = View.VISIBLE
+                    binding.viewFooter.visibility = View.VISIBLE
+                    binding.tvWarningInfo.visibility = View.VISIBLE
+                    binding.tvWarningInfo.text = getString(R.string.just_for_you_warn_text)
 
+                    Log.d("getSemesterData", "Department Code is : Not Found")
+                    SmartData.lToast(requireActivity(), "Please complete your profile..")
+                    return@addOnSuccessListener
+                } else {
                     Log.d("getSemesterData", "Department Code is : $departmentCode")
 
-                    // Fetch all semester data from Firebase FireStore Database
-                    db?.collection("semester_total")
-                        ?.get()?.addOnSuccessListener { querySnapshot ->
-                            for (document in querySnapshot.documents) {
-                                val department = document.toObject<SemeterTotal>()
-                                semesterList.add(department!!)
+                    // If user is from 101 (BSC Engineering) or 102 (Other) department then hide CategoryRecycleView and semester information TextView..
+                    when (departmentCode) {
+                        "101" -> {
+                            binding.recycleSemester.visibility = View.GONE
+                            binding.tvSemesterInfo.visibility = View.GONE
+                            binding.animationView.visibility = View.VISIBLE
+                            binding.viewFooter.visibility = View.VISIBLE
+                            binding.tvWarningInfo.visibility = View.VISIBLE
+                            binding.tvWarningInfo.text = getString(R.string.no_data_was_found_for_the_bsc_engineering_department)
+                        }
+                        "102" -> {
+                            binding.recycleSemester.visibility = View.GONE
+                            binding.tvSemesterInfo.visibility = View.GONE
+                            binding.animationView.visibility = View.VISIBLE
+                            binding.viewFooter.visibility = View.VISIBLE
+                            binding.tvWarningInfo.visibility = View.VISIBLE
+                            binding.tvWarningInfo.text = getString(R.string.no_data_was_found_for_others_department)
+                        }
+                        else -> {
+                            binding.recycleSemester.visibility = View.VISIBLE
+                            binding.tvSemesterInfo.visibility = View.VISIBLE
+                            binding.animationView.visibility = View.GONE
+                            binding.viewFooter.visibility = View.GONE
+                            binding.tvWarningInfo.visibility = View.GONE
 
-                                // Get Users save Department all Information.. Like: Department Name, Department Abbr, Department Information, etc..
-                                db?.collection("departments")
-                                    ?.document(departmentCode)
-                                    ?.get()?.addOnSuccessListener { querySnapshotUnder ->
-                                        val userDep = querySnapshotUnder.toObject<CategoryDataClass>()
-                                        val dAbbr = userDep!!.DAbbr
-                                        val depName = userDep.DName
+                            // Fetch all semester data from Firebase FireStore Database
+                            db?.collection("semester_total")
+                                ?.get()?.addOnSuccessListener { querySnapshot ->
+                                    for (document in querySnapshot.documents) {
+                                        val department = document.toObject<SemeterTotal>()
+                                        semesterList.add(department!!)
 
-                                        semesterAdapter = SemesterAdapter(semesterList, requireActivity(), dAbbr, depName)
-                                        binding.recycleSemester.adapter = semesterAdapter
+                                        // Get Users save Department all Information.. Like: Department Name, Department Abbr, Department Information, etc..
+                                        departmentCode?.let { it1 ->
+                                            db?.collection("departments")
+                                                ?.document(it1)
+                                                ?.get()?.addOnSuccessListener { querySnapshotUnder ->
+                                                    val userDep = querySnapshotUnder.toObject<CategoryDataClass>()
+                                                    val dAbbr = userDep!!.DAbbr
+                                                    val depName = userDep.DName
 
-                                        // Set the click listener
-                                        semesterAdapter.setOnItemClickListener(object :
-                                            SemesterAdapter.OnItemClickListener {
-                                            override fun onItemClick(position: Int, dAbbr: String, depName: String, semName: String) {
-                                                val intent = Intent(requireActivity(), AllBookActivity::class.java)
-                                                intent.putExtra("fieldName", "xSem")
-                                                intent.putExtra("semesterCode", "${dAbbr}${position+1}")
-                                                intent.putExtra("departmentName", depName)
-                                                intent.putExtra("semesterName", semName)
-                                                startActivity(intent)
-                                            }
-                                        })
-                                    }?.addOnFailureListener { SmartData.lToast(requireActivity(), "Failed to fetch user saved department data}") }
-                            }
-                        }?.addOnFailureListener { SmartData.lToast(requireActivity(),"Failed to fetch semester data.") }
-                } else {
-                    Log.d("getSemesterData", "Department Code is : Not Found")
+                                                    semesterAdapter = SemesterAdapter(semesterList, requireActivity(), dAbbr, depName)
+                                                    binding.recycleSemester.adapter = semesterAdapter
+
+                                                    // Set the click listener
+                                                    semesterAdapter.setOnItemClickListener(object :
+                                                        SemesterAdapter.OnItemClickListener {
+                                                        override fun onItemClick(position: Int, dAbbr: String, depName: String, semName: String) {
+                                                            val intent = Intent(requireActivity(), AllBookActivity::class.java)
+                                                            intent.putExtra("fieldName", "xSem")
+                                                            intent.putExtra("semesterCode", "${dAbbr}${position+1}")
+                                                            intent.putExtra("departmentName", depName)
+                                                            intent.putExtra("semesterName", semName)
+                                                            startActivity(intent)
+                                                        }
+                                                    })
+                                                }?.addOnFailureListener { SmartData.lToast(requireActivity(), "Failed to fetch user saved department data}") }
+                                        }
+                                    }
+                                }?.addOnFailureListener { SmartData.lToast(requireActivity(),"Failed to fetch semester data.") }
+                        }
+                    }
                 }
             }
     }

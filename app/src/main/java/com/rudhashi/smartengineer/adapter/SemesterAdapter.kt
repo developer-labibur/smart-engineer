@@ -36,34 +36,45 @@ class SemesterAdapter (private var dataList: List<SemeterTotal>, private val con
         holder.itemView.setOnClickListener { listener?.onItemClick(position, dAbbr, depName, semesterDataList.STName) }
 
         // Random Gradient Background Color Programmatically
-        val number = SmartData.randomNumber(4)
+        val number = SmartData.randomNumber(6)
         when (number) {
             1 -> {
                 holder.binding.semImage.setBackgroundResource(R.drawable.abc_blue_main)
-                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_blue_active)
-                holder.binding.semView.setBackgroundResource(R.color.blue_main_color)
+                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_blue_light)
+                holder.binding.semView.setBackgroundResource(R.color.blue_light_color)
             }
             2 -> {
                 holder.binding.semImage.setBackgroundResource(R.drawable.abc_green_main)
-                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_green_active)
-                holder.binding.semView.setBackgroundResource(R.color.green_main_color)
+                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_green_light)
+                holder.binding.semView.setBackgroundResource(R.color.green_light_color)
             }
             3 -> {
                 holder.binding.semImage.setBackgroundResource(R.drawable.abc_pink_main)
-                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_pink_active)
-                holder.binding.semView.setBackgroundResource(R.color.pink_main_color)
+                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_pink_light)
+                holder.binding.semView.setBackgroundResource(R.color.pink_light_color)
             }
             4 -> {
                 holder.binding.semImage.setBackgroundResource(R.drawable.abc_orange_main)
-                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_orange_active)
-                holder.binding.semView.setBackgroundResource(R.color.orange_main_color)
+                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_orange_light)
+                holder.binding.semView.setBackgroundResource(R.color.orange_light_color)
+            }
+            5 -> {
+                holder.binding.semImage.setBackgroundResource(R.drawable.abc_purple_main)
+                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_purple_light)
+                holder.binding.semView.setBackgroundResource(R.color.purple_light_color)
+            }
+            6 -> {
+                holder.binding.semImage.setBackgroundResource(R.drawable.abc_red_main)
+                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_red_light)
+                holder.binding.semView.setBackgroundResource(R.color.indian_red_light_color)
             }
             else -> {
                 holder.binding.semImage.setBackgroundResource(R.drawable.abc_blue_main)
-                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_blue_active)
-                holder.binding.semView.setBackgroundResource(R.color.blue_main_color)
+                holder.binding.semLayout.setBackgroundResource(R.drawable.abc_blue_light)
+                holder.binding.semView.setBackgroundResource(R.color.blue_light_color)
             }
-        }    }
+        }
+    }
 
     class ViewHolderClass (val binding: ItemSemesterNumberBinding) : RecyclerView.ViewHolder(binding.root)
 }

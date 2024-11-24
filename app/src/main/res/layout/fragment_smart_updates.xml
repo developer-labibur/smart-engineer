@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/transparent"
+    tools:context=".fragment.SmartUpdatesFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
+
+        <!-- Top View -->
+        <LinearLayout
+            android:id="@+id/llTopView"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:background="@color/transparent"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/btnViewProfile"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_weight="1" />
+
+            <View
+                android:id="@+id/btnViewPremium"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!-- Main Container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:background="@drawable/bg_sl_scroll_box_golden"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llTopView" >
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/searchBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:background="@drawable/sl_search_box_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:hint="@string/search_by_subject_code"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/sl_primary_text"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="7dp"
+                    android:src="@drawable/sl_search_fill"
+                    android:background="@drawable/sl_search_box_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- P -> Text -->
+            <TextView
+                android:id="@+id/tvN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/main_font_regular_2"
+                android:includeFontPadding="false"
+                android:text="@string/p"
+                android:textColor="@color/sl_action_text_middle_red"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/searchBox" />
+
+            <!-- olytechnic Notice -> Text -->
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font_regular_2"
+                android:includeFontPadding="false"
+                android:text="@string/olytechnic"
+                android:textColor="@color/sl_primary_text"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvN"
+                app:layout_constraintStart_toEndOf="@+id/tvN"
+                app:layout_constraintTop_toTopOf="@+id/tvN" />
+
+            <!-- Notice Section -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNotice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:foregroundGravity="center"
+                android:overScrollMode="never"
+                android:paddingBottom="100dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvN"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_notice"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Cat Icon View -->
+        <View
+            android:layout_width="75dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_sl_cat_golden"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llTopView" />
+
+        <!-- Cat Icon -->
+        <LinearLayout
+            android:id="@+id/ll_cat"
+            android:layout_width="80dp"
+            android:layout_height="43dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/clContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/clContainer">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/cute_cat" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -6,8 +6,11 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.firebase.Timestamp
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.DialogComingSoonBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 import kotlin.time.times
 
 class SmartData {
@@ -38,6 +41,18 @@ class SmartData {
 
             if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
             builder.show()
+        }
+        fun timestampToDate(timestamp: Timestamp): String {
+            // Convert Timestamp to a Date object
+            val date = timestamp.toDate()
+
+            // Format Date to "Dec 20, 2024" format
+            val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+            return dateFormat.format(date)
+        }
+        fun dpToPx(context: Context, dp: Float): Int {
+            val density = context.resources.displayMetrics.density
+            return (dp * density).toInt()
         }
         fun randomNumber(int: Int): Int { return (Math.random() * int).toInt() }
     }

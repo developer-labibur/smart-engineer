@@ -15,6 +15,7 @@ import com.google.firebase.firestore.Query
 import com.rudhashi.smartengineer.adapter.BookAdapter
 import com.rudhashi.smartengineer.databinding.ActivityAllBookBinding
 import com.rudhashi.smartengineer.model.Book
+import com.rudhashi.smartengineer.util.SmartData
 
 class AllBookActivity : AppCompatActivity() {
 
@@ -39,7 +40,7 @@ class AllBookActivity : AppCompatActivity() {
         binding.departmentName.text = departmentName
 
         bookAdapter = BookAdapter { bookCode ->
-            val intent = Intent(this, DashboardActivity::class.java)
+            val intent = Intent(this, BookDetailsActivity::class.java)
             intent.putExtra("BOOK_CODE", bookCode)
             startActivity(intent)
         }
@@ -52,9 +53,7 @@ class AllBookActivity : AppCompatActivity() {
         binding.apply {
             rvAllBook.layoutManager = LinearLayoutManager(this@AllBookActivity)
             rvAllBook.adapter = bookAdapter
-            addNewBookButton.setOnClickListener {
-                startActivity(Intent(this@AllBookActivity, MainActivity::class.java))
-            }
+            btnCourseDetails.setOnClickListener { SmartData.comingSoon(this@AllBookActivity) }
             btnBack.setOnClickListener { finish() }
             btnRefresh.setOnClickListener {
                 isShimmerOn(true)

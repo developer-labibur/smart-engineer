@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemAllBookBinding
 import com.rudhashi.smartengineer.model.Book
+import com.rudhashi.smartengineer.util.SmartData
 
 class BookAdapter(
     private val onItemClicked: (String) -> Unit
@@ -32,6 +34,39 @@ class BookAdapter(
 
             binding.root.setOnClickListener {
                 onItemClicked(book.BCode)
+            }
+
+            // Random Gradient Background Color Programmatically
+            val number = SmartData.randomNumber(6)
+            when (number) {
+                1 -> {
+                    binding.llItemBG.setBackgroundResource(R.drawable.abc_blue_main)
+                    binding.btnRead.setBackgroundResource(R.drawable.abc_blue_main)
+                }
+                2 -> {
+                    binding.llItemBG.setBackgroundResource(R.drawable.abc_green_main)
+                    binding.btnRead.setBackgroundResource(R.drawable.abc_green_main)
+                }
+                3 -> {
+                    binding.llItemBG.setBackgroundResource(R.drawable.abc_pink_main)
+                    binding.btnRead.setBackgroundResource(R.drawable.abc_pink_main)
+                }
+                4 -> {
+                    binding.llItemBG.setBackgroundResource(R.drawable.abc_orange_main)
+                    binding.btnRead.setBackgroundResource(R.drawable.abc_orange_main)
+                }
+                5 -> {
+                    binding.llItemBG.setBackgroundResource(R.drawable.abc_red_main)
+                    binding.btnRead.setBackgroundResource(R.drawable.abc_red_main)
+                }
+                6 -> {
+                    binding.llItemBG.setBackgroundResource(R.drawable.abc_purple_main)
+                    binding.btnRead.setBackgroundResource(R.drawable.abc_purple_main)
+                }
+                else -> {
+                    binding.llItemBG.setBackgroundResource(R.drawable.abc_blue_main)
+                    binding.btnRead.setBackgroundResource(R.drawable.abc_blue_main)
+                }
             }
         }
     }

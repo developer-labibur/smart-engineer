@@ -71,13 +71,14 @@ dependencies {
     implementation(libs.firebase.storage) // Firebase Storage
 
     implementation(libs.circleimageview) // CircleImageView
-    implementation (libs.imagepicker) // Pick Gallery Image & Capture Camera Image
-    implementation (libs.amazingspinner) // Amazing Spinner
+    implementation(libs.imagepicker) // Pick Gallery Image & Capture Camera Image
+    implementation(libs.amazingspinner) // Amazing Spinner
 
-    implementation (libs.material.dialogs.core)
-    implementation (libs.input)
+    implementation(libs.material.dialogs.core)
+    implementation(libs.input)
 
     implementation(libs.shimmer) // Shimmer Effect for Facebook
+    implementation(libs.lottie) // Lottie Animation
 
     // API Integrations
     implementation(libs.retrofit)

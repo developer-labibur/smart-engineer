@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/transparent"
+    tools:context=".fragment.SmartBooksFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
+
+        <!-- Top View -->
+        <LinearLayout
+            android:id="@+id/llTopView"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:background="@color/transparent"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/btnViewProfile"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_weight="1" />
+
+            <View
+                android:id="@+id/btnViewPremium"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!-- Main Container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@drawable/bg_sl_scroll_box_golden"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llTopView" >
+
+            <!-- Search Bar -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/searchBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="5dp"
+                android:background="@drawable/sl_search_box_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:hint="@string/search_by_subject_code"
+                    android:includeFontPadding="false"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="7dp"
+                    android:src="@drawable/sl_search_fill"
+                    android:background="@drawable/sl_search_box_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Tab Bar -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/booksTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/sl_search_box_bg"
+                android:padding="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/searchBox">
+
+                <TextView
+                    android:id="@+id/btnLatest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/sl_search_box_icon"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:includeFontPadding="false"
+                    android:paddingStart="15dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/latest"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnPopular"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/btnPopular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:includeFontPadding="false"
+                    android:paddingStart="15dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/popular"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnLatest"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Tab View -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/booksView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@drawable/sl_search_box_bg"
+                android:padding="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/booksTab"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/booksTab">
+
+                <ImageView
+                    android:id="@+id/btnList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:padding="8dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_list"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnGrid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/sl_search_box_icon"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="10dp"
+                    android:src="@drawable/sl_grid"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnList"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Book Section -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                android:foregroundGravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:overScrollMode="never"
+                android:paddingBottom="100dp"
+                tools:itemCount="6"
+                app:spanCount="3"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/booksTab"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_book_grid"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Cat Icon View -->
+        <View
+            android:layout_width="75dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_sl_cat_golden"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llTopView" />
+
+        <!-- Cat Icon -->
+        <LinearLayout
+            android:id="@+id/ll_cat"
+            android:layout_width="80dp"
+            android:layout_height="43dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/clContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/clContainer">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/cute_cat" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

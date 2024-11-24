@@ -120,7 +120,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="15dp"
-                        android:layout_toStartOf="@+id/addNewBookButton"
+                        android:layout_toStartOf="@+id/btnCourseDetails"
                         android:fontFamily="@font/main_font_regular_2"
                         android:gravity="center_vertical"
                         android:maxLines="2"
@@ -131,7 +131,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/addNewBookButton"
+                        android:id="@+id/btnCourseDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"

@@ -37,9 +37,9 @@
     </fragment>
     <fragment
         android:id="@+id/booksFragment"
-        android:name="com.rudhashi.smartengineer.fragment.BooksFragment"
+        android:name="com.rudhashi.smartengineer.fragment.SmartBooksFragment"
         android:label="fragment_books"
-        tools:layout="@layout/fragment_books" />
+        tools:layout="@layout/fragment_smart_books" />
     <fragment
         android:id="@+id/noticeFragment"
         android:name="com.rudhashi.smartengineer.fragment.NoticeFragment"

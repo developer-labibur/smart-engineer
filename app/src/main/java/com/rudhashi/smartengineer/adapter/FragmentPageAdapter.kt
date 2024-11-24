@@ -8,7 +8,9 @@ import com.rudhashi.smartengineer.fragment.ExploreFragment
 import com.rudhashi.smartengineer.fragment.HomeFragment
 import com.rudhashi.smartengineer.fragment.LoginFragment
 import com.rudhashi.smartengineer.fragment.NoticeFragment
+import com.rudhashi.smartengineer.fragment.SmartBooksFragment
 import com.rudhashi.smartengineer.fragment.SmartHomeFragment
+import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
 
 class FragmentPageAdapter (
     fragmentManager: FragmentManager,
@@ -39,8 +41,8 @@ class FragmentPageAdapter (
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> SmartHomeFragment()
-            1 -> NoticeFragment()
-            2 -> SmartHomeFragment()
+            1 -> SmartBooksFragment()
+            2 -> SmartUpdatesFragment()
             3 -> LoginFragment()
             else -> SmartHomeFragment() // Default to HomeFragment if position is out of range
         }
