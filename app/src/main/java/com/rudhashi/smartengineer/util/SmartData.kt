@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.DialogComingSoonBinding
@@ -55,5 +56,15 @@ class SmartData {
             return (dp * density).toInt()
         }
         fun randomNumber(int: Int): Int { return (Math.random() * int).toInt() }
+
+        fun RecyclerView.setHeightBasedOnItems(doubleHeight: Int) {
+            val adapter = this.adapter ?: return
+            val totalItems = adapter.itemCount
+            val itemHeight = doubleHeight // Approximate height of one item in pixels
+            val totalHeight = totalItems * itemHeight
+            val layoutParams = this.layoutParams
+            layoutParams.height = totalHeight
+            this.layoutParams = layoutParams
+        }
     }
 }

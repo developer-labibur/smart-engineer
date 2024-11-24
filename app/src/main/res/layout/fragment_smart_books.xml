@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:scrollbars="none"
     android:background="@color/transparent"
     tools:context=".fragment.SmartBooksFragment">
@@ -184,26 +184,24 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Book Section -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvBook"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:nestedScrollingEnabled="false"
-                android:orientation="horizontal"
-                android:foregroundGravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:overScrollMode="never"
-                android:paddingBottom="100dp"
-                tools:itemCount="6"
-                app:spanCount="3"
-                android:scrollbars="none"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/booksTab"
-                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                tools:listitem="@layout/item_book_grid"/>
+                app:layout_constraintTop_toBottomOf="@+id/booksTab">
+
+                <!-- Book Section -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvBook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="10dp"
+                    android:scrollbars="none"
+                    tools:listitem="@layout/item_book_grid"/>
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

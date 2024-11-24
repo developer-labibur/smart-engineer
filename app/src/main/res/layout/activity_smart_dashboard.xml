@@ -142,7 +142,6 @@
             android:lineHeight="13dp"
             android:maxWidth="100dp"
             android:maxLines="2"
-            android:text="@string/myFullName"
             android:textColor="@color/sl_primary_text"
             android:textSize="13sp"
             android:textStyle="bold"

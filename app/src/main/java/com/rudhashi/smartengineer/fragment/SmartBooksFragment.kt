@@ -2,6 +2,7 @@ package com.rudhashi.smartengineer.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.rudhashi.smartengineer.adapter.BookListAdapter
 import com.rudhashi.smartengineer.databinding.FragmentSmartBooksBinding
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.util.SmartData.Companion.setHeightBasedOnItems
 import com.rudhashi.smartengineer.view.BookDetailsActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
 
@@ -38,11 +40,6 @@ class SmartBooksFragment : Fragment() {
 
         // Book Grid and List Set Up -----------------------------------------------------------------------------------
         bookGridAdapter = BookGridAdapter { bookCode ->
-            val intent = Intent(requireContext(), BookDetailsActivity::class.java)
-            intent.putExtra("BOOK_CODE", bookCode)
-            startActivity(intent)
-        }
-        bookListAdapter = BookListAdapter { bookCode ->
             val intent = Intent(requireContext(), BookDetailsActivity::class.java)
             intent.putExtra("BOOK_CODE", bookCode)
             startActivity(intent)
@@ -119,6 +116,11 @@ class SmartBooksFragment : Fragment() {
                 ?.get()?.addOnSuccessListener { querySnapshot ->
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
                     bookGridAdapter.submitList(books)
+
+                    // Ensure data is loaded before setting the height
+                    binding.rvBook.post {
+                        binding.rvBook.setHeightBasedOnItems(163)
+                    }
                 }?.addOnFailureListener { e ->
                     Toast.makeText(requireActivity(), "Failed to fetch books: ${e.message}", Toast.LENGTH_SHORT)
                         .show()
@@ -126,19 +128,35 @@ class SmartBooksFragment : Fragment() {
             binding.rvBook.adapter = bookGridAdapter
         } else {
             binding.rvBook.layoutManager = LinearLayoutManager(requireActivity())
+
+            // Initialize the adapter
+            bookListAdapter = BookListAdapter { bookCode ->
+                val intent = Intent(requireContext(), BookDetailsActivity::class.java)
+                intent.putExtra("BOOK_CODE", bookCode)
+                startActivity(intent)
+            }
+
             val layoutParams = binding.rvBook.layoutParams
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
             binding.rvBook.layoutParams = layoutParams
-            binding.rvBook.setHasFixedSize(true)
+
+            //binding.rvBook.setHasFixedSize(true)
+            binding.rvBook.adapter = bookListAdapter
             db?.collection("books")?.orderBy(sortBy, Query.Direction.DESCENDING) // Or DESCENDING for reverse order
                 ?.get()?.addOnSuccessListener { querySnapshot ->
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
-                    bookListAdapter.submitList(books)
+                    bookListAdapter.updateBooks(books)
+                    Log.d("BookListSize", "Total items: ${books.size}")
+
+                    // Ensure data is loaded before setting the height
+                    binding.rvBook.post {
+                        binding.rvBook.setHeightBasedOnItems(155)
+                    }
                 }?.addOnFailureListener { e ->
                     Toast.makeText(requireActivity(), "Failed to fetch books: ${e.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
-            binding.rvBook.adapter = bookListAdapter
         }
     }
+
 }

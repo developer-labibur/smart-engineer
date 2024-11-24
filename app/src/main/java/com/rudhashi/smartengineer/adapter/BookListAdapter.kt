@@ -1,27 +1,43 @@
 package com.rudhashi.smartengineer.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.databinding.ItemBookGridBinding
 import com.rudhashi.smartengineer.databinding.ItemBookListBinding
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.util.SmartData
 
 class BookListAdapter(
     private val onItemClicked: (String) -> Unit
-) : ListAdapter<Book, BookListAdapter.BookViewHolder>(BookDiffCallback()) {
+) : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
+
+    private var bookList: List<Book> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding = ItemBookListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BookViewHolder(binding)
     }
-    override fun onBindViewHolder(holder: BookViewHolder, position: Int) { holder.bind(getItem(position)) }
+
+    override fun getItemCount(): Int {
+        val count = bookList.size
+        Log.d("AdapterItemCount", "Item count: $count") // Debugging purpose
+        return count
+    }
+
+    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
+        holder.bind(bookList[position])
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateBooks(newBooks: List<Book>) {
+        bookList = newBooks
+        notifyDataSetChanged() // You can implement a more efficient update if needed
+    }
+
     inner class BookViewHolder(private val binding: ItemBookListBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(book: Book) {
@@ -84,10 +100,5 @@ class BookListAdapter(
                 onItemClicked(book.BCode)
             }
         }
-    }
-
-    class BookDiffCallback : DiffUtil.ItemCallback<Book>() {
-        override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean = oldItem.BId == newItem.BId
-        override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean = oldItem == newItem
     }
 }

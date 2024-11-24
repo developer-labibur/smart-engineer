@@ -19,6 +19,8 @@ import androidx.core.view.get
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.adapter.FragmentPageAdapter
 import com.rudhashi.smartengineer.databinding.ActivitySmartDashboardBinding
@@ -26,6 +28,7 @@ import com.rudhashi.smartengineer.fragment.ExploreFragment
 import com.rudhashi.smartengineer.fragment.HomeFragment
 import com.rudhashi.smartengineer.fragment.LoginFragment
 import com.rudhashi.smartengineer.fragment.NoticeFragment
+import com.rudhashi.smartengineer.util.ConvertFB
 import com.rudhashi.smartengineer.util.SmartData
 
 class SmartDashboardActivity : AppCompatActivity() {
@@ -34,11 +37,15 @@ class SmartDashboardActivity : AppCompatActivity() {
     private lateinit var adapter: FragmentPageAdapter
     private lateinit var sharedPreferences: SharedPreferences
     private var isNightMode: Boolean? = null
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySmartDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
 
         // Initialize the shared preferences
         sharedPreferences = getSharedPreferences(SmartData.PREF_KEY, MODE_PRIVATE)
@@ -221,5 +228,15 @@ class SmartDashboardActivity : AppCompatActivity() {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // Get user saved department name from Firebase Realtime database and convert it to department code
+        database.reference.child("Users").child(auth.uid!!).child("name").get()
+            .addOnSuccessListener {
+                binding.tvProfile.text = it.value.toString()
+            }
     }
 }
