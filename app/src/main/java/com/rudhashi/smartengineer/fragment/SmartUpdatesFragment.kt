@@ -1,12 +1,14 @@
 package com.rudhashi.smartengineer.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -14,12 +16,15 @@ import com.google.firebase.firestore.toObject
 import com.rudhashi.smartengineer.adapter.NoticeAdapter
 import com.rudhashi.smartengineer.databinding.FragmentSmartUpdatesBinding
 import com.rudhashi.smartengineer.model.Notice
+import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.util.SmartData.Companion.setHeightBasedOnItems
+import com.rudhashi.smartengineer.view.ProfileActivity
 
 class SmartUpdatesFragment : Fragment() {
 
     private lateinit var binding: FragmentSmartUpdatesBinding
     private var db : FirebaseFirestore? = null
-    private val noticeList = mutableListOf<Notice>()
+
     // RecyclerView Adapter
     private lateinit var noticeAdapter: NoticeAdapter // Replace with your RecyclerView adapter
 
@@ -40,6 +45,13 @@ class SmartUpdatesFragment : Fragment() {
 
         // Fetch notices from Firestore, ordered by timestamp in descending order
         fetchNotices()
+
+        binding.apply {
+            btnViewProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
+            btnViewPremium.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+
+            btnBlog.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+        }
 
         return binding.root
     }
@@ -65,6 +77,8 @@ class SmartUpdatesFragment : Fragment() {
                         }
                     }
                     noticeAdapter.updateNoticeList(notices) // Update the adapter
+                    // Ensure data is loaded before setting the height
+
                 }
             }
     }
@@ -84,35 +98,5 @@ class SmartUpdatesFragment : Fragment() {
                 noticeAdapter.notifyDataSetChanged()
             }
     }
-/*
-    override fun onStart() {
-        super.onStart()
-        setupFirestoreListener()
-    }
 
-    private fun setupFirestoreListener() {
-        listenerRegistration = firestoreDB?.collection("polytechnic_notice")
-            ?.orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING) // Order by timestamp in descending order
-            ?.addSnapshotListener { snapshots, e ->
-                if (e != null) {
-                    // Handle the error
-                    Toast.makeText(requireActivity(), "Error fetching data: ${e.message}", Toast.LENGTH_SHORT).show()
-                    return@addSnapshotListener
-                }
-
-                // Update the RecyclerView with the latest data
-                if (snapshots != null) {
-                    val updatedList = snapshots.documents.map { document ->
-                        document.toObject(Notice::class.java)!! // Map each document to your data model
-                    }
-                    adapter.updateNoticeList(updatedList) // Update the adapter with the new list
-                }
-            }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        listenerRegistration?.remove()
-    }
-*/
 }

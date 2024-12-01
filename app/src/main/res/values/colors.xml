@@ -13,6 +13,7 @@
     <color name="sl_optional_green">#cdeacb</color>
     <color name="sl_useless">#33FFCC80</color>
     <color name="sl_action">#ffcc80</color>
+    <!--color name="sl_action">#ffcc80</color-->
     <color name="sl_action_green">#68ecb4</color>
     <color name="sl_action_text_middle_red">#b9505c</color>
 
@@ -191,7 +192,7 @@
     <color name="orange_main_color">#ffcc80</color>
     <color name="orange_text_color">#FF4000</color>
     <color name="orange_fill_color">#B7FF4000</color>
-    <color name="orange_bg_color">#33FF4000</color>
+    <color name="orange_bg_color">#33ffcc80</color>
 
     <!-- Blue ~ Modern => Books -->
     <color name="blue_active_color">#9ee6f0</color>
@@ -238,6 +239,7 @@
     <color name="yellow_light_color">#fffacd</color>
     <color name="yellow_main_color">#FFDA00</color>
     <color name="yellow_text_color">#d5b405</color>
+    <color name="yellow_bg_color">#33FFDA00</color>
 
     <!-- ================================================================================================== -->
     <!--                               PROFESSIONAL COLOR CODE WITH NAME                                    -->

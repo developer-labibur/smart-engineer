@@ -3,6 +3,7 @@ package com.rudhashi.smartengineer.util
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
+import android.icu.util.Calendar
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -23,8 +24,6 @@ class SmartData {
         const val SPLASH_SCREEN: Long = 2000
         // Google SignIn
         const val WEB_CLIENT_ID = "389818419543-sdlmnl0vdps19ka0ku0n76f4vub730cr.apps.googleusercontent.com"
-        // # milliseconds, desired
-        const val TIME_INTERVAL: Int = 2000
 
         // Function to display Toast
         fun lToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
@@ -51,9 +50,18 @@ class SmartData {
             val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
             return dateFormat.format(date)
         }
+        fun getCurrentDate(): String {
+            val calendar = Calendar.getInstance()
+            val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+            return dateFormat.format(calendar.time)
+        }
         fun dpToPx(context: Context, dp: Float): Int {
             val density = context.resources.displayMetrics.density
             return (dp * density).toInt()
+        }
+        fun pxToDp(context: Context, px: Float): Float {
+            val density = context.resources.displayMetrics.density
+            return px / density
         }
         fun randomNumber(int: Int): Int { return (Math.random() * int).toInt() }
 

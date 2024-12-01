@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:scrollbars="none"
     android:background="@color/transparent"
     tools:context=".fragment.SmartUpdatesFragment">
@@ -51,91 +51,112 @@
             app:layout_constraintTop_toBottomOf="@+id/llTopView" >
 
 
+
+            <!-- Tab Bar -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/searchBox"
-                android:layout_width="match_parent"
+                android:id="@+id/booksTab"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="5dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/sl_search_box_bg"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="2dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/btnNotice"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/sl_search_box_icon"
                     android:fontFamily="@font/hind_siliguri"
-                    android:hint="@string/search_by_subject_code"
                     android:includeFontPadding="false"
-                    android:textColor="@color/sl_primary_text"
-                    android:textSize="15sp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="1dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/notice"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnBlog"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:contentDescription="@string/sl_icon"
-                    android:padding="7dp"
-                    android:src="@drawable/sl_search_fill"
-                    android:background="@drawable/sl_search_box_icon"
+                <TextView
+                    android:id="@+id/btnBlog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:includeFontPadding="false"
+                    android:paddingStart="15dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/blog"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnNotice"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- P -> Text -->
-            <TextView
-                android:id="@+id/tvN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/main_font_regular_2"
-                android:includeFontPadding="false"
-                android:text="@string/p"
-                android:textColor="@color/sl_action_text_middle_red"
-                android:textSize="21sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchBox" />
-
-            <!-- olytechnic Notice -> Text -->
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/main_font_regular_2"
-                android:includeFontPadding="false"
-                android:text="@string/olytechnic"
-                android:textColor="@color/sl_primary_text"
-                android:textSize="21sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvN"
-                app:layout_constraintStart_toEndOf="@+id/tvN"
-                app:layout_constraintTop_toTopOf="@+id/tvN" />
-
             <!-- Notice Section -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNotice"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/llRv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:nestedScrollingEnabled="false"
-                android:orientation="vertical"
-                android:foregroundGravity="center"
-                android:overScrollMode="never"
-                android:paddingBottom="100dp"
-                android:scrollbars="none"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvN"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_notice"/>
+                app:layout_constraintTop_toBottomOf="@+id/booksTab">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNotice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_notice" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btnViewAll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_tab_bar_orange_main"
+                android:fontFamily="@font/hind_siliguri"
+                android:includeFontPadding="false"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="8dp"
+                android:text="@string/view_all_notice"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llRv" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnViewAll" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

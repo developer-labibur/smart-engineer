@@ -2,6 +2,7 @@ package com.rudhashi.smartengineer.util
 
 import android.net.Uri
 import android.util.Log
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -96,6 +97,19 @@ class MakeFirebaseEasy {
                     Log.e("uploadProfileImage", "Error uploading image", e)
                 }
             }
+        }
+
+        fun updateUserInfo(name: String?, email: String?, picture: String?, role: String?, userId: String?, joiningDate: String?, points: Int?) {
+            val updatedUserInfo = hashMapOf(
+                "name" to name.toString(),
+                "email" to email.toString(),
+                "picture" to picture.toString(),
+                "role" to role.toString(),
+                "userId" to userId.toString(),
+                "joiningDate" to joiningDate.toString(),
+                "points" to points
+            )
+            userId?.let { FirebaseDatabase.getInstance().reference.child("Users").child(it).updateChildren(updatedUserInfo as Map<String, Any>) }
         }
 
     }

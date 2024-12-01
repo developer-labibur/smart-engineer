@@ -10,13 +10,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.adapter.BookGridAdapter
 import com.rudhashi.smartengineer.adapter.BookListAdapter
 import com.rudhashi.smartengineer.databinding.FragmentSmartBooksBinding
 import com.rudhashi.smartengineer.model.Book
+import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.SmartData.Companion.setHeightBasedOnItems
 import com.rudhashi.smartengineer.view.BookDetailsActivity
@@ -37,12 +41,9 @@ class SmartBooksFragment : Fragment() {
         binding = FragmentSmartBooksBinding.inflate(inflater, container, false)
         db = FirebaseFirestore.getInstance()
 
-
-        // Book Grid and List Set Up -----------------------------------------------------------------------------------
+        // eBook Open and Redeem Points
         bookGridAdapter = BookGridAdapter { bookCode ->
-            val intent = Intent(requireContext(), BookDetailsActivity::class.java)
-            intent.putExtra("BOOK_CODE", bookCode)
-            startActivity(intent)
+            redeemPoints(bookCode)
         }
 
         binding.apply {
@@ -115,7 +116,7 @@ class SmartBooksFragment : Fragment() {
             db?.collection("books")?.orderBy(sortBy, Query.Direction.DESCENDING) // Or DESCENDING for reverse order
                 ?.get()?.addOnSuccessListener { querySnapshot ->
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
-                    bookGridAdapter.submitList(books)
+                    bookGridAdapter.setData(books)
 
                     // Ensure data is loaded before setting the height
                     binding.rvBook.post {
@@ -129,12 +130,12 @@ class SmartBooksFragment : Fragment() {
         } else {
             binding.rvBook.layoutManager = LinearLayoutManager(requireActivity())
 
-            // Initialize the adapter
+            // eBook Open and Redeem Points
             bookListAdapter = BookListAdapter { bookCode ->
-                val intent = Intent(requireContext(), BookDetailsActivity::class.java)
-                intent.putExtra("BOOK_CODE", bookCode)
-                startActivity(intent)
+                redeemPoints(bookCode)
             }
+
+            //redeemPoints("List")
 
             val layoutParams = binding.rvBook.layoutParams
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
@@ -156,6 +157,26 @@ class SmartBooksFragment : Fragment() {
                     Toast.makeText(requireActivity(), "Failed to fetch books: ${e.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
+        }
+    }
+
+    private fun redeemPoints(bookCode: String) {
+        val database = Firebase.database
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+        val userRef = database.getReference("Users/$userId/points")
+        userRef.get().addOnSuccessListener { snapshot ->
+            val currentPoints = snapshot.value?.toString()?.toInt() ?: 0
+            if (currentPoints >= SmartConfig.REDEEM_POINT) {
+                val newPoints = currentPoints - SmartConfig.REDEEM_POINT
+
+                val intent = Intent(requireContext(), BookDetailsActivity::class.java)
+                userRef.setValue(newPoints)
+                intent.putExtra("BOOK_CODE", bookCode)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireActivity(), "Not enough points!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import com.rudhashi.smartengineer.fragment.LoginFragment
 import com.rudhashi.smartengineer.fragment.NoticeFragment
 import com.rudhashi.smartengineer.fragment.SmartBooksFragment
 import com.rudhashi.smartengineer.fragment.SmartHomeFragment
+import com.rudhashi.smartengineer.fragment.SmartSettingFragment
 import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
 
 class FragmentPageAdapter (
@@ -43,7 +44,7 @@ class FragmentPageAdapter (
             0 -> SmartHomeFragment()
             1 -> SmartBooksFragment()
             2 -> SmartUpdatesFragment()
-            3 -> LoginFragment()
+            3 -> SmartSettingFragment()
             else -> SmartHomeFragment() // Default to HomeFragment if position is out of range
         }
     }

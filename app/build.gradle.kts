@@ -60,6 +60,12 @@ dependencies {
     implementation(libs.androidx.credential.play.services.auth)
     implementation(libs.googleid)
 
+    // Google Admob
+    //implementation (libs.play.services.ads)
+    implementation("com.google.android.gms:play-services-ads:23.5.0")
+    implementation("com.google.android.gms:play-services-measurement-api:22.1.2")
+
+
     // Import the Firebase BoM Dependencies
     implementation(platform(libs.firebase.bom)) // Firebase BOM
     implementation(libs.firebase.auth.ktx) // Firebase Authentication

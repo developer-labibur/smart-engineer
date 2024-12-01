@@ -23,8 +23,11 @@ import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.Users
 import com.rudhashi.smartengineer.databinding.FragmentSignupBinding
 import com.rudhashi.smartengineer.databinding.LayoutSidebarBinding
+import com.rudhashi.smartengineer.model.User
 import com.rudhashi.smartengineer.util.AuthRepository
 import com.rudhashi.smartengineer.util.GoogleAuthClient
+import com.rudhashi.smartengineer.util.MakeFirebaseEasy
+import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.view.DashboardActivity
 import kotlinx.coroutines.launch
@@ -74,82 +77,60 @@ class SignupFragment : Fragment() {
                     if (isSignIn) {
                         val id = auth.currentUser?.uid
                         val email = auth.currentUser?.email
-                        val name = auth.currentUser?.displayName
                         try {
-                            id?.let { it1 ->
-                                database.reference.child("Users")
-                                    .child(it1)
-                                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                                        override fun onDataChange(snapshot: DataSnapshot) {
-                                            val user = snapshot.getValue(Users::class.java)
-                                            val role = user?.role.toString()
-                                            try{
-                                                when (role) {
-                                                    "Main Admin" -> {
-                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else auth.currentUser?.photoUrl
-                                                        val updatedUserInfo = hashMapOf(
-                                                            "name" to name.toString(),
-                                                            "email" to email.toString(),
-                                                            "picture" to isImageNull.toString(),
-                                                            "role" to "Main Admin",
-                                                            "userId" to auth.currentUser?.uid.toString()
-                                                        )
-                                                        database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
 
-                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
-                                                        SmartData.lToast(requireActivity(), "Success, You are an Main Admin")
-                                                    }
-                                                    "Admin" -> {
-                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else auth.currentUser?.photoUrl
-                                                        val updatedUserInfo = hashMapOf(
-                                                            "name" to name.toString(),
-                                                            "email" to email.toString(),
-                                                            "picture" to isImageNull.toString(),
-                                                            "role" to "Admin",
-                                                            "userId" to id.toString()
-                                                        )
-                                                        database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
+                            database.reference.child("Users")
+                                .child(id!!)
+                                .addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        val user = snapshot.getValue(User::class.java)
+                                        val userName = user?.name?.ifEmpty { auth.currentUser?.displayName }
+                                        val role = user?.role.toString()
+                                        val isUserNew = user?.joiningDate?.ifEmpty { SmartData.getCurrentDate() }
+                                        val newUserBonusPoints = if (user?.joiningDate!!.isNotEmpty()) user.points else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
 
-                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
-                                                        SmartData.lToast(requireActivity(), "Success, You are an Administrator")
-                                                    }
-                                                    else -> {
-                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else auth.currentUser?.photoUrl
-                                                        val updatedUserInfo = hashMapOf(
-                                                            "name" to name.toString(),
-                                                            "email" to email.toString(),
-                                                            "picture" to isImageNull.toString(),
-                                                            "role" to "User",
-                                                            "userId" to id.toString()
-                                                        )
-                                                        database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
+                                        try{
+                                            when (role) {
+                                                "Main Admin" -> {
+                                                    val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
-                                                        SmartData.lToast(requireActivity(), "Login Successfully")
-                                                    }
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+
+                                                    it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
+                                                    SmartData.lToast(requireActivity(), "Success, You are an Main Admin")
                                                 }
-                                            } catch (e: Exception) {
-                                                val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else auth.currentUser?.photoUrl
-                                                val updatedUserInfo = hashMapOf(
-                                                    "name" to name.toString(),
-                                                    "email" to email.toString(),
-                                                    "picture" to isImageNull.toString(),
-                                                    "role" to "User",
-                                                    "userId" to id.toString()
-                                                )
-                                                database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
+                                                "Admin" -> {
+                                                    val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                val intent = Intent(requireContext(), DashboardActivity::class.java)
-                                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                                startActivity(intent)
-                                                SmartData.lToast(requireActivity(), "SignIn Successfully")
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+
+                                                    it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
+                                                    SmartData.lToast(requireActivity(), "Success, You are an Administrator")
+                                                }
+                                                else -> {
+                                                    val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
+
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+
+                                                    it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
+                                                    SmartData.lToast(requireActivity(), "Login Successfully")
+                                                }
                                             }
+                                        } catch (e: Exception) {
+
+                                            MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints)
+
+                                            val intent = Intent(requireContext(), DashboardActivity::class.java)
+                                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                            startActivity(intent)
+                                            SmartData.lToast(requireActivity(), "SignIn Successfully")
                                         }
-                                        override fun onCancelled(error: DatabaseError) {
-                                            SmartData.lToast(requireActivity(), "Something went wrong...")
-                                        }
-                                    })
-                            }
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                    }
+                                })
+
                         } catch (e: Exception){
                             Log.d(tag, "Catch exception", e)
                             SmartData.lToast(requireActivity(), "Something went wrong...")
@@ -245,82 +226,60 @@ class SignupFragment : Fragment() {
                     if (isSignIn) {
                         val id = auth.currentUser?.uid
                         val email = auth.currentUser?.email
-                        val name = auth.currentUser?.displayName
                         try {
-                            id?.let { it1 ->
-                                database.reference.child("Users")
-                                    .child(it1)
-                                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                                        override fun onDataChange(snapshot: DataSnapshot) {
-                                            val user = snapshot.getValue(Users::class.java)
-                                            val role = user?.role.toString()
-                                            try{
-                                                when (role) {
-                                                    "Main Admin" -> {
-                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else auth.currentUser?.photoUrl
-                                                        val updatedUserInfo = hashMapOf(
-                                                            "name" to name.toString(),
-                                                            "email" to email.toString(),
-                                                            "picture" to isImageNull.toString(),
-                                                            "role" to "Main Admin",
-                                                            "userId" to auth.currentUser?.uid.toString()
-                                                        )
-                                                        database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
 
-                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
-                                                        SmartData.lToast(requireActivity(), "Success, You are an Main Admin")
-                                                    }
-                                                    "Admin" -> {
-                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else auth.currentUser?.photoUrl
-                                                        val updatedUserInfo = hashMapOf(
-                                                            "name" to name.toString(),
-                                                            "email" to email.toString(),
-                                                            "picture" to isImageNull.toString(),
-                                                            "role" to "Admin",
-                                                            "userId" to id.toString()
-                                                        )
-                                                        database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
+                            database.reference.child("Users")
+                                .child(id!!)
+                                .addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        val user = snapshot.getValue(User::class.java)
+                                        val userName = user?.name?.ifEmpty { auth.currentUser?.displayName }
+                                        val role = user?.role.toString()
+                                        val isUserNew = user?.joiningDate?.ifEmpty { SmartData.getCurrentDate() }
+                                        val newUserBonusPoints = if (user?.joiningDate!!.isNotEmpty()) user.points else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
 
-                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
-                                                        SmartData.lToast(requireActivity(), "Success, You are an Administrator")
-                                                    }
-                                                    else -> {
-                                                        val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else auth.currentUser?.photoUrl
-                                                        val updatedUserInfo = hashMapOf(
-                                                            "name" to name.toString(),
-                                                            "email" to email.toString(),
-                                                            "picture" to isImageNull.toString(),
-                                                            "role" to "User",
-                                                            "userId" to id.toString()
-                                                        )
-                                                        database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
+                                        try{
+                                            when (role) {
+                                                "Main Admin" -> {
+                                                    val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                        it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
-                                                        SmartData.lToast(requireActivity(), "Login Successfully")
-                                                    }
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+
+                                                    it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
+                                                    SmartData.lToast(requireActivity(), "Success, You are an Main Admin")
                                                 }
-                                            } catch (e: Exception) {
-                                                val isImageNull = if (user?.picture!!.isNotEmpty()) user.picture else auth.currentUser?.photoUrl
-                                                val updatedUserInfo = hashMapOf(
-                                                    "name" to name.toString(),
-                                                    "email" to email.toString(),
-                                                    "picture" to isImageNull.toString(),
-                                                    "role" to "User",
-                                                    "userId" to id.toString()
-                                                )
-                                                database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
+                                                "Admin" -> {
+                                                    val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                val intent = Intent(requireContext(), DashboardActivity::class.java)
-                                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                                startActivity(intent)
-                                                SmartData.lToast(requireActivity(), "SignIn Successfully")
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+
+                                                    it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
+                                                    SmartData.lToast(requireActivity(), "Success, You are an Administrator")
+                                                }
+                                                else -> {
+                                                    val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
+
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+
+                                                    it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
+                                                    SmartData.lToast(requireActivity(), "Login Successfully")
+                                                }
                                             }
+                                        } catch (e: Exception) {
+
+                                            MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints)
+
+                                            val intent = Intent(requireContext(), DashboardActivity::class.java)
+                                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                            startActivity(intent)
+                                            SmartData.lToast(requireActivity(), "SignIn Successfully")
                                         }
-                                        override fun onCancelled(error: DatabaseError) {
-                                            SmartData.lToast(requireActivity(), "Something went wrong...")
-                                        }
-                                    })
-                            }
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                    }
+                                })
+
                         } catch (e: Exception){
                             Log.d(tag, "Catch exception", e)
                             SmartData.lToast(requireActivity(), "Something went wrong...")
@@ -329,47 +288,7 @@ class SignupFragment : Fragment() {
                         SmartData.lToast(requireActivity(), "SignIn Failed")
                     }
 
-                    /*val isSignIn = googleAuthClient.signIn(true)
-                    if (isSignIn) {
-                        val id = auth.currentUser?.uid
-                        val name = auth.currentUser?.displayName
-                        val email = auth.currentUser?.email
-                        val image = auth.currentUser?.photoUrl.toString()
-
-                        Toast.makeText(context, "SignIn Successfully", Toast.LENGTH_SHORT).show()
-
-                        // If Google SignIn Successfully => Then go to DashboardActivity and pressing the back button
-                        // from DashboardActivity will close the app instead of navigating back to MainActivity.
-                        val intent = Intent(requireContext(), DashboardActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-
-                        val userInfo = Users(id, name, image, email)
-                        // Profile update kora hole o sob change hoa jay ata thik kora lagbe pore ============================= TODO =================================
-                        id?.let { it1 -> database.reference.child("Users").child(it1).setValue(userInfo) }
-                    } else {
-                        Toast.makeText(context, "SignIn Failed", Toast.LENGTH_SHORT).show()
-                    }*/
                 }
-                /*lifecycleScope.launch {
-                    val isSignIn = googleAuthClient.signIn(false)
-                    if (isSignIn) {
-                        val id = auth.currentUser?.uid
-                        val name = auth.currentUser?.displayName
-                        val email = auth.currentUser?.email
-                        val image = auth.currentUser?.photoUrl.toString()
-
-                        Toast.makeText(context, "SignIn Successfully", Toast.LENGTH_SHORT).show()
-
-                        val userInfo = Users(id, name, image, email)
-                        // Profile update kora hole o sob change hoa jay ata thik kora lagbe pore ============================= TODO =================================
-                        id?.let { it1 ->
-                            database.reference.child("Users").child(it1).setValue(userInfo)
-                        }
-                    } else {
-                        Toast.makeText(context, "SignIn Failed", Toast.LENGTH_SHORT).show()
-                    }
-                }*/
             }
             sideBarBtnFacebook.setOnClickListener {
                 lifecycleScope.launch {

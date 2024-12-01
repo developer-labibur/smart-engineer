@@ -11,14 +11,19 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemNoticeBinding
 import com.rudhashi.smartengineer.model.Notice
+import com.rudhashi.smartengineer.util.SmartConfig
+import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.formatTimestampToRelativeTime
 
 class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) :
@@ -71,6 +76,48 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
 
                 btnLove.setOnClickListener { toggleLike(notice) }
                 btnLoved.setOnClickListener { toggleLike(notice) }
+
+
+
+                // Random Gradient Background Color Programmatically
+                val number = SmartData.randomNumber(6)
+                when (number) {
+                    1 -> {
+                        binding.llItemBG.setBackgroundResource(R.drawable.abc_blue_main)
+                        binding.btnLove.setBackgroundResource(R.drawable.abc_blue_main)
+                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_blue_light)
+                    }
+                    2 -> {
+                        binding.llItemBG.setBackgroundResource(R.drawable.abc_green_main)
+                        binding.btnLove.setBackgroundResource(R.drawable.abc_green_main)
+                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_green_light)
+                    }
+                    3 -> {
+                        binding.llItemBG.setBackgroundResource(R.drawable.abc_pink_main)
+                        binding.btnLove.setBackgroundResource(R.drawable.abc_pink_main)
+                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_pink_light)
+                    }
+                    4 -> {
+                        binding.llItemBG.setBackgroundResource(R.drawable.abc_orange_main)
+                        binding.btnLove.setBackgroundResource(R.drawable.abc_orange_main)
+                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_orange_light)
+                    }
+                    5 -> {
+                        binding.llItemBG.setBackgroundResource(R.drawable.abc_purple_main)
+                        binding.btnLove.setBackgroundResource(R.drawable.abc_purple_main)
+                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_purple_light)
+                    }
+                    6 -> {
+                        binding.llItemBG.setBackgroundResource(R.drawable.abc_red_main)
+                        binding.btnLove.setBackgroundResource(R.drawable.abc_red_main)
+                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_red_light)
+                    }
+                    else -> {
+                        binding.llItemBG.setBackgroundResource(R.drawable.abc_blue_main)
+                        binding.btnLove.setBackgroundResource(R.drawable.abc_blue_main)
+                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_blue_light)
+                    }
+                }
 
                 // Format and display the timestamp
                 val formattedTime = formatTimestampToRelativeTime(notice.timestamp!!)
@@ -193,12 +240,14 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
                     transaction.delete(userLikeRef)
                     notice.userLiked = false
                     notice.likes -= 1
+                    deductPoints(SmartConfig.UNLIKE_DEDUCT_POINT)
                 } else {
                     // Like the post: increment likes and update Firestore
                     transaction.update(noticeRef, "likes", currentLikes + 1)
                     transaction.set(userLikeRef, mapOf("liked" to true), SetOptions.merge())
                     notice.userLiked = true
                     notice.likes += 1
+                    addPoints(SmartConfig.LIKED_BONUS_POINT)
                 }
 
                 transaction
@@ -221,4 +270,26 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
         }
     }
 
+    fun addPoints(pointsToAdd: Int) {
+        val database = Firebase.database
+        val userRef = database.getReference("Users/$currentUserUid/points")
+        userRef.get().addOnSuccessListener { snapshot ->
+            val currentPoints = snapshot.value?.toString()?.toInt() ?: 0
+            val newPoints = currentPoints + pointsToAdd
+            userRef.setValue(newPoints)
+        }
+    }
+    private fun deductPoints(pointsToDeduct: Int) {
+        val database = Firebase.database
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+        val userRef = database.getReference("Users/$userId/points")
+        userRef.get().addOnSuccessListener { snapshot ->
+            val currentPoints = snapshot.value?.toString()?.toInt() ?: 0
+            if (currentPoints >= pointsToDeduct) {
+                val newPoints = currentPoints - pointsToDeduct
+                userRef.setValue(newPoints)
+            }
+        }
+    }
 }

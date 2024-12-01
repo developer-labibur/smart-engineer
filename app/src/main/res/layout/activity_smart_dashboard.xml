@@ -108,13 +108,15 @@
         android:background="@drawable/bg_sl_premium_text_green"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingEnd="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry">
 
         <LinearLayout
             android:id="@+id/ll_profile_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_margin="5dp"
             android:background="@drawable/bg_sl_premium_box_green"
             android:orientation="horizontal"
@@ -132,24 +134,33 @@
 
         <TextView
             android:id="@+id/tvProfile"
+            style="@style/dashboard_smart_point_text"
+            android:ellipsize="end"
+            android:maxWidth="125dp"
+            android:singleLine="true"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvDepName"
+            app:layout_constraintStart_toEndOf="@+id/ll_profile_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDepName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginBottom="5dp"
             android:ellipsize="end"
             android:fontFamily="@font/main_font_regular_2"
             android:includeFontPadding="false"
-            android:lineHeight="13dp"
-            android:maxWidth="100dp"
-            android:maxLines="2"
+            android:maxWidth="125dp"
+            android:singleLine="true"
             android:textColor="@color/sl_primary_text"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/ll_profile_icon"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ll_profile_icon"
-            app:layout_constraintTop_toTopOf="@+id/ll_profile_icon"
-            tools:ignore="UnusedAttribute" />
+            app:layout_constraintTop_toBottomOf="@+id/tvProfile" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -169,40 +180,33 @@
 
         <LinearLayout
             android:id="@+id/ll_premium_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_margin="5dp"
             android:background="@drawable/bg_sl_profile_box_golden"
             android:orientation="horizontal"
-            android:padding="4dp"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/sl_icon"
-                android:src="@drawable/premium_avatar" />
-
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_url="https://lottie.host/e64c0a22-b913-4a0d-bc5e-daa768ca93fd/8DGaZDmvma.lottie"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvPremium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/main_font_regular_2"
-            android:includeFontPadding="false"
-            android:text="@string/membership_plus"
-            android:textColor="@color/sl_primary_text"
-            android:textSize="13sp"
-            android:textStyle="bold"
+            android:text="@string/smart_points"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
-            app:layout_constraintTop_toTopOf="@+id/ll_premium_icon" />
+            app:layout_constraintTop_toTopOf="@+id/ll_premium_icon"
+            style="@style/dashboard_smart_point_text" />
 
         <TextView
             android:id="@+id/tvTaka"
@@ -210,11 +214,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="5dp"
-            android:fontFamily="@font/main_font_regular_2"
+            android:fontFamily="@font/josefin_sans_bold"
             android:includeFontPadding="false"
-            android:text="@string/_10_tk"
+            android:text="@string/_00"
             android:textColor="@color/sl_action_text_middle_red"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
@@ -224,12 +228,12 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
+            android:layout_marginStart="3dp"
             android:fontFamily="@font/main_font_regular_2"
             android:includeFontPadding="false"
-            android:text="@string/month"
+            android:text="@string/points"
             android:textColor="@color/sl_primary_text"
-            android:textSize="12sp"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/tvTaka"
             app:layout_constraintStart_toEndOf="@+id/tvTaka"
             app:layout_constraintTop_toTopOf="@+id/tvTaka" />
@@ -263,8 +267,6 @@
         <LinearLayout
             android:id="@+id/llHome"
             style="@style/bottom_nav_bg"
-            android:layout_marginEnd="3dp"
-            android:layout_marginStart="3dp"
             app:layout_constraintEnd_toStartOf="@+id/llBook"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -275,6 +277,7 @@
                 android:id="@+id/ivHome"
                 android:gravity="center"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 style="@style/shape_bottom_nav_bar_image"
                 android:background="@drawable/bg_sl_shape_box_golden"
                 android:contentDescription="@string/sl_icon"
@@ -291,8 +294,6 @@
         <LinearLayout
             android:id="@+id/llBook"
             style="@style/bottom_nav_bg"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
             app:layout_constraintEnd_toStartOf="@+id/llUpdates"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -305,6 +306,7 @@
                 android:background="@drawable/bg_sl_shape_box_blue"
                 android:contentDescription="@string/sl_icon"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:padding="4dp"
                 android:src="@drawable/sl_f_book" />
 
@@ -318,9 +320,7 @@
         <LinearLayout
             android:id="@+id/llUpdates"
             style="@style/bottom_nav_bg"
-            android:layout_marginStart="3dp"
             tools:ignore="UseCompoundDrawables"
-            android:layout_marginEnd="3dp"
             app:layout_constraintEnd_toStartOf="@+id/llSetting"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -330,6 +330,7 @@
                 android:id="@+id/ivUpdates"
                 style="@style/shape_bottom_nav_bar_image"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_sl_shape_box_green"
                 android:contentDescription="@string/sl_icon"
                 android:src="@drawable/sl_f_updates" />
@@ -344,8 +345,6 @@
         <LinearLayout
             android:id="@+id/llSetting"
             style="@style/bottom_nav_bg"
-            android:layout_marginEnd="3dp"
-            android:layout_marginStart="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -356,6 +355,7 @@
                 android:id="@+id/ivSetting"
                 style="@style/shape_bottom_nav_bar_image"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_sl_shape_box_purple"
                 android:contentDescription="@string/sl_icon"
                 android:padding="4dp"
@@ -364,7 +364,7 @@
             <TextView
                 android:id="@+id/tvSetting"
                 style="@style/bottom_nav_text_style"
-                android:text="@string/explore"/>
+                android:text="@string/setting"/>
 
         </LinearLayout>
 

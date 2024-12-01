@@ -18,4 +18,16 @@
         <item name="android:src">@drawable/logo_orange</item>
     </style>
 
+    <style name="bottom_nav_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:textColor">@color/mainContainer_HeadingText</item>
+        <item name="android:fontFamily">@font/logo_font</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 </resources>
