@@ -2,13 +2,10 @@ package com.rudhashi.smartengineer.util
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.rudhashi.smartengineer.Users
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -18,7 +15,6 @@ class AuthRepository {
 
     // Initialize Firebase Auth and Firebase Database
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private val database = FirebaseDatabase.getInstance()
 
     fun isLoggedIn(): Boolean {
         if (firebaseAuth.currentUser != null) {
@@ -39,10 +35,11 @@ class AuthRepository {
                                 Log.e(tag, "register success")
 
                                 val id = task.result.user!!.uid
-                                val userInfo = Users(id, name, "", email, "User")
-                                database.reference.child("Users").child(id).setValue(userInfo)
+                                //val userInfo = Users(id, name, "", email, "User")
+                                //database.reference.child("Users").child(id).setValue(userInfo)
 
-                                continuation.resume(login(email, password))
+                                MakeFirebaseEasy.updateUserInfo(name, email, "", "User", id, SmartData.getCurrentDate(), SmartConfig.NEW_USER_SIGNUP_BONUS_POINT)
+                                continuation.resume(login(email = email, password = password))
                             }
                         } else{
                             continuation.resume(false)

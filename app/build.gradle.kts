@@ -19,10 +19,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true // Enable minification
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -100,4 +99,10 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:${libs.versions.glide.get()}") // For Glide annotation processing
     implementation("io.coil-kt:coil:2.5.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
+
+
+    //implementation(libs.android.pdfium)  // PDF Reader
+    //implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
+
+    implementation("com.joanzapata.pdfview:android-pdfview:1.0.4@aar")
 }

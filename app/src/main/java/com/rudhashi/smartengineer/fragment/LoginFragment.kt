@@ -25,7 +25,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.Users
 import com.rudhashi.smartengineer.databinding.FragmentLoginBinding
 import com.rudhashi.smartengineer.databinding.LayoutSidebarBinding
 import com.rudhashi.smartengineer.model.User

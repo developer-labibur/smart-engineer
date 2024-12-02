@@ -96,23 +96,30 @@ class SmartHomeFragment : Fragment() {
             ?.get()?.addOnSuccessListener { querySnapshot ->
                 isShimmerOn(false)
                 for (document in querySnapshot.documents) {
-                    val department = document.toObject<CategoryDataClass>()
-                    departmentList.add(department!!)
-                    categoryAdapter = CategoryAdapter(departmentList, requireActivity())
-                    binding.recycleCategory.adapter = categoryAdapter
-                    // Set the click listener
-                    categoryAdapter.setOnItemClickListener(object :
-                        CategoryAdapter.OnItemClickListener {
-                        override fun onItemClick(position: Int, dataList: CategoryDataClass) {
-                            val intent = Intent(requireActivity(), DepartmentActivity::class.java)
-                            intent.putExtra("DAbbr", dataList.DAbbr)
-                            intent.putExtra("DCode", dataList.DCode)
-                            intent.putExtra("DCover", dataList.DCover)
-                            intent.putExtra("DInfo", dataList.DInfo)
-                            intent.putExtra("DName", dataList.DName)
-                            startActivity(intent)
-                        }
-                    })
+                    try {
+                        val department = document.toObject<CategoryDataClass>()
+                        departmentList.add(department!!)
+                        categoryAdapter = CategoryAdapter(departmentList, requireActivity())
+                        binding.recycleCategory.adapter = categoryAdapter
+                        // Set the click listener
+                        categoryAdapter.setOnItemClickListener(object :
+                            CategoryAdapter.OnItemClickListener {
+                            override fun onItemClick(position: Int, dataList: CategoryDataClass) {
+                                val intent = Intent(requireActivity(), DepartmentActivity::class.java)
+                                intent.putExtra("DAbbr", dataList.DAbbr)
+                                intent.putExtra("DCode", dataList.DCode)
+                                intent.putExtra("DCover", dataList.DCover)
+                                intent.putExtra("DInfo", dataList.DInfo)
+                                intent.putExtra("DName", dataList.DName)
+                                startActivity(intent)
+                            }
+                        })
+                    } catch (e: IllegalStateException) {
+                        Log.e("TEST_SL", "Error getting documents: ", e)
+
+                        // TODO : AI khane set korbo je -> Department a Loading effect dekhabe
+                    }
+
                 }
             }?.addOnFailureListener { e ->
                 isShimmerOn(false)

@@ -270,8 +270,7 @@
             app:layout_constraintEnd_toStartOf="@+id/llBook"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/round_back_home_100">
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:id="@+id/ivHome"
@@ -286,8 +285,7 @@
             <TextView
                 android:id="@+id/tvHome"
                 style="@style/bottom_nav_text_style"
-                android:text="@string/home"
-                android:visibility="visible"/>
+                android:text="@string/home"/>
 
         </LinearLayout>
         <!-- Books Bottom -->

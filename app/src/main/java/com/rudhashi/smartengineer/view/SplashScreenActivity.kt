@@ -2,49 +2,27 @@ package com.rudhashi.smartengineer.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.animation.AnimationUtils
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivitySplashScreenBinding
+import com.rudhashi.smartengineer.util.NightModeThemes
 import com.rudhashi.smartengineer.util.SmartData
 
 @SuppressLint("CustomSplashScreen")
-class SplashScreenActivity : AppCompatActivity() {
+class SplashScreenActivity : NightModeThemes() {
 
     private lateinit var binding: ActivitySplashScreenBinding
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var sharedPreferences: SharedPreferences
-    private var isNightMode: Boolean? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        // Initialize the shared preferences
-        sharedPreferences = getSharedPreferences(SmartData.PREF_KEY, MODE_PRIVATE)
-
-        // Get the current theme mode
-        isNightMode = sharedPreferences.getBoolean(SmartData.SWITCH_BUTTON_KEY, false)
-        if (isNightMode as Boolean) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
 
         auth = FirebaseAuth.getInstance()
 

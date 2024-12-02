@@ -1,6 +1,7 @@
 [versions]
-agp = "8.7.2"
+agp = "8.7.3"
 amazingspinner = "2.0.0"
+androidPdfViewerVersion = "1.9.0"
 kotlin = "1.9.24"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -12,7 +13,7 @@ material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
 
-navVersion = "2.8.3"
+navVersion = "2.8.4"
 playServicesAds = "23.5.0"
 preference = "1.2.1"
 
@@ -20,7 +21,7 @@ credentialsPlayServicesAuth = "1.5.0-beta01"
 googleid = "1.1.1"
 core = "3.3.0"
 googleGmsGoogleServices = "4.4.2"
-firebaseBom = "33.5.1"
+firebaseBom = "33.6.0"
 firebaseAuth = "23.1.0"
 input = "3.3.0"
 glide = "4.16.0" # or latest version
@@ -35,6 +36,8 @@ loggingInterceptor = "4.9.0"
 
 [libraries]
 amazingspinner = { module = "com.github.Mamoon-Alhawamdeh:AmazingSpinner", version.ref = "amazingspinner" }
+android-pdfium = { module = "com.github.barteksc:android-pdfium", version.ref = "androidPdfViewerVersion" }
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

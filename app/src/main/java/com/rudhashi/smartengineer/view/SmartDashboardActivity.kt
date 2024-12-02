@@ -1,19 +1,21 @@
 package com.rudhashi.smartengineer.view
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.LinearGradient
 import android.graphics.Shader
-import android.os.Build
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowInsetsController
 import android.view.WindowManager
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseAuth
@@ -23,15 +25,20 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivitySmartDashboardBinding
+import com.rudhashi.smartengineer.databinding.DialogDailyRewardBinding
+import com.rudhashi.smartengineer.databinding.DialogLogoutWarningBinding
 import com.rudhashi.smartengineer.fragment.SmartBooksFragment
 import com.rudhashi.smartengineer.fragment.SmartHomeFragment
 import com.rudhashi.smartengineer.fragment.SmartSettingFragment
 import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
 import com.rudhashi.smartengineer.model.User
+import com.rudhashi.smartengineer.util.GoogleAuthClient
+import com.rudhashi.smartengineer.util.NightModeThemes
 import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
+import kotlinx.coroutines.launch
 
-class SmartDashboardActivity : AppCompatActivity() {
+class SmartDashboardActivity : NightModeThemes() {
 
     private lateinit var binding: ActivitySmartDashboardBinding
 
@@ -40,17 +47,34 @@ class SmartDashboardActivity : AppCompatActivity() {
     private var database = FirebaseDatabase.getInstance()
     private val userRef = database.getReference("Users/$userId")
 
-    private lateinit var sharedPreferences: SharedPreferences
-    private var isNightMode: Boolean? = null
+    //private var isNightMode: Boolean? = null
+
+    private var displayFragment = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySmartDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        // Set up ViewPager with fragments
+        val fragments = listOf(SmartHomeFragment(), SmartBooksFragment(), SmartUpdatesFragment(), SmartSettingFragment())
 
-        // Completely transparent Status Bar and Setup Main Container ------------------------------
+        binding.viewPager.adapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int = fragments.size
+            override fun createFragment(position: Int): Fragment = fragments[position]
+        }
+
+        //Log.i("TEST_SL", "Display Fragment: Else")
+        setActiveTab(0)
+        displayFragment = intent.getStringExtra("DISPLAY").toString()
+
+//        else if (displayFragment == "Setting") {
+//            Log.i("TEST_SL", "Display Fragment: Try Block => $displayFragment")
+//            displayFragment = ""
+//            setActiveTab(3)
+//            displayFragment = ""
+//        }
+
         setContainerMakeTransparent()
 
         // Set Smart Engineering App Text Gradient ------------------------------
@@ -63,26 +87,6 @@ class SmartDashboardActivity : AppCompatActivity() {
     // =========================     Transparent Status Bar and Main Container (ViewPager)      ============================
     // =====================================================================================================================
     private fun setContainerMakeTransparent(){
-        // Initialize the shared preferences
-        sharedPreferences = getSharedPreferences(SmartData.PREF_KEY, MODE_PRIVATE)
-
-        // Get the current theme mode
-        isNightMode = sharedPreferences.getBoolean(SmartData.SWITCH_BUTTON_KEY, false)
-        if (isNightMode as Boolean) { AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES) }
-        setStatusBarFontColor(!isNightMode!!)
-
-        // Set up ViewPager with fragments
-        val fragments = listOf(
-            SmartHomeFragment(),
-            SmartBooksFragment(),
-            SmartUpdatesFragment(),
-            SmartSettingFragment()
-        )
-
-        binding.viewPager.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int = fragments.size
-            override fun createFragment(position: Int): Fragment = fragments[position]
-        }
 
         // Set height based on the currently selected page
         binding.apply {
@@ -103,58 +107,49 @@ class SmartDashboardActivity : AppCompatActivity() {
         binding.apply {
 
             when (position) {
+                0 -> {
+                    tvHome.visibility = View.VISIBLE
+                    tvBook.visibility = View.GONE
+                    tvUpdates.visibility = View.GONE
+                    tvSetting.visibility = View.GONE
+                    llHome.setBackgroundResource(R.drawable.round_back_home_100)
+                    llBook.setBackgroundResource(R.color.transparent)
+                    llUpdates.setBackgroundResource(R.color.transparent)
+                    llSetting.setBackgroundResource(R.color.transparent)
+                    displayFragment = ""
+                }
                 1 -> {
                     tvHome.visibility = View.GONE
                     tvBook.visibility = View.VISIBLE
+                    tvUpdates.visibility = View.GONE
+                    tvSetting.visibility = View.GONE
                     llHome.setBackgroundResource(R.color.transparent)
                     llBook.setBackgroundResource(R.drawable.round_back_book_100)
+                    llUpdates.setBackgroundResource(R.color.transparent)
+                    llSetting.setBackgroundResource(R.color.transparent)
                 }
                 2 -> {
+                    tvHome.visibility = View.GONE
+                    tvBook.visibility = View.GONE
                     tvUpdates.visibility = View.VISIBLE
                     tvSetting.visibility = View.GONE
+                    llHome.setBackgroundResource(R.color.transparent)
+                    llBook.setBackgroundResource(R.color.transparent)
                     llUpdates.setBackgroundResource(R.drawable.round_back_updates_100)
                     llSetting.setBackgroundResource(R.color.transparent)
                 }
-                3 -> {
+                else -> {
+                    tvHome.visibility = View.GONE
+                    tvBook.visibility = View.GONE
                     tvUpdates.visibility = View.GONE
                     tvSetting.visibility = View.VISIBLE
+                    llHome.setBackgroundResource(R.color.transparent)
+                    llBook.setBackgroundResource(R.color.transparent)
                     llUpdates.setBackgroundResource(R.color.transparent)
                     llSetting.setBackgroundResource(R.drawable.round_back_setting_100)
+
+                    displayFragment = ""
                 }
-                else -> {
-                    tvHome.visibility = View.VISIBLE
-                    tvBook.visibility = View.GONE
-                    llHome.setBackgroundResource(R.drawable.round_back_home_100)
-                    llBook.setBackgroundResource(R.color.transparent)
-                }
-            }
-
-            if (position == 0 || position == 1) {
-                tvUpdates.visibility = View.GONE
-                tvSetting.visibility = View.GONE
-
-                llUpdates.setBackgroundResource(R.color.transparent)
-                llSetting.setBackgroundResource(R.color.transparent)
-
-                val scaleAnimation = ScaleAnimation(0.8f, 1.0f, 1f, 1f, Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f)
-                scaleAnimation.duration = 200
-                scaleAnimation.fillAfter = true
-                if (position == 0) llHome.animation = scaleAnimation
-                else llBook.animation = scaleAnimation
-            } else {
-                tvHome.visibility = View.GONE
-                tvBook.visibility = View.GONE
-
-                llHome.setBackgroundResource(R.color.transparent)
-                llBook.setBackgroundResource(R.color.transparent)
-
-                // create animation
-                val scaleAnimation = ScaleAnimation(0.8f, 1.0f, 1f, 1f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.0f)
-                scaleAnimation.duration = 200
-                scaleAnimation.fillAfter = true
-                if (position == 2) llUpdates.animation = scaleAnimation
-                else llSetting.animation = scaleAnimation
-
             }
 
             // Sync ViewPager position with selected tab
@@ -164,31 +159,7 @@ class SmartDashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun setStatusBarFontColor(isDarkText: Boolean) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (isDarkText) {
-                window.insetsController?.setSystemBarsAppearance(
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-                )
-            } else {
-                window.insetsController?.setSystemBarsAppearance(
-                    0,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-                )
-            }
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = if (isDarkText) {
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            } else {
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            }
-        }
-    }
+
 
     // =====================================================================================================================
     // ============================================     Gradient Text color     ============================================
@@ -232,14 +203,10 @@ class SmartDashboardActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        displayPointsDynamically()
-    }
-
     // =====================================================================================================================
     // ============================================     Smart Point System     ============================================
     // =====================================================================================================================
+    @SuppressLint("InflateParams")
     private fun checkAndAwardDailyBonus() {
         userRef.get().addOnSuccessListener { snapshot ->
             val currentDate = SmartData.getCurrentDate() // Get today's date
@@ -255,7 +222,24 @@ class SmartDashboardActivity : AppCompatActivity() {
                 )
                 userRef.updateChildren(updates).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "${SmartConfig.DAILY_LOGIN_BONUS_POINT} points bonus added!", Toast.LENGTH_SHORT).show()
+
+                        val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
+                        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_daily_reward, null)
+                        val dialogBinding = DialogDailyRewardBinding.bind(dialogView)
+                        builder.setView(dialogBinding.root)
+                        builder.setCanceledOnTouchOutside(false)
+                        builder.show()
+
+                        dialogBinding.btnAllPoints.setOnClickListener {
+                            startActivity(Intent(this, ProfileActivity::class.java))
+                            builder.dismiss()
+                        }
+                        dialogBinding.btnClose.setOnClickListener { builder.dismiss() }
+
+                        if (builder.window != null) builder.window!!.setBackgroundDrawable(
+                            ColorDrawable(0)
+                        )
+                        builder.show()
                     } else {
                         Toast.makeText(this, "Failed to add bonus points!", Toast.LENGTH_SHORT).show()
                     }
@@ -289,5 +273,13 @@ class SmartDashboardActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 binding.tvProfile.text = it.value.toString()
             }*/
+    }
+
+    override fun onResume() {
+        super.onResume()
+        displayPointsDynamically()
+
+        if (displayFragment == "Home") setActiveTab(0)
+        if (displayFragment == "Setting") setActiveTab(3)
     }
 }
