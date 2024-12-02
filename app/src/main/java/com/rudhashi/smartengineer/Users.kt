@@ -8,7 +8,8 @@ class Users{
     var semester: String? = null
     var department: String? = null
     var institute: String? = null
-    var gender: String? = null
+    var points: Int = 0
+    var joiningDate: String? = null
     var role: String? = null
 
     constructor() {}
@@ -21,7 +22,8 @@ class Users{
         semester: String?,
         department: String?,
         institute: String?,
-        gender: String?,
+        points: Int,
+        joiningDate: String?,
         role: String?
     ) {
         this.userId = userId
@@ -31,7 +33,8 @@ class Users{
         this.semester = semester
         this.department = department
         this.institute = institute
-        this.gender = gender
+        this.points = points
+        this.joiningDate = joiningDate
         this.role = role
     }
 

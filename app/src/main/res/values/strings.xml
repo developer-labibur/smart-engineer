@@ -210,7 +210,7 @@
     <string name="popular">Popular</string>
     <string name="_265">265</string>
     <string name="blog">Blog</string>
-    <string name="view_all_notice">View All Notice</string>
+    <string name="view_all_notice">View All Notices</string>
     <string name="c">C</string>
     <string name="ustom">ustom</string>
     <string name="unlock_all_books">Read eBooks completely free using points</string>
@@ -234,7 +234,7 @@
     <string name="google_account">Google Account</string>
     <string name="click_to_sign_in_with_google">Click to sign in with google</string>
     <string name="change_department">Change department</string>
-    <string name="manage_semester_amp_department"><![CDATA[Manage semester & department]]></string>
+    <string name="manage_semester_amp_department">Manage department information</string>
     <string name="logout">Logout</string>
     <string name="logout_this_account">Logout this account</string>
     <string name="a">A</string>
@@ -249,5 +249,14 @@
     <string name="see_the_most_commonly_asked_questions">See the most commonly asked questions</string>
     <string name="about">About</string>
     <string name="version_1_0_0">Version: 1.0.0</string>
+    <string name="enter_email_address">Enter Email Address</string>
+    <string name="change_profile_picture">Change Profile\nPicture</string>
+    <string name="change_picture">Change profile picture</string>
+    <string name="select_your_new_department">Select your new department</string>
+    <string name="change_departments">Change Department</string>
+    <string name="current_department_is">Current Department is: %1$s</string>
+    <string name="view_all_books">View All Books</string>
+    <string name="daily_bonus">Daily Bonus</string>
+    <string name="get_100_smart_points_login_bonus">Get 100 smart points login bonus</string>
 
 </resources>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialogForgot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layBlur"
+        android:layout_width="0dp"
+        android:layout_height="165dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/dialog_orange_bg"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvTitleBonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/hind_siliguri"
+        android:text="@string/daily_bonus"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="@+id/layBlur" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/get_100_smart_points_login_bonus"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/lottieAnimationView"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleBonus"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleBonus" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/layBlur"
+        app:layout_constraintTop_toTopOf="@+id/layBlur"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_url="https://lottie.host/20f6eb56-5b36-4397-8e6d-b3e9a5a32eb9/OtUbI55XU4.lottie" />
+
+
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/dialog_orange_sub_action"
+        android:layout_margin="15dp"
+        android:padding="10dp"
+        android:src="@drawable/sl_left_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@+id/layBlur"
+        app:layout_constraintStart_toStartOf="@+id/layBlur" />
+
+    <LinearLayout
+        android:id="@+id/btnAllPoints"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/dialog_orange_action"
+        app:layout_constraintBottom_toBottomOf="@+id/btnClose"
+        app:layout_constraintEnd_toEndOf="@+id/layBlur"
+        app:layout_constraintStart_toEndOf="@+id/btnClose"
+        app:layout_constraintTop_toTopOf="@+id/btnClose">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hind_siliguri"
+            android:text="@string/smart_points"
+            android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="-10dp"
+        android:src="@drawable/cat_with_balloon"
+        app:layout_constraintBottom_toTopOf="@+id/layBlur"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/layBlur"/>
+
+
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="-20dp"
+        android:src="@drawable/cute_cat"
+        app:layout_constraintBottom_toTopOf="@+id/layBlur"
+        app:layout_constraintEnd_toEndOf="@+id/layBlur" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

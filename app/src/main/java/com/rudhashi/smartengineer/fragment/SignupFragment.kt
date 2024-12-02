@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.Users
 import com.rudhashi.smartengineer.databinding.FragmentSignupBinding
 import com.rudhashi.smartengineer.databinding.LayoutSidebarBinding
 import com.rudhashi.smartengineer.model.User
@@ -29,7 +28,7 @@ import com.rudhashi.smartengineer.util.GoogleAuthClient
 import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.view.DashboardActivity
+import com.rudhashi.smartengineer.view.SmartDashboardActivity
 import kotlinx.coroutines.launch
 
 class SignupFragment : Fragment() {
@@ -120,7 +119,7 @@ class SignupFragment : Fragment() {
 
                                             MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints)
 
-                                            val intent = Intent(requireContext(), DashboardActivity::class.java)
+                                            val intent = Intent(requireContext(), SmartDashboardActivity::class.java)
                                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                             startActivity(intent)
                                             SmartData.lToast(requireActivity(), "SignIn Successfully")
@@ -269,7 +268,7 @@ class SignupFragment : Fragment() {
 
                                             MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints)
 
-                                            val intent = Intent(requireContext(), DashboardActivity::class.java)
+                                            val intent = Intent(requireContext(), SmartDashboardActivity::class.java)
                                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                             startActivity(intent)
                                             SmartData.lToast(requireActivity(), "SignIn Successfully")

@@ -27,10 +27,10 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.Users
 import com.rudhashi.smartengineer.databinding.ActivityProfileBinding
 import com.rudhashi.smartengineer.databinding.DialogEditProfileBinding
 import com.rudhashi.smartengineer.databinding.DialogLogoutWarningBinding
+import com.rudhashi.smartengineer.model.User
 import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartData
 
@@ -67,18 +67,24 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.apply {
-            proPic.setOnClickListener { callImagePicker() }
             backProfileBtn.setOnClickListener { finish() }
             proBtnEdit.setOnClickListener { setProfileInfo() }
             backLogout.setOnClickListener { setLogOut() }
+            proBtnDelete.setOnClickListener { SmartData.comingSoon(this@ProfileActivity) }
+
+            btnSettings.setOnClickListener {
+                val intent = Intent(this@ProfileActivity, SmartDashboardActivity::class.java)
+                intent.putExtra("DISPLAY", "Setting")
+                startActivity(intent) }
         }
     }
 
+    // == == == == == == == == == == ==  Load Profile Information and Picture  == == == == == == == == == == == == == ==
     private fun loadProfileInfo() {
         database.reference.child("Users").child(auth.uid!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val user: Users? = snapshot.getValue(Users::class.java)
+                    val user: User? = snapshot.getValue(User::class.java)
                     binding.proName.text = user?.name
                     binding.proEmail.text = user?.email
                     binding.proDepartment.text = user?.department
@@ -95,11 +101,13 @@ class ProfileActivity : AppCompatActivity() {
         database.reference.child("Users").child(auth.uid!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val user: Users? = snapshot.getValue(Users::class.java)
+                    val user: User? = snapshot.getValue(User::class.java)
+
                     Glide.with(this@ProfileActivity)
                         .load(user?.picture?.let { MakeFirebaseEasy.currentUserImage(it) })
                         .placeholder(R.drawable.avatar)
                         .into(binding.proPic)
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -107,35 +115,9 @@ class ProfileActivity : AppCompatActivity() {
                 }
             })
     }
-    private fun callImagePicker() {
-        ImagePicker.with(this)
-            .cropSquare()
-            .compress(1024)
-            .maxResultSize(1080, 1080)
-            .createIntent { intent -> startForProfileImageResult.launch(intent) }
-    }
-    private val startForProfileImageResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            when (result.resultCode) {
-                Activity.RESULT_OK -> {
-                    val uri = result.data?.data
-                    uri?.let {
-                        binding.proPic.setImageURI(it)
-                        dialogBinding.proPic.setImageURI(it)
-                        selectedImage = it
-                        SmartData.sToast(this@ProfileActivity, "Image Selected")
-                    }
-                }
 
-                ImagePicker.RESULT_ERROR -> {
-                    SmartData.sToast(this, ImagePicker.getError(result.data))
-                }
-
-                else -> {
-                    SmartData.sToast(this, "Not Select Any Image")
-                }
-            }
-        }
+    // == == == == == == == == == == ==  Edit Profile button Functionality  == == == == == == == == == == == == == ==
+    @SuppressLint("InflateParams")
     private fun setProfileInfo() {
         val builder = AlertDialog.Builder(this@ProfileActivity, R.style.CustomAlertDialog).create()
         val dialogView = LayoutInflater.from(this@ProfileActivity).inflate(R.layout.dialog_edit_profile, null)
@@ -157,7 +139,7 @@ class ProfileActivity : AppCompatActivity() {
                 .child(currentUser.uid)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val user = snapshot.getValue(Users::class.java)
+                        val user = snapshot.getValue(User::class.java)
                         Glide.with(this@ProfileActivity)
                             .load(user?.picture?.let { MakeFirebaseEasy.currentUserImage(it) })
                             .placeholder(R.drawable.avatar)
@@ -178,9 +160,7 @@ class ProfileActivity : AppCompatActivity() {
 
                 if (this@ProfileActivity::selectedImage.isInitialized){
                     MakeFirebaseEasy.uploadProfileImage(selectedImage, currentUser.uid)
-                    val updatedUserInfo = hashMapOf(
-                        "name" to userName, "department" to userDepartment, "semester" to userSemester, "institute" to userInstitute)
-
+                    val updatedUserInfo = hashMapOf("name" to userName, "department" to userDepartment, "semester" to userSemester, "institute" to userInstitute)
                     database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
                     loadProfileInfo()
                     builder.dismiss()
@@ -189,38 +169,54 @@ class ProfileActivity : AppCompatActivity() {
                         .child(currentUser.uid)
                         .addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
-                                val user = snapshot.getValue(Users::class.java)
-                                val updatedUserInfo = hashMapOf(
-                                    "name" to userName, "department" to userDepartment, "semester" to userSemester, "institute" to userInstitute, "picture" to user?.picture.toString())
-
+                                val user = snapshot.getValue(User::class.java)
+                                val updatedUserInfo = hashMapOf("name" to userName, "department" to userDepartment, "semester" to userSemester, "institute" to userInstitute, "picture" to user?.picture.toString())
                                 database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
                                 loadProfileInfo()
                                 loadProfilePicture()
                                 builder.dismiss()
                             }
-                            override fun onCancelled(error: DatabaseError) {
-                            }
+                            override fun onCancelled(error: DatabaseError) {}
                         })
                 }
             }
             dialogBinding.btnCancel.setOnClickListener{ builder.dismiss() }
-            dialogBinding.editPro.setOnClickListener {
-                callImagePicker()
-            }
-            dialogBinding.proCamera.setOnClickListener {
-                callImagePicker()
-            }
+            dialogBinding.editPro.setOnClickListener { callImagePicker() }
+            dialogBinding.proCamera.setOnClickListener { callImagePicker() }
         }
 
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }
+    private fun callImagePicker() {
+        ImagePicker.with(this)
+            .cropSquare()
+            .compress(1024)
+            .maxResultSize(1080, 1080)
+            .createIntent { intent -> startForProfileImageResult.launch(intent) }
+    }
+    private val startForProfileImageResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        when (result.resultCode) {
+            Activity.RESULT_OK -> {
+                val uri = result.data?.data
+                uri?.let {
+                    binding.proPic.setImageURI(it)
+                    dialogBinding.proPic.setImageURI(it)
+                    selectedImage = it
+                    SmartData.sToast(this@ProfileActivity, "Image Selected")
+                }
+            }
+            ImagePicker.RESULT_ERROR -> SmartData.sToast(this, ImagePicker.getError(result.data))
+            else -> SmartData.sToast(this, "Not Select Any Image")
+        }
+    }
+
+    // == == == == == == == == == == ==  Set LogOut button Functionality  == == == == == == == == == == == == == ==
     @SuppressLint("InflateParams")
     private fun setLogOut(){
         val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_logout_warning, null)
-        val dialogBinding: DialogLogoutWarningBinding =
-            DialogLogoutWarningBinding.bind(dialogView)
+        val dialogBinding = DialogLogoutWarningBinding.bind(dialogView)
         builder.setView(dialogBinding.root)
         builder.setCanceledOnTouchOutside(false)
         builder.show()

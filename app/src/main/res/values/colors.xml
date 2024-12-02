@@ -17,6 +17,9 @@
     <color name="sl_action_green">#68ecb4</color>
     <color name="sl_action_text_middle_red">#b9505c</color>
 
+    <color name="dialog_bg">#f8e9d4</color>
+    <color name="dialog_sub_action">#FFE0B6</color>
+
     <!-- ============================================ Shape ============================================== -->
     <color name="shape_orange_bg_color">#33ffcc80</color>
     <color name="shape_orange_box_color">#ffcc80</color>

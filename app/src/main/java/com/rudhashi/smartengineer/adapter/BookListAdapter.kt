@@ -22,11 +22,7 @@ class BookListAdapter(
         return BookViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        val count = bookList.size
-        Log.d("AdapterItemCount", "Item count: $count") // Debugging purpose
-        return count
-    }
+    override fun getItemCount(): Int = bookList.size
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         holder.bind(bookList[position])
