@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="9dp"
+    android:layout_marginEnd="9dp"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/unitName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unit_0_unit_name"
+        android:lineSpacingExtra="-4dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/hind_siliguri"
+        android:textColor="@color/mainContainer_HeadingText" />
+
+</LinearLayout>

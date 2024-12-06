@@ -258,5 +258,16 @@
     <string name="view_all_books">View All Books</string>
     <string name="daily_bonus">Daily Bonus</string>
     <string name="get_100_smart_points_login_bonus">Get 100 smart points login bonus</string>
+    <string name="book_name_book_code">%1$s (%2$s)</string>
+    <string name="_0_0">0/0</string>
+    <string name="oks">Ok</string>
+    <string name="select_animation_mode">Select Animation Mode</string>
+    <string name="no_animation">No Animation</string>
+    <string name="slide_animation">Slide Animation</string>
+    <string name="flip_over_animation">Flip Over Animation</string>
+    <string name="flip_right_animation">Flip Right Animation</string>
+    <string name="cube_rotation_animation">Cube Rotation Animation</string>
+    <string name="shrink_and_expand_animation">Shrink and Expand Animation</string>
+    <string name="carousel_animation">Carousel Animation</string>
 
 </resources>

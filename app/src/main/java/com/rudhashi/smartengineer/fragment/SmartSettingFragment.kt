@@ -33,6 +33,7 @@ import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.view.MainActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartDashboardActivity
+import com.rudhashi.smartengineer.view.SmartEBookActivity
 import kotlinx.coroutines.launch
 
 class SmartSettingFragment : Fragment() {
@@ -59,7 +60,7 @@ class SmartSettingFragment : Fragment() {
             btnViewPremium.setOnClickListener { SmartData.comingSoon(requireActivity()) }
 
             // Custom Section --------------------------------
-            sBtnPremium.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            sBtnPremium.setOnClickListener { startActivity(Intent(requireActivity(), SmartEBookActivity::class.java)) }
             nightModeToggle()  // Set Dark Mode functionality
 
             // Special Section --------------------------------

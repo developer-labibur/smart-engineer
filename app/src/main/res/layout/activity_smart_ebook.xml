@@ -1,14 +1,387 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="?attr/pdfBackgroundSecoundary"
     android:layout_height="match_parent"
     tools:context=".view.SmartEBookActivity">
 
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdfView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <!-- This FrameLayout will be animated -->
+    <FrameLayout
+        android:id="@+id/pdfContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/pdfBackgroundSecoundary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</LinearLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/bookLoading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="35dp"
+            android:elevation="20dp"
+            android:background="?attr/pdfBackgroundSecoundary"
+            app:lottie_url="https://lottie.host/220f0546-3c87-4e21-8915-62fdcbe52efb/cXXib50k5Y.lottie"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+        <com.github.pdfviewer.PDFView
+            android:id="@+id/pdfView"
+            android:background="?attr/pdfBackgroundSecoundary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <!-- Taskbar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/taskbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/pdfBackgroundPrimary"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="35dp"
+        android:paddingBottom="10dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- All Book Button -->
+        <ImageView
+            android:id="@+id/ivLibrary"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/sl_icon"
+            android:src="?attr/pdfIconLibrary"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUnitTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvUnitTitle" />
+
+        <!-- Title and Table of Contents -->
+        <TextView
+            android:id="@+id/tvUnitTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/hind_siliguri"
+            android:lineSpacingExtra="-6dp"
+            android:maxLines="2"
+            android:text="@string/unit_0_unit_name"
+            android:textColor="?attr/pdfText"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/backButton"
+            app:layout_constraintStart_toEndOf="@+id/ivLibrary"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/sl_icon"
+            android:padding="7dp"
+            android:src="?attr/pdfIconCross"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUnitTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvUnitTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Container Layout for Additional Buttons -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:elevation="10dp"
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/pdfBackgroundPrimary"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/seekbarLoading"
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:elevation="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/booksTab"
+            app:layout_constraintEnd_toEndOf="@id/booksTab"
+            app:layout_constraintStart_toStartOf="@id/booksTab"
+            app:layout_constraintTop_toTopOf="@id/booksTab"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_url="https://lottie.host/940bc8e2-8bc3-4e66-929d-b71b0a471e9b/NNdHq6B4zp.lottie" />
+
+        <!-- Seek Bar and Jump Pager -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/booksTab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/pdfSeekBarBG"
+            android:padding="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/previousButton"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="1dp"
+                android:background="?attr/pdfSeekBarIcon"
+                android:contentDescription="@string/sl_icon"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="7dp"
+                android:paddingEnd="9dp"
+                android:src="?attr/pdfIconBack"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <SeekBar
+                android:id="@+id/pageScrollBar"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="5dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:splitTrack="false"
+                android:progressDrawable="@drawable/custom_horizontal_progress"
+                android:thumb="@drawable/seekbar_thumb"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/previousButton"
+                app:layout_constraintEnd_toStartOf="@+id/pageNumberTextView"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/pageNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/baumans_regular"
+                android:padding="8dp"
+                android:text="@string/_0_0"
+                android:layout_marginEnd="2dp"
+                android:textColor="?attr/pdfText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/nextButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/nextButton"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="1dp"
+                android:background="?attr/pdfSeekBarIcon"
+                android:contentDescription="@string/sl_icon"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="7dp"
+                android:paddingEnd="9dp"
+                android:rotation="180"
+                android:src="?attr/pdfIconBack"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!-- Bottom Functional Button -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rootLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/booksTab">
+
+            <!-- Theme Button - Align left -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/themeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="?attr/pdfSeekBarBG"
+                android:padding="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="1dp"
+                    android:background="?attr/pdfSeekBarIcon"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="7dp"
+                    android:src="?attr/pdfIconTheme"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Center Buttons: Rotate, Orientation -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rotateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="4dp"
+                android:background="?attr/pdfSeekBarBG"
+                android:padding="2dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/themeButton"
+                app:layout_constraintEnd_toStartOf="@+id/orientationButton">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="1dp"
+                    android:background="?attr/pdfSeekBarIcon"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="8dp"
+                    android:src="?attr/pdfIconRotate"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/orientationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="4dp"
+                android:background="?attr/pdfSeekBarBG"
+                android:padding="2dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rotateButton"
+                app:layout_constraintEnd_toStartOf="@+id/animationButton">
+
+                <ImageView
+                    android:id="@+id/btnHorizontal"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="8dp"
+                    android:src="?attr/pdfIconHorizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnVertical"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnVertical"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="8dp"
+                    android:rotation="180"
+                    android:src="?attr/pdfIconVertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnSwipeHorizontal"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnHorizontal"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnSwipeHorizontal"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:background="?attr/pdfSeekBarIcon"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="6dp"
+                    android:src="?attr/pdfIconSwipeHorizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnSwipeVertical"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnVertical"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnSwipeVertical"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="6dp"
+                    android:rotation="180"
+                    android:src="?attr/pdfIconSwipeVertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btnSwipeHorizontal"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Scroll Button - Align right -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/animationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/pdfSeekBarBG"
+                android:layout_marginStart="4dp"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="1dp"
+                    android:background="?attr/pdfSeekBarIcon"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="8dp"
+                    android:src="?attr/pdfIconSetting"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

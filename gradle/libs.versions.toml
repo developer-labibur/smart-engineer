@@ -36,7 +36,6 @@ loggingInterceptor = "4.9.0"
 
 [libraries]
 amazingspinner = { module = "com.github.Mamoon-Alhawamdeh:AmazingSpinner", version.ref = "amazingspinner" }
-android-pdfium = { module = "com.github.barteksc:android-pdfium", version.ref = "androidPdfViewerVersion" }
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

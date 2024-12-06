@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/bottom_sheet_background">
+
+    <!-- Top horizontal line -->
+    <View
+        android:id="@+id/top_handle"
+        android:layout_width="48dp"
+        android:layout_height="4dp"
+        android:background="@drawable/handle_background"
+        android:layout_gravity="center" />
+
+    <!-- Animation Mode title -->
+    <TextView
+        android:id="@+id/bookTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/hind_siliguri"
+        android:textColor="@color/mainContainer_HeadingText"
+        android:text="@string/select_animation_mode"
+        android:lineSpacingExtra="-8dp" />
+
+    <!-- Select Animation Mode -->
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_marginTop="-5dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/animNo"
+            android:text="@string/no_animation"
+            style="@style/radio_button" />
+
+        <RadioButton
+            android:id="@+id/animShrinkExpand"
+            style="@style/radio_button"
+            android:text="@string/shrink_and_expand_animation" />
+
+        <RadioButton
+            android:id="@+id/animSlide"
+            style="@style/radio_button"
+            android:text="@string/slide_animation" />
+
+        <RadioButton
+            android:id="@+id/animFlipOver"
+            style="@style/radio_button"
+            android:text="@string/flip_over_animation" />
+
+        <RadioButton
+            android:id="@+id/animFlipRight"
+            style="@style/radio_button"
+            android:text="@string/flip_right_animation" />
+
+        <RadioButton
+            android:id="@+id/animCubeRotation"
+            style="@style/radio_button"
+            android:text="@string/cube_rotation_animation" />
+
+        <RadioButton
+            android:id="@+id/animCarousel"
+            style="@style/radio_button"
+            android:text="@string/carousel_animation" />
+
+    </RadioGroup>
+
+</LinearLayout>

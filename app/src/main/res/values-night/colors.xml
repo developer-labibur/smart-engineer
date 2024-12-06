@@ -38,6 +38,7 @@
     <color name="mainContainer_Active">#242424</color>
     <color name="mainContainer_HeadingText">#F6F6F6</color>
     <color name="mainContainer_SubHeadingText">#D3D3D3</color>
+    <color name="mainContainer_SelectedText">#82ADFF</color>
 
     <!-- For Unique Style -->
     <color name="underlineText">#80622A</color>

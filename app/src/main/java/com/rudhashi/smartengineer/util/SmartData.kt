@@ -5,15 +5,16 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.icu.util.Calendar
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.DialogComingSoonBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
-import kotlin.time.times
 
 class SmartData {
     companion object {
@@ -28,6 +29,8 @@ class SmartData {
         // Function to display Toast
         fun lToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
         fun sToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
+        fun lSnackbar(viewGroup: ViewGroup, message: String) { Snackbar.make(viewGroup, message,Snackbar.LENGTH_LONG).show() }
+        fun sSnackbar(viewGroup: ViewGroup, message: String) { Snackbar.make(viewGroup, message,Snackbar.LENGTH_SHORT).show() }
 
         @SuppressLint("InflateParams")
         fun comingSoon(context: Context){

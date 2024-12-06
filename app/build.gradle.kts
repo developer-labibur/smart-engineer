@@ -103,6 +103,15 @@ dependencies {
 
     //implementation(libs.android.pdfium)  // PDF Reader
     //implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
+    //implementation ("com.github.Foysalofficial:pdf-viewer-android:6.1")
+    //implementation("com.joanzapata.pdfview:android-pdfview:1.0.4@aar")
 
-    implementation("com.joanzapata.pdfview:android-pdfview:1.0.4@aar")
+    implementation("com.github.labib-ur-rahman:pdf-viewer-android:7.0.0")
+    //{ exclude(group = "com.android.support", module = "support-compat") }
+
+    implementation ("com.squareup.okhttp3:okhttp:4.12.0") // For downloading the PDF
+
+    //implementation ("com.github.barteksc.pdfviewer:android-pdf-viewer:3.2.0-beta.1")
+    //implementation ("com.squareup.okhttp3:okhttp:4.9.1")  // Ensure OkHttp is included for downloading PDFs
+
 }

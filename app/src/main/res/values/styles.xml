@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Light Theme -->
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize light theme colors -->
+        <item name="pdfBackgroundPrimary">@color/pdf_light</item>
+        <item name="pdfBackgroundSecoundary">@color/pdf_s_light</item>
+        <item name="pdfIcon">@color/pdf_ic_light</item>
+        <item name="pdfText">@color/pdf_text_light</item>
+
+        <item name="pdfIconLibrary">@drawable/sl_library</item>
+        <item name="pdfIconCross">@drawable/sl_cross</item>
+        <item name="pdfIconBack">@drawable/sl_left_arrow_back</item>
+        <item name="pdfSeekBarBG">@drawable/pdf_seekbar_bg_light</item>
+        <item name="pdfSeekBarIcon">@drawable/pdf_seekbar_icon_light</item>
+        <item name="pdfIconTheme">@drawable/pdf_sun</item>
+        <item name="pdfIconRotate">@drawable/sl_smartphone_rotate_orientation</item>
+        <item name="pdfIconVertical">@drawable/pdf_slider_horizontal</item>
+        <item name="pdfIconHorizontal">@drawable/pdf_slider_vertical</item>
+        <item name="pdfIconSwipeHorizontal">@drawable/pdf_posts_carousel_horizontal</item>
+        <item name="pdfIconSwipeVertical">@drawable/pdf_posts_carousel_vertical</item>
+        <item name="pdfIconSetting">@drawable/sl_settings_fill</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item> <!-- White text on dark theme -->
+
+    </style>
+
+    <!-- Dark Theme -->
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize dark theme colors -->
+        <item name="pdfBackgroundPrimary">@color/pdf_dark</item>
+        <item name="pdfBackgroundSecoundary">@color/pdf_s_dark</item>
+        <item name="pdfIcon">@color/pdf_ic_light</item>
+        <item name="pdfText">@color/pdf_text_dark</item>
+
+        <item name="pdfIconLibrary">@drawable/pdf_library</item>
+        <item name="pdfIconCross">@drawable/pdf_cross</item>
+        <item name="pdfIconBack">@drawable/pdf_left_arrow_back</item>
+        <item name="pdfSeekBarBG">@drawable/pdf_seekbar_bg_dark</item>
+        <item name="pdfSeekBarIcon">@drawable/pdf_seekbar_icon_dark</item>
+        <item name="pdfIconTheme">@drawable/pdf_moon</item>
+        <item name="pdfIconRotate">@drawable/pdf_smartphone_rotate_orientation</item>
+        <item name="pdfIconVertical">@drawable/pdf_slider_horizontal_light</item>
+        <item name="pdfIconHorizontal">@drawable/pdf_slider_vertical_light</item>
+        <item name="pdfIconSwipeHorizontal">@drawable/pdf_posts_carousel_horizontal_light</item>
+        <item name="pdfIconSwipeVertical">@drawable/pdf_posts_carousel_vertical_light</item>
+        <item name="pdfIconSetting">@drawable/pdf_setting</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- Dark text on light theme -->
+
+    </style>
+
+
+
+
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/bg_notice_item</item>
     </style>
@@ -278,6 +333,16 @@
         <item name="android:textColor">@color/sl_primary_text</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="radio_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:fontFamily">@font/hind_siliguri</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/mainContainer_HeadingText</item>
+        <item name="android:textSize">@dimen/_16sp</item>
     </style>
 
 </resources>

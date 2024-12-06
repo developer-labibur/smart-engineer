@@ -22,9 +22,10 @@ import com.rudhashi.smartengineer.databinding.ActivityBookDetailsBinding
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.BookUnit
 import com.rudhashi.smartengineer.util.ConvertFB
+import com.rudhashi.smartengineer.util.NightModeThemes
 import com.rudhashi.smartengineer.util.SmartData
 
-class BookDetailsActivity : AppCompatActivity() {
+class BookDetailsActivity : NightModeThemes() {
 
     private lateinit var binding: ActivityBookDetailsBinding
     private lateinit var db: FirebaseFirestore
@@ -41,12 +42,13 @@ class BookDetailsActivity : AppCompatActivity() {
         // Initialize Firestore
         db = FirebaseFirestore.getInstance()
 
-        // Initialize RecyclerView
-        setupRecyclerView()
-
         // Get Book Code from intent and load units
         val bookCode = intent.getStringExtra("BOOK_CODE")
+
         if (bookCode != null) {
+            // Initialize RecyclerView
+            setupRecyclerView(bookCode)
+
             loadBooksAndUnits(bookCode)
             fetchBookDetails(bookCode) // Fetch the book details including xDep and xSem
             updateBookViewCount(bookCode) // Call this function to handle the view count
@@ -57,11 +59,10 @@ class BookDetailsActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener{ finish() }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(bookCode: String) {
         // Set up the RecyclerView with UnitAdapter
-        unitAdapter = UnitAdapter(this, unitList)
-        binding.unitRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@BookDetailsActivity)
+        unitAdapter = UnitAdapter(this, unitList, bookCode)
+        binding.unitRecyclerView.apply { layoutManager = LinearLayoutManager(this@BookDetailsActivity)
             adapter = unitAdapter
         }
     }

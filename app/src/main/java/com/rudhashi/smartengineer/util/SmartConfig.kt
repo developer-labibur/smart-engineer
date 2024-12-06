@@ -11,5 +11,9 @@ class SmartConfig {
 
         // Google Admob
         const val TEST_ADS_ID = "ca-app-pub-3940256099942544/5224354917"
+
+        // Server Link
+        const val SERVER_LINK = "https://app.rudhashi.xyz/apps"
+        const val PDF_SERVER_LINK = "https://app.rudhashi.xyz/apps/pdf"
     }
 }

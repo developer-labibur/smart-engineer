@@ -20,6 +20,18 @@
     <color name="dialog_bg">#f8e9d4</color>
     <color name="dialog_sub_action">#FFE0B6</color>
 
+    <!-- ============================================ PDF ============================================== -->
+    <color name="pdf_light">#f8e9d4</color>
+    <color name="pdf_dark">#1A1A1A</color>
+    <color name="pdf_s_light">#FFF6EB</color>
+    <color name="pdf_s_dark">#262626</color>
+    <color name="pdf_ic_light">#1C274C</color>
+    <color name="pdf_ic_dark">#D5DDFA</color>
+    <color name="pdf_text_light">#222222</color>
+    <color name="pdf_text_dark">#F6F6F6</color>
+    <color name="ic_light_only">#1C274C</color>
+    <color name="ic_dark_only">#D5DDFA</color>
+
     <!-- ============================================ Shape ============================================== -->
     <color name="shape_orange_bg_color">#33ffcc80</color>
     <color name="shape_orange_box_color">#ffcc80</color>
@@ -53,6 +65,7 @@
     <color name="mainContainer_Active">#FFFFFFFF</color>
     <color name="mainContainer_HeadingText">#222222</color>
     <color name="mainContainer_SubHeadingText">#545454</color>
+    <color name="mainContainer_SelectedText">#4285F4</color>
 
     <!-- For Unique Style -->
     <color name="underlineText">#E3F30D</color>

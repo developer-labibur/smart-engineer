@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorBackground" format="color" />
+    <attr name="buttonBackground" format="color" />
+    <attr name="buttonText" format="color" />
+
+    <attr name="pdfBackgroundPrimary" format="color" />
+    <attr name="pdfBackgroundSecoundary" format="color" />
+    <attr name="pdfIcon" format="color" />
+    <attr name="pdfText" format="color" />
+
+    <attr name="pdfIconLibrary" format="integer" />
+    <attr name="pdfIconCross" format="integer" />
+    <attr name="pdfSeekBarBG" format="integer" />
+    <attr name="pdfSeekBarIcon" format="integer" />
+    <attr name="pdfIconBack" format="integer" />
+    <attr name="pdfIconTheme" format="integer" />
+    <attr name="pdfIconRotate" format="integer" />
+    <attr name="pdfIconVertical" format="integer" />
+    <attr name="pdfIconHorizontal" format="integer" />
+    <attr name="pdfIconSwipeVertical" format="integer" />
+    <attr name="pdfIconSwipeHorizontal" format="integer" />
+    <attr name="pdfIconSetting" format="integer" />
+
+</resources>
