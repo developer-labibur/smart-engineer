@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.rudhashi.smartengineer.AnimationManager
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.ThemeManager
 import com.rudhashi.smartengineer.databinding.BottomSheetAnimationModeBinding
@@ -22,7 +23,7 @@ class AnimationModeBottomSheet : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = BottomSheetAnimationModeBinding.inflate(inflater, container, false)
-        val currentMode = ThemeManager.getAnimationMode(requireContext())
+        val currentMode = AnimationManager.getAnimationMode(requireContext())
         val radioGroup = binding.radioGroup
         val radioButtons = arrayOf(
             binding.animNo,

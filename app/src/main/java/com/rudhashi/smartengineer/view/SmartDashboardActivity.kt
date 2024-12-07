@@ -2,20 +2,18 @@ package com.rudhashi.smartengineer.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.FirebaseAuth
@@ -26,17 +24,14 @@ import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivitySmartDashboardBinding
 import com.rudhashi.smartengineer.databinding.DialogDailyRewardBinding
-import com.rudhashi.smartengineer.databinding.DialogLogoutWarningBinding
 import com.rudhashi.smartengineer.fragment.SmartBooksFragment
 import com.rudhashi.smartengineer.fragment.SmartHomeFragment
 import com.rudhashi.smartengineer.fragment.SmartSettingFragment
 import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
 import com.rudhashi.smartengineer.model.User
-import com.rudhashi.smartengineer.util.GoogleAuthClient
 import com.rudhashi.smartengineer.util.NightModeThemes
 import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
-import kotlinx.coroutines.launch
 
 class SmartDashboardActivity : NightModeThemes() {
 
@@ -54,7 +49,28 @@ class SmartDashboardActivity : NightModeThemes() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySmartDashboardBinding.inflate(layoutInflater)
+
+        enableEdgeToEdge() // Ensure the content fills the entire screen, including under the status bar
         setContentView(binding.root)
+
+        // Handle insets for edge-to-edge layout
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+
+        // Defer status bar changes
+        binding.root.post {
+            setStatusBarFontColor(true) // Adjust based on your logic
+        }
+
+
+
+
+
+
 
         // Set up ViewPager with fragments
         val fragments = listOf(SmartHomeFragment(), SmartBooksFragment(), SmartUpdatesFragment(), SmartSettingFragment())

@@ -60,14 +60,6 @@
           }
         },
         {
-          "client_id": "389818419543-qdfkeuhfh0bnsf8b99jssoq867sp0pak.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.rudhashi.smartengineer",
-            "certificate_hash": "c6e9be6f6cfab2a5b44a73edeba51d2807386732"
-          }
-        },
-        {
           "client_id": "389818419543-sdlmnl0vdps19ka0ku0n76f4vub730cr.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -24,6 +24,19 @@ class SplashScreenActivity : NightModeThemes() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+
+
+        // Defer status bar changes
+        binding.root.post {
+            setStatusBarFontColor(true) // Adjust based on your logic
+        }
+
+
+
+
+
         auth = FirebaseAuth.getInstance()
 
         val upFromBottom = AnimationUtils.loadAnimation(this, R.anim.animation1)
