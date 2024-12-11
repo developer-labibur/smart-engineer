@@ -8,20 +8,18 @@ pluginManagement {
             }
         }
         mavenCentral()
-        gradlePluginPortal()
+        gradlePluginPortal()  // This ensures you can access plugins from the Gradle Plugin Portal
     }
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)  // Ensures project-level repositories are not used
     repositories {
-        google()
-        mavenCentral()
-        //maven { url 'https://jitpack.io' }
-        maven { url = uri("https://jitpack.io") }
+        google()  // Required for Android-specific dependencies
+        mavenCentral()  // Central repository for most dependencies
+        maven { url = uri("https://jitpack.io") }  // Optional: For dependencies hosted on JitPack
     }
 }
 
-rootProject.name = "Smart Engineer"
-include(":app")
- 
+rootProject.name = "Smart Engineer"  // Set your root project name
+include(":app")  // Include your app module (you can add more modules if necessary)

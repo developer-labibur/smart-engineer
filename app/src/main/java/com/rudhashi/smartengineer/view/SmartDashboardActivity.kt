@@ -29,11 +29,11 @@ import com.rudhashi.smartengineer.fragment.SmartHomeFragment
 import com.rudhashi.smartengineer.fragment.SmartSettingFragment
 import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
 import com.rudhashi.smartengineer.model.User
-import com.rudhashi.smartengineer.util.NightModeThemes
 import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.util.SmartThemeActivity
 
-class SmartDashboardActivity : NightModeThemes() {
+class SmartDashboardActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivitySmartDashboardBinding
 
@@ -42,14 +42,11 @@ class SmartDashboardActivity : NightModeThemes() {
     private var database = FirebaseDatabase.getInstance()
     private val userRef = database.getReference("Users/$userId")
 
-    //private var isNightMode: Boolean? = null
-
     private var displayFragment = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySmartDashboardBinding.inflate(layoutInflater)
-
         enableEdgeToEdge() // Ensure the content fills the entire screen, including under the status bar
         setContentView(binding.root)
 
@@ -61,17 +58,23 @@ class SmartDashboardActivity : NightModeThemes() {
         }
 
 
-        // Defer status bar changes
-        binding.root.post {
-            setStatusBarFontColor(true) // Adjust based on your logic
-        }
+        val defaultPage = intent.getIntExtra("VIEW_PAGER_INDEX", 0)
+        setupViewPager()
+        setActiveTab(defaultPage)
+        setupBottomNavigation()
 
 
+        // Set Smart Engineering App Text Gradient -------------------------------------------
+        setGradientTextColor()
+        // Check and award daily bonus points ------------------------------------------------
+        checkAndAwardDailyBonus()
+    }
 
 
-
-
-
+    // =====================================================================================================================
+    // ========================     Setup Bottom Navigation and Main Container (ViewPager)      ============================
+    // =====================================================================================================================
+    private fun setupViewPager() {
         // Set up ViewPager with fragments
         val fragments = listOf(SmartHomeFragment(), SmartBooksFragment(), SmartUpdatesFragment(), SmartSettingFragment())
 
@@ -79,30 +82,8 @@ class SmartDashboardActivity : NightModeThemes() {
             override fun getItemCount(): Int = fragments.size
             override fun createFragment(position: Int): Fragment = fragments[position]
         }
-
-        //Log.i("TEST_SL", "Display Fragment: Else")
-        setActiveTab(0)
-        displayFragment = intent.getStringExtra("DISPLAY").toString()
-
-//        else if (displayFragment == "Setting") {
-//            Log.i("TEST_SL", "Display Fragment: Try Block => $displayFragment")
-//            displayFragment = ""
-//            setActiveTab(3)
-//            displayFragment = ""
-//        }
-
-        setContainerMakeTransparent()
-
-        // Set Smart Engineering App Text Gradient ------------------------------
-        setGradientTextColor()
-
-        checkAndAwardDailyBonus() // Check and award daily bonus points
     }
-
-    // =====================================================================================================================
-    // =========================     Transparent Status Bar and Main Container (ViewPager)      ============================
-    // =====================================================================================================================
-    private fun setContainerMakeTransparent(){
+    private fun setupBottomNavigation(){
 
         // Set height based on the currently selected page
         binding.apply {

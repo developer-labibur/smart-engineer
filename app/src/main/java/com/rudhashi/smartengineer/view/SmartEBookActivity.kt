@@ -5,6 +5,7 @@ package com.rudhashi.smartengineer.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -77,24 +78,12 @@ class SmartEBookActivity : AppCompatActivity() {
         } else {
             setTheme(R.style.AppTheme_Light)
             window.decorView.post {
-                setStatusBarFontColor(true)
+                setStatusBarFontColor(false)
             }
         }
-
         super.onCreate(savedInstanceState)
-
-        // Make status bar transparent
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-
         binding = ActivitySmartEbookBinding.inflate(layoutInflater)
-        enableEdgeToEdge() // Ensure the content fills the entire screen, including under the status bar
         setContentView(binding.root)
-        // Handle insets for edge-to-edge layout
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         pdfView = binding.pdfView
         pdfName = intent.getStringExtra("UName").toString()
@@ -433,44 +422,42 @@ class SmartEBookActivity : AppCompatActivity() {
     // =====================================================================================================================
     // =====================================       Set Status Bar Font Color      ==========================================
     // =====================================================================================================================
-
-    @SuppressLint("ObsoleteSdkInt")
+    @Suppress("DEPRECATION")
     private fun setStatusBarFontColor(isDarkText: Boolean) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // For Android 10 (API 29) and above, use InsetsController for status bar appearance
-            val controller = window.insetsController
-            controller?.let {
-                if (isDarkText) {
-                    // Light status bar text (dark theme)
-                    it.setSystemBarsAppearance(
-                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-                    )
-                } else {
-                    // Dark status bar text (light theme)
-                    it.setSystemBarsAppearance(
-                        0,
-                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-                    )
-                }
-            }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            // For Android 6 to 9 (API 23 - 28), use systemUiVisibility for status bar text color
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = if (isDarkText) {
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                        View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR // Light text color
-            } else {
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN // Dark text color
-            }
+        // Set status bar text color and background
+        window.decorView.systemUiVisibility = if (isDarkText) {
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         } else {
-            // For Android versions below API 23, this approach will not work
-            Log.w("NightModeThemes", "Status bar color cannot be changed on versions lower than API 23.")
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+
+        window.statusBarColor = Color.TRANSPARENT // Transparent background for status bar
+
+        // Set navigation bar background dynamically
+        val backgroundColor = getBackgroundColorFromTheme()
+        window.navigationBarColor = backgroundColor
+
+        // Adjust navigation bar button colors
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            window.decorView.systemUiVisibility = if (isDarkText) {
+                window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+            } else {
+                window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            }
         }
     }
-
+    private fun getBackgroundColorFromTheme(): Int {
+        // Retrieve the activity's background color from the current theme
+        val typedValue = TypedValue()
+        theme.resolveAttribute(android.R.attr.windowBackground, typedValue, true)
+        return if (typedValue.type >= TypedValue.TYPE_FIRST_COLOR_INT && typedValue.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+            // If it's a color, return it
+            typedValue.data
+        } else {
+            // Fallback color (e.g., white)
+            Color.WHITE
+        }
+    }
 
     // =====================================================================================================================
     // =======================================       PDF Setting and View      =============================================

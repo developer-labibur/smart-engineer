@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+
+        <include
+            android:id="@+id/include2"
+            layout="@layout/item_shimmer_book_grid"
+            android:layout_width="0dp"
+            android:layout_margin="5dp"
+            android:layout_height="145dp"
+            app:layout_constraintEnd_toStartOf="@+id/include"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/item_shimmer_book_grid"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_margin="5dp"
+            android:layout_height="145dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/include2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+
+        <include
+            android:id="@+id/include3"
+            layout="@layout/item_shimmer_book_grid"
+            android:layout_width="0dp"
+            android:layout_margin="5dp"
+            android:layout_height="145dp"
+            app:layout_constraintEnd_toStartOf="@+id/include4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/include4"
+            layout="@layout/item_shimmer_book_grid"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_margin="5dp"
+            android:layout_height="145dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/include3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+
+        <include
+            android:id="@+id/include5"
+            layout="@layout/item_shimmer_book_grid"
+            android:layout_width="0dp"
+            android:layout_margin="5dp"
+            android:layout_height="145dp"
+            app:layout_constraintEnd_toStartOf="@+id/include6"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/include6"
+            layout="@layout/item_shimmer_book_grid"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_margin="5dp"
+            android:layout_height="145dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/include5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="100dp"/>
+
+
+</LinearLayout>

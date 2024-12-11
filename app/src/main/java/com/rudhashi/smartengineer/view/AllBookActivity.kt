@@ -1,6 +1,7 @@
 package com.rudhashi.smartengineer.view
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -27,15 +28,16 @@ import com.rudhashi.smartengineer.databinding.ActivityAllBookBinding
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.util.SmartThemeActivity
 
-class AllBookActivity : AppCompatActivity() {
+@Suppress("DEPRECATION")
+class AllBookActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivityAllBookBinding
     private lateinit var bookAdapter: BookAdapter
     private lateinit var query: Query
     private val db = FirebaseFirestore.getInstance()
     private val booksCollection = db.collection("books")
-
 
     private var rewardedAd: RewardedAd? = null
 
@@ -44,12 +46,16 @@ class AllBookActivity : AppCompatActivity() {
         binding = ActivityAllBookBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
-        setStatusBarFontColor()
+        // Set the status bar background to transparent
+        window.statusBarColor = Color.TRANSPARENT
+
+        // Ensure the status bar text color is white
+        // Clear only the light status bar flag to force white text, without affecting navigation bar
+        val flags = window.decorView.systemUiVisibility
+        window.decorView.systemUiVisibility = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
 
         // Initialize Mobile Ads SDK
         MobileAds.initialize(this)
-
-
 
         // Retrieve data from Intent
         val fieldName = intent.getStringExtra("fieldName")
@@ -130,14 +136,7 @@ class AllBookActivity : AppCompatActivity() {
             binding.rvAllBook.visibility = View.VISIBLE
         }
     }
-    private fun setStatusBarFontColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.setSystemBarsAppearance( 0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        }
-    }
+
 
     private fun redeemPoints(bookCode: String) {
         val database = Firebase.database
@@ -160,11 +159,6 @@ class AllBookActivity : AppCompatActivity() {
             }
         }
     }
-
-
-
-
-
 
     //================================================================
 

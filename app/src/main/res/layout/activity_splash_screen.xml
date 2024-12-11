@@ -23,7 +23,7 @@
         android:id="@+id/tvSloganSmartEngineer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/size_xlarge"
+        android:layout_marginBottom="35dp"
         android:textSize="@dimen/_16sp"
         android:fontFamily="@font/main_font_regular_2"
         android:text="@string/sloganSmartEngineer"

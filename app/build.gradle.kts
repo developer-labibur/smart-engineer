@@ -59,11 +59,15 @@ dependencies {
     implementation(libs.androidx.credential.play.services.auth)
     implementation(libs.googleid)
 
-    // Google Admob
+    // Google ----------------------------------------------------------------
+    implementation (libs.play.services.base)
+    implementation (libs.play.services.auth.api.phone)
+    implementation (libs.firebase.appcheck.interop)
+    implementation (libs.firebase.database.collection)
+    implementation (libs.play.services.appset)
+    implementation (libs.play.services.ads)
+    implementation (libs.play.services.measurement.impl)
     //implementation (libs.play.services.ads)
-    implementation("com.google.android.gms:play-services-ads:23.5.0")
-    implementation("com.google.android.gms:play-services-measurement-api:22.1.2")
-
 
     // Import the Firebase BoM Dependencies
     implementation(platform(libs.firebase.bom)) // Firebase BOM
@@ -97,8 +101,8 @@ dependencies {
     implementation(libs.glide) // Image from Glide
     implementation(libs.viewpager2)
     kapt("com.github.bumptech.glide:compiler:${libs.versions.glide.get()}") // For Glide annotation processing
-    implementation("io.coil-kt:coil:2.5.0")
-    implementation("com.tbuonomo:dotsindicator:5.0")
+    implementation(libs.coil)
+    implementation(libs.dotsindicator)
 
 
     //implementation(libs.android.pdfium)  // PDF Reader
@@ -106,12 +110,14 @@ dependencies {
     //implementation ("com.github.Foysalofficial:pdf-viewer-android:6.1")
     //implementation("com.joanzapata.pdfview:android-pdfview:1.0.4@aar")
 
-    implementation("com.github.labib-ur-rahman:pdf-viewer-android:7.0.0")
+    implementation(libs.pdf.viewer.android)
     //{ exclude(group = "com.android.support", module = "support-compat") }
 
-    implementation ("com.squareup.okhttp3:okhttp:4.12.0") // For downloading the PDF
+    implementation (libs.okhttp) // For downloading the PDF
 
     //implementation ("com.github.barteksc.pdfviewer:android-pdf-viewer:3.2.0-beta.1")
     //implementation ("com.squareup.okhttp3:okhttp:4.9.1")  // Ensure OkHttp is included for downloading PDFs
 
 }
+// Apply the Google Services plugin here
+apply(plugin = "com.google.gms.google-services")

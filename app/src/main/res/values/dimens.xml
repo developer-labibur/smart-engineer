@@ -2,6 +2,9 @@
 <!-- values/dimens.xml -->
 <resources>
 
+    <dimen name="topGap">165dp</dimen>
+
+
     <!--___________ MATERIEL DESIGN VALUES_____________________________ -->
 
     <dimen name="size_defaultText_dsa">16sp</dimen>

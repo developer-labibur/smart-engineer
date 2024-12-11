@@ -14,6 +14,7 @@
     <color name="sl_action">#fccb83</color>
     <color name="sl_action_green">#55defd</color>
     <color name="sl_action_text_middle_red">#c65662</color>
+    <color name="sl_act_book">#181d3d</color>
 
     <!-- Wave -->
     <color name="wave_top">#292929</color>

@@ -48,7 +48,7 @@
         android:elevation="4dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingTop="35dp"
+        android:paddingTop="30dp"
         android:paddingBottom="10dp"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
@@ -216,6 +216,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/booksTab">
@@ -250,13 +251,13 @@
                 android:id="@+id/rotateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:background="?attr/pdfSeekBarBG"
                 android:padding="2dp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/orientationButton"
                 app:layout_constraintStart_toEndOf="@+id/themeButton"
-                app:layout_constraintEnd_toStartOf="@+id/orientationButton">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:layout_width="36dp"
@@ -277,13 +278,13 @@
                 android:id="@+id/orientationButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
                 android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:background="?attr/pdfSeekBarBG"
                 android:padding="2dp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/animationButton"
                 app:layout_constraintStart_toEndOf="@+id/rotateButton"
-                app:layout_constraintEnd_toStartOf="@+id/animationButton">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/btnHorizontal"
@@ -359,8 +360,8 @@
                 android:id="@+id/animationButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/pdfSeekBarBG"
                 android:layout_marginStart="4dp"
+                android:background="?attr/pdfSeekBarBG"
                 android:padding="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

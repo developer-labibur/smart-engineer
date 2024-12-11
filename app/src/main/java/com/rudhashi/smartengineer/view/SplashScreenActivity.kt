@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.animation.AnimationUtils
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivitySplashScreenBinding
 import com.rudhashi.smartengineer.util.NightModeThemes
 import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.util.SmartThemeActivity
 
 @SuppressLint("CustomSplashScreen")
-class SplashScreenActivity : NightModeThemes() {
+class SplashScreenActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivitySplashScreenBinding
     private lateinit var auth: FirebaseAuth
@@ -23,19 +27,6 @@ class SplashScreenActivity : NightModeThemes() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-
-
-
-        // Defer status bar changes
-        binding.root.post {
-            setStatusBarFontColor(true) // Adjust based on your logic
-        }
-
-
-
-
 
         auth = FirebaseAuth.getInstance()
 

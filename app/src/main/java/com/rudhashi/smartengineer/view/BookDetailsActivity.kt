@@ -8,9 +8,12 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,8 +27,9 @@ import com.rudhashi.smartengineer.model.BookUnit
 import com.rudhashi.smartengineer.util.ConvertFB
 import com.rudhashi.smartengineer.util.NightModeThemes
 import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.util.SmartThemeActivity
 
-class BookDetailsActivity : NightModeThemes() {
+class BookDetailsActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivityBookDetailsBinding
     private lateinit var db: FirebaseFirestore
@@ -37,7 +41,15 @@ class BookDetailsActivity : NightModeThemes() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookDetailsBinding.inflate(layoutInflater)
+        enableEdgeToEdge() // Ensure the content fills the entire screen, including under the status bar
         setContentView(binding.root)
+
+        // Handle insets for edge-to-edge layout
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance()

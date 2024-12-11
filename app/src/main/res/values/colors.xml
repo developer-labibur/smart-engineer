@@ -13,6 +13,9 @@
     <color name="sl_optional_green">#cdeacb</color>
     <color name="sl_useless">#33FFCC80</color>
     <color name="sl_action">#ffcc80</color>
+    <color name="sl_act_book">#181d3d</color>
+
+
     <!--color name="sl_action">#ffcc80</color-->
     <color name="sl_action_green">#68ecb4</color>
     <color name="sl_action_text_middle_red">#b9505c</color>
@@ -71,6 +74,7 @@
     <color name="underlineText">#E3F30D</color>
     <color name="ic_light">#1C274C</color>
     <color name="shimmer">#C2C2C2</color>
+    <color name="shimmer_light">#EBEBEB</color>
 
     <!-- Bottom Nav Bar color -->
     <color name="bottom_nav_bg">#FFFFFFFF</color>

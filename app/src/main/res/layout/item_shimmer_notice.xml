@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="13dp"
+        app:cardBackgroundColor="@color/shimmer_light"
+        app:cardCornerRadius="15dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ll_itemBG"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@color/shimmer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                android:id="@+id/tvNoticeTitle"
+                android:layout_width="130dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="16dp"
+                android:background="@color/shimmer"
+                app:layout_constraintStart_toEndOf="@+id/ll_itemBG"
+                app:layout_constraintTop_toTopOf="@+id/ll_itemBG" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="16dp"
+                android:background="@color/shimmer"
+                app:layout_constraintStart_toEndOf="@+id/ll_itemBG"
+                app:layout_constraintTop_toBottomOf="@+id/tvNoticeTitle" />
+
+            <LinearLayout
+                android:id="@+id/tvNoticeText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toTopOf="@id/tvLovesCount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_itemBG">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@color/shimmer"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/shimmer"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="90dp"
+                    android:background="@color/shimmer"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="170dp"
+                    android:background="@color/shimmer"/>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:cardBackgroundColor="@color/shimmer"
+                app:cardCornerRadius="5dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ll_itemBG" />
+
+            <LinearLayout
+                android:id="@+id/tvLovesCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                android:layout_marginStart="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnLove"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnLove">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/icLove"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardBackgroundColor="@color/shimmer"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnReadNow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btnReadNow"
+                    app:layout_constraintVertical_bias="0.70" />
+
+                <View
+                    android:id="@+id/tvBookView"
+                    android:layout_width="50dp"
+                    android:layout_height="15dp"
+                    android:background="@color/shimmer"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icLove"
+                    app:layout_constraintStart_toEndOf="@+id/icLove"
+                    app:layout_constraintTop_toTopOf="@+id/icLove" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnLove"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                app:cardCornerRadius="50dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                app:cardBackgroundColor="@color/shimmer"
+                android:layout_margin="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="13dp"
+        app:cardBackgroundColor="@color/shimmer_light"
+        app:cardCornerRadius="15dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ll_itemBG1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@color/shimmer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                android:id="@+id/tvNoticeTitle1"
+                android:layout_width="130dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="16dp"
+                android:background="@color/shimmer"
+                app:layout_constraintStart_toEndOf="@+id/ll_itemBG1"
+                app:layout_constraintTop_toTopOf="@+id/ll_itemBG1" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="16dp"
+                android:background="@color/shimmer"
+                app:layout_constraintStart_toEndOf="@+id/ll_itemBG1"
+                app:layout_constraintTop_toBottomOf="@+id/tvNoticeTitle1" />
+
+            <LinearLayout
+                android:id="@+id/tvNoticeText1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toTopOf="@id/tvLovesCount1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_itemBG1">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@color/shimmer"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/shimmer"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="90dp"
+                    android:background="@color/shimmer"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="170dp"
+                    android:background="@color/shimmer"/>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:cardBackgroundColor="@color/shimmer"
+                app:cardCornerRadius="5dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/tvLovesCount1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal"
+                android:layout_marginStart="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnLove1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnLove1">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/icLove1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardBackgroundColor="@color/shimmer"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnReadNow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btnReadNow"
+                    app:layout_constraintVertical_bias="0.70" />
+
+                <View
+                    android:id="@+id/tvBookView1"
+                    android:layout_width="50dp"
+                    android:layout_height="15dp"
+                    android:background="@color/shimmer"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icLove1"
+                    app:layout_constraintStart_toEndOf="@+id/icLove1"
+                    app:layout_constraintTop_toTopOf="@+id/icLove1" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnLove1"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                app:cardCornerRadius="50dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                app:cardBackgroundColor="@color/shimmer"
+                android:layout_margin="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
+</LinearLayout>

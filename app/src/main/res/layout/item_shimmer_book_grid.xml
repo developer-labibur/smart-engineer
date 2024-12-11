@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="145dp"
+    app:cardBackgroundColor="@color/shimmer_light"
+    android:layout_gravity="center_horizontal"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ll_itemBG"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:cardCornerRadius="15dp"
+            app:cardBackgroundColor="@color/shimmer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/tvBookCode"
+            android:layout_width="50dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/shimmer"
+            app:layout_constraintBottom_toBottomOf="@+id/btnFavourite"
+            app:layout_constraintEnd_toStartOf="@+id/btnFavourite"
+            app:layout_constraintTop_toTopOf="@+id/btnFavourite" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnFavourite"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:cardCornerRadius="15dp"
+            app:cardBackgroundColor="@color/shimmer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ll_itemBG" />
+
+        <View
+            android:id="@+id/tvBookName"
+            android:layout_width="110dp"
+            android:layout_height="13dp"
+            android:background="@color/shimmer"
+            app:layout_constraintBottom_toTopOf="@id/btnReadNow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_itemBG"  />
+
+        <View
+            android:id="@+id/tvBookName2"
+            android:layout_width="70dp"
+            android:layout_height="13dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/shimmer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBookName"  />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="45dp"
+            android:layout_height="15dp"
+            app:cardBackgroundColor="@color/shimmer"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnReadNow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnReadNow"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnReadNow"
+            android:layout_width="75dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="2dp"
+            app:cardCornerRadius="30dp"
+            app:cardBackgroundColor="@color/shimmer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

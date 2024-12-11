@@ -156,7 +156,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/dep2nd"
                 style="@style/dep_right"
-                android:background="@drawable/hp_green_left_radius">
+                android:background="@drawable/hp_red_left_radius">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -181,7 +181,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/dep3rd"
                 style="@style/department_left"
-                android:background="@drawable/hp_orange_right_radius">
+                android:background="@drawable/hp_green_right_radius">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -254,7 +254,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/dep6th"
                 style="@style/dep_right"
-                android:background="@drawable/hp_green_left_radius">
+                android:background="@drawable/hp_red_left_radius">
 
                 <ImageView
                     android:layout_width="wrap_content"

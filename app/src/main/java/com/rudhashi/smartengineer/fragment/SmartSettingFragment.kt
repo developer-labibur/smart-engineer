@@ -12,8 +12,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -23,6 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.TestActivity
 import com.rudhashi.smartengineer.databinding.DialogChangeDepartmentBinding
 import com.rudhashi.smartengineer.databinding.DialogLogoutWarningBinding
 import com.rudhashi.smartengineer.databinding.FragmentSmartSettingBinding
@@ -30,10 +29,10 @@ import com.rudhashi.smartengineer.model.User
 import com.rudhashi.smartengineer.util.GoogleAuthClient
 import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.util.ThemeHelper
 import com.rudhashi.smartengineer.view.MainActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartDashboardActivity
-import com.rudhashi.smartengineer.view.SmartEBookActivity
 import kotlinx.coroutines.launch
 
 class SmartSettingFragment : Fragment() {
@@ -52,16 +51,21 @@ class SmartSettingFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentSmartSettingBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         displayUserProfileInfo()  // Display user profile info
+        nightModeToggle()  // Set Dark Mode functionality
 
         binding.apply {
             btnViewProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
             btnViewPremium.setOnClickListener { SmartData.comingSoon(requireActivity()) }
 
             // Custom Section --------------------------------
-            sBtnPremium.setOnClickListener { startActivity(Intent(requireActivity(), SmartEBookActivity::class.java)) }
-            nightModeToggle()  // Set Dark Mode functionality
+            sBtnPremium.setOnClickListener { startActivity(Intent(requireActivity(), TestActivity::class.java)) }
 
             // Special Section --------------------------------
             sBtnInstitute.setOnClickListener { SmartData.comingSoon(requireActivity()) }
@@ -83,44 +87,24 @@ class SmartSettingFragment : Fragment() {
             sBtnFAQ.setOnClickListener { SmartData.comingSoon(requireActivity()) }
             sBtnAbout.setOnClickListener { SmartData.comingSoon(requireActivity()) }
         }
-
-        return binding.root
     }
 
+    // =====================================================================================================================
+    // ===========================================     Dark Mode Functionality      ========================================
+    // =====================================================================================================================
     private fun nightModeToggle() {
-        val sharedPreferences = requireActivity().getSharedPreferences(SmartData.PREF_KEY, MODE_PRIVATE)
-
-        // Set the initial state of the switch based on saved preference
-        val isDarkModeOn = sharedPreferences.getBoolean(SmartData.SWITCH_BUTTON_KEY, false)
-        binding.switchTheme.isChecked = isDarkModeOn
-
-        // Apply the saved theme
-        applyTheme(isDarkModeOn)
+        val isDarkMode = ThemeHelper.isDarkMode(requireContext()) // Load the current theme state
+        binding.switchTheme.isChecked = isDarkMode
+        ThemeHelper.applyTheme(isDarkMode) // Apply the saved theme
 
         // Set up the switch listener
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
-            try {
-                Log.i("TEST_SL", "nightModeToggle")
-                // Save the theme preference
-                val editor = sharedPreferences.edit()
-                editor.putBoolean(SmartData.SWITCH_BUTTON_KEY, isChecked).apply()
-                // Apply the theme
-                applyTheme(isChecked)
+            ThemeHelper.saveThemePreference(requireContext(), isChecked)
+            ThemeHelper.applyTheme(isChecked) // Apply the theme
 
-                val intent = Intent(requireActivity(), SmartDashboardActivity::class.java)
-                intent.putExtra("DISPLAY", "Home")
-                startActivity(intent)
-            } catch (e: Exception){
-                Log.i("TEST_SL", "Failed")
-            }
-        }
-    }
-
-    private fun applyTheme(isDarkModeOn: Boolean) {
-        if (isDarkModeOn) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            val intent = Intent(requireActivity(), SmartDashboardActivity::class.java)
+            intent.putExtra("DISPLAY", "Home")
+            startActivity(intent)
         }
     }
 
@@ -177,10 +161,6 @@ class SmartSettingFragment : Fragment() {
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }
-
-
-
-
 
     @SuppressLint("InflateParams")
     private fun setDepartmentInfo() {

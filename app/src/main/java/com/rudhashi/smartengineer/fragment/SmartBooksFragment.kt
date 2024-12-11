@@ -2,7 +2,6 @@ package com.rudhashi.smartengineer.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +21,6 @@ import com.rudhashi.smartengineer.databinding.FragmentSmartBooksBinding
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.SmartData.Companion.setHeightBasedOnItems
 import com.rudhashi.smartengineer.view.BookDetailsActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
 
@@ -53,6 +51,7 @@ class SmartBooksFragment : Fragment() {
             searchBox.setOnClickListener { SmartData.comingSoon(requireActivity()) }
 
             fetchBooks("TimeStamp", false)
+            isShimmerOn(true, isGrid = false)
             btnGrid.setBackgroundResource(R.color.transparent)
             btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
 
@@ -60,20 +59,24 @@ class SmartBooksFragment : Fragment() {
                 btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
                 btnGrid.setBackgroundResource(R.color.transparent)
                 fetchBooks("TimeStamp", false)
+                isShimmerOn(true, isGrid = false)
             }
             btnGrid.setOnClickListener {
                 btnList.setBackgroundResource(R.color.transparent)
                 btnGrid.setBackgroundResource(R.drawable.sl_search_box_icon)
                 fetchBooks("TimeStamp", true)
+                isShimmerOn(true, isGrid = true)
             }
             btnLatest.setOnClickListener {
                 fetchBooks("TimeStamp", false)
+                isShimmerOn(true, isGrid = false)
                 btnLatest.setBackgroundResource(R.drawable.sl_search_box_icon)
                 btnPopular.setBackgroundResource(R.color.transparent)
                 btnGrid.setBackgroundResource(R.color.transparent)
                 btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
 
                 btnList.setOnClickListener {
+                    isShimmerOn(true, isGrid = false)
                     btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
                     btnGrid.setBackgroundResource(R.color.transparent)
                     fetchBooks("TimeStamp", false)
@@ -82,10 +85,12 @@ class SmartBooksFragment : Fragment() {
                     btnList.setBackgroundResource(R.color.transparent)
                     btnGrid.setBackgroundResource(R.drawable.sl_search_box_icon)
                     fetchBooks("TimeStamp", true)
+                    isShimmerOn(true, isGrid = true)
                 }
             }
             btnPopular.setOnClickListener {
                 fetchBooks("BView", true)
+                isShimmerOn(true, isGrid = true)
                 btnLatest.setBackgroundResource(R.color.transparent)
                 btnPopular.setBackgroundResource(R.drawable.sl_search_box_icon)
                 btnList.setBackgroundResource(R.color.transparent)
@@ -95,13 +100,16 @@ class SmartBooksFragment : Fragment() {
                     btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
                     btnGrid.setBackgroundResource(R.color.transparent)
                     fetchBooks("BView", false)
+                    isShimmerOn(true, isGrid = false)
                 }
                 btnGrid.setOnClickListener {
                     btnList.setBackgroundResource(R.color.transparent)
                     btnGrid.setBackgroundResource(R.drawable.sl_search_box_icon)
                     fetchBooks("BView", true)
+                    isShimmerOn(true, isGrid = true)
                 }
             }
+            btnViewAll.visibility = View.INVISIBLE
         }
         return binding.root
     }
@@ -109,17 +117,22 @@ class SmartBooksFragment : Fragment() {
     // =====================================================================================================================
     // =======================================       Get Book Data                  ========================================
     // =====================================================================================================================
+    @Suppress("KotlinConstantConditions")
     private fun fetchBooks(sortBy: String, isGrid: Boolean) {
         if (isGrid){
             binding.rvBook.layoutManager = GridLayoutManager(requireActivity(),2)
             binding.rvBook.setHasFixedSize(true)
             db?.collection("books")?.orderBy(sortBy, Query.Direction.DESCENDING) // Or DESCENDING for reverse order
                 ?.get()?.addOnSuccessListener { querySnapshot ->
+                    isShimmerOn(false, isGrid = true)
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
                     bookGridAdapter.setData(books)
+                    binding.btnViewAll.visibility = View.VISIBLE
                 }?.addOnFailureListener { e ->
+                    isShimmerOn(false, isGrid)
                     Toast.makeText(requireActivity(), "Failed to fetch books: ${e.message}", Toast.LENGTH_SHORT)
                         .show()
+                    binding.btnViewAll.visibility = View.VISIBLE
                 }
             binding.rvBook.adapter = bookGridAdapter
         } else {
@@ -140,11 +153,15 @@ class SmartBooksFragment : Fragment() {
             binding.rvBook.adapter = bookListAdapter
             db?.collection("books")?.orderBy(sortBy, Query.Direction.DESCENDING) // Or DESCENDING for reverse order
                 ?.get()?.addOnSuccessListener { querySnapshot ->
+                    isShimmerOn(false, isGrid = false)
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
                     bookListAdapter.updateBooks(books)
+                    binding.btnViewAll.visibility = View.VISIBLE
                 }?.addOnFailureListener { e ->
+                    isShimmerOn(false, isGrid)
                     Toast.makeText(requireActivity(), "Failed to fetch books: ${e.message}", Toast.LENGTH_SHORT)
                         .show()
+                    binding.btnViewAll.visibility = View.VISIBLE
                 }
         }
     }
@@ -168,5 +185,36 @@ class SmartBooksFragment : Fragment() {
             }
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        isShimmerOn(false, isGrid = false)
+    }
+
+    @Suppress("SameParameterValue")
+    private fun isShimmerOn(flag: Boolean, isGrid: Boolean) {
+        binding.apply {
+            if (flag) {
+                if (isGrid) {
+                    shimmerGrid.startShimmer()
+                    shimmerGrid.visibility = View.VISIBLE
+                } else {
+                    shimmerList.startShimmer()
+                    shimmerList.visibility = View.VISIBLE
+                }
+                bookContainer.visibility = View.GONE
+            } else {
+                if (isGrid) {
+                    shimmerGrid.stopShimmer()
+                    shimmerGrid.visibility = View.GONE
+                } else {
+                    shimmerList.stopShimmer()
+                    shimmerList.visibility = View.GONE
+                }
+                bookContainer.visibility = View.VISIBLE
+            }
+        }
+    }
+
 
 }

@@ -2,30 +2,36 @@ package com.rudhashi.smartengineer.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowInsetsController
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivityDepartmentBinding
 import com.rudhashi.smartengineer.databinding.DialogDepartmentInformationBinding
+import com.rudhashi.smartengineer.util.SmartThemeActivity
 
-class DepartmentActivity : AppCompatActivity() {
+class DepartmentActivity : SmartThemeActivity() {
     private lateinit var binding: ActivityDepartmentBinding
 
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityDepartmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setStatusBarFontColor()
+
+        // Set the status bar background to transparent
+        window.statusBarColor = Color.TRANSPARENT
+
+        // Ensure the status bar text color is white
+        // Clear only the light status bar flag to force white text, without affecting navigation bar
+        val flags = window.decorView.systemUiVisibility
+        window.decorView.systemUiVisibility = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
 
         // Retrieve data from Intent
         val dAbbr = intent.getStringExtra("DAbbr")
@@ -54,15 +60,6 @@ class DepartmentActivity : AppCompatActivity() {
         }
 
     }
-
-    private fun setStatusBarFontColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.setSystemBarsAppearance( 0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        }
-    }
     @SuppressLint("InflateParams")
     private fun getDepartmentInfo(dCover: String?, dName: String?, dInfo: String?) {
         val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
@@ -73,7 +70,6 @@ class DepartmentActivity : AppCompatActivity() {
         builder.setView(dialogBinding.root)
         builder.setCanceledOnTouchOutside(false)
         builder.show()
-
 
         dialogBinding.apply {
             Glide.with(this@DepartmentActivity)

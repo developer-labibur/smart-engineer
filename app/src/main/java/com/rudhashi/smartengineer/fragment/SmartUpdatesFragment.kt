@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -17,7 +16,6 @@ import com.rudhashi.smartengineer.adapter.NoticeAdapter
 import com.rudhashi.smartengineer.databinding.FragmentSmartUpdatesBinding
 import com.rudhashi.smartengineer.model.Notice
 import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.SmartData.Companion.setHeightBasedOnItems
 import com.rudhashi.smartengineer.view.ProfileActivity
 
 class SmartUpdatesFragment : Fragment() {
@@ -38,19 +36,24 @@ class SmartUpdatesFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
         noticeAdapter = NoticeAdapter(emptyList(), requireActivity())
 
-
         // Set up RecyclerView (assuming you have a RecyclerView with ID recyclerView)
         binding.rvNotice.adapter = noticeAdapter
         binding.rvNotice.layoutManager = LinearLayoutManager(requireActivity())
 
         // Fetch notices from Firestore, ordered by timestamp in descending order
         fetchNotices()
+        isShimmerOn(true)
 
         binding.apply {
             btnViewProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
             btnViewPremium.setOnClickListener { SmartData.comingSoon(requireActivity()) }
 
+            btnNotice.setOnClickListener {
+                fetchNotices()
+                isShimmerOn(true)
+            }
             btnBlog.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            btnViewAll.visibility = View.GONE
         }
 
         return binding.root
@@ -61,6 +64,8 @@ class SmartUpdatesFragment : Fragment() {
             ?.orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp
             ?.addSnapshotListener { snapshot, error ->
                 if (error != null) {
+                    binding.btnViewAll.visibility = View.VISIBLE
+                    isShimmerOn(false)
                     // Handle Firestore error
                     error.printStackTrace()
                     return@addSnapshotListener
@@ -74,6 +79,8 @@ class SmartUpdatesFragment : Fragment() {
                             notice.id = document.id // Set the Firestore document ID
                             checkUserLikeStatus(notice) // Check and set user like status
                             notices.add(notice)
+                            isShimmerOn(false)
+                            binding.btnViewAll.visibility = View.VISIBLE
                         }
                     }
                     noticeAdapter.updateNoticeList(notices) // Update the adapter
@@ -97,6 +104,25 @@ class SmartUpdatesFragment : Fragment() {
                 notice.userLiked = document.getBoolean("liked") ?: false
                 noticeAdapter.notifyDataSetChanged()
             }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isShimmerOn(false)
+    }
+
+    private fun isShimmerOn(flag: Boolean){
+        binding.apply {
+            if (flag){
+                shimmerNotice.startShimmer()
+                shimmerNotice.visibility = View.VISIBLE
+                updateContainer.visibility = View.GONE
+            } else {
+                shimmerNotice.stopShimmer()
+                shimmerNotice.visibility = View.GONE
+                updateContainer.visibility = View.VISIBLE
+            }
+        }
     }
 
 }

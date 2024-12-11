@@ -22,11 +22,11 @@ object PdfAnimation {
         animatorSet.playSequentially(
             AnimatorSet().apply {
                 playTogether(shrinkX, shrinkY)
-                duration = 300
+                duration = 150
             },
             AnimatorSet().apply {
                 playTogether(expandX, expandY)
-                duration = 300
+                duration = 150
             }
         )
         animatorSet.start()

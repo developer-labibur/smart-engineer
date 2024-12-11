@@ -8,14 +8,14 @@
     android:padding="13dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:background="@drawable/abc_blue_light">
+    android:background="@drawable/abc_orange_light">
 
 
     <LinearLayout
         android:id="@+id/ll_itemBG"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/abc_blue_main"
+        android:background="@drawable/abc_orange_main"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -104,7 +104,7 @@
         android:layout_marginEnd="2dp"
         android:drawableStart="@drawable/sl_heart_not_fill"
         android:fontFamily="@font/main_font_regular_2"
-        android:background="@drawable/abc_blue_main"
+        android:background="@drawable/abc_orange_main"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         android:text="@string/love"

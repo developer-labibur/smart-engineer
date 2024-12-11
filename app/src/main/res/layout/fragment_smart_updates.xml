@@ -17,7 +17,7 @@
         <LinearLayout
             android:id="@+id/llTopView"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/topGap"
             android:background="@color/transparent"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,12 +49,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/llTopView" >
-
-
-
+            
             <!-- Tab Bar -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/booksTab"
+                android:id="@+id/updateTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -107,55 +105,84 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Notice Section -->
-            <LinearLayout
-                android:id="@+id/llRv"
+            <!-- Shimmer -->
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerNotice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/updateTab"
+                app:shimmer_duration="800">
+
+                <include
+                    layout="@layout/item_shimmer_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/updateContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/booksTab">
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/updateTab">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvNotice"
+                <!-- Notice Section -->
+                <LinearLayout
+                    android:id="@+id/llRv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:nestedScrollingEnabled="false"
-                    android:orientation="vertical"
-                    android:overScrollMode="never"
-                    tools:itemCount="1"
-                    tools:listitem="@layout/item_notice" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNotice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_notice" />
 
-            <TextView
-                android:id="@+id/btnViewAll"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_tab_bar_orange_main"
-                android:fontFamily="@font/hind_siliguri"
-                android:includeFontPadding="false"
-                android:paddingStart="15dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="8dp"
-                android:text="@string/view_all_notice"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llRv" />
+                </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnViewAll" />
+                <TextView
+                    android:id="@+id/btnViewAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_tab_bar_orange_main"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:includeFontPadding="false"
+                    android:paddingStart="15dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/view_all_notice"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llRv" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnViewAll" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
