@@ -418,7 +418,10 @@ class SmartHomeFragment : Fragment() {
                                                         override fun onItemClick(position: Int, dAbbr: String, depName: String, semName: String) {
                                                             val intent = Intent(requireActivity(), AllBookActivity::class.java)
                                                             intent.putExtra("fieldName", "xSem")
-                                                            intent.putExtra("semesterCode", "${dAbbr}${position+1}")
+                                                            intent.putExtra("departmentAbbr", "${dAbbr}${position+1}")
+                                                            intent.putExtra("abbr", dAbbr)
+                                                            intent.putExtra("no", position+1)
+                                                            intent.putExtra("semesterNo", position+1)
                                                             intent.putExtra("departmentName", depName)
                                                             intent.putExtra("semesterName", semName)
                                                             startActivity(intent)

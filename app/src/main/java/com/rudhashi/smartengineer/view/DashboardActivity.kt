@@ -39,7 +39,6 @@ class DashboardActivity : AppCompatActivity() {
             insets
         }
 
-
         // Completely transparent Status Bar -------------------------------------------------------------------------------
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 

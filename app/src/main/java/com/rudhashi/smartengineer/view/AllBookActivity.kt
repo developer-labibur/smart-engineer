@@ -26,6 +26,7 @@ import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.adapter.BookAdapter
 import com.rudhashi.smartengineer.databinding.ActivityAllBookBinding
 import com.rudhashi.smartengineer.model.Book
+import com.rudhashi.smartengineer.model.Semester
 import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.SmartThemeActivity
@@ -38,6 +39,16 @@ class AllBookActivity : SmartThemeActivity() {
     private lateinit var query: Query
     private val db = FirebaseFirestore.getInstance()
     private val booksCollection = db.collection("books")
+
+    private lateinit var fieldName: String
+    private lateinit var departmentAbbr: String
+    private lateinit var semesterNo: String
+    private lateinit var abbr: String
+    private lateinit var isCST: String
+    private lateinit var no: String
+    private lateinit var course: String
+    private lateinit var departmentName: String
+    private lateinit var semesterName: String
 
     private var rewardedAd: RewardedAd? = null
 
@@ -58,10 +69,15 @@ class AllBookActivity : SmartThemeActivity() {
         MobileAds.initialize(this)
 
         // Retrieve data from Intent
-        val fieldName = intent.getStringExtra("fieldName")
-        val semesterCode = intent.getStringExtra("semesterCode")
-        val departmentName = intent.getStringExtra("departmentName")
-        val semesterName = intent.getStringExtra("semesterName")
+        fieldName = intent.getStringExtra("fieldName").toString()
+        departmentAbbr = intent.getStringExtra("departmentAbbr").toString()
+        isCST = intent.getStringExtra("abbr").toString()
+        abbr = if (isCST == "CST") "CMT" else isCST
+        no = intent.getStringExtra("no").toString()
+        course = no + abbr
+        semesterNo = intent.getStringExtra("semesterNo").toString()
+        departmentName = intent.getStringExtra("departmentName").toString()
+        semesterName = intent.getStringExtra("semesterName").toString()
         binding.tvHeaderTitle.text = semesterName
         binding.departmentName.text = departmentName
 
@@ -71,18 +87,40 @@ class AllBookActivity : SmartThemeActivity() {
         }
 
         // Query to filter books where "xSem" contains "AIDT1"
-        query = booksCollection.whereArrayContains("$fieldName", "$semesterCode")
+        query = booksCollection.whereArrayContains(fieldName, departmentAbbr)
 
         fetchBooks()
+        fetchCourseStructure()
 
         binding.apply {
             rvAllBook.layoutManager = LinearLayoutManager(this@AllBookActivity)
             rvAllBook.adapter = bookAdapter
-            btnCourseDetails.setOnClickListener { SmartData.comingSoon(this@AllBookActivity) }
             btnBack.setOnClickListener { finish() }
             btnRefresh.setOnClickListener {
                 isShimmerOn(true)
                 fetchBooks()
+            }
+        }
+    }
+
+    private fun fetchCourseStructure(){
+        db.collection("semester").document(course).get().addOnSuccessListener {querySnapshot ->
+            // Handle the retrieved document
+            val semester = querySnapshot.toObject(Semester::class.java)
+            val courseStructure = semester?.SPdf
+            if (courseStructure != null) {
+                binding.btnCourseDetails.setOnClickListener {
+                    val intent = Intent(this, SmartEBookActivity::class.java)
+                    intent.putExtra("UName", "$departmentName ($semesterName) - Course Structure & Information")
+                    intent.putExtra("UPdf", courseStructure)
+                    intent.putExtra("UNo", "1")
+                    intent.putExtra("BCode", "N/A")
+                    intent.putExtra("BName", "N/A")
+                    intent.putExtra("Key", "notBook")
+                    startActivity(intent)
+                }
+            } else{
+                binding.btnCourseDetails.setOnClickListener { SmartData.comingSoon(this@AllBookActivity) }
             }
         }
     }
@@ -136,7 +174,6 @@ class AllBookActivity : SmartThemeActivity() {
             binding.rvAllBook.visibility = View.VISIBLE
         }
     }
-
 
     private fun redeemPoints(bookCode: String) {
         val database = Firebase.database

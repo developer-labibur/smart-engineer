@@ -87,7 +87,10 @@ class DepartmentActivity : SmartThemeActivity() {
     private fun goToAllBookActivity(dAbbr: String?, semNumber: String, depName: String?, semName: String){
         val intent = Intent(this@DepartmentActivity, AllBookActivity::class.java)
         intent.putExtra("fieldName", "xSem")
-        intent.putExtra("semesterCode", "${dAbbr}$semNumber")
+        intent.putExtra("departmentAbbr", "${dAbbr}$semNumber")
+        intent.putExtra("abbr", dAbbr)
+        intent.putExtra("no", semNumber)
+        intent.putExtra("semesterNo", semNumber)
         intent.putExtra("departmentName", depName)
         intent.putExtra("semesterName", semName)
         startActivity(intent)

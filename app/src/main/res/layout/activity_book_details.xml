@@ -39,39 +39,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
+                <ImageView
                     android:id="@+id/btnBack"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:background="@drawable/bg_sl_profile_text_golden"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:elevation="20dp"
-                    android:background="@drawable/circle_shadow_icon"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="11dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_left_arrow_back"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        style="@style/sl_header_button"
-                        android:contentDescription="@string/sl_icon"
-                        android:src="@drawable/back" />
-
-                </LinearLayout>
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/tvBookTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="22dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/main_font_regular_2"
-                    android:gravity="center"
                     android:singleLine="true"
+                    android:ellipsize="end"
                     android:text="@string/book_name"
                     android:textColor="@color/mainContainer_HeadingText"
                     android:textSize="22sp"
+                    android:textAlignment="textStart"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/btnShare"
+                    app:layout_constraintEnd_toStartOf="@+id/btnPremium"
                     app:layout_constraintStart_toEndOf="@+id/btnBack"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,36 +79,78 @@
                     android:id="@+id/shimmerTvBookTitle"
                     android:layout_width="170dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="27dp"
                     android:background="@color/shimmer"
-                    app:layout_constraintEnd_toStartOf="@+id/btnShare"
+                    app:layout_constraintEnd_toStartOf="@+id/btnPremium"
                     app:layout_constraintStart_toEndOf="@+id/btnBack"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/btnShare"
-                    android:layout_width="36dp"
-                    android:elevation="20dp"
-                    android:layout_height="36dp"
+                <!-- Membership Plus -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnPremium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
-                    android:background="@drawable/circle_shadow_icon"
-                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_sl_profile_text_golden"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        style="@style/sl_header_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginEnd="1dp"
-                        android:layout_marginBottom="2dp"
-                        android:contentDescription="@string/sl_icon"
-                        android:padding="8dp"
-                        android:src="@drawable/share" />
+                    <LinearLayout
+                        android:id="@+id/ll_premium_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/bg_sl_profile_box_golden"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                </LinearLayout>
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/animationView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:lottie_url="https://lottie.host/e64c0a22-b913-4a0d-bc5e-daa768ca93fd/8DGaZDmvma.lottie"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvPremium"
+                        style="@style/dashboard_smart_point_text"
+                        android:fontFamily="@font/josefin_sans_bold"
+                        android:text="@string/_00"
+                        android:textSize="16sp"
+                        android:layout_marginTop="3dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
+                        app:layout_constraintTop_toTopOf="@+id/ll_premium_icon" />
+
+                    <TextView
+                        android:id="@+id/tvTaka"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/main_font_regular_2"
+                        android:includeFontPadding="false"
+                        android:text="Points"
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@color/sl_primary_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
                     android:id="@+id/bookCoverImage"

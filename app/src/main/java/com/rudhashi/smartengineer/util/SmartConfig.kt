@@ -15,5 +15,6 @@ class SmartConfig {
         // Server Link
         const val SERVER_LINK = "https://app.rudhashi.xyz/apps"
         const val PDF_SERVER_LINK = "https://app.rudhashi.xyz/apps/pdf"
+        const val PDF_COURSE_STRUCTURE = "https://app.rudhashi.xyz/apps/department"
     }
 }

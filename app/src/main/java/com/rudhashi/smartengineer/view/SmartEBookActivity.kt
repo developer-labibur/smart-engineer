@@ -12,15 +12,10 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowInsetsController
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.SeekBar
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.pdfviewer.PDFView
 import com.github.pdfviewer.util.FitPolicy
@@ -58,6 +53,7 @@ class SmartEBookActivity : AppCompatActivity() {
     private lateinit var pdfNo: String
     private lateinit var bookCode: String
     private lateinit var bookName: String
+    private lateinit var key: String
 
     private var isPageNumberVisible = true
     private var isPortraitMode = false
@@ -91,7 +87,11 @@ class SmartEBookActivity : AppCompatActivity() {
         pdfNo = intent.getStringExtra("UNo").toString()
         bookCode = intent.getStringExtra("BCode").toString()
         bookName = intent.getStringExtra("BName").toString()
-        loadPdf = "${SmartConfig.PDF_SERVER_LINK}$pdfUrl"
+        key = intent.getStringExtra("Key").toString()
+        loadPdf = when (key) {
+            "notBook" -> SmartConfig.PDF_COURSE_STRUCTURE + pdfUrl
+            else -> SmartConfig.PDF_SERVER_LINK + pdfUrl
+        }
 
         binding.apply {
             isLoading(true)
@@ -243,7 +243,7 @@ class SmartEBookActivity : AppCompatActivity() {
 
     // Handle onError ------------------------------------------------------------------------------------------------
     private fun handlesOnError(){
-        Snackbar.make(binding.root, "Failed to load PDF", Snackbar.LENGTH_LONG).setAction("Retry") { downloadAndDisplayPDF(loadPdf) }.show()
+        Snackbar.make(binding.root, "Failed to load eBook", Snackbar.LENGTH_LONG).setAction("Retry") { downloadAndDisplayPDF(loadPdf) }.show()
     }
 
     // Handle onPageError ------------------------------------------------------------------------------------------------
@@ -376,47 +376,51 @@ class SmartEBookActivity : AppCompatActivity() {
     }
     @SuppressLint("InflateParams")
     private fun showUnitsBottomSheet(bookCode: String, bookName: String, selectedUnit: String) {
-        val bottomSheetDialog = BottomSheetDialog(this)
-        val bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_units, null)
-        val bottomSheetBinding = BottomSheetUnitsBinding.bind(bottomSheetView)
-        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        if (bookCode == "N/A" && bookName == "N/A") {
+            Log.i("SmartEBookActivity", "Course Structure & Information")
+        } else {
+            val bottomSheetDialog = BottomSheetDialog(this)
+            val bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_units, null)
+            val bottomSheetBinding = BottomSheetUnitsBinding.bind(bottomSheetView)
+            bottomSheetDialog.setContentView(bottomSheetBinding.root)
 
-        // Fetch units from Firestore and set up RecyclerView
-        val unitAdapter = UnitPDFAdapter(selectedUnit) { unit ->
-            val intent = Intent(this, SmartEBookActivity::class.java)
-            intent.putExtra("UName", unit.UName)
-            intent.putExtra("UPdf", unit.UPdf)
-            intent.putExtra("UNo", unit.UNo)
-            intent.putExtra("BCode", bookCode)
-            intent.putExtra("BName", bookName)
-            startActivity(intent)
-            bottomSheetDialog.dismiss()
-        }
-        bottomSheetBinding.unitsRecyclerView.layoutManager = LinearLayoutManager(this)
-        bottomSheetBinding.unitsRecyclerView.adapter = unitAdapter
-
-        bottomSheetBinding.bookTitle.text =
-            resources.getString(R.string.book_name_book_code, bookName, bookCode)
-
-        // Fetch units from Firestore
-        val db = FirebaseFirestore.getInstance()
-        db.collection("books")
-            .document(bookCode)
-            .collection("BUnit")
-            .orderBy("UNo", Query.Direction.ASCENDING) // Or DESCENDING for reverse order
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val units = querySnapshot.documents.map { document ->
-                    BookUnit(
-                        UName = document.getString("UName") ?: "",
-                        UNo = document.getString("UNo") ?: "",
-                        UPdf = document.getString("UPdf") ?: ""
-                    )
-                }
-                unitAdapter.submitList(units)
+            // Fetch units from Firestore and set up RecyclerView
+            val unitAdapter = UnitPDFAdapter(selectedUnit) { unit ->
+                val intent = Intent(this, SmartEBookActivity::class.java)
+                intent.putExtra("UName", unit.UName)
+                intent.putExtra("UPdf", unit.UPdf)
+                intent.putExtra("UNo", unit.UNo)
+                intent.putExtra("BCode", bookCode)
+                intent.putExtra("BName", bookName)
+                startActivity(intent)
+                bottomSheetDialog.dismiss()
             }
+            bottomSheetBinding.unitsRecyclerView.layoutManager = LinearLayoutManager(this)
+            bottomSheetBinding.unitsRecyclerView.adapter = unitAdapter
 
-        bottomSheetDialog.show()
+            bottomSheetBinding.bookTitle.text =
+                resources.getString(R.string.book_name_book_code, bookName, bookCode)
+
+            // Fetch units from Firestore
+            val db = FirebaseFirestore.getInstance()
+            db.collection("books")
+                .document(bookCode)
+                .collection("BUnit")
+                .orderBy("UNo", Query.Direction.ASCENDING) // Or DESCENDING for reverse order
+                .get()
+                .addOnSuccessListener { querySnapshot ->
+                    val units = querySnapshot.documents.map { document ->
+                        BookUnit(
+                            UName = document.getString("UName") ?: "",
+                            UNo = document.getString("UNo") ?: "",
+                            UPdf = document.getString("UPdf") ?: ""
+                        )
+                    }
+                    unitAdapter.submitList(units)
+                }
+
+            bottomSheetDialog.show()
+        }
     }
 
     // =====================================================================================================================
