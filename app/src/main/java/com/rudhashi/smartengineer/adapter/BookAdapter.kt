@@ -7,9 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemAllBookBinding
 import com.rudhashi.smartengineer.model.Book
+import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartData
 
 class BookAdapter(
@@ -35,6 +41,9 @@ class BookAdapter(
             binding.root.setOnClickListener {
                 onItemClicked(book.BCode)
             }
+
+            // Called Set book Favourites Function and Add Favourites Button functionality
+            MakeFirebaseEasy.setBookFavorites(binding.btnFavourite, book.BCode, book.BName, book.BCover)
 
             // Random Gradient Background Color Programmatically
             val number = SmartData.randomNumber(6)
@@ -70,6 +79,7 @@ class BookAdapter(
             }
         }
     }
+
 
     class BookDiffCallback : DiffUtil.ItemCallback<Book>() {
         override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean = oldItem.BId == newItem.BId

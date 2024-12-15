@@ -67,20 +67,21 @@
                     android:id="@+id/bookCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:fontFamily="@font/main_font_regular_2"
                     android:text="@string/_21011"
                     android:textColor="@color/mainContainer_SubHeadingText"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/btnLove"
-                    app:layout_constraintEnd_toStartOf="@+id/btnLove"
-                    app:layout_constraintTop_toTopOf="@+id/btnLove" />
+                    app:layout_constraintBottom_toBottomOf="@+id/btnFavourite"
+                    app:layout_constraintEnd_toStartOf="@+id/btnFavourite"
+                    app:layout_constraintTop_toTopOf="@+id/btnFavourite" />
 
                 <ImageView
-                    android:id="@+id/btnLove"
-                    android:layout_width="18dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_height="18dp"
+                    android:id="@+id/btnFavourite"
+                    android:layout_width="40dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="-10dp"
+                    android:layout_marginTop="-12dp"
+                    android:padding="10dp"
                     android:contentDescription="@string/sl_icon"
                     android:src="@drawable/sl_heart_not_fill"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -96,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="-10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
@@ -148,17 +149,17 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/main_font_regular_2"
                     android:text="@string/read_now"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/ic_icon"
                     app:layout_constraintBottom_toBottomOf="@+id/icLove"
                     app:layout_constraintStart_toEndOf="@+id/icLove"
                     app:layout_constraintTop_toTopOf="@+id/icLove" />
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:contentDescription="@string/smart_engineer_logo"
-                    android:src="@drawable/sl_double_alt_arrow_right" />
+                    android:src="@drawable/sl_double_alt_arrow_right__black" />
 
             </LinearLayout>
 

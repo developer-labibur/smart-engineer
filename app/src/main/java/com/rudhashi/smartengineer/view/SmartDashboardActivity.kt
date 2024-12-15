@@ -42,8 +42,6 @@ class SmartDashboardActivity : SmartThemeActivity() {
     private var database = FirebaseDatabase.getInstance()
     private val userRef = database.getReference("Users/$userId")
 
-    private var displayFragment = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySmartDashboardBinding.inflate(layoutInflater)
@@ -57,10 +55,8 @@ class SmartDashboardActivity : SmartThemeActivity() {
             insets
         }
 
-
-        val defaultPage = intent.getIntExtra("VIEW_PAGER_INDEX", 0)
+        //if (displayFragment == "Setting") setActiveTab(3)
         setupViewPager()
-        setActiveTab(defaultPage)
         setupBottomNavigation()
 
 
@@ -102,7 +98,6 @@ class SmartDashboardActivity : SmartThemeActivity() {
     }
     private fun setActiveTab(position: Int) {
         binding.apply {
-
             when (position) {
                 0 -> {
                     tvHome.visibility = View.VISIBLE
@@ -113,7 +108,6 @@ class SmartDashboardActivity : SmartThemeActivity() {
                     llBook.setBackgroundResource(R.color.transparent)
                     llUpdates.setBackgroundResource(R.color.transparent)
                     llSetting.setBackgroundResource(R.color.transparent)
-                    displayFragment = ""
                 }
                 1 -> {
                     tvHome.visibility = View.GONE
@@ -144,8 +138,6 @@ class SmartDashboardActivity : SmartThemeActivity() {
                     llBook.setBackgroundResource(R.color.transparent)
                     llUpdates.setBackgroundResource(R.color.transparent)
                     llSetting.setBackgroundResource(R.drawable.round_back_setting_100)
-
-                    displayFragment = ""
                 }
             }
 
@@ -265,18 +257,17 @@ class SmartDashboardActivity : SmartThemeActivity() {
                 Toast.makeText(this@SmartDashboardActivity, "Failed to load points", Toast.LENGTH_SHORT).show()
             }
         })
-        /* Get user saved department name from Firebase Realtime database and convert it to department code
-        database.reference.child("Users").child(auth.uid!!).child("name").get()
-            .addOnSuccessListener {
-                binding.tvProfile.text = it.value.toString()
-            }*/
     }
 
     override fun onResume() {
         super.onResume()
         displayPointsDynamically()
 
-        if (displayFragment == "Home") setActiveTab(0)
-        if (displayFragment == "Setting") setActiveTab(3)
+        val displayFragment = intent.getStringExtra("DISPLAY").toString()
+        when (displayFragment) {
+            "Home" -> setActiveTab(0)
+            "Setting" -> setActiveTab(3)
+            else -> setActiveTab(0)
+        }
     }
 }

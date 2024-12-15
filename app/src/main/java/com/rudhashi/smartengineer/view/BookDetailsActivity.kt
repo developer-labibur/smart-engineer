@@ -2,41 +2,61 @@ package com.rudhashi.smartengineer.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.toObject
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.adapter.CategoryAdapter
 import com.rudhashi.smartengineer.adapter.UnitAdapter
 import com.rudhashi.smartengineer.databinding.ActivityBookDetailsBinding
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.BookUnit
+import com.rudhashi.smartengineer.model.CategoryDataClass
+import com.rudhashi.smartengineer.model.Semester
+import com.rudhashi.smartengineer.model.User
 import com.rudhashi.smartengineer.util.ConvertFB
-import com.rudhashi.smartengineer.util.NightModeThemes
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.SmartThemeActivity
+import kotlin.properties.Delegates
 
 class BookDetailsActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivityBookDetailsBinding
     private lateinit var db: FirebaseFirestore
     private lateinit var unitAdapter: UnitAdapter
+
     // Update type for the unit list and adapter
     private val unitList = mutableListOf<BookUnit>()
     private val tagInfo = "BookDetailsActivity"
+    private var isFullDes by Delegates.notNull<Boolean>()
+
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val userId = auth.currentUser?.uid
+    private var database = FirebaseDatabase.getInstance()
+    private val userRef = database.getReference("Users/$userId")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,13 +88,14 @@ class BookDetailsActivity : SmartThemeActivity() {
             Log.e(tagInfo, "Book Code is null")
         }
 
-        binding.btnBack.setOnClickListener{ finish() }
+        binding.btnBack.setOnClickListener { finish() }
     }
 
     private fun setupRecyclerView(bookCode: String) {
         // Set up the RecyclerView with UnitAdapter
         unitAdapter = UnitAdapter(this, unitList, bookCode)
-        binding.unitRecyclerView.apply { layoutManager = LinearLayoutManager(this@BookDetailsActivity)
+        binding.unitRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@BookDetailsActivity)
             adapter = unitAdapter
         }
     }
@@ -93,6 +114,26 @@ class BookDetailsActivity : SmartThemeActivity() {
                     tvBookTitle.text = book?.BName
                     bookCodes.text = getString(R.string.sub_code, book?.BCode)
                     bookTotalUnits.text = book?.BTotalU
+                    val des = book?.BDes
+                    isFullDes = false
+                    if (isFullDes){
+                        tvInfo.text = des  // Set the spannable string to the TextView
+                        isFullDes = false
+                    } else{
+                        val limitedText = des?.split(" ")?.take(30)?.joinToString(" ") // Limit to the first 3 words
+                        val clickToSeeMore = "...See More"
+                        val fullText = "$limitedText $clickToSeeMore" // Combine them into one string
+                        val spannableString = SpannableString(fullText) // Create a SpannableString
+                        // Set the "...See More" part in bold
+                        spannableString.setSpan(
+                            StyleSpan(Typeface.BOLD),
+                            fullText.length - clickToSeeMore.length, // Start index of "...Click to See More"
+                            fullText.length, // End index of "...Click to See More"
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        tvInfo.text = spannableString  // Set the spannable string to the TextView
+                        isFullDes = true
+                    }
 
                     val date = book?.TimeStamp?.let { SmartData.timestampToDate(it) }
                     dataUploaded.text = date
@@ -150,7 +191,11 @@ class BookDetailsActivity : SmartThemeActivity() {
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to fetch book details: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Failed to fetch book details: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 
@@ -168,9 +213,19 @@ class BookDetailsActivity : SmartThemeActivity() {
 
                 // Add OnClickListener to start new activity
                 setOnClickListener {
-                    val intent = Intent(this@BookDetailsActivity, SmartDashboardActivity::class.java)
-                    intent.putExtra("DEPARTMENT_NAME", departmentName)
-                    startActivity(intent)
+                    val depCode = ConvertFB.covertDepartmentToCode(departmentName)
+                    db.collection("departments")
+                        .document(depCode)
+                        .get().addOnSuccessListener {
+                            val department = it.toObject<CategoryDataClass>()
+                            val intent = Intent(this@BookDetailsActivity, DepartmentActivity::class.java)
+                            intent.putExtra("DAbbr", department?.DAbbr)
+                            intent.putExtra("DCode", department?.DCode)
+                            intent.putExtra("DCover", department?.DCover)
+                            intent.putExtra("DInfo", department?.DInfo)
+                            intent.putExtra("DName", department?.DName)
+                            startActivity(intent)
+                        }
                 }
             }
 
@@ -194,11 +249,6 @@ class BookDetailsActivity : SmartThemeActivity() {
             // Add the TextView to your layout (assuming `linearLayout` is your container)
             binding.tagContainerXDep.addView(textView)
         }
-//
-//        for (deptName in departmentNames) {
-//            val tagView = createTagView(deptName)
-//            binding.tagContainerXDep.addView(tagView)
-//        }
     }
 
     private fun displaySemesterTags(semesterNames: List<String>) {
@@ -215,9 +265,24 @@ class BookDetailsActivity : SmartThemeActivity() {
 
                 // Add OnClickListener to start new activity
                 setOnClickListener {
-                    val intent = Intent(this@BookDetailsActivity, SmartDashboardActivity::class.java)
-                    intent.putExtra("SEMESTER_NAME", semName)
-                    startActivity(intent)
+                    db.collection("semester")
+                        .get().addOnSuccessListener { querySnapshot ->
+                            for (document in querySnapshot.documents) {
+                                val semester = document.toObject<Semester>()
+                                val semAbbr = semester?.STag
+                                if (semAbbr == semName) {
+                                    val intent = Intent(this@BookDetailsActivity, AllBookActivity::class.java)
+                                    intent.putExtra("fieldName", "xSem")
+                                    intent.putExtra("departmentAbbr", semName)
+                                    intent.putExtra("abbr", semester.SAbbr)
+                                    intent.putExtra("no", semester.SSem)
+                                    intent.putExtra("semesterNo", semester.SSem)
+                                    intent.putExtra("departmentName", semester.SDep)
+                                    intent.putExtra("semesterName", semester.SNo)
+                                    startActivity(intent)
+                                }
+                            }
+                        }
                 }
             }
 
@@ -263,16 +328,40 @@ class BookDetailsActivity : SmartThemeActivity() {
                         binding.viewCountTextView.text = "Total Reads: $newViewCount"
                     }
                     .addOnFailureListener { e ->
-                        Toast.makeText(this, "Failed to update view count: ${e.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Failed to update view count: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
             }
         }.addOnFailureListener { e ->
-            Toast.makeText(this, "Error fetching book data: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error fetching book data: ${e.message}", Toast.LENGTH_SHORT)
+                .show()
         }
+    }
+
+    private fun displayPointsDynamically() {
+        userRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // Convert snapshot to User object
+                val user = snapshot.getValue(User::class.java)
+                binding.tvPremium.text = user?.points.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    this@BookDetailsActivity,
+                    "Failed to load points",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 
     override fun onResume() {
         super.onResume()
+        displayPointsDynamically()
         val bookCode = intent.getStringExtra("BOOK_CODE")
         // If data is available then Shimmer Effect will be gone
         isShimmerOn(true)
@@ -288,8 +377,8 @@ class BookDetailsActivity : SmartThemeActivity() {
         super.onPause()
     }
 
-    private fun isShimmerOn(flag: Boolean){
-        if (flag){
+    private fun isShimmerOn(flag: Boolean) {
+        if (flag) {
             binding.apply {
                 shimmerTvBookTitle.visibility = View.VISIBLE
                 shimmerTvBookTitle.startShimmer()

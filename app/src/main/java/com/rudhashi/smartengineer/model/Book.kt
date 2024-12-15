@@ -8,6 +8,7 @@ data class Book(
     val BCode : String = "",
     val BName: String = "",
     val BTotalU: String = "",
+    val BDes: String = "",
     val BView: Long = 0,
     val TimeStamp: Timestamp? = null,
     val xDep: List<String> = listOf(),  // Store as List<String> instead of List<Int>

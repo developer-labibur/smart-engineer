@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemBookListBinding
 import com.rudhashi.smartengineer.model.Book
+import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartData
 
 class BookListAdapter(
@@ -44,6 +45,9 @@ class BookListAdapter(
             Glide.with(binding.ivBookImage.context)
                 .load(book.BCover)
                 .into(binding.ivBookImage)
+
+            // Called Set book Favourites Function and Add Favourites Button functionality
+            MakeFirebaseEasy.setBookFavorites(binding.btnFavourite, book.BCode, book.BName, book.BCover)
 
             // Random Gradient Background Color Programmatically
             val number = SmartData.randomNumber(6)

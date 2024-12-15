@@ -5,9 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemBookGridBinding
 import com.rudhashi.smartengineer.model.Book
+import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartData
 
 class BookGridAdapter(
@@ -44,6 +50,9 @@ class BookGridAdapter(
             Glide.with(binding.ivBookImage.context)
                 .load(book.BCover)
                 .into(binding.ivBookImage)
+
+            // Called Set book Favourites Function and Add Favourites Button functionality
+            MakeFirebaseEasy.setBookFavorites(binding.btnFavourite, book.BCode, book.BName, book.BCover)
 
             // Random Gradient Background Color Programmatically
             val number = SmartData.randomNumber(6)

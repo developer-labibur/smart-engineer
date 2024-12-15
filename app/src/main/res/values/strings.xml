@@ -269,5 +269,6 @@
     <string name="cube_rotation_animation">Cube Rotation Animation</string>
     <string name="shrink_and_expand_animation">Shrink and Expand Animation</string>
     <string name="carousel_animation">Carousel Animation</string>
+    <string name="description">Description</string>
 
 </resources>

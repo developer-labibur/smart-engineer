@@ -211,12 +211,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/josefin_sans_bold"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto"
             android:includeFontPadding="false"
             android:text="@string/_00"
             android:textColor="@color/sl_action_text_middle_red"
-            android:textSize="13sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
@@ -227,14 +227,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
+            android:layout_marginBottom="-2dp"
             android:fontFamily="@font/main_font_regular_2"
             android:includeFontPadding="false"
             android:text="@string/points"
             android:textColor="@color/sl_primary_text"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/tvTaka"
-            app:layout_constraintStart_toEndOf="@+id/tvTaka"
-            app:layout_constraintTop_toTopOf="@+id/tvTaka" />
+            app:layout_constraintStart_toEndOf="@+id/tvTaka" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

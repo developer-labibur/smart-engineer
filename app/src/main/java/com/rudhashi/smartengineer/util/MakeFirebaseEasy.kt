@@ -2,11 +2,18 @@ package com.rudhashi.smartengineer.util
 
 import android.net.Uri
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
+import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.model.Department
 import com.rudhashi.smartengineer.model.Semester
 import kotlinx.coroutines.CoroutineScope
@@ -74,8 +81,6 @@ class MakeFirebaseEasy {
                 }
             return allDepartment
         }
-
-
         fun uploadProfileImage(selectedImage: Uri, uid: String) {
             // Prepare the file for upload
             val file = File(selectedImage.path!!)
@@ -110,6 +115,60 @@ class MakeFirebaseEasy {
                 "points" to points
             )
             userId?.let { FirebaseDatabase.getInstance().reference.child("Users").child(it).updateChildren(updatedUserInfo as Map<String, Any>) }
+        }
+
+        fun setBookFavorites(view: ImageView, bCode: String, bName: String, bCover: String){
+            val userID = FirebaseAuth.getInstance().currentUser?.uid
+            if (userID != null) {
+                val databaseRef = FirebaseDatabase.getInstance().getReference("UsersDB/$userID/Favourites/Books")
+
+                // Attach ValueEventListener ONCE
+                databaseRef.child(bCode).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            // Book is in favorites
+                            view.setImageResource(R.drawable.sl_heart_red)
+                        } else {
+                            // Book is not in favorites
+                            view.setImageResource(R.drawable.sl_heart_not_fill)
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        SmartData.sToast(view.context, "Error accessing favorites")
+                    }
+                })
+
+                // Handle Favorite Button Click
+                view.setOnClickListener {
+                    databaseRef.child(bCode).get().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            if (task.result.exists()) {
+                                // Remove from favorites
+                                databaseRef.child(bCode).removeValue()
+                                    .addOnSuccessListener {
+                                        SmartData.sToast(view.context, "Removed from Favourites")
+                                    }
+                            } else {
+                                // Add to favorites
+                                val bookData = mapOf(
+                                    "BName" to bName,
+                                    "BCode" to bCode,
+                                    "BIcon" to bCover
+                                )
+                                databaseRef.child(bCode).setValue(bookData)
+                                    .addOnSuccessListener {
+                                        SmartData.sToast(view.context, "Added to Favourites")
+                                    }
+                            }
+                        } else {
+                            SmartData.sToast(view.context, "Error accessing favorites")
+                        }
+                    }
+                }
+            } else {
+                SmartData.sToast(view.context, "User not logged in")
+            }
         }
 
     }
