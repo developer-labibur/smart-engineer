@@ -3,6 +3,7 @@ package com.rudhashi.smartengineer.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MenuInflater
@@ -12,10 +13,16 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
@@ -30,8 +37,9 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
     RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
     // ViewHolder class to hold the views
-    private val db = FirebaseFirestore.getInstance()
     private val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+    private val databaseRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/Notice")
+    private val loveCountRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/CountNoticeLove")
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticeViewHolder {
@@ -55,68 +63,36 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
         notifyDataSetChanged() // Notify the adapter that the data has changed
     }
 
-    inner class NoticeViewHolder(private val binding: ItemNoticeBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class NoticeViewHolder(private val binding: ItemNoticeBinding) : RecyclerView.ViewHolder(binding.root) {
 
         // Bind the notice data to the views
         fun bind(notice: Notice) {
             binding.apply {
                 tvNoticeText.text = notice.notice
                 tvNoticeTitle.text = notice.category
-                tvLovesCount.text = context.getString(R.string.loves, notice.likes.toString())
 
-                // Set initial like button text based on userLiked
-                if (notice.userLiked) {
-                    btnLove.visibility = View.INVISIBLE
-                    btnLoved.visibility = View.VISIBLE
-                } else {
-                    btnLove.visibility = View.VISIBLE
-                    btnLoved.visibility = View.INVISIBLE
-                }
+                // Observe loves count for this notice
+                loveCountRef.child(notice.id).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val loveCount = snapshot.getValue(Int::class.java) ?: 0
+                        tvLovesCount.text = context.getString(R.string.loves, loveCount.toString())
+                    }
 
-                btnLove.setOnClickListener { toggleLike(notice) }
-                btnLoved.setOnClickListener { toggleLike(notice) }
-
-
+                    override fun onCancelled(error: DatabaseError) {
+                        // Handle error if needed
+                    }
+                })
 
                 // Random Gradient Background Color Programmatically
                 val number = SmartData.randomNumber(6)
                 when (number) {
-                    1 -> {
-                        binding.llItemBG.setBackgroundResource(R.drawable.abc_blue_main)
-                        binding.btnLove.setBackgroundResource(R.drawable.abc_blue_main)
-                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_blue_light)
-                    }
-                    2 -> {
-                        binding.llItemBG.setBackgroundResource(R.drawable.abc_green_main)
-                        binding.btnLove.setBackgroundResource(R.drawable.abc_green_main)
-                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_green_light)
-                    }
-                    3 -> {
-                        binding.llItemBG.setBackgroundResource(R.drawable.abc_pink_main)
-                        binding.btnLove.setBackgroundResource(R.drawable.abc_pink_main)
-                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_pink_light)
-                    }
-                    4 -> {
-                        binding.llItemBG.setBackgroundResource(R.drawable.abc_orange_main)
-                        binding.btnLove.setBackgroundResource(R.drawable.abc_orange_main)
-                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_orange_light)
-                    }
-                    5 -> {
-                        binding.llItemBG.setBackgroundResource(R.drawable.abc_purple_main)
-                        binding.btnLove.setBackgroundResource(R.drawable.abc_purple_main)
-                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_purple_light)
-                    }
-                    6 -> {
-                        binding.llItemBG.setBackgroundResource(R.drawable.abc_red_main)
-                        binding.btnLove.setBackgroundResource(R.drawable.abc_red_main)
-                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_red_light)
-                    }
-                    else -> {
-                        binding.llItemBG.setBackgroundResource(R.drawable.abc_blue_main)
-                        binding.btnLove.setBackgroundResource(R.drawable.abc_blue_main)
-                        binding.clickNoticeItem.setBackgroundResource(R.drawable.abc_blue_light)
-                    }
+                    1 -> setUpLoveButton(btnLove, notice, R.drawable.abc_blue_main, R.drawable.abc_blue_main, R.drawable.abc_blue_light)
+                    2 -> setUpLoveButton(btnLove, notice, R.drawable.abc_green_main, R.drawable.abc_green_main, R.drawable.abc_green_light)
+                    3 -> setUpLoveButton(btnLove, notice, R.drawable.abc_pink_main, R.drawable.abc_pink_main, R.drawable.abc_pink_light)
+                    4 -> setUpLoveButton(btnLove, notice, R.drawable.abc_orange_main, R.drawable.abc_orange_main, R.drawable.abc_orange_light)
+                    5 -> setUpLoveButton(btnLove, notice, R.drawable.abc_purple_main, R.drawable.abc_purple_main, R.drawable.abc_purple_light)
+                    6 -> setUpLoveButton(btnLove, notice, R.drawable.abc_red_main, R.drawable.abc_red_main, R.drawable.abc_red_light)
+                    else -> setUpLoveButton(btnLove, notice, R.drawable.abc_blue_main, R.drawable.abc_blue_main, R.drawable.abc_blue_light)
                 }
 
                 // Format and display the timestamp
@@ -125,6 +101,58 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
 
                 // Set up three-dot menu
                 menuImageView.setOnClickListener { showCustomPopupMenu(it, notice) }
+            }
+        }
+        private fun setUpLoveButton(btnLove: AppCompatButton, notice: Notice, btnLoveBg: Int, llItemBGBg: Int, clickNoticeItemBg: Int){
+            // Load the current like state from Firebase Realtime Database
+            databaseRef.child(notice.id).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val isLoved = snapshot.getValue(Boolean::class.java) ?: false
+                    updateLoveButtonState(btnLove, isLoved, btnLoveBg)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error if needed
+                }
+            })
+            binding.llItemBG.setBackgroundResource(llItemBGBg)
+            binding.clickNoticeItem.setBackgroundResource(clickNoticeItemBg)
+            binding.apply {
+                // Handle Love button click
+                btnLove.setOnClickListener {
+                    databaseRef.child(notice.id).addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val isLoved = snapshot.getValue(Boolean::class.java) ?: false
+                            if (isLoved) {
+                                // Remove from favorites
+                                databaseRef.child(notice.id).setValue(false)
+                                updateLoveButtonState(btnLove, false, btnLoveBg)
+
+                                // Decrement loves count in Realtime Database
+                                loveCountRef.child(notice.id).get().addOnSuccessListener { loveSnapshot ->
+                                    val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
+                                    loveCountRef.child(notice.id).setValue(currentCount - 1)
+                                }
+                                deductPoints(SmartConfig.UNLIKE_DEDUCT_POINT)
+                            } else {
+                                // Add to favorites
+                                databaseRef.child(notice.id).setValue(true)
+                                updateLoveButtonState(btnLove, true, btnLoveBg)
+
+                                // Increment loves count in Realtime Database
+                                loveCountRef.child(notice.id).get().addOnSuccessListener { loveSnapshot ->
+                                    val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
+                                    loveCountRef.child(notice.id).setValue(currentCount + 1)
+                                }
+                                addPoints(SmartConfig.LIKED_BONUS_POINT)
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            // Handle error if needed
+                        }
+                    })
+                }
             }
         }
 
@@ -223,49 +251,18 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
             }
             context.startActivity(Intent.createChooser(shareIntent, "Share this Note via"))
         }
-
-        private fun toggleLike(notice: Notice) {
-            if (currentUserUid == null) return
-
-            val noticeRef = db.collection("polytechnic_notice").document(notice.id)
-            val userLikeRef = noticeRef.collection("likes").document(currentUserUid)
-
-            db.runTransaction { transaction ->
-                val snapshot = transaction.get(noticeRef)
-                val currentLikes = snapshot.getLong("likes") ?: 0
-
-                if (notice.userLiked) {
-                    // Unlike the post: decrement likes and update Firestore
-                    transaction.update(noticeRef, "likes", currentLikes - 1)
-                    transaction.delete(userLikeRef)
-                    notice.userLiked = false
-                    notice.likes -= 1
-                    deductPoints(SmartConfig.UNLIKE_DEDUCT_POINT)
-                } else {
-                    // Like the post: increment likes and update Firestore
-                    transaction.update(noticeRef, "likes", currentLikes + 1)
-                    transaction.set(userLikeRef, mapOf("liked" to true), SetOptions.merge())
-                    notice.userLiked = true
-                    notice.likes += 1
-                    addPoints(SmartConfig.LIKED_BONUS_POINT)
-                }
-
-                transaction
-            }.addOnSuccessListener {
-                binding.apply {
-                    // Update UI to reflect the new like count and button text
-                    tvLovesCount.text = context.getString(R.string.loves, notice.likes.toString())
-                    if (notice.userLiked) {
-                        btnLove.visibility = View.INVISIBLE
-                        btnLoved.visibility = View.VISIBLE
-                    } else {
-                        btnLove.visibility = View.VISIBLE
-                        btnLoved.visibility = View.INVISIBLE
-                    }
-                }
-            }.addOnFailureListener { e ->
-                // Handle failure, such as network issues
-                e.printStackTrace()
+        // Function to update Love button UI state
+        private fun updateLoveButtonState(loveButton: AppCompatButton, isLoved: Boolean, bg: Int) {
+            if (isLoved) {
+                loveButton.setBackgroundResource(R.drawable.bg_notice_item_loved)
+                loveButton.text = context.getString(R.string.loved)
+                loveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.sl_heart_red, 0, 0, 0)
+                loveButton.setTextColor(ContextCompat.getColor(context, R.color.red)) // Set text color to red
+            } else {
+                loveButton.setBackgroundResource(bg)
+                loveButton.text = context.getString(R.string.love)
+                loveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.sl_heart_black, 0, 0, 0)
+                loveButton.setTextColor(ContextCompat.getColor(context, R.color.ic_light_only)) // Set text color to red
             }
         }
     }

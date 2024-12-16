@@ -270,5 +270,15 @@
     <string name="shrink_and_expand_animation">Shrink and Expand Animation</string>
     <string name="carousel_animation">Carousel Animation</string>
     <string name="description">Description</string>
+    <string name="book_details_is_empty">Book descriptions are empty...🙁</string>
+    <string name="book_details">Book Details</string>
+    <string name="reads">%1$s total reads</string>
+    <string name="book_name_n_code">%1$s [%2$s]</string>
+    <string name="book_credit">Book Credit</string>
+    <string name="updates">Updates</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+    <string name="choose_a_theme">Choose a theme</string>
+    <string name="night_theme_info">We highly recommend you to choose a theme dark theme. It is easier to the eyes and saves battery life. You can always change it later from the settings</string>
 
 </resources>

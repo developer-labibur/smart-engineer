@@ -30,6 +30,7 @@ import com.rudhashi.smartengineer.util.GoogleAuthClient
 import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.ThemeHelper
+import com.rudhashi.smartengineer.view.DayNightActivity
 import com.rudhashi.smartengineer.view.MainActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartDashboardActivity
@@ -58,7 +59,6 @@ class SmartSettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         displayUserProfileInfo()  // Display user profile info
-        nightModeToggle()  // Set Dark Mode functionality
 
         binding.apply {
             btnViewProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
@@ -66,6 +66,10 @@ class SmartSettingFragment : Fragment() {
 
             // Custom Section --------------------------------
             sBtnPremium.setOnClickListener { startActivity(Intent(requireActivity(), TestActivity::class.java)) }
+            sBtnDark.setOnClickListener {
+                startActivity(Intent(requireActivity(), DayNightActivity::class.java))
+                requireActivity().finish()
+            }
 
             // Special Section --------------------------------
             sBtnInstitute.setOnClickListener { SmartData.comingSoon(requireActivity()) }
@@ -90,23 +94,9 @@ class SmartSettingFragment : Fragment() {
     }
 
     // =====================================================================================================================
-    // ===========================================     Dark Mode Functionality      ========================================
+    // ===========================================    Display User Information      ========================================
     // =====================================================================================================================
-    private fun nightModeToggle() {
-        val isDarkMode = ThemeHelper.isDarkMode(requireContext()) // Load the current theme state
-        binding.switchTheme.isChecked = isDarkMode
-        ThemeHelper.applyTheme(isDarkMode) // Apply the saved theme
 
-        // Set up the switch listener
-        binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
-            ThemeHelper.saveThemePreference(requireContext(), isChecked)
-            ThemeHelper.applyTheme(isChecked) // Apply the theme
-
-            val intent = Intent(requireActivity(), SmartDashboardActivity::class.java)
-            intent.putExtra("DISPLAY", "Home")
-            startActivity(intent)
-        }
-    }
 
     private fun displayUserProfileInfo() {
         userRef.addValueEventListener(object : ValueEventListener {

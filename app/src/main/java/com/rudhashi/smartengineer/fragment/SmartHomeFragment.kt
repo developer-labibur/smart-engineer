@@ -18,13 +18,17 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -34,9 +38,8 @@ import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.adapter.CategoryAdapter
 import com.rudhashi.smartengineer.adapter.SemesterAdapter
-import com.rudhashi.smartengineer.databinding.DialogComingSoonBinding
+import com.rudhashi.smartengineer.databinding.DialogMarqueeNoticeBinding
 import com.rudhashi.smartengineer.databinding.FragmentSmartHomeBinding
-import com.rudhashi.smartengineer.databinding.ItemNoticeBinding
 import com.rudhashi.smartengineer.model.CategoryDataClass
 import com.rudhashi.smartengineer.model.Notice
 import com.rudhashi.smartengineer.model.SemeterTotal
@@ -56,6 +59,9 @@ class SmartHomeFragment : Fragment() {
     private var db: FirebaseFirestore? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+    private val databaseRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/Notice")
+    private val loveCountRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/CountNoticeLove")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -126,7 +132,7 @@ class SmartHomeFragment : Fragment() {
                             val text = notice.notice
 
                             binding.clMarquee.setOnClickListener {
-                                notice.timestamp?.let { setNoticeDialog(notice, category, it, notice.id, text, notice.userLiked, notice.likes) }
+                                notice.timestamp?.let { setNoticeDialog(notice, category, it, text) }
                             }
 
                             val limitedText = text.split(" ").take(15).joinToString(" ") // Limit to the first 3 words
@@ -155,10 +161,10 @@ class SmartHomeFragment : Fragment() {
     }
 
     @SuppressLint("InflateParams")
-    private fun setNoticeDialog(notice: Notice, category: String, timestamp: Timestamp, id: String, text: String, userLiked: Boolean, likes: Int){
+    private fun setNoticeDialog(notice: Notice, category: String, timestamp: Timestamp, text: String){
         val builder = AlertDialog.Builder(requireActivity()).create()
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.item_notice, null)
-        val dialogBinding = ItemNoticeBinding.bind(dialogView)
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_marquee_notice, null)
+        val dialogBinding = DialogMarqueeNoticeBinding.bind(dialogView)
         builder.setView(dialogBinding.root)
         builder.show()
 
@@ -166,24 +172,89 @@ class SmartHomeFragment : Fragment() {
             tvNoticeTitle.text = category
             tvNoticeDate.text = formatTimestampToRelativeTime(timestamp)
             tvNoticeText.text = text
-            tvLovesCount.text = requireActivity().getString(R.string.loves, likes.toString())
+            // Observe loves count for this notice
+            loveCountRef.child(notice.id).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val loveCount = snapshot.getValue(Int::class.java) ?: 0
+                    tvLovesCount.text = getString(R.string.loves, loveCount.toString())
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error if needed
+                }
+            })
 
-            // Set initial like button text based on userLiked
-            if (userLiked) {
-                btnLove.visibility = View.INVISIBLE
-                btnLoved.visibility = View.VISIBLE
-            } else {
-                btnLove.visibility = View.VISIBLE
-                btnLoved.visibility = View.INVISIBLE
-            }
-            btnLove.setOnClickListener { toggleLike(notice, dialogBinding) }
-            btnLoved.setOnClickListener { toggleLike(notice, dialogBinding) }
+            setUpLoveButton(btnLove, notice)
+
             menuImageView.setOnClickListener { showCustomPopupMenu(it, notice) }
         }
 
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }
+    private fun setUpLoveButton(btnLove: AppCompatButton, notice: Notice){
+        // Load the current like state from Firebase Realtime Database
+        databaseRef.child(notice.id).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val isLoved = snapshot.getValue(Boolean::class.java) ?: false
+                updateLoveButtonState(btnLove, isLoved)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error if needed
+            }
+        })
+        binding.apply {
+            // Handle Love button click
+            btnLove.setOnClickListener {
+                databaseRef.child(notice.id).addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val isLoved = snapshot.getValue(Boolean::class.java) ?: false
+                        if (isLoved) {
+                            // Remove from favorites
+                            databaseRef.child(notice.id).setValue(false)
+                            updateLoveButtonState(btnLove, false)
+
+                            // Decrement loves count in Realtime Database
+                            loveCountRef.child(notice.id).get().addOnSuccessListener { loveSnapshot ->
+                                val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
+                                loveCountRef.child(notice.id).setValue(currentCount - 1)
+                            }
+                            deductPoints(SmartConfig.UNLIKE_DEDUCT_POINT)
+                        } else {
+                            // Add to favorites
+                            databaseRef.child(notice.id).setValue(true)
+                            updateLoveButtonState(btnLove, true)
+
+                            // Increment loves count in Realtime Database
+                            loveCountRef.child(notice.id).get().addOnSuccessListener { loveSnapshot ->
+                                val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
+                                loveCountRef.child(notice.id).setValue(currentCount + 1)
+                            }
+                            addPoints(SmartConfig.LIKED_BONUS_POINT)
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        // Handle error if needed
+                    }
+                })
+            }
+        }
+    }
+    private fun updateLoveButtonState(loveButton: AppCompatButton, isLoved: Boolean) {
+        if (isLoved) {
+            loveButton.setBackgroundResource(R.drawable.bg_notice_item_loved)
+            loveButton.text = getString(R.string.loved)
+            loveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.sl_heart_red, 0, 0, 0)
+            loveButton.setTextColor(ContextCompat.getColor(requireActivity(), R.color.red)) // Set text color to red
+        } else {
+            loveButton.setBackgroundResource(R.drawable.abc_orange_main)
+            loveButton.text = getString(R.string.love)
+            loveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.sl_heart_black, 0, 0, 0)
+            loveButton.setTextColor(ContextCompat.getColor(requireActivity(), R.color.ic_light_only)) // Set text color to red
+        }
+    }
+
     @SuppressLint("InflateParams")
     private fun showCustomPopupMenu(anchorView: View, notice: Notice) {
         // Inflate the custom menu layout
@@ -224,49 +295,6 @@ class SmartHomeFragment : Fragment() {
             type = "text/plain"
         }
         requireContext().startActivity(Intent.createChooser(shareIntent, "Share this Note via"))
-    }
-    private fun toggleLike(notice: Notice, dialogBinding: ItemNoticeBinding) {
-        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        val noticeRef = db?.collection("polytechnic_notice")?.document(notice.id)
-        val userLikeRef = noticeRef?.collection("likes")?.document(currentUserUid)
-
-        db?.runTransaction { transaction ->
-            val snapshot = noticeRef?.let { transaction.get(it) }
-            val currentLikes = snapshot?.getLong("likes") ?: 0
-
-            if (notice.userLiked) {
-                // Unlike the post: decrement likes and update Firestore
-                noticeRef?.let { transaction.update(it, "likes", currentLikes - 1) }
-                userLikeRef?.let { transaction.delete(it) }
-                notice.userLiked = false
-                notice.likes -= 1
-                deductPoints(SmartConfig.UNLIKE_DEDUCT_POINT)
-            } else {
-                // Like the post: increment likes and update Firestore
-                noticeRef?.let { transaction.update(it, "likes", currentLikes + 1) }
-                userLikeRef?.let { transaction.set(it, mapOf("liked" to true), SetOptions.merge()) }
-                notice.userLiked = true
-                notice.likes += 1
-                addPoints(SmartConfig.LIKED_BONUS_POINT)
-            }
-
-            transaction
-        }?.addOnSuccessListener {
-            dialogBinding.apply {
-                // Update UI to reflect the new like count and button text
-                tvLovesCount.text = context?.getString(R.string.loves, notice.likes.toString())
-                if (notice.userLiked) {
-                    btnLove.visibility = View.INVISIBLE
-                    btnLoved.visibility = View.VISIBLE
-                } else {
-                    btnLove.visibility = View.VISIBLE
-                    btnLoved.visibility = View.INVISIBLE
-                }
-            }
-        }?.addOnFailureListener { e ->
-            // Handle failure, such as network issues
-            e.printStackTrace()
-        }
     }
     @Suppress("SameParameterValue")
     private fun addPoints(pointsToAdd: Int) {

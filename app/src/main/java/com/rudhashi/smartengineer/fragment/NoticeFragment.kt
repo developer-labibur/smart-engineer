@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
@@ -19,6 +20,9 @@ class NoticeFragment : Fragment() {
 
     private lateinit var binding: FragmentNoticeBinding
     private var db : FirebaseFirestore? = null
+    val auth = FirebaseAuth.getInstance()
+    val firestore = FirebaseFirestore.getInstance()
+    val realtimeDB = FirebaseDatabase.getInstance().reference
     private val noticeList = mutableListOf<Notice>()
     // RecyclerView Adapter
     private lateinit var noticeAdapter: NoticeAdapter // Replace with your RecyclerView adapter

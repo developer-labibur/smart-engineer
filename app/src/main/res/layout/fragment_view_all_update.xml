@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sl_secoundary"
+    android:padding="10dp"
+    tools:context=".container.ViewAllUpdateFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Tab Bar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/updateTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sl_search_box_bg"
+            android:padding="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/btnNotice"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:background="@drawable/sl_search_box_icon"
+                android:fontFamily="@font/hind_siliguri"
+                android:includeFontPadding="false"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="8dp"
+                android:text="@string/notice"
+                android:textColor="@color/mainContainer_HeadingText"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnBlog"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/btnBlog"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:fontFamily="@font/hind_siliguri"
+                android:includeFontPadding="false"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="8dp"
+                android:text="@string/blog"
+                android:textColor="@color/mainContainer_HeadingText"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btnNotice"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+        <!-- Shimmer -->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerNotice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shimmer_duration="800">
+
+            <include
+                layout="@layout/item_shimmer_notice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <!-- Notice Section -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_notice" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

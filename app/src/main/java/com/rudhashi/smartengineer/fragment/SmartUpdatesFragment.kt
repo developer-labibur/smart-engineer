@@ -17,6 +17,8 @@ import com.rudhashi.smartengineer.databinding.FragmentSmartUpdatesBinding
 import com.rudhashi.smartengineer.model.Notice
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.view.ProfileActivity
+import com.rudhashi.smartengineer.view.SmartDashboardActivity
+import com.rudhashi.smartengineer.view.SmartViewActivity
 
 class SmartUpdatesFragment : Fragment() {
 
@@ -54,6 +56,11 @@ class SmartUpdatesFragment : Fragment() {
             }
             btnBlog.setOnClickListener { SmartData.comingSoon(requireActivity()) }
             btnViewAll.visibility = View.GONE
+            btnViewAll.setOnClickListener {
+                val intent = Intent(requireContext(), SmartViewActivity::class.java)
+                intent.putExtra("DISPLAY", "Update")
+                startActivity(intent)
+            }
         }
 
         return binding.root

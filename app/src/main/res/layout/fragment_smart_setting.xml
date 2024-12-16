@@ -171,16 +171,13 @@
 
                 </LinearLayout>
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switch_theme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:thumb="@drawable/thumb_selector"
-                    android:track="@drawable/track_selector"
+                <ImageView
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_double_alt_arrow_right"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_image_right" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

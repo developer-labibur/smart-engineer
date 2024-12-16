@@ -334,7 +334,7 @@
             <TextView
                 android:id="@+id/tvUpdates"
                 style="@style/bottom_nav_text_style"
-                android:text="@string/notice" />
+                android:text="@string/updates" />
 
         </LinearLayout>
         <!-- Setting Bottom -->

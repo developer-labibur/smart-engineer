@@ -23,6 +23,8 @@ import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.view.BookDetailsActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
+import com.rudhashi.smartengineer.view.SmartDashboardActivity
+import com.rudhashi.smartengineer.view.SmartViewActivity
 
 class SmartBooksFragment : Fragment() {
 
@@ -50,7 +52,7 @@ class SmartBooksFragment : Fragment() {
 
             searchBox.setOnClickListener { SmartData.comingSoon(requireActivity()) }
 
-            fetchBooks("TimeStamp", false)
+            fetchBooks("BUpdates", false)
             isShimmerOn(true, isGrid = false)
             btnGrid.setBackgroundResource(R.color.transparent)
             btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
@@ -58,17 +60,17 @@ class SmartBooksFragment : Fragment() {
             btnList.setOnClickListener {
                 btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
                 btnGrid.setBackgroundResource(R.color.transparent)
-                fetchBooks("TimeStamp", false)
+                fetchBooks("BUpdates", false)
                 isShimmerOn(true, isGrid = false)
             }
             btnGrid.setOnClickListener {
                 btnList.setBackgroundResource(R.color.transparent)
                 btnGrid.setBackgroundResource(R.drawable.sl_search_box_icon)
-                fetchBooks("TimeStamp", true)
+                fetchBooks("BUpdates", true)
                 isShimmerOn(true, isGrid = true)
             }
             btnLatest.setOnClickListener {
-                fetchBooks("TimeStamp", false)
+                fetchBooks("BUpdates", false)
                 isShimmerOn(true, isGrid = false)
                 btnLatest.setBackgroundResource(R.drawable.sl_search_box_icon)
                 btnPopular.setBackgroundResource(R.color.transparent)
@@ -79,12 +81,12 @@ class SmartBooksFragment : Fragment() {
                     isShimmerOn(true, isGrid = false)
                     btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
                     btnGrid.setBackgroundResource(R.color.transparent)
-                    fetchBooks("TimeStamp", false)
+                    fetchBooks("BUpdates", false)
                 }
                 btnGrid.setOnClickListener {
                     btnList.setBackgroundResource(R.color.transparent)
                     btnGrid.setBackgroundResource(R.drawable.sl_search_box_icon)
-                    fetchBooks("TimeStamp", true)
+                    fetchBooks("BUpdates", true)
                     isShimmerOn(true, isGrid = true)
                 }
             }
@@ -110,6 +112,11 @@ class SmartBooksFragment : Fragment() {
                 }
             }
             btnViewAll.visibility = View.INVISIBLE
+            btnViewAll.setOnClickListener {
+                val intent = Intent(requireContext(), SmartViewActivity::class.java)
+                intent.putExtra("DISPLAY", "Book")
+                startActivity(intent)
+            }
         }
         return binding.root
     }
@@ -122,7 +129,8 @@ class SmartBooksFragment : Fragment() {
         if (isGrid){
             binding.rvBook.layoutManager = GridLayoutManager(requireActivity(),2)
             binding.rvBook.setHasFixedSize(true)
-            db?.collection("books")?.orderBy(sortBy, Query.Direction.DESCENDING) // Or DESCENDING for reverse order
+            db?.collection("books")
+                ?.orderBy(sortBy, Query.Direction.DESCENDING) // Or DESCENDING for reverse order
                 ?.get()?.addOnSuccessListener { querySnapshot ->
                     isShimmerOn(false, isGrid = true)
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }

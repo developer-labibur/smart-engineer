@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.SmartViewActivity"
+    android:background="@color/sl_secoundary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_sl_profile_text_golden"
+            android:contentDescription="@string/sl_icon"
+            android:paddingStart="9dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="11dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/sl_left_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Tab Bar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/booksTab"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/smart_view_ground_bg"
+            android:padding="2dp"
+            app:layout_constraintEnd_toStartOf="@+id/btnPremium"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/btnBook"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:background="@drawable/smart_view_active_bg"
+                android:fontFamily="@font/main_font_regular_2"
+                android:paddingTop="2dp"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="@string/books"
+                android:textColor="@color/mainContainer_HeadingText"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnUpdate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/btnUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:fontFamily="@font/main_font_regular_2"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="2dp"
+                android:text="@string/updates"
+                android:textColor="@color/mainContainer_HeadingText"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btnBook"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Membership Plus -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btnPremium"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_sl_profile_text_golden"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/ll_premium_icon"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_sl_profile_box_golden"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_url="https://lottie.host/e64c0a22-b913-4a0d-bc5e-daa768ca93fd/8DGaZDmvma.lottie" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPremium"
+                style="@style/dashboard_smart_point_text"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/_00"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
+                app:layout_constraintTop_toTopOf="@+id/ll_premium_icon" />
+
+            <TextView
+                android:id="@+id/tvTaka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/main_font_regular_2"
+                android:includeFontPadding="false"
+                android:text="Points"
+                android:textColor="@color/sl_primary_text"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
+                app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Main Container -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

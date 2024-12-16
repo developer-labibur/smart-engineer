@@ -78,4 +78,10 @@
     <color name="indian_red_light_color">#33f8d4d4</color>
     <color name="purple_light_color">#33C9CCFF</color>
 
+    <color name="dialog_bg">#494542</color>
+
+    <!-- Smart View -->
+    <color name="smart_view_ground_bg">#262626</color>
+    <color name="smart_view_active_bg">#1A1A1A</color>
+
 </resources>

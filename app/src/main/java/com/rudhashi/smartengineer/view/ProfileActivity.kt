@@ -75,7 +75,8 @@ class ProfileActivity : AppCompatActivity() {
             btnSettings.setOnClickListener {
                 val intent = Intent(this@ProfileActivity, SmartDashboardActivity::class.java)
                 intent.putExtra("DISPLAY", "Setting")
-                startActivity(intent) }
+                startActivity(intent)
+            }
         }
     }
 

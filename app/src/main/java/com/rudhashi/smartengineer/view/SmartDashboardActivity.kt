@@ -55,10 +55,9 @@ class SmartDashboardActivity : SmartThemeActivity() {
             insets
         }
 
-        //if (displayFragment == "Setting") setActiveTab(3)
-        setupViewPager()
-        setupBottomNavigation()
-
+        setupViewPager() // Setup the viewPager
+        setupBottomNavigation() // Setup navigation
+        setActiveTab(0) // Set the initial tab to Home (index 0)
 
         // Set Smart Engineering App Text Gradient -------------------------------------------
         setGradientTextColor()
@@ -267,7 +266,6 @@ class SmartDashboardActivity : SmartThemeActivity() {
         when (displayFragment) {
             "Home" -> setActiveTab(0)
             "Setting" -> setActiveTab(3)
-            else -> setActiveTab(0)
         }
     }
 }

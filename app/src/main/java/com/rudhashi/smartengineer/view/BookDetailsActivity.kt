@@ -101,42 +101,55 @@ class BookDetailsActivity : SmartThemeActivity() {
     }
 
     private fun loadBooksAndUnits(bookCode: String) {
-        // Load the book details ----------------------------------------------------------------
         db.collection("books").document(bookCode)
             .get()
             .addOnSuccessListener { snapshot ->
                 val book = snapshot.toObject(Book::class.java)
+                val bName = book?.BName
+                val bCode = book?.BCode
+                val bCredit = book?.BCredit
                 binding.apply {
                     Glide.with(this@BookDetailsActivity)
                         .load(book?.BCover)
                         .placeholder(R.drawable.book)
                         .into(bookCoverImage)
-                    tvBookTitle.text = book?.BName
-                    bookCodes.text = getString(R.string.sub_code, book?.BCode)
+                    bookCodes.text = getString(R.string.book_name_n_code, bName, bCode)
                     bookTotalUnits.text = book?.BTotalU
-                    val des = book?.BDes
-                    isFullDes = false
-                    if (isFullDes){
-                        tvInfo.text = des  // Set the spannable string to the TextView
-                        isFullDes = false
-                    } else{
-                        val limitedText = des?.split(" ")?.take(30)?.joinToString(" ") // Limit to the first 3 words
-                        val clickToSeeMore = "...See More"
-                        val fullText = "$limitedText $clickToSeeMore" // Combine them into one string
-                        val spannableString = SpannableString(fullText) // Create a SpannableString
-                        // Set the "...See More" part in bold
-                        spannableString.setSpan(
-                            StyleSpan(Typeface.BOLD),
-                            fullText.length - clickToSeeMore.length, // Start index of "...Click to See More"
-                            fullText.length, // End index of "...Click to See More"
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-                        tvInfo.text = spannableString  // Set the spannable string to the TextView
-                        isFullDes = true
-                    }
+                    "Credit $bCredit".also { viewCountTextCredit.text = it }
 
-                    val date = book?.TimeStamp?.let { SmartData.timestampToDate(it) }
-                    dataUploaded.text = date
+                    val fullDescription = book?.BDes ?: ""
+                    val limitedDescription = fullDescription.split(" ").take(30).joinToString(" ") // First 30 words
+                    val clickToSeeMore = "...See More"
+                    val collapsedText = "$limitedDescription $clickToSeeMore"
+
+                    // Set initial state
+                    isFullDes = false
+                    if (fullDescription.isNotEmpty()){
+                        tvInfo.text = SpannableString(collapsedText).apply {
+                            setSpan(
+                                StyleSpan(Typeface.BOLD),
+                                length - clickToSeeMore.length,
+                                length,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
+                        }
+
+                        // Handle text toggle on click
+                        tvInfo.setOnClickListener {
+                            if (isFullDes) {
+                                // Collapse the text
+                                tvInfo.text = SpannableString(collapsedText).apply {
+                                    setSpan(StyleSpan(Typeface.BOLD), length - clickToSeeMore.length, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                }
+                            } else {
+                                // Expand the text
+                                tvInfo.text = fullDescription
+                            }
+                            isFullDes = !isFullDes // Toggle state
+                        }
+                    } else {
+                        tvInfo.text = getString(R.string.book_details_is_empty)
+                    }
                 }
                 isShimmerOn(false)
             }
@@ -325,7 +338,7 @@ class BookDetailsActivity : SmartThemeActivity() {
                 bookRef.update("BView", newViewCount)
                     .addOnSuccessListener {
                         // Optionally, display the new view count in the UI
-                        binding.viewCountTextView.text = "Total Reads: $newViewCount"
+                        binding.viewCountTextView.text = getString(R.string.reads, newViewCount.toString())
                     }
                     .addOnFailureListener { e ->
                         Toast.makeText(
@@ -388,23 +401,17 @@ class BookDetailsActivity : SmartThemeActivity() {
                 shimmerIcBook.startShimmer()
                 shimmerIcView.visibility = View.VISIBLE
                 shimmerIcView.startShimmer()
-                shimmerIcCalander.visibility = View.VISIBLE
-                shimmerIcCalander.startShimmer()
 
                 icBook.visibility = View.INVISIBLE
                 icView.visibility = View.INVISIBLE
-                icCalander.visibility = View.INVISIBLE
 
                 shimmerBookCodes.visibility = View.VISIBLE
                 shimmerBookCodes.startShimmer()
                 shimmerViewCountTextView.visibility = View.VISIBLE
                 shimmerViewCountTextView.startShimmer()
-                shimmerDataUploaded.visibility = View.VISIBLE
-                shimmerDataUploaded.startShimmer()
 
                 bookCodes.visibility = View.INVISIBLE
                 viewCountTextView.visibility = View.INVISIBLE
-                dataUploaded.visibility = View.INVISIBLE
                 bookCoverImage.visibility = View.INVISIBLE
                 tvBookTitle.visibility = View.INVISIBLE
 
@@ -423,23 +430,17 @@ class BookDetailsActivity : SmartThemeActivity() {
                 shimmerIcBook.stopShimmer()
                 shimmerIcView.visibility = View.INVISIBLE
                 shimmerIcView.stopShimmer()
-                shimmerIcCalander.visibility = View.INVISIBLE
-                shimmerIcCalander.stopShimmer()
 
                 icBook.visibility = View.VISIBLE
                 icView.visibility = View.VISIBLE
-                icCalander.visibility = View.VISIBLE
 
                 shimmerBookCodes.visibility = View.INVISIBLE
                 shimmerBookCodes.stopShimmer()
                 shimmerViewCountTextView.visibility = View.INVISIBLE
                 shimmerViewCountTextView.stopShimmer()
-                shimmerDataUploaded.visibility = View.INVISIBLE
-                shimmerDataUploaded.stopShimmer()
 
                 bookCodes.visibility = View.VISIBLE
                 viewCountTextView.visibility = View.VISIBLE
-                dataUploaded.visibility = View.VISIBLE
                 bookCoverImage.visibility = View.VISIBLE
                 tvBookTitle.visibility = View.VISIBLE
 

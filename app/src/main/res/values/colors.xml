@@ -23,6 +23,10 @@
     <color name="dialog_bg">#f8e9d4</color>
     <color name="dialog_sub_action">#FFE0B6</color>
 
+    <!-- Smart View -->
+    <color name="smart_view_ground_bg">#FFF1DF</color>
+    <color name="smart_view_active_bg">#f8e9d4</color>
+
     <!-- ============================================ PDF ============================================== -->
     <color name="pdf_light">#f8e9d4</color>
     <color name="pdf_dark">#1A1A1A</color>

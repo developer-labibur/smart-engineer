@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/smart_nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/smart_nav_graph"
+    app:startDestination="@id/nightModeFragment">
 
+    <fragment
+        android:id="@+id/smartBooksFragment"
+        android:name="com.rudhashi.smartengineer.fragment.SmartBooksFragment"
+        android:label="fragment_smart_books"
+        tools:layout="@layout/fragment_smart_books" />
+    <fragment
+        android:id="@+id/smartUpdatesFragment"
+        android:name="com.rudhashi.smartengineer.fragment.SmartUpdatesFragment"
+        android:label="fragment_smart_updates"
+        tools:layout="@layout/fragment_smart_updates" />
+    <fragment
+        android:id="@+id/viewAllBookFragment"
+        android:name="com.rudhashi.smartengineer.container.ViewAllBookFragment"
+        android:label="fragment_view_all_book"
+        tools:layout="@layout/fragment_view_all_book" />
+    <fragment
+        android:id="@+id/nightModeFragment"
+        android:name="com.rudhashi.smartengineer.container.NightModeFragment"
+        android:label="fragment_night_mode"
+        tools:layout="@layout/fragment_night_mode" />
 </navigation>
