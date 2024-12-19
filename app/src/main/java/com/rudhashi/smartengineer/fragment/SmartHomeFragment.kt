@@ -50,6 +50,7 @@ import com.rudhashi.smartengineer.util.formatTimestampToRelativeTime
 import com.rudhashi.smartengineer.view.AllBookActivity
 import com.rudhashi.smartengineer.view.DepartmentActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
+import com.rudhashi.smartengineer.view.SmartPointActivity
 
 class SmartHomeFragment : Fragment() {
 
@@ -100,7 +101,7 @@ class SmartHomeFragment : Fragment() {
         // Button Click ----------------------------------------------------------------
         binding.apply {
             btnViewProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
-            btnViewPremium.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            btnViewPremium.setOnClickListener { startActivity(Intent(requireActivity(), SmartPointActivity::class.java)) }
 
             btnActivity.setOnClickListener { SmartData.comingSoon(requireActivity()) }
             btnInstitute.setOnClickListener { SmartData.comingSoon(requireActivity()) }

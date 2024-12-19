@@ -280,5 +280,15 @@
     <string name="light">Light</string>
     <string name="choose_a_theme">Choose a theme</string>
     <string name="night_theme_info">We highly recommend you to choose a theme dark theme. It is easier to the eyes and saves battery life. You can always change it later from the settings</string>
+    <string name="already_claimed">Already claimed</string>
+    <string name="new_account_bonus">New Account Bonus</string>
+    <string name="watch_video">Watch Video</string>
+    <string name="tvWatchVideoText">Download and read Polytechnic e-books anywhere, anytime, completely free by using your Smart Points</string>
+    <string name="watch_videos_ads_and_earn_points">Watch video and earn Smart Points</string>
+    <string name="get_points">Get %1$s points</string>
+    <string name="daily_login_bonus">Daily login to Smart Engineer app and collect daily %1$s bonus Smart Points</string>
+    <string name="new_user_signup_bonus">Create a new account on Smart Engineer app and get %1$s bonus Smart Points</string>
+    <string name="do_not_have_enough_points">You don\'t have enough points. Watch a video to get</string>
+    <string name="_smart_points">%1$s Smart Points</string>
 
 </resources>

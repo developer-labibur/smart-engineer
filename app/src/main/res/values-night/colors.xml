@@ -69,6 +69,7 @@
     <color name="green_main_loved_color">#FFC0C0</color>
 
     <color name="orange_active_color">#5DFF6F00</color>
+    <color name="orange_edition_color">#000000</color>
 
     <!-- Modern Light Color -->
     <color name="orange_light_color">#33f8e9d4</color>
@@ -77,6 +78,7 @@
     <color name="pink_light_color">#33fddae5</color>
     <color name="indian_red_light_color">#33f8d4d4</color>
     <color name="purple_light_color">#33C9CCFF</color>
+    <color name="orange_dialog_color">#414B42</color>
 
     <color name="dialog_bg">#494542</color>
 

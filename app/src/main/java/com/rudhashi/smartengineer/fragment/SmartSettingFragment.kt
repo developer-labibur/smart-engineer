@@ -34,6 +34,7 @@ import com.rudhashi.smartengineer.view.DayNightActivity
 import com.rudhashi.smartengineer.view.MainActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartDashboardActivity
+import com.rudhashi.smartengineer.view.SmartPointActivity
 import kotlinx.coroutines.launch
 
 class SmartSettingFragment : Fragment() {
@@ -62,10 +63,10 @@ class SmartSettingFragment : Fragment() {
 
         binding.apply {
             btnViewProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
-            btnViewPremium.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            btnViewPremium.setOnClickListener { startActivity(Intent(requireActivity(), SmartPointActivity::class.java)) }
 
             // Custom Section --------------------------------
-            sBtnPremium.setOnClickListener { startActivity(Intent(requireActivity(), TestActivity::class.java)) }
+            sBtnPremium.setOnClickListener { startActivity(Intent(requireActivity(), SmartPointActivity::class.java)) }
             sBtnDark.setOnClickListener {
                 startActivity(Intent(requireActivity(), DayNightActivity::class.java))
                 requireActivity().finish()

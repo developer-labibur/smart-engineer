@@ -37,7 +37,7 @@
         android:maxLines="2"
         android:lineSpacingExtra="-6dp"
         android:text="@string/unit_0_unit_name"
-        android:textColor="@color/white"
+        android:textColor="@color/mainContainer_HeadingText"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/icRightArrow"
@@ -51,7 +51,7 @@
         android:layout_marginRight="10dp"
         android:layout_alignParentEnd="true"
         android:contentDescription="@string/sl_icon"
-        android:src="@drawable/sl_double_alt_arrow_unit_right"
+        android:src="@drawable/sl_double_alt_arrow_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

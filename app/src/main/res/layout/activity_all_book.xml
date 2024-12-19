@@ -5,14 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AllBookActivity"
     android:background="@color/sl_secoundary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".view.AllBookActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHeader"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="225dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,7 +21,7 @@
             android:layout_width="100dp"
             android:layout_height="0dp"
             android:layout_marginBottom="1dp"
-            android:background="@color/sl_act_book"
+            android:background="@color/sl_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,132 +35,163 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/circle_shadow_icon"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/header_secoundary_bg"
+                android:contentDescription="@string/sl_icon"
+                android:paddingStart="9dp"
+                android:paddingEnd="11dp"
+                android:src="@drawable/sl_left_arrow_back"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/btnBack"
-                    style="@style/sl_header_button"
-                    android:contentDescription="@string/sl_icon"
-                    android:src="@drawable/back" />
-
-            </LinearLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvHeaderTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/main_font_regular_2"
-                android:gravity="center"
                 android:singleLine="true"
                 android:text="@string/_1st_semester"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/mainContainer_HeadingText"
                 android:textSize="23sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/btnRefresh"
-                app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                app:layout_constraintEnd_toStartOf="@+id/btnPremium"
+                app:layout_constraintStart_toEndOf="@+id/btnBack"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/btnRefresh"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="40dp"
+            <!-- Smart Point -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnPremium"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/circle_shadow_icon"
-                android:gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/bg_sl_profile_text_golden"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/imgRefresh"
-                    style="@style/sl_header_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="2dp"
-                    android:contentDescription="@string/sl_icon"
-                    android:padding="8dp"
-                    android:src="@drawable/refresh" />
+                <LinearLayout
+                    android:id="@+id/ll_premium_icon"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/bg_sl_profile_box_golden"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </LinearLayout>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animationView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_url="https://lottie.host/e64c0a22-b913-4a0d-bc5e-daa768ca93fd/8DGaZDmvma.lottie" />
 
-            <androidx.cardview.widget.CardView
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvPremium"
+                    style="@style/dashboard_smart_point_text"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/_00"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
+                    app:layout_constraintTop_toTopOf="@+id/ll_premium_icon" />
+
+                <TextView
+                    android:id="@+id/tvTaka"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:includeFontPadding="false"
+                    android:text="@string/points"
+                    android:textColor="@color/sl_primary_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="40dp"
-                app:cardBackgroundColor="#2d325a"
+                android:background="@drawable/header_secoundary_bg"
                 app:cardCornerRadius="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvHeaderTitle">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@+id/btnCourseDetails"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:gravity="center_vertical"
+                    android:lineHeight="20dp"
+                    android:maxLines="2"
+                    android:text="@string/course_structure"
+                    android:textColor="@color/mainContainer_HeadingText"
+                    android:textSize="@dimen/_16sp"
+                    tools:ignore="UnusedAttribute" />
+
+
+                <LinearLayout
+                    android:id="@+id/btnCourseDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_sl_profile_box_golden">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvPoints"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
-                        android:layout_toStartOf="@+id/btnCourseDetails"
-                        android:fontFamily="@font/main_font_regular_2"
-                        android:gravity="center_vertical"
-                        android:maxLines="2"
-                        android:lineHeight="20dp"
-                        android:text="@string/course_structure"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        tools:ignore="UnusedAttribute" />
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="@string/read_details"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sp"
+                        android:textStyle="bold" />
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/btnCourseDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
-                        app:cardBackgroundColor="#181d3d"
-                        app:cardCornerRadius="12dp">
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginEnd="15dp"
-                            android:fontFamily="@font/main_font_regular_2"
-                            android:gravity="center"
-                            android:singleLine="true"
-                            android:text="@string/read_details"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp" />
-
-                    </androidx.cardview.widget.CardView>
-
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -177,12 +208,10 @@
                 android:id="@+id/departmentName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="25dp"
                 android:layout_marginBottom="-10dp"
                 android:drawablePadding="10dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginEnd="20dp"
                 android:fontFamily="@font/main_font_regular_2"
                 android:gravity="center_vertical"
                 android:singleLine="true"
@@ -192,20 +221,8 @@
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/sl_notebook_bookmark_fill"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="-10dp"
-                android:contentDescription="@string/sl_icon"
-                android:src="@drawable/sl_double_alt_arrow_down_org"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -222,18 +239,18 @@
         android:orientation="vertical"
         android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clHeader"
         app:shimmer_duration="800">
 
 
-            <include
-                layout="@layout/item_shimmer_book_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+        <include
+            layout="@layout/item_shimmer_book_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
 
     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -243,14 +260,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:visibility="visible"
         android:nestedScrollingEnabled="false"
         android:orientation="vertical"
         android:overScrollMode="never"
         android:scrollbars="none"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clHeader"
         tools:listitem="@layout/item_all_book" />
 

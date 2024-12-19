@@ -1,7 +1,6 @@
 [versions]
 agp = "8.7.3"
 amazingspinner = "2.0.0"
-androidPdfViewerVersion = "1.9.0"
 coil = "2.5.0"
 dotsindicator = "5.0"
 firebaseAppcheckInterop = "17.1.0"
@@ -18,7 +17,7 @@ material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
 
-navVersion = "2.8.4"
+navVersion = "2.8.5"
 okhttp = "4.12.0"
 pdfViewerAndroid = "7.0.0"
 playServicesAds = "23.6.0"

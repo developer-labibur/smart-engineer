@@ -18,6 +18,7 @@ import com.rudhashi.smartengineer.model.Notice
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.view.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartDashboardActivity
+import com.rudhashi.smartengineer.view.SmartPointActivity
 import com.rudhashi.smartengineer.view.SmartViewActivity
 
 class SmartUpdatesFragment : Fragment() {
@@ -48,7 +49,7 @@ class SmartUpdatesFragment : Fragment() {
 
         binding.apply {
             btnViewProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
-            btnViewPremium.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            btnViewPremium.setOnClickListener { startActivity(Intent(requireActivity(), SmartPointActivity::class.java)) }
 
             btnNotice.setOnClickListener {
                 fetchNotices()

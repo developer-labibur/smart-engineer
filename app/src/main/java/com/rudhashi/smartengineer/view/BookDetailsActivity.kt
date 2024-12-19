@@ -3,12 +3,14 @@ package com.rudhashi.smartengineer.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
+import android.view.WindowMetrics
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +21,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.ads.mediation.admob.AdMobAdapter
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -38,6 +44,7 @@ import com.rudhashi.smartengineer.model.CategoryDataClass
 import com.rudhashi.smartengineer.model.Semester
 import com.rudhashi.smartengineer.model.User
 import com.rudhashi.smartengineer.util.ConvertFB
+import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.SmartThemeActivity
 import kotlin.properties.Delegates
@@ -71,6 +78,8 @@ class BookDetailsActivity : SmartThemeActivity() {
             insets
         }
 
+        setBannerAds()
+
         // Initialize Firestore
         db = FirebaseFirestore.getInstance()
 
@@ -89,6 +98,7 @@ class BookDetailsActivity : SmartThemeActivity() {
         }
 
         binding.btnBack.setOnClickListener { finish() }
+        binding.btnPremium.setOnClickListener { startActivity(Intent(this, SmartPointActivity::class.java)) }
     }
 
     private fun setupRecyclerView(bookCode: String) {
@@ -389,6 +399,10 @@ class BookDetailsActivity : SmartThemeActivity() {
         isShimmerOn(false)
         super.onPause()
     }
+    override fun onDestroy() {
+        binding.adViewContainer.destroy() // Avoid memory leaks
+        super.onDestroy()
+    }
 
     private fun isShimmerOn(flag: Boolean) {
         if (flag) {
@@ -451,4 +465,45 @@ class BookDetailsActivity : SmartThemeActivity() {
             }
         }
     }
+
+
+    private fun setBannerAds(){
+        if (SmartConfig.isAdsVisible(this)){
+            // Create a new ad view.
+            val adView = AdView(this)
+            adView.adUnitId = SmartConfig.getCollapsibleBannerAdsId()
+            adView.setAdSize(adSize)
+            //this.adView = adView
+
+            // Replace ad container with new ad view.
+            binding.adViewContainer.removeAllViews()
+            binding.adViewContainer.addView(adView)
+            binding.adViewContainer.visibility = View.VISIBLE
+
+            // Create an extra parameter
+            val extras = Bundle()
+            extras.putString("collapsible", "bottom")
+
+            // Start loading the ad in the background.
+            val adRequest = AdRequest.Builder()
+                .addNetworkExtrasBundle(AdMobAdapter::class.java, extras).build()
+            adView.loadAd(adRequest)
+        }
+    }
+
+    // Get the ad size with screen width.
+    private val adSize: AdSize
+        get() {
+            val displayMetrics = resources.displayMetrics
+            val adWidthPixels =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    val windowMetrics: WindowMetrics = this.windowManager.currentWindowMetrics
+                    windowMetrics.bounds.width()
+                } else {
+                    displayMetrics.widthPixels
+                }
+            val density = displayMetrics.density
+            val adWidth = (adWidthPixels / density).toInt()
+            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
+        }
 }

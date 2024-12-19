@@ -24,5 +24,11 @@
         android:id="@+id/nightModeFragment"
         android:name="com.rudhashi.smartengineer.container.NightModeFragment"
         android:label="fragment_night_mode"
-        tools:layout="@layout/fragment_night_mode" />
+        tools:layout="@layout/fragment_night_mode" >
+        <action
+            android:id="@+id/action_nightModeFragment_to_viewAllBookFragment"
+            app:destination="@id/viewAllBookFragment"
+            app:popUpTo="@id/nightModeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

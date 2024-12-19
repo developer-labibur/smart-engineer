@@ -21,6 +21,9 @@ class SmartData {
         // Dark Mode Theme
         const val PREF_KEY = "theme"
         const val SWITCH_BUTTON_KEY = "isNightMode"
+        // Admob Ads Implementation
+        const val ADMOB_KEY = "admob"
+        const val VISIBILITY_KEY = "AdVisibility"
         // Splash Screen
         const val SPLASH_SCREEN: Long = 2000
         // Google SignIn

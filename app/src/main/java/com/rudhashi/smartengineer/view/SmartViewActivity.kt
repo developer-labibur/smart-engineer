@@ -1,10 +1,8 @@
 package com.rudhashi.smartengineer.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -18,12 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.container.ViewAllBookFragment
 import com.rudhashi.smartengineer.container.ViewAllUpdateFragment
-import com.rudhashi.smartengineer.databinding.ActivitySmartDashboardBinding
 import com.rudhashi.smartengineer.databinding.ActivitySmartViewBinding
-import com.rudhashi.smartengineer.fragment.SmartBooksFragment
-import com.rudhashi.smartengineer.fragment.SmartHomeFragment
-import com.rudhashi.smartengineer.fragment.SmartSettingFragment
-import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
 import com.rudhashi.smartengineer.model.User
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.SmartThemeActivity
@@ -52,6 +45,7 @@ class SmartViewActivity : SmartThemeActivity() {
         setupViewPager() // Setup the viewPager
         setupToolBar()
         setActiveTab(0) // Set the initial tab to Home (index 0)
+
     }
     // =====================================================================================================================
     // ========================     Setup Bottom Navigation and Main Container (ViewPager)      ============================
@@ -72,7 +66,7 @@ class SmartViewActivity : SmartThemeActivity() {
             // Bottom Navigation Buttons Click Listeners
             btnBook.setOnClickListener { setActiveTab(0) }
             btnUpdate.setOnClickListener { setActiveTab(1) }
-            btnPremium.setOnClickListener { SmartData.comingSoon(this@SmartViewActivity) }
+            btnPremium.setOnClickListener { startActivity(Intent(this@SmartViewActivity, SmartPointActivity::class.java)) }
             btnBack.setOnClickListener { finish() }
 
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

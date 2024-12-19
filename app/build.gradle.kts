@@ -67,7 +67,6 @@ dependencies {
     implementation (libs.play.services.appset)
     implementation (libs.play.services.ads)
     implementation (libs.play.services.measurement.impl)
-    //implementation (libs.play.services.ads)
 
     // Import the Firebase BoM Dependencies
     implementation(platform(libs.firebase.bom)) // Firebase BOM

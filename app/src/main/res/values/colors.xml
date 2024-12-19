@@ -217,6 +217,8 @@
     <color name="orange_text_color">#ff7700</color>
     <color name="orange_fill_color">#B7FF4000</color>
     <color name="orange_bg_color">#33ffcc80</color>
+    <color name="orange_edition_color">#FFE2C2</color>
+    <color name="orange_dialog_color">#FFE4BC</color>
 
     <!-- Blue ~ Modern => Books -->
     <color name="blue_active_color">#9ee6f0</color>

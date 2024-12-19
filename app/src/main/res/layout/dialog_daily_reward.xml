@@ -68,7 +68,7 @@
         android:background="@drawable/dialog_orange_sub_action"
         android:layout_margin="15dp"
         android:padding="10dp"
-        android:src="@drawable/sl_left_arrow_back"
+        android:src="@drawable/sl_left_arrow_light_only"
         app:layout_constraintBottom_toBottomOf="@+id/layBlur"
         app:layout_constraintStart_toStartOf="@+id/layBlur" />
 

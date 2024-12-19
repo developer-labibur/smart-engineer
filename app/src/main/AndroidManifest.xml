@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name=".MyAdmobApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartEngineer"
         tools:targetApi="31">
+        <activity
+            android:name=".view.SmartPointActivity"
+            android:exported="false" />
         <activity
             android:name=".view.DayNightActivity"
             android:exported="false" />
@@ -51,9 +55,6 @@
             android:name=".view.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.SettingActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.SmartDashboardActivity"
             android:exported="false"
             android:theme="@style/AppTheme" />
@@ -67,10 +68,14 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" /> <!-- Resolve conflict by prioritizing gma_ad_services_config -->
+
         <property
             android:name="android.adservices.AD_SERVICES_CONFIG"
             android:resource="@xml/gma_ad_services_config"
-            tools:replace="android:resource" /> <!-- AdMob App ID -->
+            tools:replace="android:resource" />
+
+        <!-- Test ~ AdMob App ID => ca-app-pub-3940256099942544~3347511713 -->
+        <!-- Real ~ AdMob App ID => ca-app-pub-6550723267014585~7554804426 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
