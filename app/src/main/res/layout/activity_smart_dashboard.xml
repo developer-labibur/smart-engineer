@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/sl_primary"
     android:orientation="vertical"
-    tools:context=".view.SmartDashboardActivity">
+    tools:context=".dashboard.SmartDashboardActivity">
 
     <!-- Engineer Avatar -->
     <ImageView
@@ -123,6 +123,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/ivUserPic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/sl_icon"
@@ -207,7 +208,7 @@
             style="@style/dashboard_smart_point_text" />
 
         <TextView
-            android:id="@+id/tvTaka"
+            android:id="@+id/tvPoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -223,7 +224,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvPointTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
@@ -233,8 +234,8 @@
             android:text="@string/points"
             android:textColor="@color/sl_primary_text"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@id/tvTaka"
-            app:layout_constraintStart_toEndOf="@+id/tvTaka" />
+            app:layout_constraintBottom_toBottomOf="@id/tvPoints"
+            app:layout_constraintStart_toEndOf="@+id/tvPoints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

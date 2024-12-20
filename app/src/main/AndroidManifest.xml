@@ -55,7 +55,7 @@
             android:name=".view.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".view.SmartDashboardActivity"
+            android:name=".dashboard.SmartDashboardActivity"
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity

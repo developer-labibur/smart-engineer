@@ -104,7 +104,7 @@ class MakeFirebaseEasy {
             }
         }
 
-        fun updateUserInfo(name: String?, email: String?, picture: String?, role: String?, userId: String?, joiningDate: String?, points: Int?) {
+        fun updateUserInfo(name: String?, email: String?, picture: String?, role: String?, userId: String?, joiningDate: String?, points: Int?, pointsAll: Int?) {
             val updatedUserInfo = hashMapOf(
                 "name" to name.toString(),
                 "email" to email.toString(),
@@ -112,7 +112,8 @@ class MakeFirebaseEasy {
                 "role" to role.toString(),
                 "userId" to userId.toString(),
                 "joiningDate" to joiningDate.toString(),
-                "points" to points
+                "points" to points,
+                "pointsAll" to pointsAll
             )
             userId?.let { FirebaseDatabase.getInstance().reference.child("Users").child(it).updateChildren(updatedUserInfo as Map<String, Any>) }
         }

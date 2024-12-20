@@ -28,7 +28,7 @@ import com.rudhashi.smartengineer.util.GoogleAuthClient
 import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.view.SmartDashboardActivity
+import com.rudhashi.smartengineer.dashboard.SmartDashboardActivity
 import kotlinx.coroutines.launch
 
 class SignupFragment : Fragment() {
@@ -87,13 +87,14 @@ class SignupFragment : Fragment() {
                                         val role = user?.role.toString()
                                         val isUserNew = user?.joiningDate?.ifEmpty { SmartData.getCurrentDate() }
                                         val newUserBonusPoints = if (user?.joiningDate!!.isNotEmpty()) user.points else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
+                                        val newUserBonusPointsAll = if (user.joiningDate.isNotEmpty()) user.pointsAll else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
 
                                         try{
                                             when (role) {
                                                 "Main Admin" -> {
                                                     val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                     it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
                                                     SmartData.lToast(requireActivity(), "Success, You are an Main Admin")
@@ -101,7 +102,7 @@ class SignupFragment : Fragment() {
                                                 "Admin" -> {
                                                     val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                     it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
                                                     SmartData.lToast(requireActivity(), "Success, You are an Administrator")
@@ -109,7 +110,7 @@ class SignupFragment : Fragment() {
                                                 else -> {
                                                     val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                     it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
                                                     SmartData.lToast(requireActivity(), "Login Successfully")
@@ -117,7 +118,7 @@ class SignupFragment : Fragment() {
                                             }
                                         } catch (e: Exception) {
 
-                                            MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints)
+                                            MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                             val intent = Intent(requireContext(), SmartDashboardActivity::class.java)
                                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -236,13 +237,14 @@ class SignupFragment : Fragment() {
                                         val role = user?.role.toString()
                                         val isUserNew = user?.joiningDate?.ifEmpty { SmartData.getCurrentDate() }
                                         val newUserBonusPoints = if (user?.joiningDate!!.isNotEmpty()) user.points else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
+                                        val newUserBonusPointsAll = if (user.joiningDate.isNotEmpty()) user.pointsAll else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
 
                                         try{
                                             when (role) {
                                                 "Main Admin" -> {
                                                     val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                     it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
                                                     SmartData.lToast(requireActivity(), "Success, You are an Main Admin")
@@ -250,7 +252,7 @@ class SignupFragment : Fragment() {
                                                 "Admin" -> {
                                                     val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                     it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
                                                     SmartData.lToast(requireActivity(), "Success, You are an Administrator")
@@ -258,7 +260,7 @@ class SignupFragment : Fragment() {
                                                 else -> {
                                                     val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                     it.findNavController().navigate(R.id.action_signupFragment_to_smartDashboardActivity)
                                                     SmartData.lToast(requireActivity(), "Login Successfully")
@@ -266,7 +268,7 @@ class SignupFragment : Fragment() {
                                             }
                                         } catch (e: Exception) {
 
-                                            MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints)
+                                            MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                             val intent = Intent(requireContext(), SmartDashboardActivity::class.java)
                                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

@@ -21,30 +21,21 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.google.ads.mediation.admob.AdMobAdapter
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.toObject
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.adapter.CategoryAdapter
 import com.rudhashi.smartengineer.adapter.UnitAdapter
 import com.rudhashi.smartengineer.databinding.ActivityBookDetailsBinding
+import com.rudhashi.smartengineer.manager.AdManager
+import com.rudhashi.smartengineer.manager.CUserManager
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.BookUnit
 import com.rudhashi.smartengineer.model.CategoryDataClass
 import com.rudhashi.smartengineer.model.Semester
-import com.rudhashi.smartengineer.model.User
 import com.rudhashi.smartengineer.util.ConvertFB
-import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.SmartThemeActivity
 import kotlin.properties.Delegates
@@ -60,11 +51,6 @@ class BookDetailsActivity : SmartThemeActivity() {
     private val tagInfo = "BookDetailsActivity"
     private var isFullDes by Delegates.notNull<Boolean>()
 
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val userId = auth.currentUser?.uid
-    private var database = FirebaseDatabase.getInstance()
-    private val userRef = database.getReference("Users/$userId")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookDetailsBinding.inflate(layoutInflater)
@@ -78,7 +64,7 @@ class BookDetailsActivity : SmartThemeActivity() {
             insets
         }
 
-        setBannerAds()
+        AdManager.setBannerAds(this, binding.adViewContainer, adSize, true)
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance()
@@ -97,6 +83,7 @@ class BookDetailsActivity : SmartThemeActivity() {
             Log.e(tagInfo, "Book Code is null")
         }
 
+        CUserManager.points { binding.tvPoint.text = "$it" }
         binding.btnBack.setOnClickListener { finish() }
         binding.btnPremium.setOnClickListener { startActivity(Intent(this, SmartPointActivity::class.java)) }
     }
@@ -121,7 +108,6 @@ class BookDetailsActivity : SmartThemeActivity() {
                 binding.apply {
                     Glide.with(this@BookDetailsActivity)
                         .load(book?.BCover)
-                        .placeholder(R.drawable.book)
                         .into(bookCoverImage)
                     bookCodes.text = getString(R.string.book_name_n_code, bName, bCode)
                     bookTotalUnits.text = book?.BTotalU
@@ -229,10 +215,11 @@ class BookDetailsActivity : SmartThemeActivity() {
         departmentNames.forEach { departmentName ->
             val textView = TextView(this@BookDetailsActivity).apply {
                 text = departmentName
+                StyleSpan(Typeface.BOLD)
                 setBackgroundResource(R.drawable.tag_background)  // Set custom background
                 setPadding(16, 8, 16, 5)  // Set padding (left, top, right, bottom)
                 typeface = ResourcesCompat.getFont(context, R.font.main_font_regular_2)
-                setTextColor(ContextCompat.getColor(this@BookDetailsActivity, R.color.white)) // Set text color
+                setTextColor(ContextCompat.getColor(this@BookDetailsActivity, R.color.black)) // Set text color
 
                 // Add OnClickListener to start new activity
                 setOnClickListener {
@@ -242,11 +229,7 @@ class BookDetailsActivity : SmartThemeActivity() {
                         .get().addOnSuccessListener {
                             val department = it.toObject<CategoryDataClass>()
                             val intent = Intent(this@BookDetailsActivity, DepartmentActivity::class.java)
-                            intent.putExtra("DAbbr", department?.DAbbr)
                             intent.putExtra("DCode", department?.DCode)
-                            intent.putExtra("DCover", department?.DCover)
-                            intent.putExtra("DInfo", department?.DInfo)
-                            intent.putExtra("DName", department?.DName)
                             startActivity(intent)
                         }
                 }
@@ -281,10 +264,11 @@ class BookDetailsActivity : SmartThemeActivity() {
         semesterNames.forEach { semName ->
             val textView = TextView(this@BookDetailsActivity).apply {
                 text = semName
+                StyleSpan(Typeface.BOLD)
                 setBackgroundResource(R.drawable.tag_background)  // Set custom background
                 setPadding(16, 8, 16, 5)  // Set padding (left, top, right, bottom)
                 typeface = ResourcesCompat.getFont(context, R.font.main_font_regular_2)
-                setTextColor(ContextCompat.getColor(this@BookDetailsActivity, R.color.white)) // Set text color
+                setTextColor(ContextCompat.getColor(this@BookDetailsActivity, R.color.black)) // Set text color
 
                 // Add OnClickListener to start new activity
                 setOnClickListener {
@@ -295,11 +279,10 @@ class BookDetailsActivity : SmartThemeActivity() {
                                 val semAbbr = semester?.STag
                                 if (semAbbr == semName) {
                                     val intent = Intent(this@BookDetailsActivity, AllBookActivity::class.java)
-                                    intent.putExtra("fieldName", "xSem")
-                                    intent.putExtra("departmentAbbr", semName)
-                                    intent.putExtra("abbr", semester.SAbbr)
-                                    intent.putExtra("no", semester.SSem)
-                                    intent.putExtra("semesterNo", semester.SSem)
+                                    val dAbbr = semester.SAbbr
+                                    val semNumber = semester.SSem
+                                    intent.putExtra("abbrNo", "${dAbbr}$semNumber")
+                                    intent.putExtra("noAbbr", "${semNumber}$dAbbr")
                                     intent.putExtra("departmentName", semester.SDep)
                                     intent.putExtra("semesterName", semester.SNo)
                                     startActivity(intent)
@@ -364,27 +347,8 @@ class BookDetailsActivity : SmartThemeActivity() {
         }
     }
 
-    private fun displayPointsDynamically() {
-        userRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                // Convert snapshot to User object
-                val user = snapshot.getValue(User::class.java)
-                binding.tvPremium.text = user?.points.toString()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    this@BookDetailsActivity,
-                    "Failed to load points",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
-    }
-
     override fun onResume() {
         super.onResume()
-        displayPointsDynamically()
         val bookCode = intent.getStringExtra("BOOK_CODE")
         // If data is available then Shimmer Effect will be gone
         isShimmerOn(true)
@@ -406,88 +370,14 @@ class BookDetailsActivity : SmartThemeActivity() {
 
     private fun isShimmerOn(flag: Boolean) {
         if (flag) {
-            binding.apply {
-                shimmerTvBookTitle.visibility = View.VISIBLE
-                shimmerTvBookTitle.startShimmer()
-                shimmerBookCoverImage.visibility = View.VISIBLE
-                shimmerBookCoverImage.startShimmer()
-                shimmerIcBook.visibility = View.VISIBLE
-                shimmerIcBook.startShimmer()
-                shimmerIcView.visibility = View.VISIBLE
-                shimmerIcView.startShimmer()
-
-                icBook.visibility = View.INVISIBLE
-                icView.visibility = View.INVISIBLE
-
-                shimmerBookCodes.visibility = View.VISIBLE
-                shimmerBookCodes.startShimmer()
-                shimmerViewCountTextView.visibility = View.VISIBLE
-                shimmerViewCountTextView.startShimmer()
-
-                bookCodes.visibility = View.INVISIBLE
-                viewCountTextView.visibility = View.INVISIBLE
-                bookCoverImage.visibility = View.INVISIBLE
-                tvBookTitle.visibility = View.INVISIBLE
-
-                shimmerUnitListContainer.visibility = View.VISIBLE
-                shimmerUnitList.visibility = View.VISIBLE
-                shimmerUnitList.startShimmer()
-                clUnitList.visibility = View.INVISIBLE
-            }
+            // If data is available then Shimmer Effect will be gone
+            binding.shimmerDetails.startShimmer()
+            binding.shimmerDetails.visibility = View.VISIBLE
+            binding.bookDetails.visibility = View.GONE
         } else {
-            binding.apply {
-                shimmerTvBookTitle.visibility = View.INVISIBLE
-                shimmerTvBookTitle.stopShimmer()
-                shimmerBookCoverImage.visibility = View.INVISIBLE
-                shimmerBookCoverImage.stopShimmer()
-                shimmerIcBook.visibility = View.INVISIBLE
-                shimmerIcBook.stopShimmer()
-                shimmerIcView.visibility = View.INVISIBLE
-                shimmerIcView.stopShimmer()
-
-                icBook.visibility = View.VISIBLE
-                icView.visibility = View.VISIBLE
-
-                shimmerBookCodes.visibility = View.INVISIBLE
-                shimmerBookCodes.stopShimmer()
-                shimmerViewCountTextView.visibility = View.INVISIBLE
-                shimmerViewCountTextView.stopShimmer()
-
-                bookCodes.visibility = View.VISIBLE
-                viewCountTextView.visibility = View.VISIBLE
-                bookCoverImage.visibility = View.VISIBLE
-                tvBookTitle.visibility = View.VISIBLE
-
-                shimmerUnitListContainer.visibility = View.INVISIBLE
-                shimmerUnitList.visibility = View.INVISIBLE
-                shimmerUnitList.stopShimmer()
-                clUnitList.visibility = View.VISIBLE
-            }
-        }
-    }
-
-
-    private fun setBannerAds(){
-        if (SmartConfig.isAdsVisible(this)){
-            // Create a new ad view.
-            val adView = AdView(this)
-            adView.adUnitId = SmartConfig.getCollapsibleBannerAdsId()
-            adView.setAdSize(adSize)
-            //this.adView = adView
-
-            // Replace ad container with new ad view.
-            binding.adViewContainer.removeAllViews()
-            binding.adViewContainer.addView(adView)
-            binding.adViewContainer.visibility = View.VISIBLE
-
-            // Create an extra parameter
-            val extras = Bundle()
-            extras.putString("collapsible", "bottom")
-
-            // Start loading the ad in the background.
-            val adRequest = AdRequest.Builder()
-                .addNetworkExtrasBundle(AdMobAdapter::class.java, extras).build()
-            adView.loadAd(adRequest)
+            binding.shimmerDetails.stopShimmer()
+            binding.shimmerDetails.visibility = View.GONE
+            binding.bookDetails.visibility = View.VISIBLE
         }
     }
 

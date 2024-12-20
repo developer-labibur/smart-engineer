@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layBlur"
         android:layout_width="0dp"
-        android:layout_height="165dp"
+        android:layout_height="180dp"
         android:layout_margin="20dp"
         android:background="@drawable/dialog_orange_bg"
         android:gravity="center_vertical"
@@ -26,12 +26,12 @@
         android:id="@+id/tvTitleBonus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="-20dp"
+        android:layout_marginStart="-25dp"
         android:layout_marginTop="18dp"
         android:fontFamily="@font/hind_siliguri"
         android:text="@string/daily_bonus"
         android:textColor="@color/mainContainer_HeadingText"
-        android:textSize="19sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="@+id/layBlur" />
@@ -44,7 +44,7 @@
         android:fontFamily="@font/roboto"
         android:text="@string/get_100_smart_points_login_bonus"
         android:textColor="@color/mainContainer_SubHeadingText"
-        android:textSize="12sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/lottieAnimationView"
         app:layout_constraintStart_toStartOf="@+id/tvTitleBonus"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleBonus" />

@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
             googleCntBtn.setOnClickListener {
                 lifecycleScope.launch {
 
-                    val isSignIn = googleAuthClient.signIn(true)
+                    val isSignIn = googleAuthClient.signIn(false)
                     if (isSignIn) {
                         val id = auth.currentUser?.uid
                         val email = auth.currentUser?.email
@@ -90,26 +90,27 @@ class LoginFragment : Fragment() {
                                             val role = user?.role.toString()
                                             val isUserNew = user?.joiningDate?.ifEmpty { SmartData.getCurrentDate() }
                                             val newUserBonusPoints = if (user?.joiningDate!!.isNotEmpty()) user.points else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
+                                            val newUserBonusPointsAll = if (user.joiningDate.isNotEmpty()) user.pointsAll else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
 
                                             try{
                                                 when (role) {
                                                     "Main Admin" -> {
                                                         val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
-                                                        MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                        MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                         it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
                                                         SmartData.lToast(requireActivity(), "Success, You are an Main Admin")
                                                     }
                                                     "Admin" -> {
                                                         val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
-                                                        MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                        MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                         it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
                                                         SmartData.lToast(requireActivity(), "Success, You are an Administrator")
                                                     }
                                                     else -> {
                                                         val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
-                                                        MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                        MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                         it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
                                                         SmartData.lToast(requireActivity(), "Login Successfully")
@@ -117,7 +118,7 @@ class LoginFragment : Fragment() {
                                                 }
                                             } catch (e: Exception) {
                                                 val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
-                                                MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                 val intent = Intent(requireContext(), DashboardActivity::class.java)
                                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -258,13 +259,14 @@ class LoginFragment : Fragment() {
                                         val role = user?.role.toString()
                                         val isUserNew = user?.joiningDate?.ifEmpty { SmartData.getCurrentDate() }
                                         val newUserBonusPoints = if (user?.joiningDate!!.isNotEmpty()) user.points else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
+                                        val newUserBonusPointsAll = if (user.joiningDate.isNotEmpty()) user.pointsAll else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
 
                                         try{
                                             when (role) {
                                                 "Main Admin" -> {
                                                     val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Main Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                     it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
                                                     SmartData.lToast(requireActivity(), "Success, You are an Main Admin")
@@ -272,7 +274,7 @@ class LoginFragment : Fragment() {
                                                 "Admin" -> {
                                                     val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "Admin", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                     it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
                                                     SmartData.lToast(requireActivity(), "Success, You are an Administrator")
@@ -280,7 +282,7 @@ class LoginFragment : Fragment() {
                                                 else -> {
                                                     val isImageNull = user.picture.ifEmpty { auth.currentUser?.photoUrl }
 
-                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints)
+                                                    MakeFirebaseEasy.updateUserInfo(userName, email, isImageNull.toString(), "User", auth.currentUser?.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                                     it.findNavController().navigate(R.id.action_loginFragment_to_dashboardActivity)
                                                     SmartData.lToast(requireActivity(), "Login Successfully")
@@ -288,7 +290,7 @@ class LoginFragment : Fragment() {
                                             }
                                         } catch (e: Exception) {
 
-                                            MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints)
+                                            MakeFirebaseEasy.updateUserInfo(userName, email,"", "User", auth.uid, isUserNew, newUserBonusPoints, newUserBonusPointsAll)
 
                                             val intent = Intent(requireContext(), DashboardActivity::class.java)
                                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

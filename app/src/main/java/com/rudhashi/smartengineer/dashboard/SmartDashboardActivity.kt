@@ -1,35 +1,23 @@
-package com.rudhashi.smartengineer.view
+package com.rudhashi.smartengineer.dashboard
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.LinearGradient
 import android.graphics.Shader
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivitySmartDashboardBinding
-import com.rudhashi.smartengineer.databinding.DialogDailyRewardBinding
 import com.rudhashi.smartengineer.fragment.SmartBooksFragment
-import com.rudhashi.smartengineer.fragment.SmartHomeFragment
 import com.rudhashi.smartengineer.fragment.SmartSettingFragment
 import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
-import com.rudhashi.smartengineer.model.User
-import com.rudhashi.smartengineer.util.SmartConfig
+import com.rudhashi.smartengineer.manager.CUserManager
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.SmartThemeActivity
 
@@ -37,10 +25,19 @@ class SmartDashboardActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivitySmartDashboardBinding
 
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val userId = auth.currentUser?.uid
-    private var database = FirebaseDatabase.getInstance()
-    private val userRef = database.getReference("Users/$userId")
+    private val pictureListener: (String) -> Unit = {
+        if (it.isEmpty()) {
+            binding.ivUserPic.setImageResource(R.drawable.student_avatar)
+        } else {
+            if (!this.isDestroyed && !this.isFinishing) {
+                Glide.with(this)
+                    .load(it)
+                    .placeholder(R.drawable.student_avatar)
+                    .transform(RoundedCorners(SmartData.dpToPx(this, 10f)))
+                    .into(binding.ivUserPic)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +58,16 @@ class SmartDashboardActivity : SmartThemeActivity() {
 
         // Set Smart Engineering App Text Gradient -------------------------------------------
         setGradientTextColor()
-        // Check and award daily bonus points ------------------------------------------------
-        checkAndAwardDailyBonus()
+
+        // Set Current User Data -------------------------------------------------------------
+        CUserManager.apply {
+            department { if (it.isEmpty()) binding.tvDepName.visibility = View.GONE else binding.tvDepName.visibility = View.VISIBLE }
+            name { if (it.isEmpty()) binding.tvProfile.hint = "Incomplete Profile" }
+            name { binding.tvProfile.text = it }
+            department { binding.tvDepName.text = it }
+            points { binding.tvPoints.text = "$it" }
+            picture(pictureListener)
+        }
     }
 
 
@@ -147,8 +152,6 @@ class SmartDashboardActivity : SmartThemeActivity() {
         }
     }
 
-
-
     // =====================================================================================================================
     // ============================================     Gradient Text color     ============================================
     // =====================================================================================================================
@@ -192,80 +195,20 @@ class SmartDashboardActivity : SmartThemeActivity() {
     }
 
     // =====================================================================================================================
-    // ============================================     Smart Point System     ============================================
+    // ===================================     Activity Other Lifecycle Method     =========================================
     // =====================================================================================================================
-    @SuppressLint("InflateParams")
-    private fun checkAndAwardDailyBonus() {
-        userRef.get().addOnSuccessListener { snapshot ->
-            val currentDate = SmartData.getCurrentDate() // Get today's date
-            val lastBonusDate = snapshot.child("lastBonusDate").value?.toString()
-            val currentPoints = snapshot.child("points").value?.toString()?.toInt() ?: 0
-
-            if (lastBonusDate != currentDate) {
-                // User hasn't received the daily bonus today
-                val newPoints = currentPoints + SmartConfig.DAILY_LOGIN_BONUS_POINT
-                val updates = mapOf(
-                    "points" to newPoints,
-                    "lastBonusDate" to currentDate
-                )
-                userRef.updateChildren(updates).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-
-                        val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
-                        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_daily_reward, null)
-                        val dialogBinding = DialogDailyRewardBinding.bind(dialogView)
-                        builder.setView(dialogBinding.root)
-                        builder.setCanceledOnTouchOutside(false)
-                        builder.show()
-
-                        dialogBinding.btnAllPoints.setOnClickListener {
-                            startActivity(Intent(this, ProfileActivity::class.java))
-                            builder.dismiss()
-                        }
-                        dialogBinding.btnClose.setOnClickListener { builder.dismiss() }
-
-                        if (builder.window != null) builder.window!!.setBackgroundDrawable(
-                            ColorDrawable(0)
-                        )
-                        builder.show()
-                    } else {
-                        Toast.makeText(this, "Failed to add bonus points!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-    }
-
-    private fun displayPointsDynamically() {
-        userRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                // Convert snapshot to User object
-                val user = snapshot.getValue(User::class.java)
-
-                if (user?.department?.isEmpty() == true) binding.tvDepName.visibility = View.GONE
-                else binding.tvDepName.visibility = View.VISIBLE
-                if (user?.name?.isEmpty() == true) binding.tvProfile.hint = "Incomplete Profile"
-
-                // Update the TextView with the new points
-                binding.tvProfile.text = user?.name
-                binding.tvDepName.text = user?.department
-                binding.tvTaka.text = user?.points.toString()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@SmartDashboardActivity, "Failed to load points", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
 
     override fun onResume() {
         super.onResume()
-        displayPointsDynamically()
-
         val displayFragment = intent.getStringExtra("DISPLAY").toString()
         when (displayFragment) {
             "Home" -> setActiveTab(0)
             "Setting" -> setActiveTab(3)
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        // Remove the picture listener to avoid callbacks after the activity is destroyed
+        CUserManager.removePictureListener(pictureListener)
     }
 }

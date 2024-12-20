@@ -9,12 +9,16 @@ import android.util.TypedValue
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.rudhashi.smartengineer.manager.CUserManager
+import com.rudhashi.smartengineer.manager.PointManager
 
 open class SmartThemeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         applyTheme()
+        CUserManager.initialize()
+        PointManager.checkAndAwardDailyBonus(this)
     }
 
     private fun applyTheme() {

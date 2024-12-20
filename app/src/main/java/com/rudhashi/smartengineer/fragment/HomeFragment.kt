@@ -22,10 +22,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.view.SmartDashboardActivity
+import com.rudhashi.smartengineer.dashboard.SmartDashboardActivity
 import com.rudhashi.smartengineer.adapter.BookGridAdapter
 import com.rudhashi.smartengineer.adapter.CarouselAdapter
-import com.rudhashi.smartengineer.adapter.CategoryAdapter
 import com.rudhashi.smartengineer.adapter.NoticeQuoteAdapter
 import com.rudhashi.smartengineer.databinding.FragmentHomeBinding
 import com.rudhashi.smartengineer.model.Book

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialogForgot"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_setting_item"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="15dp"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/sl_icon"
+        android:src="@drawable/sl_cross_dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="-5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/diamond"  />
+
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:lineSpacingExtra="-8dp"
+        android:text="@string/watch_ad"
+        android:textColor="@color/Coral"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
+        app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
+        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
+
+    <TextView
+        android:id="@+id/tvWatchInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/watch_a_video_ad_and_earn"
+        android:textColor="@color/mainContainer_SubHeadingText"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/tvHeading"
+        app:layout_constraintStart_toStartOf="@+id/tvHeading"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/bg_sl_profile_text_golden"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWatchInfo">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/sl_icon"
+            android:src="@drawable/smart_point" />
+
+        <TextView
+            android:id="@+id/tv25Point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baumans_regular"
+            android:gravity="center"
+            android:text="@string/smart_points"
+            android:textColor="@color/mainContainer_HeadingText"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSmartPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:background="@drawable/profile_edit_button"
+        android:clickable="true"
+        android:drawableStart="@drawable/sl_video_library"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/ic_dark_only"
+        android:elevation="4dp"
+        android:focusable="true"
+        android:fontFamily="@font/roboto"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="Watch"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginTop="-12dp"
+        android:layout_height="3dp"
+        android:background="@color/clr2.1.1"
+        app:layout_constraintEnd_toEndOf="@+id/btnNotThanks"
+        app:layout_constraintStart_toStartOf="@+id/btnNotThanks"
+        app:layout_constraintTop_toBottomOf="@+id/btnNotThanks" />
+
+    <TextView
+        android:id="@+id/btnNotThanks"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/main_font_regular_2"
+        android:gravity="center"
+        android:text="@string/not_thanks"
+        android:textColor="@color/mainContainer_HeadingText"
+        android:textSize="@dimen/_16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnSmartPoint"
+        app:layout_constraintStart_toStartOf="@+id/btnSmartPoint"
+        app:layout_constraintTop_toBottomOf="@+id/btnSmartPoint" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.rudhashi.smartengineer.fragment
+package com.rudhashi.smartengineer.dashboard
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
@@ -32,7 +31,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
@@ -55,9 +53,10 @@ import com.rudhashi.smartengineer.view.SmartPointActivity
 class SmartHomeFragment : Fragment() {
 
     private lateinit var binding: FragmentSmartHomeBinding
+    private val tagName = "SmartHomeFragment"
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var semesterAdapter: SemesterAdapter
-    private var db: FirebaseFirestore? = null
+    private var firestoreDB: FirebaseFirestore? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
@@ -70,7 +69,7 @@ class SmartHomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentSmartHomeBinding.inflate(inflater, container, false)
-        db = FirebaseFirestore.getInstance()
+        firestoreDB = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         categoryAdapter = CategoryAdapter(emptyList(), requireActivity())
@@ -115,7 +114,7 @@ class SmartHomeFragment : Fragment() {
 
 
     private fun fetchMarqueeNotices() {
-        db?.collection("polytechnic_notice")
+        firestoreDB?.collection("polytechnic_notice")
             ?.orderBy("timestamp", Query.Direction.DESCENDING) // Sort by timestamp
             ?.limit(1)
             ?.addSnapshotListener { snapshot, error ->
@@ -326,10 +325,8 @@ class SmartHomeFragment : Fragment() {
     // ===========================================       Get Category Data      ============================================
     // =====================================================================================================================
     private fun fetchDepartments() {
-
         val departmentList = mutableListOf<CategoryDataClass>()
-
-        db?.collection("departments")
+        firestoreDB?.collection("departments")
             ?.orderBy("DId", Query.Direction.ASCENDING) // Or DESCENDING for reverse order
             ?.get()?.addOnSuccessListener { querySnapshot ->
                 isShimmerOn(false)
@@ -344,28 +341,18 @@ class SmartHomeFragment : Fragment() {
                             CategoryAdapter.OnItemClickListener {
                             override fun onItemClick(position: Int, dataList: CategoryDataClass) {
                                 val intent = Intent(requireActivity(), DepartmentActivity::class.java)
-                                intent.putExtra("DAbbr", dataList.DAbbr)
                                 intent.putExtra("DCode", dataList.DCode)
-                                intent.putExtra("DCover", dataList.DCover)
-                                intent.putExtra("DInfo", dataList.DInfo)
-                                intent.putExtra("DName", dataList.DName)
                                 startActivity(intent)
                             }
                         })
                     } catch (e: IllegalStateException) {
-                        Log.e("TEST_SL", "Error getting documents: ", e)
-
-                        // TODO : AI khane set korbo je -> Department a Loading effect dekhabe
+                        Log.e(tagName, "Error getting documents: ", e)
+                        isShimmerOn(true )
                     }
-
                 }
             }?.addOnFailureListener { e ->
                 isShimmerOn(false)
-                Toast.makeText(
-                    requireActivity(),
-                    "Failed to fetch books: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                SmartData.sToast(requireActivity(), "Failed to fetch books: ${e.message}")
             }
     }
     // =====================================================================================================================
@@ -373,7 +360,6 @@ class SmartHomeFragment : Fragment() {
     // =====================================================================================================================
     private fun getSemesterData() {
         val semesterList = mutableListOf<SemeterTotal>()
-
         // Get user saved department name from Firebase Realtime database and convert it to department code
         database.reference.child("Users").child(auth.uid!!).child("department").get()
             .addOnSuccessListener {
@@ -388,12 +374,11 @@ class SmartHomeFragment : Fragment() {
                     binding.tvWarningInfo.visibility = View.VISIBLE
                     binding.tvWarningInfo.text = getString(R.string.just_for_you_warn_text)
 
-                    Log.d("getSemesterData", "Department Code is : Not Found")
-                    SmartData.lToast(requireActivity(), "Please complete your profile..")
+                    Log.d(tagName, "Department Code is : Not Found")
+                    SmartData.sToast(requireActivity(), "Please complete your profile..")
                     return@addOnSuccessListener
                 } else {
-                    Log.d("getSemesterData", "Department Code is : $departmentCode")
-
+                    Log.d(tagName, "Department Code is : $departmentCode")
                     // If user is from 101 (BSC Engineering) or 102 (Other) department then hide CategoryRecycleView and semester information TextView..
                     when (departmentCode) {
                         "101" -> {
@@ -420,7 +405,7 @@ class SmartHomeFragment : Fragment() {
                             binding.tvWarningInfo.visibility = View.GONE
 
                             // Fetch all semester data from Firebase FireStore Database
-                            db?.collection("semester_total")
+                            firestoreDB?.collection("semester_total")
                                 ?.get()?.addOnSuccessListener { querySnapshot ->
                                     for (document in querySnapshot.documents) {
                                         val department = document.toObject<SemeterTotal>()
@@ -428,7 +413,7 @@ class SmartHomeFragment : Fragment() {
 
                                         // Get Users save Department all Information.. Like: Department Name, Department Abbr, Department Information, etc..
                                         departmentCode?.let { it1 ->
-                                            db?.collection("departments")
+                                            firestoreDB?.collection("departments")
                                                 ?.document(it1)
                                                 ?.get()?.addOnSuccessListener { querySnapshotUnder ->
                                                     val userDep = querySnapshotUnder.toObject<CategoryDataClass>()
@@ -443,11 +428,10 @@ class SmartHomeFragment : Fragment() {
                                                         SemesterAdapter.OnItemClickListener {
                                                         override fun onItemClick(position: Int, dAbbr: String, depName: String, semName: String) {
                                                             val intent = Intent(requireActivity(), AllBookActivity::class.java)
-                                                            intent.putExtra("fieldName", "xSem")
-                                                            intent.putExtra("departmentAbbr", "${dAbbr}${position+1}")
-                                                            intent.putExtra("abbr", dAbbr)
-                                                            intent.putExtra("no", position+1)
-                                                            intent.putExtra("semesterNo", position+1)
+                                                            val no = position+1
+
+                                                            intent.putExtra("abbrNo", "${dAbbr}$no")
+                                                            intent.putExtra("noAbbr", "${no}$dAbbr")
                                                             intent.putExtra("departmentName", depName)
                                                             intent.putExtra("semesterName", semName)
                                                             startActivity(intent)

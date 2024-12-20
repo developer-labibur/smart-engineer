@@ -8,16 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityCompat.recreate
 import androidx.core.content.ContextCompat
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.FragmentNightModeBinding
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.ThemeHelper
 import com.rudhashi.smartengineer.util.ThemeHelper.getSharedPreferences
-import com.rudhashi.smartengineer.view.SmartDashboardActivity
+import com.rudhashi.smartengineer.dashboard.SmartDashboardActivity
 
 class NightModeFragment : Fragment() {
 

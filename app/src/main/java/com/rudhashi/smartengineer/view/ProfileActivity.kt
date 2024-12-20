@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.dashboard.SmartDashboardActivity
 import com.rudhashi.smartengineer.databinding.ActivityProfileBinding
 import com.rudhashi.smartengineer.databinding.DialogEditProfileBinding
 import com.rudhashi.smartengineer.databinding.DialogLogoutWarningBinding

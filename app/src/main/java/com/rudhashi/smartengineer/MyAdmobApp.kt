@@ -22,6 +22,7 @@ class MyAdmobApp: Application(), Application.ActivityLifecycleCallbacks  {
 
     override fun onCreate() {
         super.onCreate()
+
         Thread {
             // Initialize the Google Mobile Ads SDK on a background thread.
             MobileAds.initialize(this) { }

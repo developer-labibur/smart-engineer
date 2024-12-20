@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.rudhashi.smartengineer.databinding.ActivityTestBinding
 import com.rudhashi.smartengineer.util.SmartThemeActivity
 import com.rudhashi.smartengineer.util.ThemeHelper
-import com.rudhashi.smartengineer.view.SmartDashboardActivity
+import com.rudhashi.smartengineer.dashboard.SmartDashboardActivity
 
 class TestActivity : SmartThemeActivity() {
 

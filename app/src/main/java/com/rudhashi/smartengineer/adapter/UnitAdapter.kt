@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rudhashi.smartengineer.databinding.ItemBookUnitBinding
+import com.rudhashi.smartengineer.manager.PointManager
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.BookUnit
 import com.rudhashi.smartengineer.util.ConvertFB
@@ -52,6 +53,7 @@ class UnitAdapter(
                             intent.putExtra("BCode", book.BCode)
                             intent.putExtra("BName", book.BName)
                             context.startActivity(intent)
+                            PointManager.redeemPointsOpenPDF()
                         }
                     }
                 } else {

@@ -17,7 +17,6 @@ import com.rudhashi.smartengineer.databinding.FragmentSmartUpdatesBinding
 import com.rudhashi.smartengineer.model.Notice
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.view.ProfileActivity
-import com.rudhashi.smartengineer.view.SmartDashboardActivity
 import com.rudhashi.smartengineer.view.SmartPointActivity
 import com.rudhashi.smartengineer.view.SmartViewActivity
 

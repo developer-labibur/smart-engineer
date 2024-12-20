@@ -23,7 +23,6 @@ import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.view.BookDetailsActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
-import com.rudhashi.smartengineer.view.SmartDashboardActivity
 import com.rudhashi.smartengineer.view.SmartPointActivity
 import com.rudhashi.smartengineer.view.SmartViewActivity
 
@@ -224,6 +223,5 @@ class SmartBooksFragment : Fragment() {
             }
         }
     }
-
 
 }

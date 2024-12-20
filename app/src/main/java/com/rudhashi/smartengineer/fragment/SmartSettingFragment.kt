@@ -21,7 +21,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.TestActivity
 import com.rudhashi.smartengineer.databinding.DialogChangeDepartmentBinding
 import com.rudhashi.smartengineer.databinding.DialogLogoutWarningBinding
 import com.rudhashi.smartengineer.databinding.FragmentSmartSettingBinding
@@ -29,11 +28,9 @@ import com.rudhashi.smartengineer.model.User
 import com.rudhashi.smartengineer.util.GoogleAuthClient
 import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.ThemeHelper
 import com.rudhashi.smartengineer.view.DayNightActivity
 import com.rudhashi.smartengineer.view.MainActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
-import com.rudhashi.smartengineer.view.SmartDashboardActivity
 import com.rudhashi.smartengineer.view.SmartPointActivity
 import kotlinx.coroutines.launch
 

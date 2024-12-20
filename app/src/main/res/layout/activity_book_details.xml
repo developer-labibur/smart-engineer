@@ -5,17 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sl_primary"
+    android:background="@color/sl_secoundary"
     tools:context=".view.BookDetailsActivity">
 
     <ScrollView
+        android:id="@+id/bookDetails"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@+id/adViewContainer"
         android:layout_alignParentTop="true"
         android:background="@color/sl_secoundary"
+        android:layout_marginBottom="10dp"
         android:scrollbars="none"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/adViewContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,17 +87,6 @@
                         app:layout_constraintStart_toEndOf="@+id/btnBack"
                         app:layout_constraintTop_toTopOf="parent" />
 
-
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmerTvBookTitle"
-                        android:layout_width="170dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="27dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintEnd_toStartOf="@+id/btnPremium"
-                        app:layout_constraintStart_toEndOf="@+id/btnBack"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <!-- Smart Point -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btnPremium"
@@ -134,7 +124,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tvPremium"
+                            android:id="@+id/tvPoint"
                             style="@style/dashboard_smart_point_text"
                             android:layout_marginTop="3dp"
                             android:fontFamily="@font/roboto"
@@ -160,7 +150,7 @@
                             app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
-                            app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
+                            app:layout_constraintTop_toBottomOf="@+id/tvPoint" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -175,17 +165,6 @@
                         app:layout_constraintStart_toStartOf="@+id/btnBack"
                         app:layout_constraintTop_toBottomOf="@+id/btnBack" />
 
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmerBookCoverImage"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="30dp"
-                        android:background="@color/shimmer"
-                        android:contentDescription="@string/book_cover"
-                        app:layout_constraintStart_toStartOf="@+id/btnBack"
-                        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
-
                     <ImageView
                         android:id="@+id/icBook"
                         style="@style/sl_header_button"
@@ -196,20 +175,6 @@
                         android:layout_marginEnd="0dp"
                         android:contentDescription="@string/sl_icon"
                         android:src="@drawable/sl_notebook"
-                        app:layout_constraintStart_toEndOf="@+id/bookCoverImage"
-                        app:layout_constraintTop_toTopOf="@+id/bookCoverImage" />
-
-
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmerIcBook"
-                        style="@style/sl_header_button"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginEnd="0dp"
-                        android:background="@color/shimmer"
-                        android:visibility="visible"
                         app:layout_constraintStart_toEndOf="@+id/bookCoverImage"
                         app:layout_constraintTop_toTopOf="@+id/bookCoverImage" />
 
@@ -230,17 +195,6 @@
                         app:layout_constraintStart_toEndOf="@+id/icBook"
                         app:layout_constraintTop_toTopOf="@+id/icBook" />
 
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmerBookCodes"
-                        android:layout_width="120dp"
-                        android:layout_height="20dp"
-                        android:background="@color/shimmer"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="@+id/icBook"
-                        app:layout_constraintStart_toEndOf="@+id/icBook"
-                        app:layout_constraintTop_toTopOf="@+id/icBook"
-                        app:layout_constraintVertical_bias="0.36" />
-
                     <ImageView
                         android:id="@+id/icView"
                         style="@style/sl_header_button"
@@ -252,19 +206,6 @@
                         app:layout_constraintStart_toEndOf="@+id/bookCoverImage"
                         app:layout_constraintTop_toBottomOf="@+id/bookCodes" />
 
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmerIcView"
-                        style="@style/sl_header_button"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginEnd="0dp"
-                        android:background="@color/shimmer"
-                        android:visibility="visible"
-                        app:layout_constraintStart_toEndOf="@+id/bookCoverImage"
-                        app:layout_constraintTop_toBottomOf="@+id/bookCodes" />
-
                     <TextView
                         android:id="@+id/viewCountTextView"
                         android:layout_width="0dp"
@@ -273,17 +214,6 @@
                         android:fontFamily="@font/main_font_regular_2"
                         android:text="@string/total_reads"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/icView"
-                        app:layout_constraintStart_toEndOf="@+id/icView"
-                        app:layout_constraintTop_toTopOf="@+id/icView"
-                        app:layout_constraintVertical_bias="0.36" />
-
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmerViewCountTextView"
-                        android:layout_width="90dp"
-                        android:layout_height="20dp"
-                        android:background="@color/shimmer"
-                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@+id/icView"
                         app:layout_constraintStart_toEndOf="@+id/icView"
                         app:layout_constraintTop_toTopOf="@+id/icView"
@@ -378,41 +308,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/shimmerUnitListContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@color/sl_primary"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clHeader">
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmerUnitList"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shimmer_duration="800">
-
-                    <include
-                        layout="@layout/item_shimmer_unit_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                </com.facebook.shimmer.ShimmerFrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -605,6 +500,231 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerDetails"
+        android:layout_width="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adViewContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sl_secoundary"
+            android:scrollbars="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cH"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/sl_primary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_book_ber_bottom_left_radius"
+                    app:layout_constraintBottom_toTopOf="@+id/btt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/bb"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        app:cardBackgroundColor="@color/shimmer"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/shimmerTvBookTitle"
+                        android:layout_width="160dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="27dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintEnd_toStartOf="@+id/bp"
+                        app:layout_constraintStart_toEndOf="@+id/bb"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/bp"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:cardBackgroundColor="@color/shimmer"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/bi"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@color/shimmer"
+                        android:contentDescription="@string/book_cover"
+                        android:src="@drawable/book"
+                        app:layout_constraintStart_toStartOf="@+id/bb"
+                        app:layout_constraintTop_toBottomOf="@+id/bb" />
+
+                    <View
+                        android:id="@+id/iB"
+                        style="@style/sl_header_button"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintStart_toEndOf="@+id/bi"
+                        app:layout_constraintTop_toTopOf="@+id/bi" />
+
+                    <View
+                        android:id="@+id/bc"
+                        android:layout_width="120dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="@+id/iB"
+                        app:layout_constraintStart_toEndOf="@+id/iB"
+                        app:layout_constraintTop_toTopOf="@+id/iB"
+                        app:layout_constraintVertical_bias="0.36" />
+
+                    <View
+                        android:id="@+id/iv"
+                        style="@style/sl_header_button"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintStart_toEndOf="@+id/bi"
+                        app:layout_constraintTop_toBottomOf="@+id/bc" />
+
+                    <View
+                        android:id="@+id/vc"
+                        android:layout_width="90dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv"
+                        app:layout_constraintStart_toEndOf="@+id/iv"
+                        app:layout_constraintTop_toTopOf="@+id/iv"
+                        app:layout_constraintVertical_bias="0.36" />
+
+                    <View
+                        android:id="@+id/ic"
+                        style="@style/sl_header_button"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintStart_toEndOf="@+id/bi"
+                        app:layout_constraintTop_toBottomOf="@+id/vc" />
+
+                    <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="@+id/ic"
+                        app:layout_constraintStart_toEndOf="@+id/ic"
+                        app:layout_constraintTop_toTopOf="@+id/ic"
+                        app:layout_constraintVertical_bias="0.36" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btt"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:background="@drawable/bg_book_ber_top_right_radius"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <View
+                        android:id="@+id/ut"
+                        style="@style/sl_header_button"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="120dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="@+id/ut"
+                        app:layout_constraintStart_toEndOf="@+id/ut"
+                        app:layout_constraintTop_toTopOf="@+id/ut"
+                        app:layout_constraintVertical_bias="0.36" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="45dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="30dp"
+                        android:paddingTop="2dp"
+                        app:cardBackgroundColor="@color/shimmer"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                android:id="@+id/shimmerUnitListContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sl_primary"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                layout="@layout/item_shimmer_unit_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cH"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewContainer"

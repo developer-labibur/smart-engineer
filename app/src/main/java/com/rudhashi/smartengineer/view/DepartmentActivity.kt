@@ -10,13 +10,23 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivityDepartmentBinding
 import com.rudhashi.smartengineer.databinding.DialogDepartmentInformationBinding
+import com.rudhashi.smartengineer.model.CategoryDataClass
 import com.rudhashi.smartengineer.util.SmartThemeActivity
 
 class DepartmentActivity : SmartThemeActivity() {
     private lateinit var binding: ActivityDepartmentBinding
+    private var firestoreDB: FirebaseFirestore? = null
+
+    private lateinit var depCode: String
+    private lateinit var dAbbr: String
+    private lateinit var dCover: String
+    private lateinit var dInfo: String
+    private lateinit var dName: String
 
     @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,33 +43,52 @@ class DepartmentActivity : SmartThemeActivity() {
         val flags = window.decorView.systemUiVisibility
         window.decorView.systemUiVisibility = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
 
-        // Retrieve data from Intent
-        val dAbbr = intent.getStringExtra("DAbbr")
-        val dCode = intent.getStringExtra("DCode")
-        val dCover = intent.getStringExtra("DCover")
-        val dInfo = intent.getStringExtra("DInfo")
-        val dName = intent.getStringExtra("DName")
+        firestoreDB = FirebaseFirestore.getInstance()
+        depCode = intent.getStringExtra("DCode").toString()
 
-        binding.apply {
-
-            Glide.with(this@DepartmentActivity)
-                .load(dCover)
-                .into(depCover)
-            depName.text = dName
-            sortCode.text = getString(R.string.sordCode, dAbbr, dCode)
-
-            btnBack.setOnClickListener{ finish() }
-            dep1st.setOnClickListener{ goToAllBookActivity(dAbbr,"1", dName, "1st Semester") }
-            dep2nd.setOnClickListener{ goToAllBookActivity(dAbbr, "2", dName, "2nd Semester") }
-            dep3rd.setOnClickListener{ goToAllBookActivity(dAbbr, "3", dName, "3rd Semester") }
-            dep4th.setOnClickListener{ goToAllBookActivity(dAbbr, "4", dName, "4th Semester") }
-            dep5th.setOnClickListener{ goToAllBookActivity(dAbbr, "5", dName, "5th Semester") }
-            dep6th.setOnClickListener{ goToAllBookActivity(dAbbr, "6", dName, "6th Semester") }
-            dep7th.setOnClickListener{ goToAllBookActivity(dAbbr, "7", dName, "7th Semester") }
-            btnInfo.setOnClickListener { getDepartmentInfo(dCover, dName, dInfo) }
-        }
-
+        setUpDepartmentAllData(depCode)
+        isShimmerOn(true)
     }
+
+    private fun setUpDepartmentAllData(dCode: String) {
+        dCode.let { depCode ->
+            firestoreDB!!.collection("departments").document(depCode)
+                .get().addOnSuccessListener {
+                    isShimmerOn(false)
+
+                    val department = it.toObject<CategoryDataClass>()
+                    dAbbr = department?.DAbbr ?: ""
+                    dCover = department?.DCover ?: ""
+                    dInfo = department?.DInfo ?: ""
+                    dName = department?.DName ?: ""
+
+                    // Retrieve data from FireStore
+                    binding.apply {
+                        Glide.with(this@DepartmentActivity).load(dCover).into(depCover)
+                        depName.text = dName
+                        sortCode.text = getString(R.string.sordCode, dAbbr, dCode)
+
+                        btnBack.setOnClickListener { finish() }
+                        dep1st.setOnClickListener { goToAllBookActivity("1", "1st Semester") }
+                        Glide.with(this@DepartmentActivity).load(getString(R.string.IconSemester1)).into(ivS1)
+                        dep2nd.setOnClickListener { goToAllBookActivity("2", "2nd Semester") }
+                        Glide.with(this@DepartmentActivity).load(getString(R.string.IconSemester2)).into(ivS2)
+                        dep3rd.setOnClickListener { goToAllBookActivity("3", "3rd Semester") }
+                        Glide.with(this@DepartmentActivity).load(getString(R.string.IconSemester3)).into(ivS3)
+                        dep4th.setOnClickListener { goToAllBookActivity("4", "4th Semester") }
+                        Glide.with(this@DepartmentActivity).load(getString(R.string.IconSemester4)).into(ivS4)
+                        dep5th.setOnClickListener { goToAllBookActivity("5", "5th Semester") }
+                        Glide.with(this@DepartmentActivity).load(getString(R.string.IconSemester5)).into(ivS5)
+                        dep6th.setOnClickListener { goToAllBookActivity("6", "6th Semester") }
+                        Glide.with(this@DepartmentActivity).load(getString(R.string.IconSemester6)).into(ivS6)
+                        dep7th.setOnClickListener { goToAllBookActivity("7", "7th Semester") }
+                        Glide.with(this@DepartmentActivity).load(getString(R.string.IconSemester7)).into(ivS7)
+                        btnInfo.setOnClickListener { getDepartmentInfo(dCover, dName, dInfo) }
+                    }
+                }.addOnFailureListener { isShimmerOn(false) }
+        }
+    }
+
     @SuppressLint("InflateParams")
     private fun getDepartmentInfo(dCover: String?, dName: String?, dInfo: String?) {
         val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog).create()
@@ -84,15 +113,27 @@ class DepartmentActivity : SmartThemeActivity() {
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }
-    private fun goToAllBookActivity(dAbbr: String?, semNumber: String, depName: String?, semName: String){
+
+    private fun goToAllBookActivity(semNumber: String, semName: String) {
         val intent = Intent(this@DepartmentActivity, AllBookActivity::class.java)
-        intent.putExtra("fieldName", "xSem")
-        intent.putExtra("departmentAbbr", "${dAbbr}$semNumber")
-        intent.putExtra("abbr", dAbbr)
-        intent.putExtra("no", semNumber)
-        intent.putExtra("semesterNo", semNumber)
-        intent.putExtra("departmentName", depName)
+        intent.putExtra("abbrNo", "${dAbbr}$semNumber")
+        intent.putExtra("noAbbr", "${semNumber}$dAbbr")
+        intent.putExtra("departmentName", dName)
         intent.putExtra("semesterName", semName)
         startActivity(intent)
     }
+
+    private fun isShimmerOn(flag: Boolean) {
+        if (flag) {
+            // If data is available then Shimmer Effect will be gone
+            binding.shimmerDepartment.startShimmer()
+            binding.shimmerDepartment.visibility = View.VISIBLE
+            binding.department.visibility = View.GONE
+        } else {
+            binding.shimmerDepartment.stopShimmer()
+            binding.shimmerDepartment.visibility = View.GONE
+            binding.department.visibility = View.VISIBLE
+        }
+    }
+
 }

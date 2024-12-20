@@ -4,12 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.rudhashi.smartengineer.fragment.ExploreFragment
-import com.rudhashi.smartengineer.fragment.HomeFragment
-import com.rudhashi.smartengineer.fragment.LoginFragment
-import com.rudhashi.smartengineer.fragment.NoticeFragment
 import com.rudhashi.smartengineer.fragment.SmartBooksFragment
-import com.rudhashi.smartengineer.fragment.SmartHomeFragment
+import com.rudhashi.smartengineer.dashboard.SmartHomeFragment
 import com.rudhashi.smartengineer.fragment.SmartSettingFragment
 import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
 

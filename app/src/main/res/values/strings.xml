@@ -288,7 +288,18 @@
     <string name="get_points">Get %1$s points</string>
     <string name="daily_login_bonus">Daily login to Smart Engineer app and collect daily %1$s bonus Smart Points</string>
     <string name="new_user_signup_bonus">Create a new account on Smart Engineer app and get %1$s bonus Smart Points</string>
-    <string name="do_not_have_enough_points">You don\'t have enough points. Watch a video to get</string>
     <string name="_smart_points">%1$s Smart Points</string>
+    <string name="not_thanks">Not Thanks</string>
+    <string name="not_enough_points">Not Enough Points</string>
+    <string name="do_not_have_enough_points">You don\'t have enough points. Watch a video to get</string>
+    <string name="watch_ad">Watch Ad</string>
+    <string name="watch_a_video_ad_and_earn">Watch a video ad and earn</string>
+    <string name="IconSemester1"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_one.png?alt=media&token=d5c547a5-59f7-44cd-bfe4-eb20dff9648e]]></string>
+    <string name="IconSemester2"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_two.png?alt=media&token=95d63286-39c2-4b5e-9c7e-1a3721e3faa7]]></string>
+    <string name="IconSemester3"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_three.png?alt=media&token=a0e6092e-34ab-4a3d-b7c2-b951827c56e2]]></string>
+    <string name="IconSemester4"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_four.png?alt=media&token=77c6de97-a2d7-4d4c-9ae2-a4db1b2897af]]></string>
+    <string name="IconSemester5"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_five.png?alt=media&token=30ab5d9d-d3c8-4a21-907c-eaf10f8005d5]]></string>
+    <string name="IconSemester6"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_six.png?alt=media&token=bf0efde2-1fdf-4ac6-8a25-2a33fe47dcb8]]></string>
+    <string name="IconSemester7"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_seven.png?alt=media&token=c3de428c-1122-4917-9374-166f93c9b73e]]></string>
 
 </resources>
