@@ -7,7 +7,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import com.github.pdfviewer.PDFView
+import com.ymg.pdf.viewer.PDFView
 
 object PdfAnimation {
 

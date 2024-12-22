@@ -17,8 +17,6 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.pdfviewer.PDFView
-import com.github.pdfviewer.util.FitPolicy
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,6 +31,8 @@ import com.rudhashi.smartengineer.fragment.AnimationModeBottomSheet
 import com.rudhashi.smartengineer.model.BookUnit
 import com.rudhashi.smartengineer.util.PdfAnimation
 import com.rudhashi.smartengineer.util.SmartConfig
+import com.ymg.pdf.viewer.PDFView
+import com.ymg.pdf.viewer.util.FitPolicy
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -89,7 +89,7 @@ class SmartEBookActivity : AppCompatActivity() {
         bookName = intent.getStringExtra("BName").toString()
         key = intent.getStringExtra("Key").toString()
         loadPdf = when (key) {
-            "notBook" -> SmartConfig.PDF_COURSE_STRUCTURE + pdfUrl
+            "notBook" -> pdfUrl
             else -> SmartConfig.PDF_SERVER_LINK + pdfUrl
         }
 

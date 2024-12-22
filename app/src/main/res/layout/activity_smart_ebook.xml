@@ -30,7 +30,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"/>
 
-        <com.github.pdfviewer.PDFView
+        <com.ymg.pdf.viewer.PDFView
             android:id="@+id/pdfView"
             android:background="?attr/pdfBackgroundSecoundary"
             android:layout_width="match_parent"

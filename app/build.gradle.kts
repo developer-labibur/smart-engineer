@@ -109,8 +109,7 @@ dependencies {
     //implementation ("com.github.Foysalofficial:pdf-viewer-android:6.1")
     //implementation("com.joanzapata.pdfview:android-pdfview:1.0.4@aar")
 
-    implementation(libs.pdf.viewer.android)
-    //{ exclude(group = "com.android.support", module = "support-compat") }
+    implementation(libs.pdf.viewer.android) { exclude(group = "com.android.support", module = "support-compat") }
 
     implementation (libs.okhttp) // For downloading the PDF
 
