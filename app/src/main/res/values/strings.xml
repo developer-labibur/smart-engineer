@@ -301,5 +301,15 @@
     <string name="IconSemester5"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_five.png?alt=media&token=30ab5d9d-d3c8-4a21-907c-eaf10f8005d5]]></string>
     <string name="IconSemester6"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_six.png?alt=media&token=bf0efde2-1fdf-4ac6-8a25-2a33fe47dcb8]]></string>
     <string name="IconSemester7"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_seven.png?alt=media&token=c3de428c-1122-4917-9374-166f93c9b73e]]></string>
+    <string name="about_us">About us</string>
+    <string name="our_mission">Our mission</string>
+    <string name="our_mission_info_text">Our mission is to provide Diploma in Engineering students in Bangladesh with seamless access to academic resources, innovative learning tools, and a supportive platform that enhances their educational experience. By leveraging technology, we aim to make education more accessible, engaging, and effective for students under the Bangladesh Technical Education Board (BTEB).</string>
+    <string name="about_info">Labib UR Rahman\nShinigdha Akter Shimu</string>
+    <string name="contact_us">Contact us</string>
+    <string name="tv_center_footer">Thank you for choosing Smart Engineer—your academic companion for a brighter future!</string>
+    <string name="fb_link">www.facebook.com/smartengineerapp</string>
+    <string name="yt_link">www.youtube.com/softylur</string>
+    <string name="mail_link">admin@smartengr.rudhashi.xyz</string>
+    <string name="web_link">smartengr.rudhashi.xyz</string>
 
 </resources>

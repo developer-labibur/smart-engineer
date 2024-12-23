@@ -25,6 +25,7 @@ import com.rudhashi.smartengineer.databinding.DialogChangeDepartmentBinding
 import com.rudhashi.smartengineer.databinding.DialogLogoutWarningBinding
 import com.rudhashi.smartengineer.databinding.FragmentSmartSettingBinding
 import com.rudhashi.smartengineer.model.User
+import com.rudhashi.smartengineer.page.AboutUsActivity
 import com.rudhashi.smartengineer.util.GoogleAuthClient
 import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartData
@@ -87,7 +88,7 @@ class SmartSettingFragment : Fragment() {
             sBtnRate.setOnClickListener { SmartData.comingSoon(requireActivity()) }
             sBtnPrivacyPolicy.setOnClickListener { SmartData.comingSoon(requireActivity()) }
             sBtnFAQ.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            sBtnAbout.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            sBtnAbout.setOnClickListener { startActivity(Intent(requireActivity(), AboutUsActivity::class.java)) }
         }
     }
 

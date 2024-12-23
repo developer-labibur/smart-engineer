@@ -77,6 +77,8 @@
     <!-- For Unique Style -->
     <color name="underlineText">#E3F30D</color>
     <color name="ic_light">#1C274C</color>
+    <color name="ic_secoundary">#389ad6</color>
+    <color name="ic_optional">#9dcbf4</color>
     <color name="shimmer">#C2C2C2</color>
     <color name="shimmer_light">#EBEBEB</color>
 

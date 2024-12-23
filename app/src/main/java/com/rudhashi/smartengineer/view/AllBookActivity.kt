@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.ads.AdSize
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.rudhashi.smartengineer.adapter.BookAdapter
+import com.rudhashi.smartengineer.adapter.BookListAdapter
 import com.rudhashi.smartengineer.databinding.ActivityAllBookBinding
 import com.rudhashi.smartengineer.manager.AdManager
 import com.rudhashi.smartengineer.model.Book
@@ -26,7 +26,7 @@ import com.rudhashi.smartengineer.util.SmartThemeActivity
 class AllBookActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivityAllBookBinding
-    private lateinit var bookAdapter: BookAdapter
+    private lateinit var bookAdapter: BookListAdapter
     private lateinit var query: Query
     private val db = FirebaseFirestore.getInstance()
     private val booksCollection = db.collection("books")
@@ -56,7 +56,7 @@ class AllBookActivity : SmartThemeActivity() {
         noAbbr = intent.getStringExtra("noAbbr").toString()
 
         // Read eBooks completely free using points
-        bookAdapter = BookAdapter { bookCode ->
+        bookAdapter = BookListAdapter { bookCode ->
             PointManager.redeemPointsOpenEBook(this@AllBookActivity, bookCode)
         }
 
@@ -111,7 +111,7 @@ class AllBookActivity : SmartThemeActivity() {
                     // Iterate over the documents
                     for (document in querySnapshot) {
                         val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
-                        bookAdapter.submitList(books)
+                        bookAdapter.updateBooks(books, false)
                     }
                 }
             }

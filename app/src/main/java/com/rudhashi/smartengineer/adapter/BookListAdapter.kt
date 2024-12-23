@@ -1,7 +1,6 @@
 package com.rudhashi.smartengineer.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,12 +10,14 @@ import com.rudhashi.smartengineer.databinding.ItemBookListBinding
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.util.MakeFirebaseEasy
 import com.rudhashi.smartengineer.util.SmartData
+import kotlin.properties.Delegates
 
 class BookListAdapter(
     private val onItemClicked: (String) -> Unit
 ) : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
 
     private var bookList: List<Book> = emptyList()
+    private var isRandom by Delegates.notNull<Boolean>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding = ItemBookListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,8 +31,9 @@ class BookListAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateBooks(newBooks: List<Book>) {
+    fun updateBooks(newBooks: List<Book>, isRandom: Boolean) {
         bookList = newBooks
+        this.isRandom = isRandom
         notifyDataSetChanged() // You can implement a more efficient update if needed
     }
 
@@ -51,48 +53,50 @@ class BookListAdapter(
 
             // Random Gradient Background Color Programmatically
             val number = SmartData.randomNumber(6)
-            when (number) {
-                1 -> {
-                    binding.ivBookImage.setBackgroundResource(R.drawable.abc_blue_main)
-                    binding.btnReadNow.setBackgroundResource(R.drawable.abc_blue_main)
-                    binding.clickBookItem.setBackgroundResource(R.drawable.abc_blue_light)
-                    binding.bookView.setBackgroundResource(R.drawable.abc_blue_light)
-                }
-                2 -> {
-                    binding.ivBookImage.setBackgroundResource(R.drawable.abc_green_main)
-                    binding.btnReadNow.setBackgroundResource(R.drawable.abc_green_main)
-                    binding.clickBookItem.setBackgroundResource(R.drawable.abc_green_light)
-                    binding.bookView.setBackgroundResource(R.drawable.abc_green_light)
-                }
-                3 -> {
-                    binding.ivBookImage.setBackgroundResource(R.drawable.abc_pink_main)
-                    binding.btnReadNow.setBackgroundResource(R.drawable.abc_pink_main)
-                    binding.clickBookItem.setBackgroundResource(R.drawable.abc_pink_light)
-                    binding.bookView.setBackgroundResource(R.drawable.abc_pink_light)
-                }
-                4 -> {
-                    binding.ivBookImage.setBackgroundResource(R.drawable.abc_orange_main)
-                    binding.btnReadNow.setBackgroundResource(R.drawable.abc_orange_main)
-                    binding.clickBookItem.setBackgroundResource(R.drawable.abc_orange_light)
-                    binding.bookView.setBackgroundResource(R.drawable.abc_orange_light)
-                }
-                5 -> {
-                    binding.ivBookImage.setBackgroundResource(R.drawable.abc_purple_main)
-                    binding.btnReadNow.setBackgroundResource(R.drawable.abc_purple_main)
-                    binding.clickBookItem.setBackgroundResource(R.drawable.abc_purple_light)
-                    binding.bookView.setBackgroundResource(R.drawable.abc_purple_light)
-                }
-                6 -> {
-                    binding.ivBookImage.setBackgroundResource(R.drawable.abc_red_main)
-                    binding.btnReadNow.setBackgroundResource(R.drawable.abc_red_main)
-                    binding.clickBookItem.setBackgroundResource(R.drawable.abc_red_light)
-                    binding.bookView.setBackgroundResource(R.drawable.abc_red_light)
-                }
-                else -> {
-                    binding.ivBookImage.setBackgroundResource(R.drawable.abc_blue_main)
-                    binding.btnReadNow.setBackgroundResource(R.drawable.abc_blue_main)
-                    binding.clickBookItem.setBackgroundResource(R.drawable.abc_blue_light)
-                    binding.bookView.setBackgroundResource(R.drawable.abc_blue_light)
+            if (isRandom){
+                when (number) {
+                    1 -> {
+                        binding.ivBookImage.setBackgroundResource(R.drawable.abc_blue_main)
+                        binding.btnReadNow.setBackgroundResource(R.drawable.abc_blue_main)
+                        binding.clickBookItem.setBackgroundResource(R.drawable.abc_blue_light)
+                        binding.bookView.setBackgroundResource(R.drawable.abc_blue_light)
+                    }
+                    2 -> {
+                        binding.ivBookImage.setBackgroundResource(R.drawable.abc_green_main)
+                        binding.btnReadNow.setBackgroundResource(R.drawable.abc_green_main)
+                        binding.clickBookItem.setBackgroundResource(R.drawable.abc_green_light)
+                        binding.bookView.setBackgroundResource(R.drawable.abc_green_light)
+                    }
+                    3 -> {
+                        binding.ivBookImage.setBackgroundResource(R.drawable.abc_pink_main)
+                        binding.btnReadNow.setBackgroundResource(R.drawable.abc_pink_main)
+                        binding.clickBookItem.setBackgroundResource(R.drawable.abc_pink_light)
+                        binding.bookView.setBackgroundResource(R.drawable.abc_pink_light)
+                    }
+                    4 -> {
+                        binding.ivBookImage.setBackgroundResource(R.drawable.abc_orange_main)
+                        binding.btnReadNow.setBackgroundResource(R.drawable.abc_orange_main)
+                        binding.clickBookItem.setBackgroundResource(R.drawable.abc_orange_light)
+                        binding.bookView.setBackgroundResource(R.drawable.abc_orange_light)
+                    }
+                    5 -> {
+                        binding.ivBookImage.setBackgroundResource(R.drawable.abc_purple_main)
+                        binding.btnReadNow.setBackgroundResource(R.drawable.abc_purple_main)
+                        binding.clickBookItem.setBackgroundResource(R.drawable.abc_purple_light)
+                        binding.bookView.setBackgroundResource(R.drawable.abc_purple_light)
+                    }
+                    6 -> {
+                        binding.ivBookImage.setBackgroundResource(R.drawable.abc_red_main)
+                        binding.btnReadNow.setBackgroundResource(R.drawable.abc_red_main)
+                        binding.clickBookItem.setBackgroundResource(R.drawable.abc_red_light)
+                        binding.bookView.setBackgroundResource(R.drawable.abc_red_light)
+                    }
+                    else -> {
+                        binding.ivBookImage.setBackgroundResource(R.drawable.abc_blue_main)
+                        binding.btnReadNow.setBackgroundResource(R.drawable.abc_blue_main)
+                        binding.clickBookItem.setBackgroundResource(R.drawable.abc_blue_light)
+                        binding.bookView.setBackgroundResource(R.drawable.abc_blue_light)
+                    }
                 }
             }
 

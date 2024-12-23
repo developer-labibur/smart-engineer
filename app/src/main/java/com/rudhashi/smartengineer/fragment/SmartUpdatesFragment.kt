@@ -90,7 +90,7 @@ class SmartUpdatesFragment : Fragment() {
                             binding.btnViewAll.visibility = View.VISIBLE
                         }
                     }
-                    noticeAdapter.updateNoticeList(notices) // Update the adapter
+                    noticeAdapter.updateNoticeList(notices, true) // Update the adapter
                     // Ensure data is loaded before setting the height
 
                 }

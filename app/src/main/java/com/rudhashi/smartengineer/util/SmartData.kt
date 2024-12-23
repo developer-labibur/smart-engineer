@@ -27,7 +27,8 @@ class SmartData {
         // Splash Screen
         const val SPLASH_SCREEN: Long = 2000
         // Google SignIn
-        const val WEB_CLIENT_ID = "389818419543-sdlmnl0vdps19ka0ku0n76f4vub730cr.apps.googleusercontent.com"
+        //const val WEB_CLIENT_ID = "389818419543-sdlmnl0vdps19ka0ku0n76f4vub730cr.apps.googleusercontent.com"
+        const val WEB_CLIENT_ID = "389818419543-r9qn561gllhjj61jfshamlhp7i24l2gv.apps.googleusercontent.com"
 
         // Function to display Toast
         fun lToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }

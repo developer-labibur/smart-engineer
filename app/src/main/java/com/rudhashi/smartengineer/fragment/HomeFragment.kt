@@ -173,7 +173,7 @@ class HomeFragment : Fragment() {
         db?.collection("books")?.orderBy("TimeStamp", Query.Direction.DESCENDING) // Or DESCENDING for reverse order
             ?.get()?.addOnSuccessListener { querySnapshot ->
                 val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
-                bookGridAdapter.setData(books)
+                bookGridAdapter.setData(books, true)
             }?.addOnFailureListener { e ->
                 Toast.makeText(requireActivity(), "Failed to fetch books: ${e.message}", Toast.LENGTH_SHORT)
                     .show()

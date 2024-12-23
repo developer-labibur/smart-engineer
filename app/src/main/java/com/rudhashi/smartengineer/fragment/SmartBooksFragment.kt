@@ -9,19 +9,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.adapter.BookGridAdapter
 import com.rudhashi.smartengineer.adapter.BookListAdapter
 import com.rudhashi.smartengineer.databinding.FragmentSmartBooksBinding
+import com.rudhashi.smartengineer.manager.PointManager
 import com.rudhashi.smartengineer.model.Book
-import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.view.BookDetailsActivity
 import com.rudhashi.smartengineer.view.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartPointActivity
 import com.rudhashi.smartengineer.view.SmartViewActivity
@@ -43,7 +39,7 @@ class SmartBooksFragment : Fragment() {
 
         // eBook Open and Redeem Points
         bookGridAdapter = BookGridAdapter { bookCode ->
-            redeemPoints(bookCode)
+            PointManager.redeemPointsOpenEBook(requireActivity(), bookCode)
         }
 
         binding.apply {
@@ -134,7 +130,7 @@ class SmartBooksFragment : Fragment() {
                 ?.get()?.addOnSuccessListener { querySnapshot ->
                     isShimmerOn(false, isGrid = true)
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
-                    bookGridAdapter.setData(books)
+                    bookGridAdapter.setData(books, true)
                     binding.btnViewAll.visibility = View.VISIBLE
                 }?.addOnFailureListener { e ->
                     isShimmerOn(false, isGrid)
@@ -148,7 +144,7 @@ class SmartBooksFragment : Fragment() {
 
             // eBook Open and Redeem Points
             bookListAdapter = BookListAdapter { bookCode ->
-                redeemPoints(bookCode)
+                PointManager.redeemPointsOpenEBook(requireActivity(), bookCode)
             }
 
             //redeemPoints("List")
@@ -163,7 +159,7 @@ class SmartBooksFragment : Fragment() {
                 ?.get()?.addOnSuccessListener { querySnapshot ->
                     isShimmerOn(false, isGrid = false)
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
-                    bookListAdapter.updateBooks(books)
+                    bookListAdapter.updateBooks(books, true)
                     binding.btnViewAll.visibility = View.VISIBLE
                 }?.addOnFailureListener { e ->
                     isShimmerOn(false, isGrid)
@@ -171,26 +167,6 @@ class SmartBooksFragment : Fragment() {
                         .show()
                     binding.btnViewAll.visibility = View.VISIBLE
                 }
-        }
-    }
-
-    private fun redeemPoints(bookCode: String) {
-        val database = Firebase.database
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-
-        val userRef = database.getReference("Users/$userId/points")
-        userRef.get().addOnSuccessListener { snapshot ->
-            val currentPoints = snapshot.value?.toString()?.toInt() ?: 0
-            if (currentPoints >= SmartConfig.REDEEM_POINT) {
-                val newPoints = currentPoints - SmartConfig.REDEEM_POINT
-
-                val intent = Intent(requireContext(), BookDetailsActivity::class.java)
-                userRef.setValue(newPoints)
-                intent.putExtra("BOOK_CODE", bookCode)
-                startActivity(intent)
-            } else {
-                Toast.makeText(requireActivity(), "Not enough points!", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 

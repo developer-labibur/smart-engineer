@@ -3,7 +3,6 @@ package com.rudhashi.smartengineer.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MenuInflater
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -22,9 +20,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemNoticeBinding
@@ -32,6 +27,7 @@ import com.rudhashi.smartengineer.model.Notice
 import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.formatTimestampToRelativeTime
+import kotlin.properties.Delegates
 
 class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) :
     RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
@@ -40,6 +36,7 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
     private val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
     private val databaseRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/Notice")
     private val loveCountRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/CountNoticeLove")
+    private var isRandom by Delegates.notNull<Boolean>()
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticeViewHolder {
@@ -58,8 +55,9 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
 
     // Update the notice list with new data
     @SuppressLint("NotifyDataSetChanged")
-    fun updateNoticeList(newNoticeList: List<Notice>) {
+    fun updateNoticeList(newNoticeList: List<Notice>, isRandom: Boolean) {
         noticeList = newNoticeList
+        this.isRandom = isRandom
         notifyDataSetChanged() // Notify the adapter that the data has changed
     }
 
@@ -85,14 +83,16 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
 
                 // Random Gradient Background Color Programmatically
                 val number = SmartData.randomNumber(6)
-                when (number) {
-                    1 -> setUpLoveButton(btnLove, notice, R.drawable.abc_blue_main, R.drawable.abc_blue_main, R.drawable.abc_blue_light)
-                    2 -> setUpLoveButton(btnLove, notice, R.drawable.abc_green_main, R.drawable.abc_green_main, R.drawable.abc_green_light)
-                    3 -> setUpLoveButton(btnLove, notice, R.drawable.abc_pink_main, R.drawable.abc_pink_main, R.drawable.abc_pink_light)
-                    4 -> setUpLoveButton(btnLove, notice, R.drawable.abc_orange_main, R.drawable.abc_orange_main, R.drawable.abc_orange_light)
-                    5 -> setUpLoveButton(btnLove, notice, R.drawable.abc_purple_main, R.drawable.abc_purple_main, R.drawable.abc_purple_light)
-                    6 -> setUpLoveButton(btnLove, notice, R.drawable.abc_red_main, R.drawable.abc_red_main, R.drawable.abc_red_light)
-                    else -> setUpLoveButton(btnLove, notice, R.drawable.abc_blue_main, R.drawable.abc_blue_main, R.drawable.abc_blue_light)
+                if (isRandom){
+                    when (number) {
+                        1 -> setUpLoveButton(btnLove, notice, R.drawable.abc_blue_main, R.drawable.abc_blue_main, R.drawable.abc_blue_light)
+                        2 -> setUpLoveButton(btnLove, notice, R.drawable.abc_green_main, R.drawable.abc_green_main, R.drawable.abc_green_light)
+                        3 -> setUpLoveButton(btnLove, notice, R.drawable.abc_pink_main, R.drawable.abc_pink_main, R.drawable.abc_pink_light)
+                        4 -> setUpLoveButton(btnLove, notice, R.drawable.abc_orange_main, R.drawable.abc_orange_main, R.drawable.abc_orange_light)
+                        5 -> setUpLoveButton(btnLove, notice, R.drawable.abc_purple_main, R.drawable.abc_purple_main, R.drawable.abc_purple_light)
+                        6 -> setUpLoveButton(btnLove, notice, R.drawable.abc_red_main, R.drawable.abc_red_main, R.drawable.abc_red_light)
+                        else -> setUpLoveButton(btnLove, notice, R.drawable.abc_blue_main, R.drawable.abc_blue_main, R.drawable.abc_blue_light)
+                    }
                 }
 
                 // Format and display the timestamp

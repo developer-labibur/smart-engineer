@@ -22,8 +22,6 @@ class NoticeFragment : Fragment() {
     private var db : FirebaseFirestore? = null
     val auth = FirebaseAuth.getInstance()
     val firestore = FirebaseFirestore.getInstance()
-    val realtimeDB = FirebaseDatabase.getInstance().reference
-    private val noticeList = mutableListOf<Notice>()
     // RecyclerView Adapter
     private lateinit var noticeAdapter: NoticeAdapter // Replace with your RecyclerView adapter
 
@@ -68,7 +66,7 @@ class NoticeFragment : Fragment() {
                             notices.add(notice)
                         }
                     }
-                    noticeAdapter.updateNoticeList(notices) // Update the adapter
+                    noticeAdapter.updateNoticeList(notices, false) // Update the adapter
                 }
             }
     }
@@ -88,35 +86,4 @@ class NoticeFragment : Fragment() {
                 noticeAdapter.notifyDataSetChanged()
             }
     }
-/*
-    override fun onStart() {
-        super.onStart()
-        setupFirestoreListener()
-    }
-
-    private fun setupFirestoreListener() {
-        listenerRegistration = firestoreDB?.collection("polytechnic_notice")
-            ?.orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING) // Order by timestamp in descending order
-            ?.addSnapshotListener { snapshots, e ->
-                if (e != null) {
-                    // Handle the error
-                    Toast.makeText(requireActivity(), "Error fetching data: ${e.message}", Toast.LENGTH_SHORT).show()
-                    return@addSnapshotListener
-                }
-
-                // Update the RecyclerView with the latest data
-                if (snapshots != null) {
-                    val updatedList = snapshots.documents.map { document ->
-                        document.toObject(Notice::class.java)!! // Map each document to your data model
-                    }
-                    adapter.updateNoticeList(updatedList) // Update the adapter with the new list
-                }
-            }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        listenerRegistration?.remove()
-    }
-*/
 }

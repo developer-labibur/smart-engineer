@@ -1,6 +1,5 @@
 package com.rudhashi.smartengineer.container
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,19 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.adapter.BookGridAdapter
 import com.rudhashi.smartengineer.adapter.BookListAdapter
 import com.rudhashi.smartengineer.databinding.FragmentViewAllBookBinding
+import com.rudhashi.smartengineer.manager.PointManager
 import com.rudhashi.smartengineer.model.Book
-import com.rudhashi.smartengineer.util.SmartConfig
 import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.view.BookDetailsActivity
 
 class ViewAllBookFragment : Fragment() {
 
@@ -40,7 +35,7 @@ class ViewAllBookFragment : Fragment() {
 
         // eBook Open and Redeem Points
         bookGridAdapter = BookGridAdapter { bookCode ->
-            redeemPoints(bookCode)
+            PointManager.redeemPointsOpenEBook(requireActivity(), bookCode)
         }
 
         binding.apply {
@@ -120,7 +115,7 @@ class ViewAllBookFragment : Fragment() {
                 ?.get()?.addOnSuccessListener { querySnapshot ->
                     isShimmerOn(false, isGrid = true)
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
-                    bookGridAdapter.setData(books)
+                    bookGridAdapter.setData(books, false)
                 }?.addOnFailureListener { e ->
                     isShimmerOn(false, isGrid)
                     Toast.makeText(requireActivity(), "Failed to fetch books: ${e.message}", Toast.LENGTH_SHORT)
@@ -132,7 +127,7 @@ class ViewAllBookFragment : Fragment() {
 
             // eBook Open and Redeem Points
             bookListAdapter = BookListAdapter { bookCode ->
-                redeemPoints(bookCode)
+                PointManager.redeemPointsOpenEBook(requireActivity(), bookCode)
             }
 
             val layoutParams = binding.rvBook.layoutParams
@@ -144,32 +139,12 @@ class ViewAllBookFragment : Fragment() {
                 ?.get()?.addOnSuccessListener { querySnapshot ->
                     isShimmerOn(false, isGrid = false)
                     val books = querySnapshot.documents.mapNotNull { it.toObject(Book::class.java) }
-                    bookListAdapter.updateBooks(books)
+                    bookListAdapter.updateBooks(books, false)
                 }?.addOnFailureListener { e ->
                     isShimmerOn(false, isGrid)
                     Toast.makeText(requireActivity(), "Failed to fetch books: ${e.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
-        }
-    }
-
-    private fun redeemPoints(bookCode: String) {
-        val database = Firebase.database
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-
-        val userRef = database.getReference("Users/$userId/points")
-        userRef.get().addOnSuccessListener { snapshot ->
-            val currentPoints = snapshot.value?.toString()?.toInt() ?: 0
-            if (currentPoints >= SmartConfig.REDEEM_POINT) {
-                val newPoints = currentPoints - SmartConfig.REDEEM_POINT
-
-                val intent = Intent(requireContext(), BookDetailsActivity::class.java)
-                userRef.setValue(newPoints)
-                intent.putExtra("BOOK_CODE", bookCode)
-                startActivity(intent)
-            } else {
-                Toast.makeText(requireActivity(), "Not enough points!", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".page.AboutUsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/sl_icon"
+            android:paddingStart="9dp"
+            android:paddingEnd="11dp"
+            android:src="@drawable/sl_left_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/hind_siliguri"
+            android:singleLine="true"
+            android:text="@string/about_us"
+            android:textColor="@color/mainContainer_HeadingText"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/sideBarLogo"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="30dp"
+                android:contentDescription="@string/sl_icon"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:id="@+id/tvOurMission"
+                    style="@style/tv_center_heading"
+                    android:text="@string/our_mission"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/mainContainer_SubHeadingText"
+                    app:layout_constraintBottom_toBottomOf="@id/tvOurMission"
+                    app:layout_constraintEnd_toEndOf="@+id/tvOurMission"
+                    app:layout_constraintStart_toStartOf="@+id/tvOurMission" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="@string/our_mission_info_text"
+                style="@style/tv_center_paragraph" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:id="@+id/tvAboutUs"
+                    style="@style/tv_center_heading"
+                    android:text="@string/about_us"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/mainContainer_SubHeadingText"
+                    app:layout_constraintBottom_toBottomOf="@id/tvAboutUs"
+                    app:layout_constraintEnd_toEndOf="@+id/tvAboutUs"
+                    app:layout_constraintStart_toStartOf="@+id/tvAboutUs" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="@string/about_info"
+                style="@style/tv_center_paragraph" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:id="@+id/tvContactUs"
+                    style="@style/tv_center_heading"
+                    android:text="@string/contact_us"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/mainContainer_SubHeadingText"
+                    app:layout_constraintBottom_toBottomOf="@id/tvContactUs"
+                    app:layout_constraintEnd_toEndOf="@+id/tvContactUs"
+                    app:layout_constraintStart_toStartOf="@+id/tvContactUs" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/linkFB"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/fb_link"
+                android:drawableStart="@drawable/sl_facebook_media_network"
+                style="@style/tv_center_paragraph"
+                tools:ignore="UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/linkYT"
+                android:layout_width="wrap_content"
+                android:text="@string/yt_link"
+                android:drawableStart="@drawable/sl_media_network_social"
+                style="@style/tv_center_paragraph"
+                tools:ignore="UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/linkMail"
+                android:layout_width="wrap_content"
+                android:text="@string/mail_link"
+                android:drawableStart="@drawable/sl_google_media_network"
+                style="@style/tv_center_paragraph"
+                tools:ignore="UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/linkWeb"
+                android:layout_width="wrap_content"
+                android:text="@string/web_link"
+                android:drawableStart="@drawable/sl_firefox_media_network"
+                style="@style/tv_center_paragraph"
+                tools:ignore="UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:text="@string/tv_center_footer"
+                style="@style/tv_center_paragraph" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

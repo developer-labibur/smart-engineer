@@ -44,6 +44,8 @@
     <!-- For Unique Style -->
     <color name="underlineText">#80622A</color>
     <color name="ic_light">#D5DDFA</color>
+    <color name="ic_secoundary">#183C57</color>
+    <color name="ic_optional">#435868</color>
 
     <!-- Bottom Nav Bar color -->
     <color name="bottom_nav_bg">#1B1B1B</color>

@@ -91,7 +91,7 @@ class ViewAllUpdateFragment : Fragment() {
                             isShimmerOn(false)
                         }
                     }
-                    noticeAdapter.updateNoticeList(notices) // Update the adapter
+                    noticeAdapter.updateNoticeList(notices, false) // Update the adapter
                     // Ensure data is loaded before setting the height
 
                 }
