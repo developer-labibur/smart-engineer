@@ -289,7 +289,8 @@
     <string name="daily_login_bonus">Daily login to Smart Engineer app and collect daily %1$s bonus Smart Points</string>
     <string name="new_user_signup_bonus">Create a new account on Smart Engineer app and get %1$s bonus Smart Points</string>
     <string name="_smart_points">%1$s Smart Points</string>
-    <string name="not_thanks">Not Thanks</string>
+    <string name="no_thanks">No Thanks</string>
+    <string name="not_now">Not Now</string>
     <string name="not_enough_points">Not Enough Points</string>
     <string name="do_not_have_enough_points">You don\'t have enough points. Watch a video to get</string>
     <string name="watch_ad">Watch Ad</string>

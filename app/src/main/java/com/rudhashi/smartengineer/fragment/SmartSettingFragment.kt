@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.TestActivity
 import com.rudhashi.smartengineer.databinding.DialogChangeDepartmentBinding
 import com.rudhashi.smartengineer.databinding.DialogLogoutWarningBinding
 import com.rudhashi.smartengineer.databinding.FragmentSmartSettingBinding
@@ -71,7 +72,7 @@ class SmartSettingFragment : Fragment() {
             }
 
             // Special Section --------------------------------
-            sBtnInstitute.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            sBtnInstitute.setOnClickListener { startActivity(Intent(requireActivity(), TestActivity::class.java)) }
             sBtnDepartment.setOnClickListener { SmartData.comingSoon(requireActivity()) }
             sBtnRecycling.setOnClickListener { SmartData.comingSoon(requireActivity()) }
             sBtnCommunity.setOnClickListener { SmartData.comingSoon(requireActivity()) }

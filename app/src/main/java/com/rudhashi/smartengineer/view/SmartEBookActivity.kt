@@ -15,6 +15,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -41,19 +42,23 @@ import okhttp3.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
+import kotlin.concurrent.thread
 
 class SmartEBookActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySmartEbookBinding
     private lateinit var pdfView: PDFView
-    private lateinit var loadPdf: String
-
+    private lateinit var cachedFilePath: String
     private lateinit var pdfUrl: String
     private lateinit var pdfName: String
     private lateinit var pdfNo: String
     private lateinit var bookCode: String
     private lateinit var bookName: String
     private lateinit var key: String
+
+    private var cachedFile: File? = null
 
     private var isPageNumberVisible = true
     private var isPortraitMode = false
@@ -82,20 +87,19 @@ class SmartEBookActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         pdfView = binding.pdfView
-        pdfName = intent.getStringExtra("UName").toString()
-        pdfUrl = intent.getStringExtra("UPdf").toString()
-        pdfNo = intent.getStringExtra("UNo").toString()
-        bookCode = intent.getStringExtra("BCode").toString()
-        bookName = intent.getStringExtra("BName").toString()
-        key = intent.getStringExtra("Key").toString()
-        loadPdf = when (key) {
-            "notBook" -> pdfUrl
-            else -> SmartConfig.PDF_SERVER_LINK + pdfUrl
-        }
+        pdfName = intent.getStringExtra("UName") ?: ""
+        cachedFilePath = intent.getStringExtra("cachedFilePath") ?: ""
+        pdfUrl = intent.getStringExtra("UPdf") ?: ""
+        pdfNo = intent.getStringExtra("UNo") ?: ""
+        bookCode = intent.getStringExtra("BCode") ?: ""
+        bookName = intent.getStringExtra("BName") ?: ""
+        key = intent.getStringExtra("Key") ?: ""
+
+        cachedFile = if (cachedFilePath != null) File(cachedFilePath) else null
+        displayPDF(pdfUrl, cachedFile)
 
         binding.apply {
             isLoading(true)
-            downloadAndDisplayPDF(loadPdf)
             tvUnitTitle.text = pdfName
 
             // Set up Back Button Function
@@ -113,7 +117,7 @@ class SmartEBookActivity : AppCompatActivity() {
                 isPageFling = false
                 isHorizontal = true
                 isAutoSpacing = false
-                downloadAndDisplayPDF(loadPdf)
+                displayPDF(pdfUrl, cachedFile)
                 setPdfSeekBarIcon(btnHorizontal)
                 btnVertical.setBackgroundResource(R.color.transparent)
                 btnSwipeVertical.setBackgroundResource(R.color.transparent)
@@ -126,7 +130,7 @@ class SmartEBookActivity : AppCompatActivity() {
                 isPageFling = false
                 isHorizontal = false
                 isAutoSpacing = false
-                downloadAndDisplayPDF(loadPdf)
+                displayPDF(pdfUrl, cachedFile)
                 setPdfSeekBarIcon(btnVertical)
                 btnHorizontal.setBackgroundResource(R.color.transparent)
                 btnSwipeVertical.setBackgroundResource(R.color.transparent)
@@ -139,7 +143,7 @@ class SmartEBookActivity : AppCompatActivity() {
                 isPageFling = true
                 isHorizontal = true
                 isAutoSpacing = true
-                downloadAndDisplayPDF(loadPdf)
+                displayPDF(pdfUrl, cachedFile)
                 setPdfSeekBarIcon(btnSwipeHorizontal)
                 btnVertical.setBackgroundResource(R.color.transparent)
                 btnHorizontal.setBackgroundResource(R.color.transparent)
@@ -152,7 +156,7 @@ class SmartEBookActivity : AppCompatActivity() {
                 isPageFling = true
                 isHorizontal = false
                 isAutoSpacing = true
-                downloadAndDisplayPDF(loadPdf)
+                displayPDF(pdfUrl, cachedFile)
                 setPdfSeekBarIcon(btnSwipeVertical)
                 btnVertical.setBackgroundResource(R.color.transparent)
                 btnHorizontal.setBackgroundResource(R.color.transparent)
@@ -187,69 +191,95 @@ class SmartEBookActivity : AppCompatActivity() {
 
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
 
-
     // =====================================================================================================================
     // ===============================       Download PDF Temporary and Display      =======================================
     // =====================================================================================================================
-    private fun downloadAndDisplayPDF(urlPDF: String) {
-        val client = OkHttpClient()
-        val request = Request.Builder().url(urlPDF).build()
+    private fun displayPDF(urlPDF: String, cachedFile: File? = null) {
+        if (cachedFile != null && cachedFile.exists()) {
+            // Load PDF from cached file
+            pdfView.fromFile(cachedFile)
+                .enableSwipe(true)  // allows to block changing pages using swipe
+                .swipeHorizontal(isHorizontal)  // Enable horizontal swipe
+                .enableDoubletap(true)
+                .defaultPage(currentPage)  // Start from the currentPage
+                .onLoad { handleOnLoad() }
+                .onError { handlesOnError() }
+                .onPageError { page, t -> handlesOnPageError(page, t) }
+                .onTap { handleOnTap() } // called on single tap, return true if handled, false to toggle scroll handle visibility
+                .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
+                .scrollHandle(null) // Adds a default scroll handle => .scrollHandle(DefaultScrollHandle(this))
+                .enableAntialiasing(true) // improve rendering a little bit on low-res screens
+                .spacing(if (isAutoSpacing) 0 else 10) // Adds consistent spacing between pages, so the layout looks cleaner.
+                .autoSpacing(false) // add dynamic spacing to fit each page on its own on the screen
+                .pageFitPolicy(FitPolicy.WIDTH) // mode to fit pages in the view
+                .fitEachPage(true) // fit each page to the view, else smaller pages are scaled relative to largest page.
+                .pageSnap(isPageFling)
+                .autoSpacing(isAutoSpacing)
+                .pageFling(isPageFling)  // Page-flipping effect
+                .nightMode(ThemeManager.isDarkMode(this@SmartEBookActivity)) // toggle night mode
+                .onPageChange { page, pageCount -> handlePageChange(page, pageCount) }
+                .load()
+        } else {
+            // Load PDF from URL
+            val client = OkHttpClient()
+            val request = Request.Builder().url(urlPDF).build()
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-                isLoading(false)
-            }
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    e.printStackTrace()
+                    isLoading(false)
+                }
 
-            override fun onResponse(call: Call, response: Response) {
-                response.body?.let { body ->
-                    val file = File(filesDir, "downloaded.pdf")
-                    val fos = FileOutputStream(file)
-                    fos.write(body.bytes())
-                    fos.close()
-
-                    runOnUiThread {
-                        // Set up PDF Viewer
-                        pdfView.fromFile(file)
-                            .enableSwipe(true)  // allows to block changing pages using swipe
-                            .swipeHorizontal(isHorizontal)  // Enable horizontal swipe
-                            .enableDoubletap(true)
-                            .defaultPage(currentPage)  // Start from the currentPage
-                            .onLoad { handleOnLoad() }
-                            .onError { handlesOnError() }
-                            .onPageError { page, t -> handlesOnPageError(page, t) }
-                            .onTap { handleOnTap() } // called on single tap, return true if handled, false to toggle scroll handle visibility
-                            .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
-                            .scrollHandle(null) // Adds a default scroll handle => .scrollHandle(DefaultScrollHandle(this))
-                            .enableAntialiasing(true) // improve rendering a little bit on low-res screens
-                            .spacing(if (isAutoSpacing) 0 else 10)//Adds consistent spacing between pages, so the layout looks cleaner.
-                            .autoSpacing(false) // add dynamic spacing to fit each page on its own on the screen
-                            .pageFitPolicy(FitPolicy.WIDTH) // mode to fit pages in the view
-                            .fitEachPage(true) // fit each page to the view, else smaller pages are scaled relative to largest page.
-                            .pageSnap(isPageFling)
-                            .autoSpacing(isAutoSpacing)
-                            .pageFling(isPageFling)  // Page-flipping effect
-                            .nightMode(ThemeManager.isDarkMode(this@SmartEBookActivity)) // toggle night mode
-                            .onPageChange { page, pageCount -> handlePageChange(page, pageCount) }
-                            .load()
+                override fun onResponse(call: Call, response: Response) {
+                    response.body?.let { body ->
+                        val bytes = body.bytes()
+                        runOnUiThread {
+                            pdfView.fromBytes(bytes)
+                                .enableSwipe(true)  // allows to block changing pages using swipe
+                                .swipeHorizontal(isHorizontal)  // Enable horizontal swipe
+                                .enableDoubletap(true)
+                                .defaultPage(currentPage)  // Start from the currentPage
+                                .onLoad { handleOnLoad() }
+                                .onError { handlesOnError() }
+                                .onPageError { page, t -> handlesOnPageError(page, t) }
+                                .onTap { handleOnTap() } // called on single tap, return true if handled, false to toggle scroll handle visibility
+                                .enableAnnotationRendering(false) // render annotations (such as comments, colors or forms)
+                                .scrollHandle(null) // Adds a default scroll handle => .scrollHandle(DefaultScrollHandle(this))
+                                .enableAntialiasing(true) // improve rendering a little bit on low-res screens
+                                .spacing(if (isAutoSpacing) 0 else 10) // Adds consistent spacing between pages, so the layout looks cleaner.
+                                .autoSpacing(false) // add dynamic spacing to fit each page on its own on the screen
+                                .pageFitPolicy(FitPolicy.WIDTH) // mode to fit pages in the view
+                                .fitEachPage(true) // fit each page to the view, else smaller pages are scaled relative to largest page.
+                                .pageSnap(isPageFling)
+                                .autoSpacing(isAutoSpacing)
+                                .pageFling(isPageFling)  // Page-flipping effect
+                                .nightMode(ThemeManager.isDarkMode(this@SmartEBookActivity)) // toggle night mode
+                                .onPageChange { page, pageCount -> handlePageChange(page, pageCount) }
+                                .load()
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }
+
     // =====================================================================================================================
     // ===================================       PDF Viewer Helper Functions      ==========================================
     // =====================================================================================================================
 
     // Handle onError ------------------------------------------------------------------------------------------------
     private fun handlesOnError(){
-        Snackbar.make(binding.root, "Failed to load eBook", Snackbar.LENGTH_LONG).setAction("Retry") { downloadAndDisplayPDF(loadPdf) }.show()
+        Snackbar.make(binding.root, "Failed to load eBook", Snackbar.LENGTH_LONG).setAction("Retry") {
+            displayPDF(pdfUrl, cachedFile)
+        }.show()
     }
 
     // Handle onPageError ------------------------------------------------------------------------------------------------
     private fun handlesOnPageError(page: Int, t: Throwable){
         // Show Snackbar for error notification
-        Snackbar.make(binding.root,"Failed to load page ${page + 1}: ${t.message}", Snackbar.LENGTH_LONG).setAction("Retry") {downloadAndDisplayPDF(loadPdf) }.show()
+        Snackbar.make(binding.root,"Failed to load page ${page + 1}: ${t.message}", Snackbar.LENGTH_LONG).setAction("Retry") {
+            displayPDF(pdfUrl, cachedFile)
+        }.show()
     }
     // Handle onTap ------------------------------------------------------------------------------------------------
     private fun handleOnTap(): Boolean {

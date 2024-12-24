@@ -36,20 +36,24 @@ import com.rudhashi.smartengineer.model.BookUnit
 import com.rudhashi.smartengineer.model.CategoryDataClass
 import com.rudhashi.smartengineer.model.Semester
 import com.rudhashi.smartengineer.util.ConvertFB
+import com.rudhashi.smartengineer.util.PdfUtils
 import com.rudhashi.smartengineer.util.SmartData
 import com.rudhashi.smartengineer.util.SmartThemeActivity
+import java.io.File
 import kotlin.properties.Delegates
 
 class BookDetailsActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivityBookDetailsBinding
     private lateinit var db: FirebaseFirestore
-    private lateinit var unitAdapter: UnitAdapter
+    //private lateinit var unitAdapter: UnitAdapter
 
     // Update type for the unit list and adapter
     private val unitList = mutableListOf<BookUnit>()
     private val tagInfo = "BookDetailsActivity"
     private var isFullDes by Delegates.notNull<Boolean>()
+
+    private lateinit var bookCode: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,12 +74,11 @@ class BookDetailsActivity : SmartThemeActivity() {
         db = FirebaseFirestore.getInstance()
 
         // Get Book Code from intent and load units
-        val bookCode = intent.getStringExtra("BOOK_CODE")
+        bookCode = intent.getStringExtra("BOOK_CODE").toString()
+        binding.unitRecyclerView.layoutManager = LinearLayoutManager(this)
 
         if (bookCode != null) {
             // Initialize RecyclerView
-            setupRecyclerView(bookCode)
-
             loadBooksAndUnits(bookCode)
             fetchBookDetails(bookCode) // Fetch the book details including xDep and xSem
             updateBookViewCount(bookCode) // Call this function to handle the view count
@@ -88,14 +91,22 @@ class BookDetailsActivity : SmartThemeActivity() {
         binding.btnPremium.setOnClickListener { startActivity(Intent(this, SmartPointActivity::class.java)) }
     }
 
-    private fun setupRecyclerView(bookCode: String) {
-        // Set up the RecyclerView with UnitAdapter
-        unitAdapter = UnitAdapter(this, unitList, bookCode)
-        binding.unitRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@BookDetailsActivity)
-            adapter = unitAdapter
+    private fun downloadPdf(bookUnit: BookUnit) {
+        val cachedFile = getCachedPdfFile(bookUnit.UName)
+        if (cachedFile.exists()) {
+            Toast.makeText(this, "Already downloaded", Toast.LENGTH_SHORT).show()
+        } else {
+            PdfUtils.downloadPdf(this, bookUnit.UPdf, cachedFile) {
+                Toast.makeText(this, "Downloaded ${bookUnit.UName}", Toast.LENGTH_SHORT).show()
+                binding.unitRecyclerView.adapter?.notifyDataSetChanged() // Refresh RecyclerView
+            }
         }
     }
+
+    private fun getCachedPdfFile(unitName: String): File {
+        return File(cacheDir, "$unitName.pdf")
+    }
+
 
     private fun loadBooksAndUnits(bookCode: String) {
         db.collection("books").document(bookCode)
@@ -175,7 +186,20 @@ class BookDetailsActivity : SmartThemeActivity() {
             val unit = document.toObject(BookUnit::class.java)
             unitList.add(unit)
         }
-        unitAdapter.notifyDataSetChanged() // Refresh adapter to display new data
+        binding.unitRecyclerView.adapter = UnitAdapter(this, unitList, bookCode) { bookUnit, action ->
+            when (action) {
+                "view" -> openSmartEBookActivity(bookUnit)
+                "download" -> loadBooksAndUnits(bookCode)
+            }
+        }
+        //unitAdapter.notifyDataSetChanged() // Refresh adapter to display new data
+    }
+
+    private fun openSmartEBookActivity(bookUnit: BookUnit) {
+        val intent = Intent(this, SmartEBookActivity::class.java)
+        intent.putExtra("UName", bookUnit.UName)
+        intent.putExtra("UPdf", bookUnit.UPdf)
+        startActivity(intent)
     }
 
     private fun fetchBookDetails(bookCode: String) {
