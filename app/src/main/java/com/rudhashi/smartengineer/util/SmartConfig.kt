@@ -12,6 +12,7 @@ class SmartConfig {
         const val DAILY_LOGIN_BONUS_POINT = 100
         const val WATCH_VIDEO_BONUS_POINT = 25
         const val REDEEM_POINT = 10
+        const val DOWNLOAD_PDF_REDEEM_POINT = 50
         const val PDF_REDEEM_POINT = 4
         const val LIKED_BONUS_POINT = 10
         const val UNLIKE_DEDUCT_POINT = 10

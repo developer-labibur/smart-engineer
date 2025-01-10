@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialogForgot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="15dp"
+    android:padding="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/btnClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/cross" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/download" />
+
+        <TextView
+            android:id="@+id/tvHeading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:lineSpacingExtra="-8dp"
+            android:text="@string/download"
+            android:textColor="#0068fa"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
+            app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
+            app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
+
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="@string/download_info_text"
+            android:textColor="@color/ic_light_only"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/tvHeading"
+            app:layout_constraintStart_toStartOf="@+id/tvHeading"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeading" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:background="@drawable/profile_edit_button"
+            android:clickable="true"
+            android:drawableStart="@drawable/sl_download_square"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/ic_dark_only"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/download"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvInfo" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="-12dp"
+            android:layout_marginEnd="35dp"
+            android:background="@color/clr2.1.1"
+            app:layout_constraintEnd_toEndOf="@+id/btnNotNow"
+            app:layout_constraintStart_toStartOf="@+id/btnNotNow"
+            app:layout_constraintTop_toBottomOf="@+id/btnNotNow" />
+
+        <TextView
+            android:id="@+id/btnNotNow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/main_font_regular_2"
+            android:gravity="center"
+            android:text="@string/not_now"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnDownload"
+            app:layout_constraintStart_toStartOf="@+id/btnDownload"
+            app:layout_constraintTop_toBottomOf="@+id/btnDownload" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

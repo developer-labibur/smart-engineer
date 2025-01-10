@@ -192,10 +192,6 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
             val location = IntArray(2)
             anchorView.getLocationOnScreen(location)
 
-            // Get the screen width
-            val displayMetrics = context.resources.displayMetrics
-            val screenWidth = displayMetrics.widthPixels
-
             // Set your desired right margin
             val rightMargin = 16 // Adjust this value to set the margin you want
 

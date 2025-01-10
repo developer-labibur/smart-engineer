@@ -59,7 +59,7 @@
             android:layout_margin="5dp"
             android:id="@+id/semImage"
             style="@style/btn_features_image"
-            android:background="@drawable/abc_blue_main"
+            android:background="@drawable/abc_orange_main"
             android:contentDescription="@string/sl_icon"
             android:src="@drawable/number_one"
             app:layout_constraintBottom_toBottomOf="parent"

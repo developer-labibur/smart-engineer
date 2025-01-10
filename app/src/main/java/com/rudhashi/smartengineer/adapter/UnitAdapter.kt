@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemBookUnitBinding
+import com.rudhashi.smartengineer.manager.DialogManager
 import com.rudhashi.smartengineer.manager.PointManager
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.BookUnit
@@ -60,7 +61,12 @@ class UnitAdapter(
         holder.itemView.setOnClickListener { onItemClick(unit, "view") }
         holder.downloadButton.setOnClickListener {
             if (cachedFile.exists()) Log.i("Unit", "File already exists")
-            else showDownloadDialog(context, unit)
+            else DialogManager.showDownloadDialog(
+                context as Activity,
+                "Download",
+                "Do you want to download this unit for offline read? - by using",
+                unit,
+                onItemClick)
         }
 
         FirebaseFirestore.getInstance().collection("books").document(bookCode).get()

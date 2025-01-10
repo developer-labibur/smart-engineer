@@ -46,7 +46,6 @@ class BookDetailsActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivityBookDetailsBinding
     private lateinit var db: FirebaseFirestore
-    //private lateinit var unitAdapter: UnitAdapter
 
     // Update type for the unit list and adapter
     private val unitList = mutableListOf<BookUnit>()
@@ -77,14 +76,10 @@ class BookDetailsActivity : SmartThemeActivity() {
         bookCode = intent.getStringExtra("BOOK_CODE").toString()
         binding.unitRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        if (bookCode != null) {
-            // Initialize RecyclerView
-            loadBooksAndUnits(bookCode)
-            fetchBookDetails(bookCode) // Fetch the book details including xDep and xSem
-            updateBookViewCount(bookCode) // Call this function to handle the view count
-        } else {
-            Log.e(tagInfo, "Book Code is null")
-        }
+        // Initialize RecyclerView
+        loadBooksAndUnits(bookCode)
+        fetchBookDetails(bookCode) // Fetch the book details including xDep and xSem
+        updateBookViewCount(bookCode) // Call this function to handle the view count
 
         CUserManager.points { binding.tvPoint.text = "$it" }
         binding.btnBack.setOnClickListener { finish() }
