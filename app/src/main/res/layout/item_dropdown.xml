@@ -9,6 +9,7 @@
     android:paddingStart="16dp"
     android:paddingTop="6dp"
     android:paddingEnd="16dp"
+    android:id="@+id/tv"
     android:paddingBottom="6dp"
     android:textAppearance="?attr/textAppearanceSubtitle1"
     app:drawableEndCompat="@drawable/sl_double_alt_arrow_right" />

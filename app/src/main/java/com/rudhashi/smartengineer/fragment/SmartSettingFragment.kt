@@ -22,17 +22,18 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.TestActivity
+import com.rudhashi.smartengineer.data.constants.Converters.dpToPx
 import com.rudhashi.smartengineer.databinding.DialogChangeDepartmentBinding
 import com.rudhashi.smartengineer.databinding.DialogLogoutWarningBinding
 import com.rudhashi.smartengineer.databinding.FragmentSmartSettingBinding
-import com.rudhashi.smartengineer.model.User
+import com.rudhashi.smartengineer.data.models.User
 import com.rudhashi.smartengineer.page.AboutUsActivity
-import com.rudhashi.smartengineer.util.GoogleAuthClient
-import com.rudhashi.smartengineer.util.MakeFirebaseEasy
-import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.old.util.GoogleAuthClient
+import com.rudhashi.smartengineer.old.util.MakeFirebaseEasy
+import com.rudhashi.smartengineer.old.util.SmartData
 import com.rudhashi.smartengineer.view.DayNightActivity
 import com.rudhashi.smartengineer.view.MainActivity
-import com.rudhashi.smartengineer.view.ProfileActivity
+import com.rudhashi.smartengineer.ui.activities.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartPointActivity
 import kotlinx.coroutines.launch
 
@@ -107,7 +108,7 @@ class SmartSettingFragment : Fragment() {
                 try {
                     Glide.with(requireActivity())
                         .load(user?.picture?.let { MakeFirebaseEasy.currentUserImage(it) })
-                        .transform(RoundedCorners(SmartData.dpToPx(requireActivity(),10f)))
+                        .transform(RoundedCorners(dpToPx(requireActivity(),10f)))
                         .into(binding.ivProfilePicture)
                 } catch (e: Exception){
                     Log.i("TEST_SL", "Failed")

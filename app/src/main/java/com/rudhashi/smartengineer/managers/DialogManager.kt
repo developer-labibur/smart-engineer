@@ -1,4 +1,4 @@
-package com.rudhashi.smartengineer.manager
+package com.rudhashi.smartengineer.managers
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -9,18 +9,18 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
-import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.res.ResourcesCompat.getColor
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.DialogCongratulatuinBinding
 import com.rudhashi.smartengineer.databinding.DialogInfoBinding
+import com.rudhashi.smartengineer.databinding.DialogNegativeInfoBinding
 import com.rudhashi.smartengineer.databinding.DialogPdfDownloadBinding
 import com.rudhashi.smartengineer.databinding.DialogProgressBinding
 import com.rudhashi.smartengineer.databinding.DialogWatchAdsBinding
 import com.rudhashi.smartengineer.databinding.DialogWatchVideoBinding
+import com.rudhashi.smartengineer.manager.AdManager
 import com.rudhashi.smartengineer.model.BookUnit
-import com.rudhashi.smartengineer.util.SmartConfig
+import com.rudhashi.smartengineer.old.util.SmartConfig
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -35,6 +35,47 @@ object DialogManager {
 
     private var watchVideoBonusPoints = SmartConfig.WATCH_VIDEO_BONUS_POINT
     private var spendToDownload = SmartConfig.DOWNLOAD_PDF_REDEEM_POINT
+
+
+
+    // Negative Info Dialog ----------------------------------------------------------------
+    fun showNegativeInfoDialog(activity: Activity, lottie: Int, txtHeading: String, txtInfo: String, function: () -> Unit) {
+        val builder = AlertDialog.Builder(activity).create()
+        val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_negative_info, null)
+        val dialogBinding = DialogNegativeInfoBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.setCanceledOnTouchOutside(true)
+        builder.show()
+
+        dialogBinding.apply {
+            animView.setAnimation(lottie)
+            animView.playAnimation()
+            tvHeading.text = txtHeading
+            tvInfo.text = txtInfo
+            btnYes.setOnClickListener {
+                function()
+                builder.dismiss()
+            }
+            btnCross.setOnClickListener { builder.dismiss() }
+            btnCancel.setOnClickListener { builder.dismiss() }
+        }
+
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Congratulation Dialog View ----------------------------------------------------------------
     fun showCongratulationDialog(activity: Activity) {

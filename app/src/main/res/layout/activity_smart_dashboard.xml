@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sl_primary"
-    android:orientation="vertical"
-    tools:context=".dashboard.SmartDashboardActivity">
+    android:orientation="vertical">
 
     <!-- Engineer Avatar -->
     <ImageView
@@ -36,6 +35,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/btnProfile"
         app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
+
     <TextView
         android:id="@+id/tvE"
         android:layout_width="wrap_content"
@@ -50,6 +50,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tvSmart"
         app:layout_constraintTop_toBottomOf="@+id/tvSmart" />
+
     <TextView
         android:id="@+id/tvEngineer"
         android:layout_width="wrap_content"
@@ -63,6 +64,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tvE"
         app:layout_constraintTop_toTopOf="@+id/tvE" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,6 +76,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tvEngineer"
         app:layout_constraintTop_toTopOf="@+id/tvEngineer" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,6 +89,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvE"
         app:layout_constraintStart_toEndOf="@+id/tvE" />
+
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -103,7 +107,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:background="@drawable/bg_sl_premium_text_green"
+        android:background="@drawable/bg_sl_profile_text_green"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingEnd="5dp"
@@ -116,7 +120,7 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_margin="5dp"
-            android:background="@drawable/bg_sl_premium_box_green"
+            android:background="@drawable/bg_sl_profile_box_green"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -182,7 +186,7 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_margin="5dp"
-            android:background="@drawable/bg_sl_profile_box_golden"
+            android:background="@drawable/bg_sl_premium_box_golden"
             android:orientation="horizontal"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -191,9 +195,9 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animationView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:lottie_url="https://lottie.host/e64c0a22-b913-4a0d-bc5e-daa768ca93fd/8DGaZDmvma.lottie"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:lottie_rawRes="@raw/anim_premium_crown"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"/>
 
@@ -201,7 +205,7 @@
 
         <TextView
             android:id="@+id/tvPremium"
-            android:text="@string/smart_points"
+            android:text="@string/pro_member"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
             app:layout_constraintTop_toTopOf="@+id/ll_premium_icon"
@@ -215,9 +219,9 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/roboto"
             android:includeFontPadding="false"
-            android:text="@string/_00"
+            android:text="@string/_10"
             android:textColor="@color/sl_action_text_middle_red"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
@@ -231,7 +235,7 @@
             android:layout_marginBottom="-2dp"
             android:fontFamily="@font/main_font_regular_2"
             android:includeFontPadding="false"
-            android:text="@string/points"
+            android:text="/Month"
             android:textColor="@color/sl_primary_text"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/tvPoints"

@@ -30,8 +30,8 @@ import com.rudhashi.smartengineer.databinding.ActivitySmartEbookBinding
 import com.rudhashi.smartengineer.databinding.BottomSheetUnitsBinding
 import com.rudhashi.smartengineer.fragment.AnimationModeBottomSheet
 import com.rudhashi.smartengineer.model.BookUnit
-import com.rudhashi.smartengineer.util.PdfAnimation
-import com.rudhashi.smartengineer.util.SmartConfig
+import com.rudhashi.smartengineer.old.util.PdfAnimation
+import com.rudhashi.smartengineer.old.util.SmartConfig
 import com.ymg.pdf.viewer.PDFView
 import com.ymg.pdf.viewer.util.FitPolicy
 import okhttp3.Call

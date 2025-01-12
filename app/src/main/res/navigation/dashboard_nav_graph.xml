@@ -74,7 +74,7 @@
     </fragment>
     <activity
         android:id="@+id/profileActivity"
-        android:name="com.rudhashi.smartengineer.view.ProfileActivity"
+        android:name="com.rudhashi.smartengineer.ui.activities.ProfileActivity"
         android:label="activity_profile"
         tools:layout="@layout/activity_profile" />
 </navigation>

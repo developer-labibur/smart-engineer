@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.old.util.SmartData
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivityMainBinding
 

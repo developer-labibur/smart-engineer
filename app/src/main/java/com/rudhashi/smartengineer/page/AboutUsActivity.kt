@@ -8,8 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.rudhashi.smartengineer.databinding.ActivityAboutUsBinding
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.SmartThemeActivity
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.old.util.SmartThemeActivity
 
 class AboutUsActivity : SmartThemeActivity() {
 

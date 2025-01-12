@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.storage.FirebaseStorage
 import com.rudhashi.smartengineer.databinding.ActivityTestBinding
-import com.rudhashi.smartengineer.util.SmartThemeActivity
+import com.rudhashi.smartengineer.old.util.SmartThemeActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.net.HttpURLConnection

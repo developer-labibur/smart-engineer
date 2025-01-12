@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemBookListBinding
 import com.rudhashi.smartengineer.model.Book
-import com.rudhashi.smartengineer.util.MakeFirebaseEasy
-import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.old.util.MakeFirebaseEasy
+import com.rudhashi.smartengineer.old.util.SmartData
 import kotlin.properties.Delegates
 
 class BookListAdapter(

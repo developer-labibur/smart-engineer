@@ -28,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.toObject
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.adapter.UnitAdapter
+import com.rudhashi.smartengineer.data.constants.Converters.dpToPx
 import com.rudhashi.smartengineer.databinding.ActivityBookDetailsBinding
 import com.rudhashi.smartengineer.manager.AdManager
 import com.rudhashi.smartengineer.manager.CUserManager
@@ -35,10 +36,10 @@ import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.BookUnit
 import com.rudhashi.smartengineer.model.CategoryDataClass
 import com.rudhashi.smartengineer.model.Semester
-import com.rudhashi.smartengineer.util.ConvertFB
-import com.rudhashi.smartengineer.util.PdfUtils
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.SmartThemeActivity
+import com.rudhashi.smartengineer.old.util.ConvertFB
+import com.rudhashi.smartengineer.old.util.PdfUtils
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.old.util.SmartThemeActivity
 import java.io.File
 import kotlin.properties.Delegates
 
@@ -261,10 +262,10 @@ class BookDetailsActivity : SmartThemeActivity() {
             ).apply {
                 // Add margins to the TextView
                 setMargins(
-                    SmartData.dpToPx(this@BookDetailsActivity, 3f),
-                    SmartData.dpToPx(this@BookDetailsActivity, 5f),
-                    SmartData.dpToPx(this@BookDetailsActivity, 3f),
-                    SmartData.dpToPx(this@BookDetailsActivity, 5f)
+                    dpToPx(this@BookDetailsActivity, 3f),
+                    dpToPx(this@BookDetailsActivity, 5f),
+                    dpToPx(this@BookDetailsActivity, 3f),
+                    dpToPx(this@BookDetailsActivity, 5f)
                 )  // (left, top, right, bottom) margins in pixels
             }
 
@@ -318,10 +319,10 @@ class BookDetailsActivity : SmartThemeActivity() {
             ).apply {
                 // Add margins to the TextView
                 setMargins(
-                    SmartData.dpToPx(this@BookDetailsActivity, 3f),
-                    SmartData.dpToPx(this@BookDetailsActivity, 5f),
-                    SmartData.dpToPx(this@BookDetailsActivity, 3f),
-                    SmartData.dpToPx(this@BookDetailsActivity, 5f)
+                    dpToPx(this@BookDetailsActivity, 3f),
+                    dpToPx(this@BookDetailsActivity, 5f),
+                    dpToPx(this@BookDetailsActivity, 3f),
+                    dpToPx(this@BookDetailsActivity, 5f)
                 )  // (left, top, right, bottom) margins in pixels
             }
 

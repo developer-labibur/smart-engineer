@@ -8,10 +8,11 @@ import androidx.core.view.WindowInsetsCompat
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivitySmartPointBinding
 import com.rudhashi.smartengineer.manager.CUserManager
-import com.rudhashi.smartengineer.manager.DialogManager
+import com.rudhashi.smartengineer.managers.DialogManager
 import com.rudhashi.smartengineer.manager.PointManager
-import com.rudhashi.smartengineer.util.SmartConfig
-import com.rudhashi.smartengineer.util.SmartThemeActivity
+import com.rudhashi.smartengineer.ui.activities.ProfileActivity
+import com.rudhashi.smartengineer.old.util.SmartConfig
+import com.rudhashi.smartengineer.old.util.SmartThemeActivity
 
 class SmartPointActivity : SmartThemeActivity() {
 

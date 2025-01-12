@@ -1,4 +1,4 @@
-package com.rudhashi.smartengineer.util
+package com.rudhashi.smartengineer.old.util
 
 import com.rudhashi.smartengineer.model.ImageUploadResponse
 import okhttp3.MultipartBody

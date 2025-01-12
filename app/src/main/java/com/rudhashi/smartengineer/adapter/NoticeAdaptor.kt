@@ -24,9 +24,9 @@ import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemNoticeBinding
 import com.rudhashi.smartengineer.model.Notice
-import com.rudhashi.smartengineer.util.SmartConfig
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.formatTimestampToRelativeTime
+import com.rudhashi.smartengineer.old.util.SmartConfig
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.old.util.formatTimestampToRelativeTime
 import kotlin.properties.Delegates
 
 class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) :

@@ -1,7 +1,8 @@
-package com.rudhashi.smartengineer.util
+package com.rudhashi.smartengineer.old.util
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.rudhashi.smartengineer.data.constants.GetSet.getCurrentDate
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +39,16 @@ class AuthRepository {
                                 //val userInfo = Users(id, name, "", email, "User")
                                 //database.reference.child("Users").child(id).setValue(userInfo)
 
-                                MakeFirebaseEasy.updateUserInfo(name, email, "", "User", id, SmartData.getCurrentDate(), SmartConfig.NEW_USER_SIGNUP_BONUS_POINT, SmartConfig.NEW_USER_SIGNUP_BONUS_POINT)
+                                MakeFirebaseEasy.updateUserInfo(
+                                    name,
+                                    email,
+                                    "",
+                                    "User",
+                                    id,
+                                    getCurrentDate(),
+                                    SmartConfig.NEW_USER_SIGNUP_BONUS_POINT,
+                                    SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
+                                )
                                 continuation.resume(login(email = email, password = password))
                             }
                         } else{

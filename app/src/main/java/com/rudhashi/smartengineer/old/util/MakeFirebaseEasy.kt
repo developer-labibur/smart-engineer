@@ -1,4 +1,4 @@
-package com.rudhashi.smartengineer.util
+package com.rudhashi.smartengineer.old.util
 
 import android.net.Uri
 import android.util.Log
@@ -13,6 +13,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.model.Department
 import com.rudhashi.smartengineer.model.Semester
@@ -81,28 +82,71 @@ class MakeFirebaseEasy {
                 }
             return allDepartment
         }
-        fun uploadProfileImage(selectedImage: Uri, uid: String) {
-            // Prepare the file for upload
-            val file = File(selectedImage.path!!)
-            val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-            val profileImagePart =
-                MultipartBody.Part.createFormData("profile_image", "$uid.jpg", requestFile)
-            val uidBody = uid.toRequestBody("text/plain".toMediaTypeOrNull())
+        fun uploadProfileImage(
+            selectedImage: Uri,
+            uid: String,
+            onUploadSuccess: (String) -> Unit,
+            useFirebaseStorage: Boolean = true
+        ) {
+            if (useFirebaseStorage) {
+                // Firebase Storage Upload
+                val storageRef = FirebaseStorage.getInstance().reference.child("profileImages/$uid.jpg")
+                storageRef.putFile(selectedImage)
+                    .addOnSuccessListener {
+                        storageRef.downloadUrl.addOnSuccessListener { uri ->
+                            val imageUrl = uri.toString()
 
-            // Launch the image upload in a Coroutine
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    val response =
-                        RetrofitClient.apiService.uploadProfileImage(profileImagePart, uidBody)
-                    if (response.isSuccessful && response.body() != null) {
-                        val userImgURL = response.body()!!.url
-                        Firebase.database.reference.child("Users").child(uid).child("picture").setValue(userImgURL)
+                            // Update Firestore with the image URL
+                            val firestore = FirebaseFirestore.getInstance()
+                            val userRef = firestore.collection("users").document(uid)
+
+                            userRef.update("picture", imageUrl)
+                                .addOnSuccessListener {
+                                    onUploadSuccess(imageUrl)
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("Firestore", "Failed to update Firestore with image URL: ${e.message}")
+                                }
+                        }.addOnFailureListener { e ->
+                            Log.e("FirebaseStorage", "Failed to retrieve download URL: ${e.message}")
+                        }
                     }
-                } catch (e: Exception) {
-                    Log.e("uploadProfileImage", "Error uploading image", e)
+                    .addOnFailureListener { e ->
+                        Log.e("FirebaseStorage", "Failed to upload image: ${e.message}")
+                    }
+            } else {
+                // External Server Upload via Retrofit
+                val file = File(selectedImage.path!!)
+                val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                val profileImagePart =
+                    MultipartBody.Part.createFormData("profile_image", "$uid.jpg", requestFile)
+                val uidBody = uid.toRequestBody("text/plain".toMediaTypeOrNull())
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val response = RetrofitClient.apiService.uploadProfileImage(profileImagePart, uidBody)
+                        if (response.isSuccessful && response.body() != null) {
+                            val userImgURL = response.body()!!.url
+
+                            // Update Firestore with the image URL
+                            val firestore = FirebaseFirestore.getInstance()
+                            val userRef = firestore.collection("users").document(uid)
+
+                            userRef.update("picture", userImgURL)
+                                .addOnSuccessListener {
+                                    userImgURL?.let { onUploadSuccess(it) }
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("Firestore", "Failed to update Firestore with image URL: ${e.message}")
+                                }
+                        }
+                    } catch (e: Exception) {
+                        Log.e("uploadProfileImage", "Error uploading image", e)
+                    }
                 }
             }
         }
+
 
         fun updateUserInfo(name: String?, email: String?, picture: String?, role: String?, userId: String?, joiningDate: String?, points: Int?, pointsAll: Int?) {
             val updatedUserInfo = hashMapOf(

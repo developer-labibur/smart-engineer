@@ -14,9 +14,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.data.constants.GetSet.getCurrentDate
 import com.rudhashi.smartengineer.databinding.DialogDailyRewardBinding
-import com.rudhashi.smartengineer.util.SmartConfig
-import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.managers.DialogManager
+import com.rudhashi.smartengineer.old.util.SmartConfig
 import com.rudhashi.smartengineer.view.BookDetailsActivity
 import com.rudhashi.smartengineer.view.SmartPointActivity
 
@@ -128,7 +129,7 @@ object PointManager {
     @SuppressLint("InflateParams")
     fun checkAndAwardDailyBonus(context: Context) {
         userRef.get().addOnSuccessListener { snapshot ->
-            val currentDate = SmartData.getCurrentDate() // Get today's date
+            val currentDate = getCurrentDate() // Get today's date
             val lastBonusDate = snapshot.child("lastBonusDate").value?.toString()
             val currentPoints = snapshot.child("points").value?.toString()?.toInt() ?: 0
             val allPoints = snapshot.child("pointsAll").value?.toString()?.toInt() ?: 0

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rudhashi.smartengineer.databinding.ItemAllBookBinding
 import com.rudhashi.smartengineer.model.Book
-import com.rudhashi.smartengineer.util.MakeFirebaseEasy
+import com.rudhashi.smartengineer.old.util.MakeFirebaseEasy
 
 class BookAdapter(
     private val onItemClicked: (String) -> Unit

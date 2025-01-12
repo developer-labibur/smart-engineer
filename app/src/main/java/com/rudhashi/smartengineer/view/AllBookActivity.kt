@@ -20,8 +20,8 @@ import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.Semester
 import com.rudhashi.smartengineer.manager.CUserManager
 import com.rudhashi.smartengineer.manager.PointManager
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.SmartThemeActivity
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.old.util.SmartThemeActivity
 
 class AllBookActivity : SmartThemeActivity() {
 

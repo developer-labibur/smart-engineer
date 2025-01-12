@@ -1,4 +1,4 @@
-package com.rudhashi.smartengineer.util
+package com.rudhashi.smartengineer.old.util
 
 import android.annotation.SuppressLint
 import android.os.Build

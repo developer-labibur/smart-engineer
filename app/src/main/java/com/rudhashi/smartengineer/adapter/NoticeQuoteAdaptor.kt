@@ -20,7 +20,7 @@ import com.google.firebase.firestore.SetOptions
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemNoticeQuoteBinding
 import com.rudhashi.smartengineer.model.Notice
-import com.rudhashi.smartengineer.util.formatTimestampToRelativeTime
+import com.rudhashi.smartengineer.old.util.formatTimestampToRelativeTime
 
 class NoticeQuoteAdapter(private var noticeList: List<Notice>, var context: Context) :
     RecyclerView.Adapter<NoticeQuoteAdapter.NoticeQuoteViewHolder>() {

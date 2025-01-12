@@ -15,28 +15,18 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.dashboard.SmartDashboardActivity
+import com.rudhashi.smartengineer.data.constants.GetSet.lToast
+import com.rudhashi.smartengineer.data.constants.GetSet.sToast
 import com.rudhashi.smartengineer.data.repositories.AuthRepository
 import com.rudhashi.smartengineer.data.repositories.GoogleAuthClient
 import com.rudhashi.smartengineer.databinding.ActivityAuthBinding
 import com.rudhashi.smartengineer.databinding.BottomSheetLoginBinding
 import com.rudhashi.smartengineer.databinding.BottomSheetSignupBinding
-import com.rudhashi.smartengineer.model.User
 import com.rudhashi.smartengineer.page.AboutUsActivity
-import com.rudhashi.smartengineer.util.MakeFirebaseEasy
-import com.rudhashi.smartengineer.util.SmartConfig
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.view.DashboardActivity
 import kotlinx.coroutines.launch
-import kotlin.coroutines.resume
 
 class AuthActivity : AppCompatActivity() {
 
@@ -87,7 +77,7 @@ class AuthActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
 
-                    SmartData.sToast(this@AuthActivity, "Sign In Successfully")
+                    sToast(this@AuthActivity, "Sign In Successfully")
                     Log.i(tagLog, "showGoogleContinueBottomSheet: User: $userId")
                 }
             }
@@ -107,7 +97,7 @@ class AuthActivity : AppCompatActivity() {
                     if (document.getString("name").isNullOrEmpty() && !name.isNullOrEmpty()) {
                         updates["name"] = name
                     } else if (document.getString("name").isNullOrEmpty()) {
-                        updates["name"] = "Unknown User" // Fallback for missing name
+                        updates["name"] = "Anonymous User" // Fallback for missing name
                     }
 
                     if (document.getString("email").isNullOrEmpty() && !email.isNullOrEmpty()) {
@@ -134,7 +124,7 @@ class AuthActivity : AppCompatActivity() {
                 } else {
                     // Document does not exist, create a new one
                     val userData = hashMapOf(
-                        "name" to (name ?: "Unknown User"),
+                        "name" to (name ?: "Anonymous User"),
                         "email" to (email ?: "No Email Provided"),
                         "picture" to (picture ?: ""),
                         "uid" to uid
@@ -263,18 +253,18 @@ class AuthActivity : AppCompatActivity() {
                     Log.d(tagLog, "lifecycleScope")
                     val isLoginSuccess = authRepository.login(email, password)
                     if (isLoginSuccess) {
-                        SmartData.sToast(this@AuthActivity, "Login successfully")
+                        sToast(this@AuthActivity, "Login successfully")
                         startActivity(Intent(this@AuthActivity, SmartDashboardActivity::class.java))
                         finish()
                         dialog.dismiss()
                     } else {
-                        SmartData.sToast(this@AuthActivity, "Login Failed")
+                        sToast(this@AuthActivity, "Login Failed")
                     }
                 }
             } catch (e: IllegalArgumentException) {
-                SmartData.lToast(this@AuthActivity, "Login Failed: $e")
+                lToast(this@AuthActivity, "Login Failed: $e")
             } catch (e: Exception) {
-                SmartData.lToast(this@AuthActivity, "Login Failed: $e")
+                lToast(this@AuthActivity, "Login Failed: $e")
             }
         }
     }
@@ -306,23 +296,17 @@ class AuthActivity : AppCompatActivity() {
                     // Register the user via AuthRepository
                     val isSignupSuccess = authRepository.register(name, email, password)
                     if (isSignupSuccess) {
-                        SmartData.lToast(this@AuthActivity, "SignUp Successful")
+                        lToast(this@AuthActivity, "SignUp Successful")
                         showLoginBottomSheet()
                         dialog.dismiss()
                     } else {
-                        SmartData.lToast(
-                            this@AuthActivity,
-                            "Signup failed. The email may already be in use."
-                        )
+                        lToast(this@AuthActivity, "Signup failed. The email may already be in use.")
                     }
                 }
             } catch (e: IllegalArgumentException) {
-                SmartData.lToast(
-                    this@AuthActivity,
-                    "The email address is already in use by another account."
-                )
+                lToast(this@AuthActivity, "The email address is already in use by another account.")
             } catch (e: Exception) {
-                SmartData.lToast(this@AuthActivity, "An error occurred. Please try again later.")
+                lToast(this@AuthActivity, "An error occurred. Please try again later.")
             }
         }
     }

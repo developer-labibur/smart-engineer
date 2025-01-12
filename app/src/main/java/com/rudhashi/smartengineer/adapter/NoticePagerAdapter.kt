@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.util.formatTimestampToRelativeTime
+import com.rudhashi.smartengineer.old.util.formatTimestampToRelativeTime
 
 class NoticePagerAdapter(
     private var noticeList: List<Notice>,

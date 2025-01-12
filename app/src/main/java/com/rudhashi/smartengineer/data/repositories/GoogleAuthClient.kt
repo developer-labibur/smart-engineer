@@ -12,7 +12,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.data.constants.Constants.WEB_CLIENT_ID
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 
@@ -89,7 +89,7 @@ class GoogleAuthClient(private val context: Context) {
             .addCredentialOption(
                 GetGoogleIdOption.Builder()
                     .setFilterByAuthorizedAccounts(googleSignIn)
-                    .setServerClientId(SmartData.WEB_CLIENT_ID)
+                    .setServerClientId(WEB_CLIENT_ID)
                     .setAutoSelectEnabled(false)
                     .build()
             )

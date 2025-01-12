@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.rudhashi.smartengineer.util
+package com.rudhashi.smartengineer.old.util
 
 import android.graphics.Color
 import android.os.Build
@@ -10,7 +10,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.rudhashi.smartengineer.manager.CUserManager
-import com.rudhashi.smartengineer.manager.PointManager
 
 open class SmartThemeActivity : AppCompatActivity() {
 
@@ -18,7 +17,6 @@ open class SmartThemeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         applyTheme()
         CUserManager.initialize()
-        PointManager.checkAndAwardDailyBonus(this)
     }
 
     private fun applyTheme() {

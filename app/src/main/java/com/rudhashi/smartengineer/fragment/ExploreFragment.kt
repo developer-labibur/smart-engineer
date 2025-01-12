@@ -17,7 +17,7 @@ import com.rudhashi.smartengineer.adapter.FeaturesAdapter
 import com.rudhashi.smartengineer.databinding.FragmentExploreBinding
 import com.rudhashi.smartengineer.model.CarouselItem
 import com.rudhashi.smartengineer.model.FeaturesDataClass
-import com.rudhashi.smartengineer.util.ParallaxPageTransformer
+import com.rudhashi.smartengineer.old.util.ParallaxPageTransformer
 
 class ExploreFragment : Fragment() {
 

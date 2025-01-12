@@ -11,7 +11,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.rudhashi.smartengineer.util.SmartConfig
+import com.rudhashi.smartengineer.old.util.SmartConfig
 import java.util.Date
 
 /** Application class that initializes, loads and show ads when activities change states. */

@@ -17,9 +17,9 @@ import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.container.ViewAllBookFragment
 import com.rudhashi.smartengineer.container.ViewAllUpdateFragment
 import com.rudhashi.smartengineer.databinding.ActivitySmartViewBinding
-import com.rudhashi.smartengineer.model.User
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.SmartThemeActivity
+import com.rudhashi.smartengineer.data.models.User
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.old.util.SmartThemeActivity
 
 class SmartViewActivity : SmartThemeActivity() {
 

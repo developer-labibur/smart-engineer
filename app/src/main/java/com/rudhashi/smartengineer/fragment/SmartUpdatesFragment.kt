@@ -15,8 +15,8 @@ import com.google.firebase.firestore.toObject
 import com.rudhashi.smartengineer.adapter.NoticeAdapter
 import com.rudhashi.smartengineer.databinding.FragmentSmartUpdatesBinding
 import com.rudhashi.smartengineer.model.Notice
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.view.ProfileActivity
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.ui.activities.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartPointActivity
 import com.rudhashi.smartengineer.view.SmartViewActivity
 

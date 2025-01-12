@@ -16,7 +16,7 @@ import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ActivityDepartmentBinding
 import com.rudhashi.smartengineer.databinding.DialogDepartmentInformationBinding
 import com.rudhashi.smartengineer.model.CategoryDataClass
-import com.rudhashi.smartengineer.util.SmartThemeActivity
+import com.rudhashi.smartengineer.old.util.SmartThemeActivity
 
 class DepartmentActivity : SmartThemeActivity() {
     private lateinit var binding: ActivityDepartmentBinding

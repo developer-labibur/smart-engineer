@@ -1,4 +1,4 @@
-package com.rudhashi.smartengineer.util
+package com.rudhashi.smartengineer.old.util
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,20 +21,12 @@ class SmartData {
         // Dark Mode Theme
         const val PREF_KEY = "theme"
         const val SWITCH_BUTTON_KEY = "isNightMode"
-        // Admob Ads Implementation
-        const val ADMOB_KEY = "admob"
-        const val VISIBILITY_KEY = "AdVisibility"
-        // Splash Screen
-        const val SPLASH_SCREEN: Long = 2000
         // Google SignIn
         //const val WEB_CLIENT_ID = "389818419543-sdlmnl0vdps19ka0ku0n76f4vub730cr.apps.googleusercontent.com"
-        const val WEB_CLIENT_ID = "389818419543-r9qn561gllhjj61jfshamlhp7i24l2gv.apps.googleusercontent.com"
 
         // Function to display Toast
         fun lToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
         fun sToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
-        fun lSnackbar(viewGroup: ViewGroup, message: String) { Snackbar.make(viewGroup, message,Snackbar.LENGTH_LONG).show() }
-        fun sSnackbar(viewGroup: ViewGroup, message: String) { Snackbar.make(viewGroup, message,Snackbar.LENGTH_SHORT).show() }
 
         @SuppressLint("InflateParams")
         fun comingSoon(context: Context){
@@ -48,27 +40,6 @@ class SmartData {
 
             if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
             builder.show()
-        }
-        fun timestampToDate(timestamp: Timestamp): String {
-            // Convert Timestamp to a Date object
-            val date = timestamp.toDate()
-
-            // Format Date to "Dec 20, 2024" format
-            val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-            return dateFormat.format(date)
-        }
-        fun getCurrentDate(): String {
-            val calendar = Calendar.getInstance()
-            val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-            return dateFormat.format(calendar.time)
-        }
-        fun dpToPx(context: Context, dp: Float): Int {
-            val density = context.resources.displayMetrics.density
-            return (dp * density).toInt()
-        }
-        fun pxToDp(context: Context, px: Float): Float {
-            val density = context.resources.displayMetrics.density
-            return px / density
         }
         fun randomNumber(int: Int): Int { return (Math.random() * int).toInt() }
 

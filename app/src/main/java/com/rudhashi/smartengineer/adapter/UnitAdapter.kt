@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemBookUnitBinding
-import com.rudhashi.smartengineer.manager.DialogManager
+import com.rudhashi.smartengineer.managers.DialogManager
 import com.rudhashi.smartengineer.manager.PointManager
 import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.BookUnit

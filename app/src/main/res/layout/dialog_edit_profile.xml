@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
-    android:padding="10dp">
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp">
 
 
     <LinearLayout
@@ -170,8 +171,9 @@
                         android:background="@drawable/dialog_btn_red_left_radius"
                         android:text="@string/cancel"
                         android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/main_font_regular_2"
+                        android:textSize="@dimen/_16sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto"
                         app:cornerRadius="20dp"
                         android:layout_weight="1"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -183,11 +185,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@drawable/dialog_btn_green_right_radius"
-                        android:fontFamily="@font/main_font_regular_2"
+                        android:fontFamily="@font/roboto"
                         android:layout_weight="1"
                         android:text="@string/save"
                         android:textColor="@color/white"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/_16sp"
+                        android:textStyle="bold"
                         app:cornerRadius="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/emailBox"

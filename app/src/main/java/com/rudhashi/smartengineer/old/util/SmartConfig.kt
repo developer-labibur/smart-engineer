@@ -1,9 +1,11 @@
-package com.rudhashi.smartengineer.util
+package com.rudhashi.smartengineer.old.util
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.rewarded.RewardedAd
+import com.rudhashi.smartengineer.data.constants.Constants.ADMOB_KEY
+import com.rudhashi.smartengineer.data.constants.Constants.VISIBILITY_KEY
 
 class SmartConfig {
     companion object {
@@ -20,8 +22,8 @@ class SmartConfig {
         // AdMob Ad Visibility ----------------------------------------------------------------------------------------
         private var isTestingMode: Boolean = true // ⚠️ Is testing mode enabled or disabled
         fun isAdsVisible(context: Context): Boolean{
-            val sharedPreferences = context.getSharedPreferences(SmartData.ADMOB_KEY, MODE_PRIVATE)
-            return sharedPreferences.getBoolean(SmartData.VISIBILITY_KEY, false)
+            val sharedPreferences = context.getSharedPreferences(ADMOB_KEY, MODE_PRIVATE)
+            return sharedPreferences.getBoolean(VISIBILITY_KEY, false)
         }
 
         // Get AdMob Ad IDs ----------------------------------------------------------------------------------------

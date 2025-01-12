@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.ItemSemesterNumberBinding
 import com.rudhashi.smartengineer.model.SemeterTotal
-import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.old.util.SmartData
 
 class SemesterAdapter (private var dataList: List<SemeterTotal>, private val context: Context, private  val dAbbr: String, private  val depName: String): RecyclerView.Adapter<SemesterAdapter.ViewHolderClass>() {
     interface OnItemClickListener { fun onItemClick(position: Int, dAbbr: String, depName: String, semName: String) }

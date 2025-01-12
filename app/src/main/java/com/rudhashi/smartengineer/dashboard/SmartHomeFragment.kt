@@ -41,13 +41,13 @@ import com.rudhashi.smartengineer.databinding.FragmentSmartHomeBinding
 import com.rudhashi.smartengineer.model.CategoryDataClass
 import com.rudhashi.smartengineer.model.Notice
 import com.rudhashi.smartengineer.model.SemeterTotal
-import com.rudhashi.smartengineer.util.ConvertFB
-import com.rudhashi.smartengineer.util.SmartConfig
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.formatTimestampToRelativeTime
+import com.rudhashi.smartengineer.old.util.ConvertFB
+import com.rudhashi.smartengineer.old.util.SmartConfig
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.old.util.formatTimestampToRelativeTime
 import com.rudhashi.smartengineer.view.AllBookActivity
 import com.rudhashi.smartengineer.view.DepartmentActivity
-import com.rudhashi.smartengineer.view.ProfileActivity
+import com.rudhashi.smartengineer.ui.activities.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartPointActivity
 
 class SmartHomeFragment : Fragment() {

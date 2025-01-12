@@ -1,34 +1,20 @@
 package com.rudhashi.smartengineer.container
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
-import com.google.firebase.ktx.Firebase
-import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.adapter.BookGridAdapter
-import com.rudhashi.smartengineer.adapter.BookListAdapter
 import com.rudhashi.smartengineer.adapter.NoticeAdapter
-import com.rudhashi.smartengineer.databinding.FragmentViewAllBookBinding
 import com.rudhashi.smartengineer.databinding.FragmentViewAllUpdateBinding
-import com.rudhashi.smartengineer.model.Book
 import com.rudhashi.smartengineer.model.Notice
-import com.rudhashi.smartengineer.util.SmartConfig
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.view.BookDetailsActivity
-import com.rudhashi.smartengineer.view.ProfileActivity
-import com.rudhashi.smartengineer.view.SmartViewActivity
+import com.rudhashi.smartengineer.old.util.SmartData
 
 class ViewAllUpdateFragment : Fragment() {
 

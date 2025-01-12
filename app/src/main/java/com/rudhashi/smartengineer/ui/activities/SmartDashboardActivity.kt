@@ -1,4 +1,4 @@
-package com.rudhashi.smartengineer.dashboard
+package com.rudhashi.smartengineer.ui.activities
 
 import android.graphics.LinearGradient
 import android.graphics.Shader
@@ -12,14 +12,21 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.dashboard.SmartHomeFragment
+import com.rudhashi.smartengineer.data.constants.GetSet.sToast
+import com.rudhashi.smartengineer.data.constants.Converters.dpToPx
+import com.rudhashi.smartengineer.data.constants.GetSet.getCurrentDate
 import com.rudhashi.smartengineer.databinding.ActivitySmartDashboardBinding
 import com.rudhashi.smartengineer.fragment.SmartBooksFragment
 import com.rudhashi.smartengineer.fragment.SmartSettingFragment
 import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
 import com.rudhashi.smartengineer.manager.CUserManager
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.SmartThemeActivity
+import com.rudhashi.smartengineer.old.util.MakeFirebaseEasy
+import com.rudhashi.smartengineer.old.util.SmartConfig
+import com.rudhashi.smartengineer.old.util.SmartThemeActivity
 
 class SmartDashboardActivity : SmartThemeActivity() {
 
@@ -31,9 +38,9 @@ class SmartDashboardActivity : SmartThemeActivity() {
         } else {
             if (!this.isDestroyed && !this.isFinishing) {
                 Glide.with(this)
-                    .load(it)
+                    .load(MakeFirebaseEasy.currentUserImage(it))
                     .placeholder(R.drawable.student_avatar)
-                    .transform(RoundedCorners(SmartData.dpToPx(this, 10f)))
+                    .transform(RoundedCorners(dpToPx(this, 10f)))
                     .into(binding.ivUserPic)
             }
         }
@@ -52,6 +59,8 @@ class SmartDashboardActivity : SmartThemeActivity() {
             insets
         }
 
+        setDailySmartPointsBonus()
+
         setupViewPager() // Setup the viewPager
         setupBottomNavigation() // Setup navigation
         setActiveTab(0) // Set the initial tab to Home (index 0)
@@ -61,12 +70,84 @@ class SmartDashboardActivity : SmartThemeActivity() {
 
         // Set Current User Data -------------------------------------------------------------
         CUserManager.apply {
-            department { if (it.isEmpty()) binding.tvDepName.visibility = View.GONE else binding.tvDepName.visibility = View.VISIBLE }
+            department {
+                if (it.isEmpty()) binding.tvDepName.visibility =
+                    View.GONE else binding.tvDepName.visibility = View.VISIBLE
+            }
             name { if (it.isEmpty()) binding.tvProfile.hint = "Incomplete Profile" }
             name { binding.tvProfile.text = it }
             department { binding.tvDepName.text = it }
-            points { binding.tvPoints.text = "$it" }
             picture(pictureListener)
+        }
+    }
+
+    private fun setDailySmartPointsBonus() {
+        val firestore = FirebaseFirestore.getInstance()
+        val userRef = FirebaseAuth.getInstance().currentUser?.let {
+            firestore.collection("users").document(it.uid)
+        }
+        userRef?.get()?.addOnSuccessListener { document ->
+            val currentDate = getCurrentDate() // Get today's date
+
+            if (document.exists()) {
+                // User already exists in Firestore
+                val currentPoints = document.getLong("points")?.toInt() ?: 0
+                val lastBonusDate = document.getString("lastBonusDate")
+                val joiningDate = document.getString("joiningDate")
+                val role = document.getString("role")
+
+                // Check if joiningDate is missing and update it
+                if (joiningDate == null) {
+                    userRef.update("joiningDate", currentDate).addOnSuccessListener {
+                        sToast(this, "Joining date added for existing user.")
+                    }.addOnFailureListener {
+                        sToast(this, "Failed to update joining date.")
+                    }
+                }
+
+                // Check and award daily bonus
+                if (lastBonusDate != currentDate) {
+                    val newPoints = currentPoints + SmartConfig.DAILY_LOGIN_BONUS_POINT
+                    val updates = mapOf(
+                        "points" to newPoints,
+                        "lastBonusDate" to currentDate
+                    )
+                    userRef.update(updates).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            sToast(this, "Points added successfully.")
+                        } else {
+                            sToast(this, "Failed to add bonus points!")
+                        }
+                    }
+                }
+
+                // Check if joiningDate is missing and update it
+                if (role == null) {
+                    userRef.update("role", "User").addOnSuccessListener {
+                        sToast(this, "Role added for existing user.")
+                    }.addOnFailureListener {
+                        sToast(this, "Failed to update role.")
+                    }
+                }
+
+            } else {
+                // New user: Initialize account
+                val newUser = hashMapOf(
+                    "points" to SmartConfig.DAILY_LOGIN_BONUS_POINT,
+                    "lastBonusDate" to currentDate,
+                    "joiningDate" to currentDate,
+                    "role" to "User"
+                )
+                userRef.set(newUser).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        sToast(this, "Welcome to Smart Engineer - E-Learning App!")
+                    } else {
+                        sToast(this, "Failed to create account!")
+                    }
+                }
+            }
+        }?.addOnFailureListener {
+            sToast(this, "Failed to fetch user data!")
         }
     }
 
@@ -76,14 +157,20 @@ class SmartDashboardActivity : SmartThemeActivity() {
     // =====================================================================================================================
     private fun setupViewPager() {
         // Set up ViewPager with fragments
-        val fragments = listOf(SmartHomeFragment(), SmartBooksFragment(), SmartUpdatesFragment(), SmartSettingFragment())
+        val fragments = listOf(
+            SmartHomeFragment(),
+            SmartBooksFragment(),
+            SmartUpdatesFragment(),
+            SmartSettingFragment()
+        )
 
         binding.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = fragments.size
             override fun createFragment(position: Int): Fragment = fragments[position]
         }
     }
-    private fun setupBottomNavigation(){
+
+    private fun setupBottomNavigation() {
 
         // Set height based on the currently selected page
         binding.apply {
@@ -100,6 +187,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
             })
         }
     }
+
     private fun setActiveTab(position: Int) {
         binding.apply {
             when (position) {
@@ -113,6 +201,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
                     llUpdates.setBackgroundResource(R.color.transparent)
                     llSetting.setBackgroundResource(R.color.transparent)
                 }
+
                 1 -> {
                     tvHome.visibility = View.GONE
                     tvBook.visibility = View.VISIBLE
@@ -123,6 +212,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
                     llUpdates.setBackgroundResource(R.color.transparent)
                     llSetting.setBackgroundResource(R.color.transparent)
                 }
+
                 2 -> {
                     tvHome.visibility = View.GONE
                     tvBook.visibility = View.GONE
@@ -133,6 +223,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
                     llUpdates.setBackgroundResource(R.drawable.round_back_updates_100)
                     llSetting.setBackgroundResource(R.color.transparent)
                 }
+
                 else -> {
                     tvHome.visibility = View.GONE
                     tvBook.visibility = View.GONE
@@ -206,9 +297,11 @@ class SmartDashboardActivity : SmartThemeActivity() {
             "Setting" -> setActiveTab(3)
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         // Remove the picture listener to avoid callbacks after the activity is destroyed
         CUserManager.removePictureListener(pictureListener)
+        CUserManager.cleanup()
     }
 }

@@ -14,7 +14,8 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
-import com.rudhashi.smartengineer.util.SmartConfig
+import com.rudhashi.smartengineer.managers.DialogManager
+import com.rudhashi.smartengineer.old.util.SmartConfig
 
 object AdManager {
     private const val TAG = "AdManager"

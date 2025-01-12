@@ -17,8 +17,8 @@ import com.rudhashi.smartengineer.adapter.BookListAdapter
 import com.rudhashi.smartengineer.databinding.FragmentSmartBooksBinding
 import com.rudhashi.smartengineer.manager.PointManager
 import com.rudhashi.smartengineer.model.Book
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.view.ProfileActivity
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.ui.activities.ProfileActivity
 import com.rudhashi.smartengineer.view.SmartPointActivity
 import com.rudhashi.smartengineer.view.SmartViewActivity
 

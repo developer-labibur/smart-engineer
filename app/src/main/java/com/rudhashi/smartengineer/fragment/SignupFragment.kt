@@ -20,15 +20,16 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.data.constants.GetSet.getCurrentDate
 import com.rudhashi.smartengineer.databinding.FragmentSignupBinding
 import com.rudhashi.smartengineer.databinding.LayoutSidebarBinding
-import com.rudhashi.smartengineer.model.User
-import com.rudhashi.smartengineer.util.AuthRepository
-import com.rudhashi.smartengineer.util.GoogleAuthClient
-import com.rudhashi.smartengineer.util.MakeFirebaseEasy
-import com.rudhashi.smartengineer.util.SmartConfig
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.dashboard.SmartDashboardActivity
+import com.rudhashi.smartengineer.data.models.User
+import com.rudhashi.smartengineer.old.util.AuthRepository
+import com.rudhashi.smartengineer.old.util.GoogleAuthClient
+import com.rudhashi.smartengineer.old.util.MakeFirebaseEasy
+import com.rudhashi.smartengineer.old.util.SmartConfig
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.ui.activities.SmartDashboardActivity
 import kotlinx.coroutines.launch
 
 class SignupFragment : Fragment() {
@@ -85,7 +86,7 @@ class SignupFragment : Fragment() {
                                         val user = snapshot.getValue(User::class.java)
                                         val userName = user?.name?.ifEmpty { auth.currentUser?.displayName }
                                         val role = user?.role.toString()
-                                        val isUserNew = user?.joiningDate?.ifEmpty { SmartData.getCurrentDate() }
+                                        val isUserNew = user?.joiningDate?.ifEmpty { getCurrentDate() }
                                         val newUserBonusPoints = if (user?.joiningDate!!.isNotEmpty()) user.points else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
                                         val newUserBonusPointsAll = if (user.joiningDate.isNotEmpty()) user.pointsAll else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
 
@@ -235,7 +236,7 @@ class SignupFragment : Fragment() {
                                         val user = snapshot.getValue(User::class.java)
                                         val userName = user?.name?.ifEmpty { auth.currentUser?.displayName }
                                         val role = user?.role.toString()
-                                        val isUserNew = user?.joiningDate?.ifEmpty { SmartData.getCurrentDate() }
+                                        val isUserNew = user?.joiningDate?.ifEmpty { getCurrentDate() }
                                         val newUserBonusPoints = if (user?.joiningDate!!.isNotEmpty()) user.points else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
                                         val newUserBonusPointsAll = if (user.joiningDate.isNotEmpty()) user.pointsAll else SmartConfig.NEW_USER_SIGNUP_BONUS_POINT
 

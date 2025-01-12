@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.databinding.FragmentNightModeBinding
-import com.rudhashi.smartengineer.util.SmartData
-import com.rudhashi.smartengineer.util.ThemeHelper
-import com.rudhashi.smartengineer.util.ThemeHelper.getSharedPreferences
-import com.rudhashi.smartengineer.dashboard.SmartDashboardActivity
+import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.old.util.ThemeHelper
+import com.rudhashi.smartengineer.old.util.ThemeHelper.getSharedPreferences
+import com.rudhashi.smartengineer.ui.activities.SmartDashboardActivity
 
 class NightModeFragment : Fragment() {
 

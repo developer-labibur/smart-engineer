@@ -16,7 +16,7 @@ import com.rudhashi.smartengineer.adapter.BookListAdapter
 import com.rudhashi.smartengineer.databinding.FragmentViewAllBookBinding
 import com.rudhashi.smartengineer.manager.PointManager
 import com.rudhashi.smartengineer.model.Book
-import com.rudhashi.smartengineer.util.SmartData
+import com.rudhashi.smartengineer.old.util.SmartData
 
 class ViewAllBookFragment : Fragment() {
 

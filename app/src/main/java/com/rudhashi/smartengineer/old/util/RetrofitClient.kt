@@ -1,4 +1,4 @@
-package com.rudhashi.smartengineer.util
+package com.rudhashi.smartengineer.old.util
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -1,4 +1,4 @@
-package com.rudhashi.smartengineer.model
+package com.rudhashi.smartengineer.data.models
 
 data class User(
     val department: String = "",

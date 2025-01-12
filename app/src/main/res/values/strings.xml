@@ -153,6 +153,8 @@
     <string name="delete_profile">Delete Profile</string>
     <string name="do_you_want_to_log_out">Do you want to log out?</string>
     <string name="yes">Log Out</string>
+    <string name="yes_btn">Yes</string>
+    <string name="no_btn">Cancel</string>
     <string name="no">Cancel</string>
     <string name="save">Save</string>
     <string name="computer_science_and_technology">Computer Science and Technology</string>
@@ -324,5 +326,15 @@
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_up_now">Sign Up Now</string>
     <string name="app_slogan">Your Gateway to Success, Knowledge, and Innovation!</string>
+
+
+
+
+    <string name="_10">৳10</string>
+    <string name="pro_member">Pro Member</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_info">Are you sure you want to delete your account? This action cannot be undone.</string>
+    <string name="freemimum_info_text">Right now, you can enjoy all the premium features of the Smart Engineer app for free.</string>
+    <string name="profile">Profile</string>
 
 </resources>

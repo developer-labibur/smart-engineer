@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialogForgot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layBlur"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/dialog_orange_bg"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvTitleBonus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-25dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/hind_siliguri"
+        android:text="@string/pro_member"
+        android:textColor="@color/mainContainer_HeadingText"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/layBlur"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="@+id/layBlur" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="-5dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/freemimum_info_text"
+        android:textColor="@color/mainContainer_SubHeadingText"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/layBlur"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleBonus"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleBonus" />
+
+
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/dialog_orange_sub_action"
+        android:layout_margin="15dp"
+        android:padding="10dp"
+        android:src="@drawable/sl_left_arrow_light_only"
+        app:layout_constraintBottom_toBottomOf="@+id/layBlur"
+        app:layout_constraintStart_toStartOf="@+id/layBlur" />
+
+    <LinearLayout
+        android:id="@+id/btnAllPoints"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/dialog_orange_action"
+        app:layout_constraintBottom_toBottomOf="@+id/btnClose"
+        app:layout_constraintEnd_toEndOf="@+id/layBlur"
+        app:layout_constraintStart_toEndOf="@+id/btnClose"
+        app:layout_constraintTop_toTopOf="@+id/btnClose">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/hind_siliguri"
+            android:text="@string/profile"
+            android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="-10dp"
+        android:src="@drawable/cat_with_balloon"
+        app:layout_constraintBottom_toTopOf="@+id/layBlur"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/layBlur"/>
+
+
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="-20dp"
+        android:src="@drawable/cute_cat"
+        app:layout_constraintBottom_toTopOf="@+id/layBlur"
+        app:layout_constraintEnd_toEndOf="@+id/layBlur" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
