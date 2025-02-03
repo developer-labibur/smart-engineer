@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rudhashi.smartengineer"
+    namespace = "com.softylasa.smartengineer"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.rudhashi.smartengineer"
+        applicationId = "com.softylasa.smartengineer"
         minSdk = 25
         targetSdk = 35
         versionCode = 1

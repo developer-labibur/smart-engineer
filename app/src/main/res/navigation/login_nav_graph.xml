@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.rudhashi.smartengineer.ui.fragments.LoginFragment"
+        android:name="softylasa.smartengineer.ui.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.rudhashi.smartengineer.ui.fragments.SignupFragment"
+        android:name="softylasa.smartengineer.ui.fragments.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <activity
         android:id="@+id/smartDashboardActivity"
-        android:name="com.rudhashi.smartengineer.ui.activities.SmartDashboardActivity"
+        android:name="softylasa.smartengineer.ui.activities.SmartDashboardActivity"
         android:label="activity_smart_dashboard"
         tools:layout="@layout/activity_smart_dashboard" />
 </navigation>
