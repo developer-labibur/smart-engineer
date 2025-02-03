@@ -6,7 +6,7 @@
     android:gravity="center"
     android:id="@+id/btnSemester"
     android:orientation="vertical"
-    android:background="@color/sl_secoundary"
+    android:background="@color/sl_secondary"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/tv1stLetter">
@@ -25,7 +25,7 @@
     <TextView
         android:id="@+id/semAbbr"
         style="@style/btn_features_text"
-        android:background="@color/sl_secoundary"
+        android:background="@color/sl_secondary"
         android:textSize="@dimen/text_size_large"
         app:layout_constraintBottom_toBottomOf="@id/semView"
         app:layout_constraintStart_toStartOf="@id/semView"

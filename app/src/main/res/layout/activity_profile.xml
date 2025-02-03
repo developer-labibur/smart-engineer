@@ -126,8 +126,8 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/proPic"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="127dp"
+                            android:layout_height="127dp"
                             android:src="@drawable/avatar"
                             app:civ_border_color="@color/white"
                             app:civ_border_width="2dp"
@@ -135,6 +135,17 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/proCamera"
+                            app:civ_border_color="@color/white"
+                            app:civ_border_width="2dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            app:cardCornerRadius="50dp"
+                            android:src="@drawable/camera"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/proPic"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -197,6 +208,7 @@
                                 app:cardCornerRadius="22dp">
 
                                 <LinearLayout
+                                    android:id="@+id/btnFavourite"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
                                     android:orientation="vertical">
@@ -250,6 +262,7 @@
                                 app:cardCornerRadius="22dp">
 
                                 <LinearLayout
+                                    android:id="@+id/btnLibrary"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
                                     android:orientation="vertical">
@@ -292,7 +305,6 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
-                                android:id="@+id/btnSettings"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
@@ -304,6 +316,7 @@
                                 app:cardCornerRadius="22dp">
 
                                 <LinearLayout
+                                    android:id="@+id/btnSettings"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
                                     android:orientation="vertical">
@@ -451,7 +464,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/proBtnEdit"
+                android:id="@+id/proBtnNameEdit"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:clickable="true"
@@ -465,7 +478,32 @@
                 android:fontFamily="@font/roboto"
                 android:foreground="?attr/selectableItemBackground"
                 android:background="@drawable/profile_edit_button"
-                android:text="@string/edit_profile"
+                android:text="@string/change_name"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/proBtnEdit"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:focusable="true"
+                android:gravity="center_vertical|center_horizontal"
+                android:fontFamily="@font/roboto"
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@drawable/profile_edit_button2"
+                android:text="@string/change_department_cap"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:textSize="18sp"
@@ -483,13 +521,13 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="50dp"
                 android:focusable="true"
                 android:gravity="center_vertical|center_horizontal"
                 android:fontFamily="@font/roboto"
                 android:foreground="?attr/selectableItemBackground"
                 android:background="@drawable/profile_delete_button"
-                android:text="@string/delete_profile"
+                android:text="@string/delete_profile_information"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:textSize="18sp"

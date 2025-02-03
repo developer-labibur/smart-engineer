@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/smartBooksFragment"
-        android:name="com.rudhashi.smartengineer.fragment.SmartBooksFragment"
+        android:name="com.rudhashi.smartengineer.ui.fragments.SmartBooksFragment"
         android:label="fragment_smart_books"
         tools:layout="@layout/fragment_smart_books" />
     <fragment
         android:id="@+id/nightModeFragment"
-        android:name="com.rudhashi.smartengineer.container.NightModeFragment"
+        android:name="com.rudhashi.smartengineer.ui.fragments.NightModeFragment"
         android:label="fragment_night_mode"
         tools:layout="@layout/fragment_night_mode" />
 </navigation>

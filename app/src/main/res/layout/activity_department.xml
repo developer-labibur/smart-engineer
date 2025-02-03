@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sl_secoundary"
-    tools:context=".view.DepartmentActivity">
+    android:background="@color/sl_secondary"
+    tools:context=".ui.activities.DepartmentActivity">
 
     <ScrollView
         android:id="@+id/department"

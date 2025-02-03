@@ -22,6 +22,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true // Enable minification
+            isShrinkResources = true // Enable shrink
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -47,12 +48,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.androidx.preference)
 
     // Authenticate with Google
     implementation(libs.andoidx.credentials)
@@ -72,7 +70,7 @@ dependencies {
     implementation(platform(libs.firebase.bom)) // Firebase BOM
     implementation(libs.firebase.auth.ktx) // Firebase Authentication
 
-    //implementation(libs.google.firebase.auth) // Firebase Authentication
+    implementation(libs.firebase.auth) // Firebase Authentication
     implementation(libs.firebase.database) // Firebase Database
     implementation(libs.firebase.firestore) // Firebase FireStore
     implementation(libs.firebase.analytics) // Firebase Analytics
@@ -97,24 +95,17 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
+    implementation(libs.androidx.preference)
+
     implementation(libs.glide) // Image from Glide
     implementation(libs.viewpager2)
     kapt("com.github.bumptech.glide:compiler:${libs.versions.glide.get()}") // For Glide annotation processing
     implementation(libs.coil)
     implementation(libs.dotsindicator)
 
-
-    //implementation(libs.android.pdfium)  // PDF Reader
-    //implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
-    //implementation ("com.github.Foysalofficial:pdf-viewer-android:6.1")
-    //implementation("com.joanzapata.pdfview:android-pdfview:1.0.4@aar")
-
     implementation(libs.pdf.viewer.android) { exclude(group = "com.android.support", module = "support-compat") }
 
     implementation (libs.okhttp) // For downloading the PDF
-
-    //implementation ("com.github.barteksc.pdfviewer:android-pdf-viewer:3.2.0-beta.1")
-    //implementation ("com.squareup.okhttp3:okhttp:4.9.1")  // Ensure OkHttp is included for downloading PDFs
 
 }
 // Apply the Google Services plugin here

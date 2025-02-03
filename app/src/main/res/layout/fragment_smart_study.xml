@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/transparent"
+    tools:context=".ui.fragments.SmartStudyFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
+
+        <!-- Top View -->
+        <LinearLayout
+            android:id="@+id/llTopView"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/topGap"
+            android:background="@color/transparent"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/btnViewProfile"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_weight="1" />
+
+            <View
+                android:id="@+id/btnViewPremium"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!-- Main Container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@drawable/bg_sl_scroll_box_golden"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llTopView" >
+
+            <!-- Search Bar -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/searchBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="5dp"
+                android:background="@drawable/sl_search_box_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:hint="@string/search_book"
+                    android:includeFontPadding="false"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:padding="7dp"
+                    android:src="@drawable/sl_search_fill"
+                    android:background="@drawable/sl_search_box_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Tool Bar -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toolbar"
+                android:layout_width="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchBox">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/myLibrary"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/abc_orange_light"
+                    app:layout_constraintEnd_toStartOf="@+id/myFavourite"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivLibrary"
+                        style="@style/btn_features_image"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/abc_orange_main"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/library_book"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvLibrary"
+                        style="@style/btn_features_text"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_width="0dp"
+                        android:textAlignment="viewStart"
+                        android:text="My Library"
+                        android:textSize="@dimen/text_size_large"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivLibrary"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvLibNo"
+                        style="@style/sem_text"
+                        android:text="Total 9 books"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivLibrary"
+                        app:layout_constraintTop_toBottomOf="@id/tvLibrary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/myFavourite"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/abc_orange_light"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/myLibrary"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivFavourite"
+                        style="@style/btn_features_image"
+                        android:layout_margin="5dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/abc_orange_main"
+                        android:contentDescription="@string/sl_icon"
+                        android:src="@drawable/love"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvFavorite"
+                        style="@style/btn_features_text"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_width="0dp"
+                        android:textAlignment="viewStart"
+                        android:text="My Favorites"
+                        android:textSize="@dimen/text_size_large"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivFavourite"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvDep"
+                        style="@style/sem_text"
+                        android:text="Total 15 books"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivFavourite"
+                        app:layout_constraintTop_toBottomOf="@id/tvFavorite" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!-- D -> Text -->
+            <TextView
+                android:id="@+id/tvD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/main_font_regular_2"
+                android:includeFontPadding="false"
+                android:text="@string/d"
+                android:textColor="@color/sl_action_text_middle_red"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <!-- epartment -> Text -->
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/main_font_regular_2"
+                android:includeFontPadding="false"
+                android:text="@string/epartment"
+                android:textColor="@color/sl_primary_text"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvD"
+                app:layout_constraintStart_toEndOf="@+id/tvD"
+                app:layout_constraintTop_toTopOf="@+id/tvD" />
+
+            <!-- Department Icon -->
+            <ImageView
+                android:id="@+id/icDep"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/sl_academic_caps_fill"
+                app:layout_constraintBottom_toBottomOf="@+id/tvD"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvD" />
+
+            <!-- Shimmer -->
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerDepartmentList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvD"
+                app:shimmer_duration="800">
+
+                <include
+                    layout="@layout/item_shimmer_department_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/homeContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvD">
+
+
+                <!-- Department Section -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    android:foregroundGravity="center"
+                    android:overScrollMode="never"
+                    app:spanCount="3"
+                    tools:itemCount="9"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/item_features"/>
+
+                <!-- J -> Text -->
+                <TextView
+                    android:id="@+id/tvJ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/changa_variable_wght"
+                    android:includeFontPadding="false"
+                    android:text="@string/j"
+                    android:textColor="@color/sl_action_text_middle_red"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recycleCategory" />
+
+                <!-- ust for you -> Text -->
+                <TextView
+                    android:id="@+id/tvFullLetter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/main_font_regular_2"
+                    android:includeFontPadding="false"
+                    android:text="@string/ust_for_you"
+                    android:textColor="@color/sl_primary_text"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvJ"
+                    app:layout_constraintStart_toEndOf="@+id/tvJ"
+                    app:layout_constraintTop_toTopOf="@+id/tvJ" />
+
+                <!-- Just for you Icon -->
+                <ImageView
+                    android:id="@+id/icJust"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_hashtag_circle_fill"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvFullLetter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvFullLetter" />
+
+                <!-- Semester Section -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleSemester"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvJ"
+                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/item_semester_number"
+                    tools:itemCount="2"/>
+
+                <!-- Semester Information -->
+                <TextView
+                    android:id="@+id/tvSemesterInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:lineSpacingExtra="-3dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/just_for_you_info_text"
+                    android:textColor="@color/sl_primary_text"
+                    android:textSize="12sp"
+                    android:paddingBottom="100dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycleSemester"/>
+
+                <!-- Warning Information -->
+                <TextView
+                    android:id="@+id/tvWarningInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:lineSpacingExtra="-3dp"
+                    android:includeFontPadding="false"
+                    android:text="@string/just_for_you_warn_text"
+                    android:textColor="#2aaa75"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:paddingBottom="100dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="-40dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/animationView"/>
+
+                <!-- Lottie Animation -->
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animationView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp"
+                    app:lottie_url="https://lottie.host/8e758659-f89f-4f2d-8b98-acbdf6c40559/HmyGxKFRSo.lottie"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvJ"/>
+
+                <!-- Footer Gap View -->
+                <View
+                    android:id="@+id/viewFooter"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/animationView"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Cat Icon View -->
+        <View
+            android:layout_width="75dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_sl_cat_golden"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llTopView" />
+
+        <!-- Cat Icon -->
+        <LinearLayout
+            android:id="@+id/ll_cat"
+            android:layout_width="80dp"
+            android:layout_height="43dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/clContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/clContainer">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/cute_cat" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

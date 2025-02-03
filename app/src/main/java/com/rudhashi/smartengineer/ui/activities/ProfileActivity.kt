@@ -8,11 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
@@ -22,34 +18,40 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.data.constants.Converters.dpToPx
-import com.rudhashi.smartengineer.data.constants.GetSet.lToast
+import com.rudhashi.smartengineer.utils.helpers.Converters.dpToPx
 import com.rudhashi.smartengineer.databinding.ActivityProfileBinding
-import com.rudhashi.smartengineer.databinding.DialogEditProfileBinding
 import com.rudhashi.smartengineer.data.models.User
 import com.rudhashi.smartengineer.data.repositories.AuthRepository
-import com.rudhashi.smartengineer.manager.CUserManager
+import com.rudhashi.smartengineer.databinding.DialogChangePictureBinding
+import com.rudhashi.smartengineer.databinding.DialogChangeUsernameBinding
+import com.rudhashi.smartengineer.managers.CUserManager
 import com.rudhashi.smartengineer.managers.DialogManager.showNegativeInfoDialog
-import com.rudhashi.smartengineer.old.util.MakeFirebaseEasy
-import com.rudhashi.smartengineer.old.util.MakeFirebaseEasy.Companion.uploadProfileImage
-import com.rudhashi.smartengineer.old.util.SmartData
+import com.rudhashi.smartengineer.utils.helpers.EasySdk.setToast
+import com.rudhashi.smartengineer.utils.helpers.MakeFirebaseEasy
+import com.rudhashi.smartengineer.utils.helpers.MakeFirebaseEasy.Companion.currentUserImage
+import com.rudhashi.smartengineer.utils.helpers.MakeFirebaseEasy.Companion.uploadProfileImage
 
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
-    private lateinit var dialogBinding: DialogEditProfileBinding
+
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+    private val firebaseDatabase by lazy { FirebaseDatabase.getInstance() }
+
+    private lateinit var dialogPictureBinding: DialogChangePictureBinding
+    private lateinit var dialogBinding: DialogChangeUsernameBinding
+
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var fbDB: DatabaseReference
@@ -89,17 +91,9 @@ class ProfileActivity : AppCompatActivity() {
         fbDB = Firebase.database.reference
         currentUser = auth.currentUser!!
 
-        try {
-            Log.e(tagLog, "Try: All okay")
-            //loadProfilePicture()
-            //loadProfileInfo()
-        } catch (e: Exception) {
-            Log.e(tagLog, "Catch: Is called")
-        }
-
         binding.apply {
             backProfileBtn.setOnClickListener { finish() }
-            proBtnEdit.setOnClickListener { setProfileInfo() }
+            editPro.setOnClickListener { setProfilePictureInfo() }
             backLogout.setOnClickListener {
                 showNegativeInfoDialog(
                     this@ProfileActivity,
@@ -108,6 +102,23 @@ class ProfileActivity : AppCompatActivity() {
                     "Are you sure you want to logout?"
                 ) { setLogOut() }
             }
+            btnFavourite.setOnClickListener {
+                val intent = Intent(this@ProfileActivity, BookViewActivity::class.java)
+                intent.putExtra("DISPLAY", "Favourite")
+                startActivity(intent)
+            }
+            btnLibrary.setOnClickListener {
+                val intent = Intent(this@ProfileActivity, BookViewActivity::class.java)
+                intent.putExtra("DISPLAY", "Library")
+                startActivity(intent)
+            }
+            btnSettings.setOnClickListener {
+                val intent = Intent(this@ProfileActivity, SmartDashboardActivity::class.java)
+                intent.putExtra("DISPLAY", "Setting")
+                startActivity(intent)
+            }
+            proBtnNameEdit.setOnClickListener { setProfileUsername() }
+            proBtnEdit.setOnClickListener { startActivity(Intent(this@ProfileActivity, UpdateProfileActivity::class.java)) }
             proBtnDelete.setOnClickListener {
                 showNegativeInfoDialog(
                     this@ProfileActivity,
@@ -117,11 +128,6 @@ class ProfileActivity : AppCompatActivity() {
                 ) { deleteUserAccount() }
             }
 
-            btnSettings.setOnClickListener {
-                val intent = Intent(this@ProfileActivity, SmartDashboardActivity::class.java)
-                intent.putExtra("DISPLAY", "Setting")
-                startActivity(intent)
-            }
         }
 
         loadProfileInfo()
@@ -137,35 +143,21 @@ class ProfileActivity : AppCompatActivity() {
             semester { binding.proSemester.text = it }
             picture(pictureListener)
         }
+        setUserStatus("Online") // Mark user as online
     }
 
-    // == == == == == == == == == == ==  Edit Profile button Functionality  == == == == == == == == == == == == == ==
+    // == == == == == == == == == == ==  Edit Change Picture Functionality  == == == == == == == == == == == == == ==
     @SuppressLint("InflateParams")
-    private fun setProfileInfo() {
+    private fun setProfilePictureInfo() {
         val builder = AlertDialog.Builder(this@ProfileActivity).create()
         val dialogView =
-            LayoutInflater.from(this@ProfileActivity).inflate(R.layout.dialog_edit_profile, null)
-        dialogBinding = DialogEditProfileBinding.bind(dialogView)
-        builder.setView(dialogBinding.root)
+            LayoutInflater.from(this@ProfileActivity).inflate(R.layout.dialog_change_picture, null)
+        dialogPictureBinding = DialogChangePictureBinding.bind(dialogView)
+        builder.setView(dialogPictureBinding.root)
         builder.setCanceledOnTouchOutside(false)
         builder.show()
 
-        val semesterList = resources.getStringArray(R.array.semester)
-        val adapterDepartment: ArrayAdapter<String> = ArrayAdapter<String>(
-            this@ProfileActivity,
-            R.layout.item_dropdown,
-            MakeFirebaseEasy.getAllDepartmentName(ArrayList())
-        )
-
-        dialogBinding.apply {
-            // Fetch institute names and populate the AutoCompleteTextView
-            fetchInstituteNames(editProInstitute)
-
-            // Set up department and semester adapters
-            editProDepartment.setAdapter(adapterDepartment)
-            val adapterSemester: ArrayAdapter<String> =
-                ArrayAdapter<String>(this@ProfileActivity, R.layout.item_dropdown, semesterList)
-            editProSemester.setAdapter(adapterSemester)
+        dialogPictureBinding.apply {
 
             // Fetch and display user data
             val userDocRef = FirebaseFirestore.getInstance()
@@ -176,83 +168,103 @@ class ProfileActivity : AppCompatActivity() {
                 if (documentSnapshot.exists()) {
                     val user = documentSnapshot.toObject(User::class.java)
                     Glide.with(this@ProfileActivity)
-                        .load(user?.picture?.let { MakeFirebaseEasy.currentUserImage(it) })
+                        .load(user?.picture?.let { currentUserImage(it) })
                         .placeholder(R.drawable.avatar)
                         .into(proPic)
-                    editProName.setText(user?.name)
-                    editProInstitute.setText(user?.institute) // Pre-fill institute
                 }
             }.addOnFailureListener {
-                Toast.makeText(this@ProfileActivity, "Failed to load user data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ProfileActivity, "Failed to load user data", Toast.LENGTH_SHORT)
+                    .show()
             }
 
-            dialogBinding.btnSave.setOnClickListener {
-                val userName = editProName.text.toString()
-                val userDepartment = editProDepartment.text.toString()
-                val userSemester = editProSemester.text.toString()
-                val userInstitute = editProInstitute.text.toString()
-
+            dialogPictureBinding.btnUpdate.setOnClickListener {
                 if (this@ProfileActivity::selectedImage.isInitialized) {
-                    uploadProfileImage(selectedImage, currentUser.uid, { imageUrl ->
-                        val updatedUserInfo = mapOf(
-                            "name" to userName,
-                            "department" to userDepartment,
-                            "semester" to userSemester,
-                            "institute" to userInstitute,
-                            "picture" to imageUrl
-                        )
-                        Firebase.database.reference.child("Users").child(auth.uid!!)
-                            .updateChildren(updatedUserInfo)
-                            .addOnSuccessListener {
-                                Toast.makeText(this@ProfileActivity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
-                                builder.dismiss()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this@ProfileActivity, "Error updating profile: ${e.message}", Toast.LENGTH_SHORT).show()
-                            }
-                    }, useFirebaseStorage = false) // Set true for Firebase Storage, false for Retrofit
+                    // Step 1: Upload Image to Web Server
+                    uploadProfileImage(
+                        selectedImage,
+                        currentUser.uid,
+                        { webServerUrl ->
+                            // Step 2: Update Firestore with the URL
+                            val updatedUserInfo = mapOf("picture" to webServerUrl)
+                            firestore.collection("users").document(currentUser.uid)
+                                .update(updatedUserInfo)
+                                .addOnSuccessListener {
+                                    Toast.makeText(this@ProfileActivity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+                                    builder.dismiss()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(this@ProfileActivity, "Error updating profile: ${e.message}", Toast.LENGTH_SHORT).show()
+                                }
+                        },
+                        useFirebaseStorage = false
+                    ) // Set true for Firebase Storage, false for Retrofit
                 } else {
-                    val updatedUserInfo = mutableMapOf(
-                        "name" to userName,
-                        "department" to userDepartment,
-                        "semester" to userSemester,
-                        "institute" to userInstitute,
-                    )
-                    userDocRef.get().addOnSuccessListener { documentSnapshot ->
-                        val user = documentSnapshot.toObject(User::class.java)
-                        updatedUserInfo["picture"] = user?.picture ?: ""
-
-                        userDocRef.update(updatedUserInfo as Map<String, Any>)
-                            .addOnSuccessListener {
-                                Toast.makeText(
-                                    this@ProfileActivity,
-                                    "Profile updated successfully!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                builder.dismiss()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(
-                                    this@ProfileActivity,
-                                    "Error updating profile: ${e.message}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                    }.addOnFailureListener {
-                        Toast.makeText(this@ProfileActivity, "Failed to load user data", Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(this@ProfileActivity, "No image selected", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            dialogBinding.btnCancel.setOnClickListener { builder.dismiss() }
-            dialogBinding.editPro.setOnClickListener { callImagePicker() }
-            dialogBinding.proCamera.setOnClickListener { callImagePicker() }
+            dialogPictureBinding.btnCancel.setOnClickListener { builder.dismiss() }
+            dialogPictureBinding.editPro.setOnClickListener { callImagePicker() }
+            dialogPictureBinding.proCamera.setOnClickListener { callImagePicker() }
         }
 
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }
 
+    // == == == == == == == == == == ==  Edit Profile Username button Functionality  == == == == == == == == == == == == == ==
+    @SuppressLint("InflateParams")
+    private fun setProfileUsername() {
+        val builder = AlertDialog.Builder(this@ProfileActivity).create()
+        val dialogView =
+            LayoutInflater.from(this@ProfileActivity).inflate(R.layout.dialog_change_username, null)
+        dialogBinding = DialogChangeUsernameBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+
+        dialogBinding.apply {
+
+            // Fetch and display user data
+            val userDocRef = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(currentUser.uid)
+
+            userDocRef.get().addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val user = documentSnapshot.toObject(User::class.java)
+                    dialogBinding.editProName.setText(user?.name)
+                }
+            }.addOnFailureListener {
+                setToast("Failed to load user data")
+            }
+
+            dialogBinding.btnSave.setOnClickListener {
+                builder.dismiss()
+                val newName = dialogBinding.editProName.text.toString()
+                val updatedUserInfo = mapOf("name" to newName)
+
+                if (newName.isEmpty()){
+                    dialogBinding.editProName.error = "Please enter a valid username"
+                    return@setOnClickListener
+                } else {
+                    firestore.collection("users").document(currentUser.uid)
+                        .update(updatedUserInfo)
+                        .addOnSuccessListener {
+                            setToast("Username updated successfully!")
+                            builder.dismiss()
+                        }.addOnFailureListener { e ->
+                            setToast("Error updating profile: ${e.message}")
+                        }
+                }
+            }
+
+            dialogBinding.btnCancel.setOnClickListener { builder.dismiss() }
+        }
+
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
+    }
 
     private fun callImagePicker() {
         ImagePicker.with(this)
@@ -270,18 +282,15 @@ class ProfileActivity : AppCompatActivity() {
                     val uri = result.data?.data
                     uri?.let {
                         binding.proPic.setImageURI(it)
-                        dialogBinding.proPic.setImageURI(it)
+                        dialogPictureBinding.proPic.setImageURI(it)
                         selectedImage = it
-                        SmartData.sToast(this@ProfileActivity, "Image Selected")
+                       setToast("Image Selected")
                     }
                 }
 
-                ImagePicker.RESULT_ERROR -> SmartData.sToast(
-                    this,
-                    ImagePicker.getError(result.data)
-                )
+                ImagePicker.RESULT_ERROR -> setToast(ImagePicker.getError(result.data))
 
-                else -> SmartData.sToast(this, "Not Select Any Image")
+                else -> setToast("Not Select Any Image")
             }
         }
 
@@ -292,58 +301,73 @@ class ProfileActivity : AppCompatActivity() {
         finish()
     }
 
+
     private fun deleteUserAccount() {
         val user = FirebaseAuth.getInstance().currentUser
 
-        user?.delete()?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                // User account deleted from Firebase Auth
-                lToast(this, "Account deleted successfully!")
+        if (user != null) {
+            val firestore = FirebaseFirestore.getInstance()
+            val userDocumentRef = firestore.collection("users").document(user.uid)
 
-                // Optional: Navigate to a different screen
-                startActivity(Intent(this, AuthActivity::class.java))
-                finish()
-            } else {
-                // Handle deletion failure
-                val errorMessage = task.exception?.localizedMessage ?: "Failed to delete account."
-                lToast(this, errorMessage)
-            }
-        }
-    }
+            // Step 1: Update the Firestore document with type = "delete"
+            userDocumentRef.update("type", "delete")
+                .addOnSuccessListener {
+                    // Step 2: Delete the user from Firebase Authentication
+                    user.delete().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            // User account deleted from Firebase Auth
+                            setToast("Account deleted successfully!")
 
-
-    inner class InstituteAdapter(private val institutes: List<String>) :
-        ArrayAdapter<String>(this, R.layout.item_dropdown, institutes) {
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            val view = super.getView(position, convertView, parent)
-            val instituteName = getItem(position)
-            val instituteNameText: TextView = view.findViewById(R.id.tv)
-            instituteNameText.text = instituteName // Set the institute name
-            return view
-        }
-    }
-
-    private fun fetchInstituteNames(editProInstitute: MaterialAutoCompleteTextView) {
-        firestore.collection("institutes")
-            .get()
-            .addOnSuccessListener { result: QuerySnapshot ->
-                val instituteNames = mutableListOf<String>()
-                for (document in result) {
-                    val instituteName = document.getString("name")
-                    if (instituteName != null) {
-                        instituteNames.add(instituteName)
+                            // Optional: Navigate to a different screen
+                            startActivity(Intent(this, AuthActivity::class.java))
+                            finish()
+                        } else {
+                            // Handle deletion failure
+                            val errorMessage = task.exception?.localizedMessage ?: "Failed to delete account."
+                            setToast(errorMessage)
+                        }
                     }
                 }
+                .addOnFailureListener { e ->
+                    // Handle Firestore update failure
+                    val errorMessage = e.localizedMessage ?: "Failed to update user data."
+                    setToast(errorMessage)
+                }
+        } else {
+            setToast("No user is logged in!")
+        }
+    }
 
-                // Create an instance of the custom adapter
-                val adapter = InstituteAdapter(instituteNames)
+    override fun onResume() {
+        super.onResume()
+        setUserStatus("Online")
+    }
 
-                // Set the custom adapter to the AutoCompleteTextView
-                editProInstitute.setAdapter(adapter)
+    override fun onPause() {
+        super.onPause()
+        setUserStatus("Offline")
+    }
+
+    private fun setUserStatus(status: String) {
+        val currentUser = firebaseAuth.currentUser
+        currentUser?.let {
+            val userId = it.uid
+            val userRef = firebaseDatabase.reference.child("ActiveUsers").child(userId)
+
+            val userStatus = mapOf(
+                "status" to status,
+                "uid" to userId,
+                "last_seen" to ServerValue.TIMESTAMP
+            )
+
+            userRef.updateChildren(userStatus).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("FirebaseSuccess", "User status updated successfully!")
+                } else {
+                    Log.e("FirebaseError", "Failed to update user status: ${task.exception?.message}")
+                }
             }
-            .addOnFailureListener { exception ->
-                exception.printStackTrace() // Handle error
-            }
+        }
     }
 
 }

@@ -5,15 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sl_secoundary"
-    tools:context=".view.BookDetailsActivity">
+    android:background="@color/sl_secondary"
+    tools:context=".ui.activities.BookDetailsActivity">
 
     <ScrollView
         android:id="@+id/bookDetails"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentTop="true"
-        android:background="@color/sl_secoundary"
+        android:background="@color/sl_secondary"
         android:layout_marginBottom="10dp"
         android:scrollbars="none"
         android:visibility="gone"
@@ -514,7 +514,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/sl_secoundary"
+            android:background="@color/sl_secondary"
             android:scrollbars="none">
 
             <androidx.constraintlayout.widget.ConstraintLayout

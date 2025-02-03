@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:scrollbars="none"
     android:background="@color/transparent"
-    tools:context=".fragment.SmartSettingFragment">
+    tools:context=".ui.fragments.SmartSettingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

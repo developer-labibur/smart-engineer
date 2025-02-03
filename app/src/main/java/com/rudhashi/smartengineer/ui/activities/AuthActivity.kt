@@ -7,28 +7,29 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.rudhashi.smartengineer.data.constants.GetSet.lToast
-import com.rudhashi.smartengineer.data.constants.GetSet.sToast
+import com.rudhashi.smartengineer.R
+import com.rudhashi.smartengineer.utils.helpers.GetSet.lToast
+import com.rudhashi.smartengineer.utils.helpers.GetSet.sToast
 import com.rudhashi.smartengineer.data.repositories.AuthRepository
 import com.rudhashi.smartengineer.data.repositories.GoogleAuthClient
 import com.rudhashi.smartengineer.databinding.ActivityAuthBinding
 import com.rudhashi.smartengineer.databinding.BottomSheetLoginBinding
 import com.rudhashi.smartengineer.databinding.BottomSheetSignupBinding
-import com.rudhashi.smartengineer.page.AboutUsActivity
+import com.rudhashi.smartengineer.utils.themes.SmartThemeActivity
 import kotlinx.coroutines.launch
 
-class AuthActivity : AppCompatActivity() {
+class AuthActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivityAuthBinding
     private lateinit var authRepository: AuthRepository
@@ -40,9 +41,16 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        enableEdgeToEdge() // Ensure UI uses edge-to-edge design.
+
+        // Apply window insets for immersive design.
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         authRepository = AuthRepository()
         googleAuthClient = GoogleAuthClient(this)
@@ -328,7 +336,7 @@ class AuthActivity : AppCompatActivity() {
         }
         spannableString.setSpan(termsClickableSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(UnderlineSpan(), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(ForegroundColorSpan(Color.BLUE), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(getColor(R.color.purple_text_color), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         // "Privacy Policy" clickable span
         val privacyStart = text.indexOf("Privacy Policy")
@@ -343,11 +351,18 @@ class AuthActivity : AppCompatActivity() {
         }
         spannableString.setSpan(privacyClickableSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(UnderlineSpan(), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(ForegroundColorSpan(Color.BLUE), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(getColor(R.color.purple_text_color), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         // Set the spannable string to the TextView
         binding.tvTermsPrivacy.text = spannableString
         binding.tvTermsPrivacy.movementMethod = LinkMovementMethod.getInstance()
     }
 
+    // Enable edge-to-edge layout
+    @Suppress("DEPRECATION")
+    private fun enableEdgeToEdge() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
+    }
 }

@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layBlur"
         android:layout_width="0dp"
-        android:layout_height="180dp"
+        android:layout_height="200dp"
         android:layout_margin="20dp"
         android:background="@drawable/dialog_orange_bg"
         android:gravity="center_vertical"
@@ -30,7 +30,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginTop="18dp"
         android:fontFamily="@font/hind_siliguri"
-        android:text="@string/pro_member"
+        android:text="@string/engineer_pro"
         android:textColor="@color/mainContainer_HeadingText"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -57,8 +57,9 @@
         android:id="@+id/btnClose"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/dialog_orange_sub_action"
         android:layout_margin="15dp"
+        android:background="@drawable/dialog_orange_sub_action"
+        android:contentDescription="@string/sl_icon"
         android:padding="10dp"
         android:src="@drawable/sl_left_arrow_light_only"
         app:layout_constraintBottom_toBottomOf="@+id/layBlur"
@@ -96,6 +97,7 @@
         android:layout_height="160dp"
         android:layout_marginStart="-10dp"
         android:src="@drawable/cat_with_balloon"
+        android:contentDescription="@string/sl_icon"
         app:layout_constraintBottom_toTopOf="@+id/layBlur"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/layBlur"/>
@@ -106,6 +108,7 @@
         android:layout_height="65dp"
         android:layout_marginBottom="-20dp"
         android:src="@drawable/cute_cat"
+        android:contentDescription="@string/sl_icon"
         app:layout_constraintBottom_toTopOf="@+id/layBlur"
         app:layout_constraintEnd_toEndOf="@+id/layBlur" />
 

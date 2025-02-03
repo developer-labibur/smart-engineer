@@ -16,14 +16,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.rudhashi.smartengineer.MyAdmobApp
+import com.rudhashi.smartengineer.ads.MyAdmobApp
 import com.rudhashi.smartengineer.R
 import com.rudhashi.smartengineer.data.constants.Constants.ADMOB_KEY
 import com.rudhashi.smartengineer.data.constants.Constants.SPLASH_SCREEN
 import com.rudhashi.smartengineer.data.constants.Constants.VISIBILITY_KEY
 import com.rudhashi.smartengineer.databinding.ActivitySplashScreenBinding
-import com.rudhashi.smartengineer.manager.AdManager
-import com.rudhashi.smartengineer.old.util.SmartConfig
+import com.rudhashi.smartengineer.utils.helpers.SmartConfig.Companion.isAdsVisible
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
@@ -53,8 +52,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
 
         // Preload rewarded ad if ads are visible
-        if (SmartConfig.isAdsVisible(this)) {
-            AdManager.loadRewardedAd(this)
+        if (isAdsVisible(this)) {
+            //AdManager.loadRewardedAd(this)
             (application as? MyAdmobApp)?.showAdIfAvailable(
                 this@SplashScreenActivity,
                 object : MyAdmobApp.OnShowAdCompleteListener {

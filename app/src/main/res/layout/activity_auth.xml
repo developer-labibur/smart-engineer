@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/mainContainer_Bg"
-    android:padding="16dp">
+    android:background="@color/mainContainer_Bg">
 
     <LinearLayout
         android:id="@+id/authHeader"
@@ -14,6 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center">
 
         <ImageView
@@ -49,6 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/authHeader"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_above="@id/tv_terms_privacy"
         android:scrollbars="none">
 
@@ -230,8 +233,8 @@
         android:textSize="13sp"
         android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="26dp"
         android:fontFamily="@font/hind_siliguri"
         android:layout_gravity="center_horizontal"
         android:text="@string/app_name"

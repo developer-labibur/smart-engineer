@@ -111,9 +111,14 @@
 
     <!-- Dashboard Activity -->
     <string name="home">Home</string>
+    <string name="study">Study</string>
+    <string name="updates">Updates</string>
+    <string name="setting">Setting</string>
+
     <string name="explore">Explore</string>
     <string name="notice">Notice</string>
     <string name="books">Books</string>
+
     <string name="notice_demo">ডিপ্লোমা-ইন-টেক্সটাইল ইঞ্জিনিয়ারিং শিক্ষাক্রমের শিক্ষার্থীদের পুনঃভর্তির বিজ্ঞপ্তি প্রকাশিত হয়েছে।\n✅ শিক্ষার্থী কর্তৃক প্রতিষ্ঠান বরাবর আবেদনের সময়সীমাঃ ০৫/০৯/২০২৪ ইং থেকে ৩০/০৯/২০২৪ ইং তারিখ পর্যন্ত।</string>
     <string name="notice_title">📛 নোটিশ 📛</string>
     <string name="my_birthday">Oct 20, 2024</string>
@@ -140,7 +145,6 @@
     <string name="sign_out">Sign Out</string>
     <string name="my_labib">Labib UR Rahman</string>
     <string name="my_gmail">contact.labibur@gmail.com</string>
-    <string name="setting">Setting</string>
     <string name="favorite">Favorite</string>
     <string name="library">Library</string>
     <string name="institute">Institute</string>
@@ -198,6 +202,7 @@
     <string name="p">P</string>
     <string name="olytechnic">olytechnic Notice</string>
     <string name="search_by_subject_code">Search by subject code</string>
+    <string name="search_book">Search books...</string>
     <string name="b">B</string>
     <string name="ooks">ooks</string>
     <string name="latest">Latest</string>
@@ -278,7 +283,6 @@
     <string name="reads">%1$s total reads</string>
     <string name="book_name_n_code">%1$s [%2$s]</string>
     <string name="book_credit">Book Credit</string>
-    <string name="updates">Updates</string>
     <string name="dark">Dark</string>
     <string name="light">Light</string>
     <string name="choose_a_theme">Choose a theme</string>
@@ -328,13 +332,32 @@
     <string name="app_slogan">Your Gateway to Success, Knowledge, and Innovation!</string>
 
 
+    <string name="engineer_pro">Engineer Pro</string>
+    <string name="free_user">Free User</string>
+    <string name="pro_user">Pro User</string>
 
 
-    <string name="_10">৳10</string>
-    <string name="pro_member">Pro Member</string>
     <string name="delete_account">Delete Account</string>
     <string name="delete_info">Are you sure you want to delete your account? This action cannot be undone.</string>
     <string name="freemimum_info_text">Right now, you can enjoy all the premium features of the Smart Engineer app for free.</string>
     <string name="profile">Profile</string>
+    <string name="change_name">Change Name</string>
+    <string name="change_department_cap">Change Department</string>
+    <string name="delete_profile_information">Delete Profile Information</string>
+    <string name="update">Update</string>
+
+
+
+
+    <string name="technology_library">Technology Library</string>
+    <string name="search_institute">Search Institute…</string>
+    <string name="select_department">Select Departments</string>
+    <string name="select_semester">Select Semester</string>
+    <string name="select_institute">Select Institute</string>
+
+    <string name="sub_title_select_department">Choose your preferred Department</string>
+    <string name="sub_title_select_semester">Choose your preferred Semester</string>
+    <string name="sub_title_select_institute">Choose your preferred Institute or Manually add your Institute</string>
+    <string name="add_the_institute_you_input">Add the institute you input</string>
 
 </resources>

@@ -15,30 +15,31 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rudhashi.smartengineer.R
-import com.rudhashi.smartengineer.dashboard.SmartHomeFragment
-import com.rudhashi.smartengineer.data.constants.GetSet.sToast
-import com.rudhashi.smartengineer.data.constants.Converters.dpToPx
-import com.rudhashi.smartengineer.data.constants.GetSet.getCurrentDate
+import com.rudhashi.smartengineer.ui.fragments.SmartHomeFragment
+import com.rudhashi.smartengineer.utils.helpers.GetSet.sToast
+import com.rudhashi.smartengineer.utils.helpers.Converters.dpToPx
+import com.rudhashi.smartengineer.utils.helpers.GetSet.getCurrentDate
 import com.rudhashi.smartengineer.databinding.ActivitySmartDashboardBinding
-import com.rudhashi.smartengineer.fragment.SmartBooksFragment
-import com.rudhashi.smartengineer.fragment.SmartSettingFragment
-import com.rudhashi.smartengineer.fragment.SmartUpdatesFragment
-import com.rudhashi.smartengineer.manager.CUserManager
-import com.rudhashi.smartengineer.old.util.MakeFirebaseEasy
-import com.rudhashi.smartengineer.old.util.SmartConfig
-import com.rudhashi.smartengineer.old.util.SmartThemeActivity
+import com.rudhashi.smartengineer.ui.fragments.SmartBooksFragment
+import com.rudhashi.smartengineer.ui.fragments.SmartSettingFragment
+import com.rudhashi.smartengineer.ui.fragments.SmartUpdatesFragment
+import com.rudhashi.smartengineer.managers.CUserManager
+import com.rudhashi.smartengineer.ui.fragments.SmartStudyFragment
+import com.rudhashi.smartengineer.utils.helpers.MakeFirebaseEasy
+import com.rudhashi.smartengineer.utils.helpers.SmartConfig
+import com.rudhashi.smartengineer.utils.themes.SmartThemeActivity
 
 class SmartDashboardActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivitySmartDashboardBinding
 
-    private val pictureListener: (String) -> Unit = {
-        if (it.isEmpty()) {
+    private val pictureListener: (String) -> Unit = { picture ->
+        if (picture.isEmpty()) {
             binding.ivUserPic.setImageResource(R.drawable.student_avatar)
         } else {
             if (!this.isDestroyed && !this.isFinishing) {
                 Glide.with(this)
-                    .load(MakeFirebaseEasy.currentUserImage(it))
+                    .load(MakeFirebaseEasy.currentUserImage(picture))
                     .placeholder(R.drawable.student_avatar)
                     .transform(RoundedCorners(dpToPx(this, 10f)))
                     .into(binding.ivUserPic)
@@ -136,7 +137,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
                     "points" to SmartConfig.DAILY_LOGIN_BONUS_POINT,
                     "lastBonusDate" to currentDate,
                     "joiningDate" to currentDate,
-                    "role" to "User"
+                    "role" to "Free User"
                 )
                 userRef.set(newUser).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -159,7 +160,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
         // Set up ViewPager with fragments
         val fragments = listOf(
             SmartHomeFragment(),
-            SmartBooksFragment(),
+            SmartStudyFragment(),
             SmartUpdatesFragment(),
             SmartSettingFragment()
         )

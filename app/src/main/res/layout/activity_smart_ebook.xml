@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:background="?attr/pdfBackgroundSecoundary"
     android:layout_height="match_parent"
-    tools:context=".view.SmartEBookActivity">
+    android:theme="@style/AppTheme.Light"
+    tools:context=".ui.activities.SmartEBookActivity">
 
     <!-- This FrameLayout will be animated -->
     <FrameLayout

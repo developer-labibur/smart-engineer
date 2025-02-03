@@ -6,9 +6,12 @@
     <!-- ================================================================================================== -->
 
     <!-- Main Color - SL-->
-    <color name="sl_primary">#1A1A1A</color>
-    <color name="sl_primary_text">#e6d8c3</color>
-    <color name="sl_secoundary">#262626</color>
+    <color name="sl_primary">#21232E</color>
+    <color name="sl_primary_text">#F4EFE6</color>
+    <color name="sl_secondary">#2f3240</color>
+<!--    <color name="sl_primary">#1A1A1A</color>-->
+<!--    <color name="sl_primary_text">#e6d8c3</color>-->
+<!--    <color name="sl_secondary">#262626</color>-->
     <color name="sl_optional">#6c5e49</color>
     <color name="sl_optional_green">#3c636d</color>
     <color name="sl_action">#fccb83</color>

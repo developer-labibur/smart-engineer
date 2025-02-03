@@ -2,6 +2,8 @@ package com.rudhashi.smartengineer.managers
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
@@ -15,12 +17,14 @@ import com.rudhashi.smartengineer.databinding.DialogCongratulatuinBinding
 import com.rudhashi.smartengineer.databinding.DialogInfoBinding
 import com.rudhashi.smartengineer.databinding.DialogNegativeInfoBinding
 import com.rudhashi.smartengineer.databinding.DialogPdfDownloadBinding
+import com.rudhashi.smartengineer.databinding.DialogPremiumUserBinding
 import com.rudhashi.smartengineer.databinding.DialogProgressBinding
 import com.rudhashi.smartengineer.databinding.DialogWatchAdsBinding
 import com.rudhashi.smartengineer.databinding.DialogWatchVideoBinding
-import com.rudhashi.smartengineer.manager.AdManager
-import com.rudhashi.smartengineer.model.BookUnit
-import com.rudhashi.smartengineer.old.util.SmartConfig
+import com.rudhashi.smartengineer.ui.activities.ProfileActivity
+import com.rudhashi.smartengineer.data.models.BookUnit
+import com.rudhashi.smartengineer.databinding.DialogComingSoonBinding
+import com.rudhashi.smartengineer.utils.helpers.SmartConfig
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -64,7 +68,26 @@ object DialogManager {
         builder.show()
     }
 
+    // Freemium Features Dialog ----------------------------------------------------------------
+    fun showFreemiumFeaturesDialog(activity: Activity) {
+        val builder = AlertDialog.Builder(activity).create()
+        val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_premium_user, null)
+        val dialogBinding = DialogPremiumUserBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.setCanceledOnTouchOutside(true)
+        builder.show()
 
+        dialogBinding.apply {
+            btnAllPoints.setOnClickListener {
+                activity.startActivity(Intent(activity, ProfileActivity::class.java))
+                builder.dismiss()
+            }
+            btnClose.setOnClickListener { builder.dismiss() }
+        }
+
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
+    }
 
 
 
@@ -269,4 +292,21 @@ object DialogManager {
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }
+
+
+    @SuppressLint("InflateParams")
+    fun comingSoon(context: Context){
+        val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog).create()
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_coming_soon, null)
+        val dialogBinding: DialogComingSoonBinding = DialogComingSoonBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.show()
+
+        dialogBinding.btnOk.setOnClickListener { builder.dismiss() }
+
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
+    }
+
+
 }

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sl_secoundary"
+    android:background="@color/sl_secondary"
     android:padding="10dp"
-    tools:context=".container.ViewAllUpdateFragment">
+    tools:context=".ui.fragments.ViewAllUpdateFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"

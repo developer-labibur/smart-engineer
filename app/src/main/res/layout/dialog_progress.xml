@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#2E86DE"
+    app:cardBackgroundColor="#21a2bd"
     app:cardCornerRadius="15dp"
     android:layout_margin="5dp">
 
@@ -39,10 +39,13 @@
             android:id="@+id/progressBar"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="10dp"
             android:layout_marginBottom="16dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:max="100"
-            android:progress="0" />
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_progress" />
 
         <TextView
             android:id="@+id/tvProgressPercentage"

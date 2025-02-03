@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:background="@color/sl_primary"
     android:orientation="vertical"
-    tools:context=".view.AllBookActivity">
+    tools:context=".ui.activities.AllBookActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/sl_secoundary"
+        android:background="@color/sl_secondary"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/adViewContainer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/header_secoundary_bg"
+                        android:background="@drawable/header_secondary_bg"
                         android:contentDescription="@string/sl_icon"
                         android:paddingStart="9dp"
                         android:paddingEnd="11dp"
@@ -154,7 +154,7 @@
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="40dp"
-                        android:background="@drawable/header_secoundary_bg"
+                        android:background="@drawable/header_secondary_bg"
                         app:cardCornerRadius="12dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

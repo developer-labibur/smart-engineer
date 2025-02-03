@@ -205,7 +205,7 @@
 
         <TextView
             android:id="@+id/tvPremium"
-            android:text="@string/pro_member"
+            android:text="@string/engineer_pro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
             app:layout_constraintTop_toTopOf="@+id/ll_premium_icon"
@@ -217,29 +217,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/roboto"
+            android:fontFamily="@font/main_font_regular_2"
             android:includeFontPadding="false"
-            android:text="@string/_10"
-            android:textColor="@color/sl_action_text_middle_red"
-            android:textSize="15sp"
+            android:text="@string/free_user"
+            android:textColor="@color/sl_primary_text"
+            android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
             app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
-
-        <TextView
-            android:id="@+id/tvPointTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginBottom="-2dp"
-            android:fontFamily="@font/main_font_regular_2"
-            android:includeFontPadding="false"
-            android:text="/Month"
-            android:textColor="@color/sl_primary_text"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@id/tvPoints"
-            app:layout_constraintStart_toEndOf="@+id/tvPoints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -291,7 +277,7 @@
                 android:text="@string/home"/>
 
         </LinearLayout>
-        <!-- Books Bottom -->
+        <!-- Study Bottom -->
         <LinearLayout
             android:id="@+id/llBook"
             style="@style/bottom_nav_bg"
@@ -314,7 +300,7 @@
             <TextView
                 android:id="@+id/tvBook"
                 style="@style/bottom_nav_text_style"
-                android:text="@string/books" />
+                android:text="@string/study" />
 
         </LinearLayout>
         <!-- Updates Bottom -->

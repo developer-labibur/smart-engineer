@@ -17,7 +17,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="50dp"
-        app:cardBackgroundColor="@color/sl_secoundary"
+        app:cardBackgroundColor="@color/sl_secondary"
         app:cardCornerRadius="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
