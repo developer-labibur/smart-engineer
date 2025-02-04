@@ -212,14 +212,13 @@
             style="@style/dashboard_smart_point_text" />
 
         <TextView
-            android:id="@+id/tvPoints"
+            android:id="@+id/tvRole"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/main_font_regular_2"
             android:includeFontPadding="false"
-            android:text="@string/free_user"
             android:textColor="@color/sl_primary_text"
             android:textSize="13sp"
             android:textStyle="bold"

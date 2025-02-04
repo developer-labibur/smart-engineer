@@ -1,5 +1,6 @@
 package com.softylasa.smartengineer.ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,12 +11,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import com.softylasa.smartengineer.R
+import com.softylasa.smartengineer.data.models.Book
 import com.softylasa.smartengineer.data.models.Category
+import com.softylasa.smartengineer.data.models.Favorite
 import com.softylasa.smartengineer.data.models.SemesterTotal
 import com.softylasa.smartengineer.databinding.FragmentSmartStudyBinding
 import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDialog
@@ -27,9 +33,10 @@ import com.softylasa.smartengineer.ui.activities.SearchActivity
 import com.softylasa.smartengineer.ui.adapters.CategoryAdapter
 import com.softylasa.smartengineer.ui.adapters.SemesterAdapter
 import com.softylasa.smartengineer.utils.helpers.ConvertFB
+import com.softylasa.smartengineer.utils.helpers.Converters.covertDepartmentToAbbr
+import com.softylasa.smartengineer.utils.helpers.Converters.covertSemNameToCode
 import com.softylasa.smartengineer.utils.helpers.GetSet.lToast
 import com.softylasa.smartengineer.utils.helpers.GetSet.sToast
-
 
 class SmartStudyFragment : Fragment() {
 
@@ -38,8 +45,12 @@ class SmartStudyFragment : Fragment() {
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var semesterAdapter: SemesterAdapter
     private var firestoreDB: FirebaseFirestore? = null
+    private val dbRealtime = FirebaseDatabase.getInstance().reference
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+
+    private val favoriteBooks = mutableListOf<Book>()
+    private val booksList = mutableListOf<Book>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,6 +100,9 @@ class SmartStudyFragment : Fragment() {
                     startActivity(intent) }
             }
         }
+
+        getLibraryTotalBooksNumber()
+        getFavoriteTotalBooksNumber()
 
         return binding.root
     }
@@ -228,11 +242,111 @@ class SmartStudyFragment : Fragment() {
             }
     }
 
+    // =====================================================================================================================
+    // ============================       Get Number of Books for Library and Favorite     =================================
+    // =====================================================================================================================
+    private fun getLibraryTotalBooksNumber(){
+        val currentUserUID = FirebaseAuth.getInstance().currentUser?.uid
+        if (currentUserUID != null) {
+            val userRef = firestoreDB?.collection("users")?.document(currentUserUID)
+            userRef?.get()?.addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val department = documentSnapshot.getString("department")
+                    val semester = documentSnapshot.getString("semester")
+
+                    if (!department.isNullOrEmpty() && !semester.isNullOrEmpty()) {
+                        // Convert department and semester to codes
+                        val departmentAbbr = covertDepartmentToAbbr(department)
+                        val semesterCode = covertSemNameToCode(semester)
+                        val xSem = "$departmentAbbr$semesterCode"
+
+                        val booksRef = firestoreDB?.collection("books")
+                        booksRef?.whereArrayContains("xSem", xSem)?.get()
+                            ?.addOnSuccessListener { querySnapshot ->
+                                booksList.clear() // Clear previous data
+                                for (document in querySnapshot) {
+                                    val book = document.toObject(Book::class.java)
+                                    booksList.add(book)
+                                    if (isAdded) {
+                                        val libTotal = context?.getString(R.string.total___books, booksList.size.toString()) ?: "Total 0 books"
+                                        binding.tvLibNo.text = libTotal
+                                    } else {
+                                        // Fragment is not attached, handle it safely
+                                    }
+
+                                }
+                            }
+                            ?.addOnFailureListener { exception ->
+                                binding.tvLibNo.text = getString(R.string.total___books, "0")
+                                Log.e("FirestoreError", "Error fetching books: ${exception.message}")
+                            }
+                    } else {
+                        binding.tvLibNo.text = getString(R.string.total___books, "0")
+                        Log.e("UserDataError", "Department or Semester is missing for the user.")
+                    }
+                } else {
+                    binding.tvLibNo.text = getString(R.string.total___books, "0")
+                    Log.e("FirestoreError", "User document does not exist.")
+                }
+            }?.addOnFailureListener { exception ->
+                binding.tvLibNo.text = getString(R.string.total___books, "0")
+                Log.e("FirestoreError", "Error fetching user data: ${exception.message}")
+            }
+        }
+    }
+
+    private fun getFavoriteTotalBooksNumber(){
+        val currentUserUID = FirebaseAuth.getInstance().currentUser?.uid
+        if (currentUserUID != null) {
+            val favoritesRef = dbRealtime.child("UsersDB").child(currentUserUID).child("Favourites").child("Books")
+            favoritesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        favoriteBooks.clear() // Clear previous data
+                        // Iterate through all the BCode in the favorites list
+                        for (favoriteSnapshot in snapshot.children) {
+                            val favorite = favoriteSnapshot.getValue(Favorite::class.java)
+
+                            val bookRef = favorite?.let { firestoreDB?.collection("books")?.document(it.BCode) }
+                            bookRef?.get()?.addOnSuccessListener { documentSnapshot ->
+                                if (documentSnapshot.exists()) {
+                                    val book = documentSnapshot.toObject(Book::class.java)
+                                    book?.let {
+                                        // Add book to the favoriteBooks list
+                                        favoriteBooks.add(it)
+                                        if (isAdded) {
+                                            val libTotal = context?.getString(R.string.total___books, favoriteBooks.size.toString()) ?: "Total 0 books"
+                                            binding.tvDep.text = libTotal
+                                        } else {
+                                            // Fragment is not attached, handle it safely
+                                        }
+                                    }
+                                }
+                            }?.addOnFailureListener { exception ->
+                                Log.e("FirebaseError", "Error fetching book details: ${exception.message}")
+                                binding.tvDep.text = getString(R.string.total___books, "0")
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle errors if any
+                    Log.e("FirebaseError", "Error fetching favorites: ${error.message}")
+                    binding.tvDep.text = getString(R.string.total___books, "0")
+                }
+            })
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         fetchDepartments()
         getSemesterData()
+        getLibraryTotalBooksNumber()
+        getFavoriteTotalBooksNumber()
     }
+
     override fun onPause() {
         isShimmerOn(false)
         super.onPause()
@@ -248,6 +362,18 @@ class SmartStudyFragment : Fragment() {
             binding.shimmerDepartmentList.visibility = View.GONE
             binding.homeContainer.visibility = View.VISIBLE
         }
+    }
+
+    private var safeContext: Context? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        safeContext = context
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        safeContext = null
     }
 
 }

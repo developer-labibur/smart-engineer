@@ -1,18 +1,14 @@
 package com.softylasa.smartengineer.ui.fragments
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.firebase.auth.FirebaseAuth
@@ -21,31 +17,49 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.softylasa.smartengineer.R
-import com.softylasa.smartengineer.ui.activities.TestActivity
+import com.softylasa.smartengineer.data.constants.Constants.APP_LINK
+import com.softylasa.smartengineer.data.constants.Constants.PACKAGE_NAME
 import com.softylasa.smartengineer.utils.helpers.Converters.dpToPx
-import com.softylasa.smartengineer.databinding.DialogChangeDepartmentBinding
-import com.softylasa.smartengineer.databinding.DialogLogoutWarningBinding
 import com.softylasa.smartengineer.databinding.FragmentSmartSettingBinding
 import com.softylasa.smartengineer.data.models.User
+import com.softylasa.smartengineer.data.repositories.AuthRepository
+import com.softylasa.smartengineer.managers.CUserManager
+import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDialog
+import com.softylasa.smartengineer.managers.DialogManager.showNegativeInfoDialog
 import com.softylasa.smartengineer.ui.activities.AboutUsActivity
-import com.softylasa.smartengineer.utils.helpers.GoogleAuthClient
+import com.softylasa.smartengineer.ui.activities.AcademicBookActivity
+import com.softylasa.smartengineer.ui.activities.AuthActivity
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy
 import com.softylasa.smartengineer.utils.helpers.SmartData
 import com.softylasa.smartengineer.ui.activities.DayNightActivity
-import com.softylasa.smartengineer.ui.activities.MainActivity
+import com.softylasa.smartengineer.ui.activities.NoticeBoardActivity
 import com.softylasa.smartengineer.ui.activities.ProfileActivity
-import com.softylasa.smartengineer.ui.activities.SmartPointActivity
-import kotlinx.coroutines.launch
+import com.softylasa.smartengineer.ui.activities.UpdateProfileActivity
+import com.softylasa.smartengineer.ui.activities.WebBrowserActivity
 
 class SmartSettingFragment : Fragment() {
 
     private lateinit var binding: FragmentSmartSettingBinding
 
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private lateinit var dialogDepBinding: DialogChangeDepartmentBinding
     private val userId = auth.currentUser?.uid
     private var database = FirebaseDatabase.getInstance()
     private val userRef = database.getReference("Users/$userId")
+
+    private val pictureListener: (String) -> Unit = { imageUrl ->
+        if (imageUrl.isEmpty()) {
+            binding.ivProfilePicture.setImageResource(R.drawable.avatar)
+        } else {
+            if (isAdded) { // Ensure Fragment is attached
+                Glide.with(this)
+                    .load(MakeFirebaseEasy.currentUserImage(imageUrl))
+                    .placeholder(R.drawable.avatar)
+                    .transform(RoundedCorners(dpToPx(requireActivity(), 10f))) // Use requireContext()
+                    .into(binding.ivProfilePicture)
+            }
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,35 +76,54 @@ class SmartSettingFragment : Fragment() {
         displayUserProfileInfo()  // Display user profile info
 
         binding.apply {
-            btnViewProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
-            btnViewPremium.setOnClickListener { startActivity(Intent(requireActivity(), SmartPointActivity::class.java)) }
+            activity?.let { context ->
+                btnViewProfile.setOnClickListener { startActivity(Intent(context, ProfileActivity::class.java)) }
+                btnViewPremium.setOnClickListener { showFreemiumFeaturesDialog(context) }
 
-            // Custom Section --------------------------------
-            sBtnPremium.setOnClickListener { startActivity(Intent(requireActivity(), SmartPointActivity::class.java)) }
-            sBtnDark.setOnClickListener {
-                startActivity(Intent(requireActivity(), DayNightActivity::class.java))
-                requireActivity().finish()
+                // Custom Section --------------------------------
+                sBtnPremium.setOnClickListener { showFreemiumFeaturesDialog(context) }
+                sBtnDark.setOnClickListener {
+                    startActivity(Intent(context, DayNightActivity::class.java))
+                    context.finish()
+                }
+
+                // Special Section --------------------------------
+                //sBtnInstitute.setOnClickListener { startActivity(Intent(context, NoticeBoardActivity::class.java)) }
+                //sBtnDepartment.setOnClickListener { SmartData.comingSoon(context) }
+                sBtnBtebNotice.setOnClickListener { startActivity(Intent(context, NoticeBoardActivity::class.java)) }
+                sBtnAcademicBook.setOnClickListener { startActivity(Intent(context, AcademicBookActivity::class.java)) }
+                //sBtnRecycling.setOnClickListener { SmartData.comingSoon(context) }
+                //sBtnCommunity.setOnClickListener { SmartData.comingSoon(context) }
+                sBtnCGPA.setOnClickListener { SmartData.comingSoon(context) }
+                //sBtnContributor.setOnClickListener { SmartData.comingSoon(context) }
+
+                // Management Section --------------------------------
+                sBtnProfile.setOnClickListener { startActivity(Intent(context, ProfileActivity::class.java)) }
+                sBtnChangeDepartment.setOnClickListener { startActivity(Intent(context, UpdateProfileActivity::class.java)) }
+                sBtnLogout.setOnClickListener {
+                    showNegativeInfoDialog(
+                        context,
+                        R.raw.anim_logout,
+                        "Logout",
+                        "Are you sure you want to logout?"
+                    ) { setLogOut() } }
+
+                // About Us Section --------------------------------
+                //sBtnDeveloper.setOnClickListener { SmartData.comingSoon(context) }
+                sBtnRate.setOnClickListener { rateApp() }
+                sBtnShare.setOnClickListener { shareApp() }
+                sBtnPrivacyPolicy.setOnClickListener {
+                    // Open Privacy Policy
+                    openWebView("Privacy Policy", "https://sites.google.com/view/smartengineer-privacy-policy")
+                }
+                sBtnTerms.setOnClickListener {
+                    // Open Terms of Service
+                    openWebView("Terms of Service", "https://sites.google.com/view/techlib-terms-and-conditions")
+                }
+                //sBtnFAQ.setOnClickListener { SmartData.comingSoon(context) }
+                sBtnAbout.setOnClickListener { startActivity(Intent(context, AboutUsActivity::class.java)) }
             }
 
-            // Special Section --------------------------------
-            sBtnInstitute.setOnClickListener { startActivity(Intent(requireActivity(), TestActivity::class.java)) }
-            sBtnDepartment.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            sBtnRecycling.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            sBtnCommunity.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            sBtnCGPA.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            sBtnContributor.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-
-            // Management Section --------------------------------
-            sBtnProfile.setOnClickListener { startActivity(Intent(requireActivity(), ProfileActivity::class.java)) }
-            sBtnChangeDepartment.setOnClickListener { setDepartmentInfo() }
-            sBtnLogout.setOnClickListener { setLogOut() }
-
-            // About Us Section --------------------------------
-            sBtnDeveloper.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            sBtnRate.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            sBtnPrivacyPolicy.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            sBtnFAQ.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            sBtnAbout.setOnClickListener { startActivity(Intent(requireActivity(), AboutUsActivity::class.java)) }
         }
     }
 
@@ -100,93 +133,62 @@ class SmartSettingFragment : Fragment() {
 
 
     private fun displayUserProfileInfo() {
-        userRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                // Convert snapshot to User object
-                val user = snapshot.getValue(User::class.java)
-
-                try {
-                    Glide.with(requireActivity())
-                        .load(user?.picture?.let { MakeFirebaseEasy.currentUserImage(it) })
-                        .transform(RoundedCorners(dpToPx(requireActivity(),10f)))
-                        .into(binding.ivProfilePicture)
-                } catch (e: Exception){
-                    Log.i("TEST_SL", "Failed")
-                }
-
-                // Update the TextView with the new points
-                binding.tvProfileName.text = user?.name
-                binding.tvProfileEmail.text = user?.email
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(requireActivity(), "Failed to load user information", Toast.LENGTH_SHORT).show()
-            }
-        })
+        CUserManager.initialize()
+        CUserManager.apply {
+            name { binding.tvProfileName.text = it }
+            email { binding.tvProfileEmail.text = it }
+            picture(pictureListener)
+        }
     }
-    @SuppressLint("InflateParams")
-    private fun setLogOut(){
-        val builder = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog).create()
-        val dialogView = LayoutInflater.from(requireActivity()).inflate(R.layout.dialog_logout_warning, null)
-        val dialogBinding: DialogLogoutWarningBinding =
-            DialogLogoutWarningBinding.bind(dialogView)
-        builder.setView(dialogBinding.root)
-        builder.setCanceledOnTouchOutside(false)
-        builder.show()
 
-        dialogBinding.btnYesLogOut.setOnClickListener {
-            lifecycleScope.launch {
-                GoogleAuthClient(requireActivity()).signOut()
-                Toast.makeText(requireActivity(), "SignOut", Toast.LENGTH_SHORT).show()
-            }
-            //auth.signOut()
-            val intent = Intent(requireActivity(), MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    // == == == == == == == == == == ==  Set LogOut button Functionality  == == == == == == == == == == == == == ==
+    private fun setLogOut() {
+        AuthRepository().logout()
+        activity?.let { context ->
+            startActivity(Intent(context, AuthActivity::class.java))
+            context.finish()
+        }
+    }
+
+    private fun openWebView(title: String, url: String) {
+        activity?.let { context ->
+            val intent = Intent(context, WebBrowserActivity::class.java)
+            intent.putExtra("TITLE", title)
+            intent.putExtra("URL", url)
             startActivity(intent)
-            builder.dismiss()
         }
-        dialogBinding.btnNoLogOut.setOnClickListener { builder.dismiss() }
-        dialogBinding.btnCloseLogOut.setOnClickListener { builder.dismiss() }
-
-        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
-        builder.show()
     }
 
-    @SuppressLint("InflateParams")
-    private fun setDepartmentInfo() {
-        val builder = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog).create()
-        val dialogView = LayoutInflater.from(requireActivity()).inflate(R.layout.dialog_change_department, null)
-        dialogDepBinding = DialogChangeDepartmentBinding.bind(dialogView)
-        builder.setView(dialogDepBinding.root)
-        builder.setCanceledOnTouchOutside(false)
-        builder.show()
 
-        val adapterDepartment: ArrayAdapter<String> = ArrayAdapter<String>(requireActivity(), R.layout.item_dropdown, MakeFirebaseEasy.getAllDepartmentName(ArrayList()))
-
-        dialogDepBinding.apply {
-            editProDepartment.setAdapter(adapterDepartment)
-
-            userId?.let {
-                database.reference.child("Users")
-                    .child(it)
-                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            val user = snapshot.getValue(User::class.java)
-                            tvCurrentDep.text =
-                                getString(R.string.current_department_is, user?.department)
-                        }override fun onCancelled(error: DatabaseError) {}
-                    })
-            }
-
-            dialogDepBinding.btnSave.setOnClickListener {
-                val updatedUserInfo = hashMapOf("department" to editProDepartment.text.toString())
-                database.reference.child("Users").child(auth.uid!!).updateChildren(updatedUserInfo as Map<String, Any>)
-                builder.dismiss()
-            }
-            dialogDepBinding.btnCancel.setOnClickListener{ builder.dismiss() }
+    // == == == == == == == == == == ==  Set Rate App button Functionality  == == == == == == == == == == == == == ==
+    private fun rateApp() {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$PACKAGE_NAME"))
+            intent.setPackage("com.android.vending") // Open Play Store app
+            startActivity(intent)
+        } catch (e: Exception) {
+            // If Play Store app is not installed, open in browser
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(APP_LINK))
+            startActivity(intent)
         }
-
-        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
-        builder.show()
     }
+
+    // == == == == == == == == == == ==  Set Share App button Functionality  == == == == == == == == == == == == == ==
+    private fun shareApp() {
+        val shareText = "Check out Smart Engineer App for Polytechnic Students! Download it here: $APP_LINK"
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, shareText)
+        }
+        startActivity(Intent.createChooser(intent, "Share Smart Engineer App Via"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Remove the picture listener to avoid callbacks after the activity is destroyed
+        CUserManager.removePictureListener(pictureListener)
+        CUserManager.cleanup()
+    }
+
 }

@@ -18,7 +18,7 @@ object AnimationManager {
     // Retrieve saved animation mode from SharedPreferences
     fun getAnimationMode(context: Context): Int {
         val preferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
-        return preferences.getInt(KEY_ANIMATION_MODE, 5) // Default to "Shrink and Expand Animation"
+        return preferences.getInt(KEY_ANIMATION_MODE, 0) // Default to "Shrink and Expand Animation"
     }
 
 }

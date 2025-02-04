@@ -35,7 +35,7 @@ class ViewAllBookFragment : Fragment() {
 
         // eBook Open and Redeem Points
         bookGridAdapter = BookGridAdapter { bookCode ->
-            PointManager.redeemPointsOpenEBook(requireActivity(), bookCode)
+            // Handle book item click
         }
 
         binding.apply {

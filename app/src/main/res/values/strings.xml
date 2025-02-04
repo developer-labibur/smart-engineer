@@ -331,11 +331,9 @@
     <string name="sign_up_now">Sign Up Now</string>
     <string name="app_slogan">Your Gateway to Success, Knowledge, and Innovation!</string>
 
-
     <string name="engineer_pro">Engineer Pro</string>
     <string name="free_user">Free User</string>
     <string name="pro_user">Pro User</string>
-
 
     <string name="delete_account">Delete Account</string>
     <string name="delete_info">Are you sure you want to delete your account? This action cannot be undone.</string>
@@ -345,9 +343,6 @@
     <string name="change_department_cap">Change Department</string>
     <string name="delete_profile_information">Delete Profile Information</string>
     <string name="update">Update</string>
-
-
-
 
     <string name="technology_library">Technology Library</string>
     <string name="search_institute">Search Institute…</string>
@@ -359,5 +354,28 @@
     <string name="sub_title_select_semester">Choose your preferred Semester</string>
     <string name="sub_title_select_institute">Choose your preferred Institute or Manually add your Institute</string>
     <string name="add_the_institute_you_input">Add the institute you input</string>
+    <string name="download_notice">Download Notice</string>
+    <string name="do_you_want_to_download_this_notice_file">Do you want to download this notice PDF file?</string>
+    <string name="notice_board">Notice Board</string>
+    <string name="see_all_bteb_latest_notice">View all the latest BTEB notices</string>
+    <string name="latest_notice_from_bteb">Latest Notice from BTEB</string>
+    <string name="explore_all_features_with_premium_membership">Explore all features with premium</string>
+    <string name="terms_of_services">Terms of Services</string>
+    <string name="see_the_terms_of_services_for_more_information">See the terms of service for more information</string>
+    <string name="share">Share</string>
+    <string name="share_this_with_your_friends">Share this with your friends</string>
+    <string name="total___books">Total %1$s books</string>
+    <string name="total_0_books">Total 0 books</string>
+    <string name="bteb_notice">BTEB Notice</string>
+    <string name="latest_book">Latest Books</string>
+    <string name="academic_book">Academic Book</string>
+    <string name="view_academic_books_from_all_departments">View academic books from all departments</string>
+
+
+    <string name="bteb_notice_title">বিটিইবি নোটিশ</string>
+    <string name="bteb_notice_date">২০২৫-০২-০৩</string>
+    <string name="bteb_notice_content">জাতীয় দক্ষতামান বেসিক (৩৬০ ঘন্টা) শিক্ষাক্রমের জুলাই-ডিসেম্বর, জুলাই-সেপ্টেম্বর ও অক্টোবর-ডিসেম্বর, ২০২৪ সেশনের পরীক্ষার্থীদের TC ও PC নম্বর প্রদানের বিজ্ঞপ্তি</string>
+    <string name="bteb_notice_file">PDF</string>
+    <string name="bteb_notice_button">View Notice</string>
 
 </resources>

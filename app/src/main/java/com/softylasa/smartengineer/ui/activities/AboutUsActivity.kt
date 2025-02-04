@@ -28,6 +28,8 @@ class AboutUsActivity : SmartThemeActivity() {
         }
 
         binding.apply {
+            btnBack.setOnClickListener { finish() }
+
             linkFB.setOnClickListener {
                 openFacebookProfile("https://www.facebook.com/labib.2028", "100023981505808")
             }

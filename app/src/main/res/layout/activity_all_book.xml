@@ -52,8 +52,8 @@
 
                     <ImageView
                         android:id="@+id/btnBack"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/header_secondary_bg"
@@ -68,28 +68,28 @@
                         android:id="@+id/tvHeaderTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
                         android:fontFamily="@font/main_font_regular_2"
                         android:singleLine="true"
                         android:text="@string/_1st_semester"
                         android:textColor="@color/mainContainer_HeadingText"
                         android:textSize="23sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
                         app:layout_constraintEnd_toStartOf="@+id/btnPremium"
                         app:layout_constraintStart_toEndOf="@+id/btnBack"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
-                    <!-- Smart Point -->
+                    <!-- Membership Plus -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btnPremium"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="44dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_sl_profile_text_golden"
+                        android:background="@drawable/header_secondary_bg"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -97,54 +97,48 @@
 
                         <LinearLayout
                             android:id="@+id/ll_premium_icon"
-                            android:layout_width="33dp"
-                            android:layout_height="33dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_margin="5dp"
-                            android:background="@drawable/bg_sl_profile_box_golden"
-                            android:gravity="center"
+                            android:background="@drawable/bg_sl_premium_box_golden"
                             android:orientation="horizontal"
+                            android:gravity="center"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <com.airbnb.lottie.LottieAnimationView
                                 android:id="@+id/animationView"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                app:lottie_rawRes="@raw/anim_premium_crown"
                                 app:lottie_autoPlay="true"
-                                app:lottie_loop="true"
-                                app:lottie_url="https://lottie.host/e64c0a22-b913-4a0d-bc5e-daa768ca93fd/8DGaZDmvma.lottie" />
+                                app:lottie_loop="true"/>
 
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tvPoint"
-                            style="@style/dashboard_smart_point_text"
-                            android:layout_marginTop="3dp"
-                            android:fontFamily="@font/roboto"
-                            android:text="@string/_00"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:id="@+id/tvPremium"
+                            android:text="@string/engineer_pro"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
-                            app:layout_constraintTop_toTopOf="@+id/ll_premium_icon" />
+                            app:layout_constraintTop_toTopOf="@+id/ll_premium_icon"
+                            style="@style/dashboard_smart_point_text" />
 
                         <TextView
-                            android:id="@+id/tvTaka"
+                            android:id="@+id/tvRole"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginBottom="8dp"
                             android:fontFamily="@font/main_font_regular_2"
                             android:includeFontPadding="false"
-                            android:text="@string/points"
                             android:textColor="@color/sl_primary_text"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
-                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
-                            app:layout_constraintTop_toBottomOf="@+id/tvPoint" />
+                            app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -24,7 +24,6 @@ open class SmartThemeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         applyTheme()
-        CUserManager.initialize()
         setUserStatus("Online") // Mark user as online
     }
 

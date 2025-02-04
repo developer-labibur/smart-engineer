@@ -75,7 +75,6 @@ class SmartHomeFragment : Fragment() {
             semesterAdapter = SemesterAdapter(emptyList(), context,"", "")
         }
 
-
         // Enable the marquee effect
         binding.apply {
             marqueeTextView.isSelected = true // Must be true for marquee to work

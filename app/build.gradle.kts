@@ -107,6 +107,8 @@ dependencies {
 
     implementation (libs.okhttp) // For downloading the PDF
 
+    implementation(libs.androidx.browser) //Chrome Custom Tabs
+
 }
 // Apply the Google Services plugin here
 apply(plugin = "com.google.gms.google-services")

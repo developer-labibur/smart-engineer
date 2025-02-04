@@ -8,8 +8,8 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.rudhashi.smartengineer" />
-                  <option name="mobileSdkAppId" value="1:389818419543:android:2b40d412eab98ded2f1612" />
+                  <option name="appId" value="com.softylasa.smartengineer" />
+                  <option name="mobileSdkAppId" value="1:389818419543:android:0a1b4250a636ee022f1612" />
                   <option name="projectId" value="smart-engineer-sl" />
                   <option name="projectNumber" value="389818419543" />
                 </ConnectionSetting>

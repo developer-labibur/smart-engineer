@@ -224,7 +224,9 @@ object DialogManager {
             override fun onFailure(call: Call, e: IOException) {
                 builder.dismiss()
                 (activity).runOnUiThread {
-                    showSuccessfulDialog(activity, "Download Failed", "Could not download the unit. Please try again later.", R.raw.cross, unit, Color.RED, onItemClick)
+                    showSuccessfulDialog(activity, "Download Failed",
+                        "Could not download the unit. Please try again later.",
+                        R.raw.cross, unit, R.color.google__Red, onItemClick)
                 }
             }
 
@@ -251,7 +253,9 @@ object DialogManager {
                     body.close()
                     builder.dismiss()
                     (activity).runOnUiThread {
-                        showSuccessfulDialog( activity, "Download Complete", "The unit has been downloaded successfully.", R.raw.check, unit, Color.BLUE, onItemClick)
+                        showSuccessfulDialog( activity, "Download Complete",
+                            "The unit has been downloaded successfully.",
+                            R.raw.check, unit, R.color.google__Green, onItemClick)
                     }
                 }
             }
@@ -281,7 +285,7 @@ object DialogManager {
         dialogBinding.lottieAnimationView.setAnimation(lottie)
         dialogBinding.lottieAnimationView.playAnimation()
         dialogBinding.tvTitle.text = title
-        dialogBinding.tvTitle.setTextColor(color)
+        dialogBinding.tvTitle.setTextColor(activity.getColor(color))
         dialogBinding.tvInfo.text = description
         dialogBinding.btnOk.setOnClickListener {
             builder.dismiss()

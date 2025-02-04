@@ -15,6 +15,7 @@
     <color name="sl_action">#ffcc80</color>
     <color name="sl_act_book">#181d3d</color>
 
+    <color name="custom_tab_color">#68ecb4</color> <!-- Change to your preferred color -->
 
     <!--color name="sl_action">#ffcc80</color-->
     <color name="sl_action_green">#68ecb4</color>

@@ -12,8 +12,9 @@ import androidx.navigation.findNavController
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.databinding.ActivityDayNightBinding
 import com.softylasa.smartengineer.utils.helpers.SmartData
+import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
 
-class DayNightActivity : AppCompatActivity() {
+class DayNightActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivityDayNightBinding
     private lateinit var navController: NavController

@@ -36,6 +36,7 @@ import com.softylasa.smartengineer.data.models.Book
 import com.softylasa.smartengineer.data.models.BookUnit
 import com.softylasa.smartengineer.data.models.Category
 import com.softylasa.smartengineer.data.models.Semester
+import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDialog
 import com.softylasa.smartengineer.utils.helpers.ConvertFB
 import com.softylasa.smartengineer.utils.helpers.PdfUtils
 import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
@@ -81,9 +82,10 @@ class BookDetailsActivity : SmartThemeActivity() {
         fetchBookDetails(bookCode) // Fetch the book details including xDep and xSem
         updateBookViewCount(bookCode) // Call this function to handle the view count
 
-        CUserManager.points { binding.tvPoint.text = "$it" }
+        CUserManager.initialize()
+        CUserManager.role { binding.tvRole.text = it }
         binding.btnBack.setOnClickListener { finish() }
-        binding.btnPremium.setOnClickListener { startActivity(Intent(this, SmartPointActivity::class.java)) }
+        binding.btnPremium.setOnClickListener { showFreemiumFeaturesDialog(this) }
     }
 
     private fun downloadPdf(bookUnit: BookUnit) {

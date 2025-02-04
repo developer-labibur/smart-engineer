@@ -101,10 +101,11 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:lottie_url="https://lottie.host/df0c2493-ec27-4695-b347-a0d00097e9da/tIQq69tJYO.lottie"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/anim_premium_crown"
                     style="@style/setting_item_image_fill" />
+<!--                app:lottie_url="https://lottie.host/df0c2493-ec27-4695-b347-a0d00097e9da/tIQq69tJYO.lottie"-->
 
                 <LinearLayout
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -114,11 +115,11 @@
                     style="@style/setting_item_layout">
 
                     <TextView
-                        android:text="@string/smart_points"
+                        android:text="@string/engineer_pro"
                         style="@style/setting_item_heading" />
 
                     <TextView
-                        android:text="@string/unlock_all_books"
+                        android:text="@string/explore_all_features_with_premium_membership"
                         style="@style/setting_item_subheading" />
 
                 </LinearLayout>
@@ -214,10 +215,11 @@
 
             </LinearLayout>
 
-            <!-- Institute -->
+            <!-- Institute => GONE -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/sBtnInstitute"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
 
@@ -262,11 +264,12 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Department -->
+            <!-- Department => GONE -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/sBtnDepartment"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="3dp">
 
                 <View
@@ -310,10 +313,107 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Recycling books -->
+            <!-- Notice board -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/sBtnBtebNotice"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp">
+
+                <View
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_view" />
+
+                <ImageView
+                    android:src="@drawable/sl_announcement"
+                    android:contentDescription="@string/sl_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_image" />
+
+                <LinearLayout
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_layout">
+
+                    <TextView
+                        android:text="@string/notice_board"
+                        style="@style/setting_item_heading" />
+
+                    <TextView
+                        android:text="@string/see_all_bteb_latest_notice"
+                        style="@style/setting_item_subheading" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_double_alt_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_image_right" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Academic books -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/sBtnAcademicBook"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp">
+
+                <View
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_view" />
+
+                <ImageView
+                    android:src="@drawable/sl_book_fill"
+                    android:contentDescription="@string/sl_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_image" />
+
+                <LinearLayout
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_layout">
+
+                    <TextView
+                        android:text="@string/academic_book"
+                        style="@style/setting_item_heading" />
+
+                    <TextView
+                        android:text="@string/view_academic_books_from_all_departments"
+                        style="@style/setting_item_subheading" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_double_alt_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_image_right" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Recycling books => GONE -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/sBtnRecycling"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp">
 
@@ -358,12 +458,13 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Community -->
+            <!-- Community => GONE -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/sBtnCommunity"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp">
+                android:layout_marginTop="3dp"
+                android:visibility="gone">
 
                 <View
                     app:layout_constraintEnd_toEndOf="parent"
@@ -454,12 +555,13 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Contributor -->
+            <!-- Contributor => GONE -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/sBtnContributor"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp">
+                android:layout_marginTop="3dp"
+                android:visibility="gone">
 
                 <View
                     app:layout_constraintEnd_toEndOf="parent"
@@ -718,11 +820,12 @@
 
             </LinearLayout>
 
-            <!-- Developer -->
+            <!-- Developer => GONE -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/sBtnDeveloper"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="8dp">
 
                 <View
@@ -780,7 +883,7 @@
                     style="@style/setting_item_view" />
 
                 <ImageView
-                    android:src="@drawable/sl_hand_stars"
+                    android:src="@drawable/sl_like"
                     android:contentDescription="@string/sl_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -800,6 +903,54 @@
 
                     <TextView
                         android:text="@string/rate_us_on_the_play_store"
+                        style="@style/setting_item_subheading" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_double_alt_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_image_right" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Share -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/sBtnShare"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp">
+
+                <View
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_view" />
+
+                <ImageView
+                    android:src="@drawable/sl_share_fill"
+                    android:contentDescription="@string/sl_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_image" />
+
+                <LinearLayout
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_layout">
+
+                    <TextView
+                        android:text="@string/share"
+                        style="@style/setting_item_heading" />
+
+                    <TextView
+                        android:text="@string/share_this_with_your_friends"
                         style="@style/setting_item_subheading" />
 
                 </LinearLayout>
@@ -862,11 +1013,60 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- FAQ -->
+            <!-- Terms of Services -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/sBtnTerms"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp">
+
+                <View
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_view" />
+
+                <ImageView
+                    android:src="@drawable/sl_legal_hammer"
+                    android:contentDescription="@string/sl_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_image" />
+
+                <LinearLayout
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_layout">
+
+                    <TextView
+                        android:text="@string/terms_of_services"
+                        style="@style/setting_item_heading" />
+
+                    <TextView
+                        android:text="@string/see_the_terms_of_services_for_more_information"
+                        style="@style/setting_item_subheading" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/sl_double_alt_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/setting_item_image_right" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- FAQ => GONE -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/sBtnFAQ"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="3dp">
 
                 <View
@@ -993,7 +1193,6 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/sl_icon"
                 android:src="@drawable/cute_cat" />
-
 
         </LinearLayout>
 

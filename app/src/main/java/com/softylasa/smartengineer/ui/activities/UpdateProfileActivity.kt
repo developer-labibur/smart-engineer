@@ -46,7 +46,7 @@ class UpdateProfileActivity : AppCompatActivity() {
     private fun loadDepartments() {
         binding.tvTitle.text = getString(R.string.select_department)
         binding.tvSubTitle.text = getString(R.string.sub_title_select_department)
-        binding.searchBox.visibility = View.GONE
+        binding.searchBoxLayout.visibility = View.GONE
         binding.btnAddInstitute.visibility = View.GONE
 
         firestore.collection("departments")
@@ -77,7 +77,7 @@ class UpdateProfileActivity : AppCompatActivity() {
     private fun loadSemesters() {
         binding.tvTitle.text = getString(R.string.select_semester)
         binding.tvSubTitle.text = getString(R.string.sub_title_select_semester)
-        binding.searchBox.visibility = View.GONE
+        binding.searchBoxLayout.visibility = View.GONE
         binding.btnAddInstitute.visibility = View.GONE
 
         firestore.collection("semester_total")
@@ -97,7 +97,7 @@ class UpdateProfileActivity : AppCompatActivity() {
     private fun loadInstitutes() {
         binding.tvTitle.text = getString(R.string.select_institute)
         binding.tvSubTitle.text = getString(R.string.sub_title_select_institute)
-        binding.searchBox.visibility = View.VISIBLE
+        binding.searchBoxLayout.visibility = View.VISIBLE
         binding.btnAddInstitute.visibility = View.VISIBLE
 
         firestore.collection("institutes")

@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.0"
 amazingspinner = "2.0.0"
+browser = "1.8.0"
 coil = "2.5.0"
 dotsindicator = "5.0"
 firebaseAppcheckInterop = "17.1.0"
@@ -47,6 +48,7 @@ loggingInterceptor = "4.9.0"
 [libraries]
 amazingspinner = { module = "com.github.Mamoon-Alhawamdeh:AmazingSpinner", version.ref = "amazingspinner" }
 
+androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }

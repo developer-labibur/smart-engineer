@@ -14,6 +14,7 @@ object CUserManager {
     private var name: String = ""
     private var picture: String = ""
     private var points: Int = 0
+    private var role: String =  ""
     private var semester: String = ""
 
     private var firestoreListener: ListenerRegistration? = null
@@ -75,6 +76,12 @@ object CUserManager {
     fun points(listeners: (Int) -> Unit) { listenersPoints.add(listeners) }
     private fun notifyPointListeners() { for (listener in listenersPoints) { listener(points) } }
 
+    // Current User Role ------------------------------------------------------------------------------------------------
+    private val listenersRole = mutableListOf<(String) -> Unit>()
+    private fun updateRole(role: String) { CUserManager.role = role; notifyRoleListeners() }
+    fun role(listeners: (String) -> Unit) { listenersRole.add(listeners) }
+    private fun notifyRoleListeners() { for (listener in listenersRole) { listener(role) } }
+
     // Current User Semester ------------------------------------------------------------------------------------------------
     private val listenersSemester = mutableListOf<(String) -> Unit>()
     private fun updateSemester(semester: String) { CUserManager.semester = semester; notifySemesterListeners() }
@@ -104,6 +111,7 @@ object CUserManager {
                     val name = data?.get("name") as? String ?: ""
                     val picture = data?.get("picture") as? String ?: ""
                     val points = (data?.get("points") as? Long)?.toInt() ?: 0
+                    val role = data?.get("role") as? String ?: ""
                     val semester = data?.get("semester") as? String ?: ""
 
                     updateDepartment(department)
@@ -114,6 +122,7 @@ object CUserManager {
                     updateName(name)
                     updatePicture(picture)
                     updatePoints(points)
+                    updateRole(role)
                     updateSemester(semester)
                 } else {
                     Log.w("CUserManager", "User data not found.")

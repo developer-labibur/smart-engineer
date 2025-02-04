@@ -24,6 +24,7 @@ import com.softylasa.smartengineer.ui.fragments.SmartSettingFragment
 import com.softylasa.smartengineer.ui.fragments.SmartUpdatesFragment
 import com.softylasa.smartengineer.managers.CUserManager
 import com.softylasa.smartengineer.ui.fragments.SmartStudyFragment
+import com.softylasa.smartengineer.utils.helpers.EasySdk.setToast
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy
 import com.softylasa.smartengineer.utils.helpers.SmartConfig
 import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
@@ -59,7 +60,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
             insets
         }
 
-        setDailySmartPointsBonus()
+        setJoiningDate()
 
         setupViewPager() // Setup the viewPager
         setupBottomNavigation() // Setup navigation
@@ -69,6 +70,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
         setGradientTextColor()
 
         // Set Current User Data -------------------------------------------------------------
+        CUserManager.initialize()
         CUserManager.apply {
             department {
                 if (it.isEmpty()) binding.tvDepName.visibility =
@@ -76,12 +78,13 @@ class SmartDashboardActivity : SmartThemeActivity() {
             }
             name { if (it.isEmpty()) binding.tvProfile.hint = "Incomplete Profile" }
             name { binding.tvProfile.text = it }
+            role { binding.tvRole.text = it }
             department { binding.tvDepName.text = it }
             picture(pictureListener)
         }
     }
 
-    private fun setDailySmartPointsBonus() {
+    private fun setJoiningDate() {
         val firestore = FirebaseFirestore.getInstance()
         val userRef = FirebaseAuth.getInstance().currentUser?.let {
             firestore.collection("users").document(it.uid)
@@ -91,63 +94,43 @@ class SmartDashboardActivity : SmartThemeActivity() {
 
             if (document.exists()) {
                 // User already exists in Firestore
-                val currentPoints = document.getLong("points")?.toInt() ?: 0
-                val lastBonusDate = document.getString("lastBonusDate")
                 val joiningDate = document.getString("joiningDate")
                 val role = document.getString("role")
 
                 // Check if joiningDate is missing and update it
                 if (joiningDate == null) {
                     userRef.update("joiningDate", currentDate).addOnSuccessListener {
-                        sToast(this, "Joining date added for existing user.")
+                        setToast("Joining date added for existing user.")
                     }.addOnFailureListener {
-                        sToast(this, "Failed to update joining date.")
-                    }
-                }
-
-                // Check and award daily bonus
-                if (lastBonusDate != currentDate) {
-                    val newPoints = currentPoints + SmartConfig.DAILY_LOGIN_BONUS_POINT
-                    val updates = mapOf(
-                        "points" to newPoints,
-                        "lastBonusDate" to currentDate
-                    )
-                    userRef.update(updates).addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            sToast(this, "Points added successfully.")
-                        } else {
-                            sToast(this, "Failed to add bonus points!")
-                        }
+                        setToast("Failed to update joining date.")
                     }
                 }
 
                 // Check if joiningDate is missing and update it
                 if (role == null) {
-                    userRef.update("role", "User").addOnSuccessListener {
-                        sToast(this, "Role added for existing user.")
+                    userRef.update("role", "Free User").addOnSuccessListener {
+                        setToast("Role added for existing user.")
                     }.addOnFailureListener {
-                        sToast(this, "Failed to update role.")
+                        setToast("Failed to update role.")
                     }
                 }
 
             } else {
                 // New user: Initialize account
                 val newUser = hashMapOf(
-                    "points" to SmartConfig.DAILY_LOGIN_BONUS_POINT,
-                    "lastBonusDate" to currentDate,
                     "joiningDate" to currentDate,
                     "role" to "Free User"
                 )
                 userRef.set(newUser).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        sToast(this, "Welcome to Smart Engineer - E-Learning App!")
+                        setToast("Welcome to TechLib - E-Learning App!")
                     } else {
-                        sToast(this, "Failed to create account!")
+                        setToast("Failed to create account!")
                     }
                 }
             }
         }?.addOnFailureListener {
-            sToast(this, "Failed to fetch user data!")
+            setToast("Failed to fetch user data!")
         }
     }
 
@@ -186,6 +169,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
                 }
             })
         }
+
     }
 
     private fun setActiveTab(position: Int) {

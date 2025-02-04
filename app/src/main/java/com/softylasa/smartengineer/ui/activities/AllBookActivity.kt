@@ -19,7 +19,7 @@ import com.softylasa.smartengineer.managers.AdManager
 import com.softylasa.smartengineer.data.models.Book
 import com.softylasa.smartengineer.data.models.Semester
 import com.softylasa.smartengineer.managers.CUserManager
-import com.softylasa.smartengineer.managers.PointManager
+import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDialog
 import com.softylasa.smartengineer.utils.helpers.SmartData
 import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
 
@@ -57,7 +57,9 @@ class AllBookActivity : SmartThemeActivity() {
 
         // Read eBooks completely free using points
         bookAdapter = BookListAdapter { bookCode ->
-            PointManager.redeemPointsOpenEBook(this@AllBookActivity, bookCode)
+            val intent = Intent(this, BookDetailsActivity::class.java)
+            intent.putExtra("BOOK_CODE", bookCode)
+            startActivity(intent)
         }
 
         binding.tvHeaderTitle.text = semesterName
@@ -71,11 +73,12 @@ class AllBookActivity : SmartThemeActivity() {
         AdManager.setBannerAds(this, binding.adViewContainer, adSize, false)
 
         binding.apply {
-            CUserManager.points { tvPoint.text = "$it" }
+            CUserManager.initialize()
+            CUserManager.role { tvRole.text = it }
             rvAllBook.layoutManager = LinearLayoutManager(this@AllBookActivity)
             rvAllBook.adapter = bookAdapter
             btnBack.setOnClickListener { finish() }
-            btnPremium.setOnClickListener { startActivity(Intent(this@AllBookActivity, SmartPointActivity::class.java)) }
+            btnPremium.setOnClickListener { showFreemiumFeaturesDialog(this@AllBookActivity) }
         }
     }
 
@@ -85,17 +88,14 @@ class AllBookActivity : SmartThemeActivity() {
             // Handle the retrieved document
             val semester = querySnapshot.toObject(Semester::class.java)
             val courseStructure = semester?.SPdf
-            if (courseStructure != null) {
+            val done = semester?.SDone
+            if (done == true) {
                 binding.btnCourseDetails.setOnClickListener {
                     val intent = Intent(this, SmartEBookActivity::class.java)
                     intent.putExtra("UName", "$departmentName ($semesterName) - Course Structure & Information")
                     intent.putExtra("UPdf", courseStructure)
-                    intent.putExtra("UNo", "1")
-                    intent.putExtra("BCode", "N/A")
-                    intent.putExtra("BName", "N/A")
                     intent.putExtra("Key", "notBook")
                     startActivity(intent)
-                    PointManager.redeemPointsOpenPDF()
                 }
             } else{
                 binding.btnCourseDetails.setOnClickListener { SmartData.comingSoon(this@AllBookActivity) }

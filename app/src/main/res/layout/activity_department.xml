@@ -12,12 +12,12 @@
         android:id="@+id/department"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:visibility="gone">
+        android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clHeader"
@@ -311,12 +311,15 @@
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerDepartment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -348,17 +351,17 @@
                     app:cardBackgroundColor="@color/shimmer"
                     app:cardCornerRadius="50dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginTop="40dp"
-                    app:cardCornerRadius="50dp"
+                    android:layout_marginEnd="20dp"
                     app:cardBackgroundColor="@color/shimmer"
+                    app:cardCornerRadius="50dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/dn"
@@ -374,8 +377,8 @@
                 <View
                     android:layout_width="70dp"
                     android:layout_height="15dp"
-                    android:background="@color/shimmer"
                     android:layout_marginTop="5dp"
+                    android:background="@color/shimmer"
                     app:layout_constraintEnd_toEndOf="@+id/dn"
                     app:layout_constraintStart_toStartOf="@+id/dn"
                     app:layout_constraintTop_toBottomOf="@id/dn" />
@@ -385,7 +388,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -397,9 +400,9 @@
 
                     <View
                         style="@style/dep_text"
-                        android:background="@color/shimmer"
-                        android:layout_height="18dp"
                         android:layout_width="120dp"
+                        android:layout_height="18dp"
+                        android:background="@color/shimmer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -428,9 +431,9 @@
 
                     <View
                         style="@style/dep_text"
-                        android:background="@color/shimmer"
-                        android:layout_height="18dp"
                         android:layout_width="120dp"
+                        android:layout_height="18dp"
+                        android:background="@color/shimmer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -443,9 +446,9 @@
 
                     <View
                         style="@style/dep_text"
-                        android:background="@color/shimmer"
-                        android:layout_height="18dp"
                         android:layout_width="120dp"
+                        android:layout_height="18dp"
+                        android:background="@color/shimmer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -474,9 +477,9 @@
 
                     <View
                         style="@style/dep_text"
-                        android:background="@color/shimmer"
-                        android:layout_height="18dp"
                         android:layout_width="120dp"
+                        android:layout_height="18dp"
+                        android:background="@color/shimmer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -489,9 +492,9 @@
 
                     <View
                         style="@style/dep_text"
-                        android:background="@color/shimmer"
-                        android:layout_height="18dp"
                         android:layout_width="120dp"
+                        android:layout_height="18dp"
+                        android:background="@color/shimmer"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

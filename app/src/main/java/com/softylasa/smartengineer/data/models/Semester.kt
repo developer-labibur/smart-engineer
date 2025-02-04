@@ -6,5 +6,6 @@ data class Semester(
     val SNo: String = "",
     val SSem: String = "",
     val STag: String = "",
-    val SPdf: String = ""
+    val SPdf: String = "",
+    val SDone: Boolean = false
 )

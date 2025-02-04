@@ -8,6 +8,231 @@
     android:background="@color/sl_secondary"
     tools:context=".ui.activities.BookDetailsActivity">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerDetails"
+        android:layout_width="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adViewContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sl_secondary"
+            android:scrollbars="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cH"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/sl_primary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_book_ber_bottom_left_radius"
+                    app:layout_constraintBottom_toTopOf="@+id/btt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/bb"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        app:cardBackgroundColor="@color/shimmer"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/shimmerTvBookTitle"
+                        android:layout_width="160dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="27dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintEnd_toStartOf="@+id/bp"
+                        app:layout_constraintStart_toEndOf="@+id/bb"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/bp"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:cardBackgroundColor="@color/shimmer"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/bi"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@color/shimmer"
+                        android:contentDescription="@string/book_cover"
+                        android:src="@drawable/book"
+                        app:layout_constraintStart_toStartOf="@+id/bb"
+                        app:layout_constraintTop_toBottomOf="@+id/bb" />
+
+                    <View
+                        android:id="@+id/iB"
+                        style="@style/sl_header_button"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintStart_toEndOf="@+id/bi"
+                        app:layout_constraintTop_toTopOf="@+id/bi" />
+
+                    <View
+                        android:id="@+id/bc"
+                        android:layout_width="120dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="@+id/iB"
+                        app:layout_constraintStart_toEndOf="@+id/iB"
+                        app:layout_constraintTop_toTopOf="@+id/iB"
+                        app:layout_constraintVertical_bias="0.36" />
+
+                    <View
+                        android:id="@+id/iv"
+                        style="@style/sl_header_button"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintStart_toEndOf="@+id/bi"
+                        app:layout_constraintTop_toBottomOf="@+id/bc" />
+
+                    <View
+                        android:id="@+id/vc"
+                        android:layout_width="90dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv"
+                        app:layout_constraintStart_toEndOf="@+id/iv"
+                        app:layout_constraintTop_toTopOf="@+id/iv"
+                        app:layout_constraintVertical_bias="0.36" />
+
+                    <View
+                        android:id="@+id/ic"
+                        style="@style/sl_header_button"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintStart_toEndOf="@+id/bi"
+                        app:layout_constraintTop_toBottomOf="@+id/vc" />
+
+                    <TextView
+                        android:layout_width="105dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="@+id/ic"
+                        app:layout_constraintStart_toEndOf="@+id/ic"
+                        app:layout_constraintTop_toTopOf="@+id/ic"
+                        app:layout_constraintVertical_bias="0.36" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btt"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:background="@drawable/bg_book_ber_top_right_radius"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <View
+                        android:id="@+id/ut"
+                        style="@style/sl_header_button"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="0dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="120dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/shimmer"
+                        app:layout_constraintBottom_toBottomOf="@+id/ut"
+                        app:layout_constraintStart_toEndOf="@+id/ut"
+                        app:layout_constraintTop_toTopOf="@+id/ut"
+                        app:layout_constraintVertical_bias="0.36" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="45dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="30dp"
+                        android:paddingTop="2dp"
+                        app:cardBackgroundColor="@color/shimmer"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                android:id="@+id/shimmerUnitListContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sl_primary"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                layout="@layout/item_shimmer_unit_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cH"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <ScrollView
         android:id="@+id/bookDetails"
         android:layout_width="0dp"
@@ -16,7 +241,6 @@
         android:background="@color/sl_secondary"
         android:layout_marginBottom="10dp"
         android:scrollbars="none"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/adViewContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,16 +278,14 @@
 
                     <ImageView
                         android:id="@+id/btnBack"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/bg_sl_profile_text_golden"
+                        android:background="@drawable/abc_orange_light"
                         android:contentDescription="@string/sl_icon"
-                        android:paddingStart="10dp"
-                        android:paddingTop="11dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="11dp"
+                        android:paddingStart="9dp"
+                        android:paddingEnd="11dp"
                         android:src="@drawable/sl_left_arrow_back"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -72,9 +294,8 @@
                         android:id="@+id/tvBookTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
                         android:ellipsize="end"
                         android:fontFamily="@font/main_font_regular_2"
                         android:singleLine="true"
@@ -83,19 +304,21 @@
                         android:textColor="@color/mainContainer_HeadingText"
                         android:textSize="23sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
                         app:layout_constraintEnd_toStartOf="@+id/btnPremium"
                         app:layout_constraintStart_toEndOf="@+id/btnBack"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
-                    <!-- Smart Point -->
+
+                    <!-- Membership Plus -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btnPremium"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="44dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_sl_profile_text_golden"
+                        android:background="@drawable/abc_orange_light"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -103,54 +326,48 @@
 
                         <LinearLayout
                             android:id="@+id/ll_premium_icon"
-                            android:layout_width="33dp"
-                            android:layout_height="33dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_margin="5dp"
-                            android:background="@drawable/bg_sl_profile_box_golden"
-                            android:gravity="center"
+                            android:background="@drawable/bg_sl_premium_box_golden"
                             android:orientation="horizontal"
+                            android:gravity="center"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <com.airbnb.lottie.LottieAnimationView
                                 android:id="@+id/animationView"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                app:lottie_rawRes="@raw/anim_premium_crown"
                                 app:lottie_autoPlay="true"
-                                app:lottie_loop="true"
-                                app:lottie_url="https://lottie.host/e64c0a22-b913-4a0d-bc5e-daa768ca93fd/8DGaZDmvma.lottie" />
+                                app:lottie_loop="true"/>
 
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tvPoint"
-                            style="@style/dashboard_smart_point_text"
-                            android:layout_marginTop="3dp"
-                            android:fontFamily="@font/roboto"
-                            android:text="@string/_00"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:id="@+id/tvPremium"
+                            android:text="@string/engineer_pro"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
-                            app:layout_constraintTop_toTopOf="@+id/ll_premium_icon" />
+                            app:layout_constraintTop_toTopOf="@+id/ll_premium_icon"
+                            style="@style/dashboard_smart_point_text" />
 
                         <TextView
-                            android:id="@+id/tvTaka"
+                            android:id="@+id/tvRole"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginBottom="8dp"
                             android:fontFamily="@font/main_font_regular_2"
                             android:includeFontPadding="false"
-                            android:text="@string/points"
                             android:textColor="@color/sl_primary_text"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/ll_premium_icon"
-                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
-                            app:layout_constraintTop_toBottomOf="@+id/tvPoint" />
+                            app:layout_constraintTop_toBottomOf="@+id/tvPremium" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -500,231 +717,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerDetails"
-        android:layout_width="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/adViewContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/sl_secondary"
-            android:scrollbars="none">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cH"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="1dp"
-                    android:background="@color/sl_primary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:background="@drawable/bg_book_ber_bottom_left_radius"
-                    app:layout_constraintBottom_toTopOf="@+id/btt"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/bb"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        app:cardBackgroundColor="@color/shimmer"
-                        app:cardCornerRadius="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:id="@+id/shimmerTvBookTitle"
-                        android:layout_width="160dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="27dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintEnd_toStartOf="@+id/bp"
-                        app:layout_constraintStart_toEndOf="@+id/bb"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/bp"
-                        android:layout_width="80dp"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        app:cardBackgroundColor="@color/shimmer"
-                        app:cardCornerRadius="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:id="@+id/bi"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="30dp"
-                        android:background="@color/shimmer"
-                        android:contentDescription="@string/book_cover"
-                        android:src="@drawable/book"
-                        app:layout_constraintStart_toStartOf="@+id/bb"
-                        app:layout_constraintTop_toBottomOf="@+id/bb" />
-
-                    <View
-                        android:id="@+id/iB"
-                        style="@style/sl_header_button"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginEnd="0dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintStart_toEndOf="@+id/bi"
-                        app:layout_constraintTop_toTopOf="@+id/bi" />
-
-                    <View
-                        android:id="@+id/bc"
-                        android:layout_width="120dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintBottom_toBottomOf="@+id/iB"
-                        app:layout_constraintStart_toEndOf="@+id/iB"
-                        app:layout_constraintTop_toTopOf="@+id/iB"
-                        app:layout_constraintVertical_bias="0.36" />
-
-                    <View
-                        android:id="@+id/iv"
-                        style="@style/sl_header_button"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginEnd="0dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintStart_toEndOf="@+id/bi"
-                        app:layout_constraintTop_toBottomOf="@+id/bc" />
-
-                    <View
-                        android:id="@+id/vc"
-                        android:layout_width="90dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv"
-                        app:layout_constraintStart_toEndOf="@+id/iv"
-                        app:layout_constraintTop_toTopOf="@+id/iv"
-                        app:layout_constraintVertical_bias="0.36" />
-
-                    <View
-                        android:id="@+id/ic"
-                        style="@style/sl_header_button"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginEnd="0dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintStart_toEndOf="@+id/bi"
-                        app:layout_constraintTop_toBottomOf="@+id/vc" />
-
-                    <TextView
-                        android:layout_width="105dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintBottom_toBottomOf="@+id/ic"
-                        app:layout_constraintStart_toEndOf="@+id/ic"
-                        app:layout_constraintTop_toTopOf="@+id/ic"
-                        app:layout_constraintVertical_bias="0.36" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/btt"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@drawable/bg_book_ber_top_right_radius"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <View
-                        android:id="@+id/ut"
-                        style="@style/sl_header_button"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="0dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <View
-                        android:layout_width="120dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@color/shimmer"
-                        app:layout_constraintBottom_toBottomOf="@+id/ut"
-                        app:layout_constraintStart_toEndOf="@+id/ut"
-                        app:layout_constraintTop_toTopOf="@+id/ut"
-                        app:layout_constraintVertical_bias="0.36" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="45dp"
-                        android:layout_height="22dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="30dp"
-                        android:paddingTop="2dp"
-                        app:cardBackgroundColor="@color/shimmer"
-                        app:cardCornerRadius="12dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <include
-                android:id="@+id/shimmerUnitListContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/sl_primary"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                layout="@layout/item_shimmer_unit_list"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cH"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewContainer"

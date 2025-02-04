@@ -19,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.softylasa.smartengineer.R
@@ -62,6 +65,9 @@ class SmartEBookActivity : AppCompatActivity() {
     private var isHorizontal = true
     private var isAutoSpacing = true
 
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+    private val firebaseDatabase by lazy { FirebaseDatabase.getInstance() }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Apply theme based on preference
@@ -79,14 +85,16 @@ class SmartEBookActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySmartEbookBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setUserStatus("Online") // Mark user as online
+
 
         pdfView = binding.pdfView
         pdfName = intent.getStringExtra("UName") ?: ""
         cachedFilePath = intent.getStringExtra("cachedFilePath") ?: ""
         pdfUrl = intent.getStringExtra("UPdf") ?: ""
-        pdfNo = intent.getStringExtra("UNo") ?: ""
-        bookCode = intent.getStringExtra("BCode") ?: ""
-        bookName = intent.getStringExtra("BName") ?: ""
+        pdfNo = intent.getStringExtra("UNo") ?: "1"
+        bookCode = intent.getStringExtra("BCode") ?: "N/A"
+        bookName = intent.getStringExtra("BName") ?: "N/A"
         key = intent.getStringExtra("Key") ?: ""
 
         cachedFile = if (cachedFilePath != null) File(cachedFilePath) else null
@@ -499,6 +507,38 @@ class SmartEBookActivity : AppCompatActivity() {
             binding.bookLoading.visibility = View.GONE
             binding.seekbarLoading.visibility = View.GONE
             binding.booksTab.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUserStatus("Online")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        setUserStatus("Offline")
+    }
+
+    private fun setUserStatus(status: String) {
+        val currentUser = firebaseAuth.currentUser
+        currentUser?.let {
+            val userId = it.uid
+            val userRef = firebaseDatabase.reference.child("ActiveUsers").child(userId)
+
+            val userStatus = mapOf(
+                "status" to status,
+                "uid" to userId,
+                "last_seen" to ServerValue.TIMESTAMP
+            )
+
+            userRef.updateChildren(userStatus).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("FirebaseSuccess", "User status updated successfully!")
+                } else {
+                    Log.e("FirebaseError", "Failed to update user status: ${task.exception?.message}")
+                }
+            }
         }
     }
 

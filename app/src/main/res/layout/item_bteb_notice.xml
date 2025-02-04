@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clickNoticeItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="13dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/abc_orange_light">
+
+
+    <LinearLayout
+        android:id="@+id/ll_itemBG"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/abc_orange_main"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/itemImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/smart_engineer_logo"
+            android:padding="7dp"
+            android:src="@drawable/logo_orange_black" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/menuQImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="-12dp"
+        android:padding="8dp"
+        android:contentDescription="@string/sl_icon"
+        android:src="@drawable/sl_dots_horizontal_alt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ll_itemBG" />
+
+    <TextView
+        android:id="@+id/tvNoticeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bengali"
+        android:text="@string/bteb_notice_title"
+        android:layout_marginStart="16dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/mainContainer_HeadingText"
+        app:layout_constraintStart_toEndOf="@+id/ll_itemBG"
+        app:layout_constraintTop_toTopOf="@+id/ll_itemBG" />
+
+    <TextView
+        android:id="@+id/tvNoticeDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/bteb_notice_date"
+        android:textStyle="bold"
+        android:fontFamily="@font/bengali"
+        android:textColor="@color/mainContainer_SubHeadingText"
+        app:layout_constraintStart_toEndOf="@+id/ll_itemBG"
+        app:layout_constraintTop_toBottomOf="@+id/tvNoticeTitle" />
+
+    <TextView
+        android:id="@+id/tvNoticeText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/bengali"
+        android:textSize="15sp"
+        android:text="@string/bteb_notice_content"
+        android:textColor="@color/mainContainer_HeadingText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_itemBG" />
+
+
+    <ImageView
+        android:id="@+id/icCalendar"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:contentDescription="@string/sl_icon"
+        android:src="@drawable/sl_pdf"
+        app:layout_constraintBottom_toBottomOf="@id/btnViewNotice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnViewNotice"/>
+
+    <TextView
+        android:id="@+id/tvNoticeQDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/bteb_notice_file"
+        android:textColor="@color/mainContainer_HeadingText"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/icCalendar"
+        app:layout_constraintStart_toEndOf="@+id/icCalendar"
+        app:layout_constraintTop_toTopOf="@+id/icCalendar"
+        app:layout_constraintVertical_bias="0.30" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnViewNotice"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/abc_orange_main"
+        android:fontFamily="@font/main_font_regular_2"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/bteb_notice_button"
+        android:textAllCaps="false"
+        android:textColor="@color/ic_light_only"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNoticeText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
