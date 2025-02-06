@@ -11,6 +11,7 @@ import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -42,10 +43,8 @@ class AuthActivity : SmartThemeActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
-        enableEdgeToEdge() // Ensure UI uses edge-to-edge design.
-
-        // Apply window insets for immersive design.
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -329,9 +328,8 @@ class AuthActivity : SmartThemeActivity() {
 
         val termsClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                // Handle Terms of Service click
-                val intent = Intent(this@AuthActivity, AboutUsActivity::class.java)
-                startActivity(intent)
+                // Open Terms and Conditions
+                openWebView("Terms of Service", "https://sites.google.com/view/smartengineer-terms-and-conditions")
             }
         }
         spannableString.setSpan(termsClickableSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -344,9 +342,8 @@ class AuthActivity : SmartThemeActivity() {
 
         val privacyClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                // Handle Privacy Policy click
-                val intent = Intent(this@AuthActivity, AboutUsActivity::class.java)
-                startActivity(intent)
+                // Open Privacy Policy
+                openWebView("Privacy Policy", "https://sites.google.com/view/smartengineer-privacy-policy")
             }
         }
         spannableString.setSpan(privacyClickableSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -358,11 +355,11 @@ class AuthActivity : SmartThemeActivity() {
         binding.tvTermsPrivacy.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    // Enable edge-to-edge layout
-    @Suppress("DEPRECATION")
-    private fun enableEdgeToEdge() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = Color.TRANSPARENT
-        window.navigationBarColor = Color.TRANSPARENT
+    private fun openWebView(title: String, url: String) {
+        val intent = Intent(this, WebBrowserActivity::class.java)
+        intent.putExtra("TITLE", title)
+        intent.putExtra("URL", url)
+        startActivity(intent)
     }
+
 }

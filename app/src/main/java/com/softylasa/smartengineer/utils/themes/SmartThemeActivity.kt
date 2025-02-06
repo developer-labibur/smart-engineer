@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
-import com.softylasa.smartengineer.managers.CUserManager
 import com.softylasa.smartengineer.utils.helpers.SmartData
 
 open class SmartThemeActivity : AppCompatActivity() {

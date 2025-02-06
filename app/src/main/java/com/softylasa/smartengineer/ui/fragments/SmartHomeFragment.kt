@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import com.softylasa.smartengineer.R
+import com.softylasa.smartengineer.data.models.Browse
 import com.softylasa.smartengineer.utils.helpers.GetSet.lToast
 import com.softylasa.smartengineer.utils.helpers.GetSet.sToast
 import com.softylasa.smartengineer.ui.adapters.CategoryAdapter
@@ -40,26 +42,44 @@ import com.softylasa.smartengineer.databinding.DialogMarqueeNoticeBinding
 import com.softylasa.smartengineer.databinding.FragmentSmartHomeBinding
 import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDialog
 import com.softylasa.smartengineer.data.models.Category
+import com.softylasa.smartengineer.data.models.Features
 import com.softylasa.smartengineer.data.models.Notice
 import com.softylasa.smartengineer.data.models.SemesterTotal
+import com.softylasa.smartengineer.managers.DialogManager.comingSoon
+import com.softylasa.smartengineer.ui.activities.AcademicBookActivity
 import com.softylasa.smartengineer.utils.helpers.ConvertFB
 import com.softylasa.smartengineer.utils.helpers.Converters.formatTimestampToRelativeTime
 import com.softylasa.smartengineer.ui.activities.AllBookActivity
 import com.softylasa.smartengineer.ui.activities.DepartmentActivity
+import com.softylasa.smartengineer.ui.activities.LinksActivity
+import com.softylasa.smartengineer.ui.activities.NoticeBoardActivity
 import com.softylasa.smartengineer.ui.activities.ProfileActivity
+import com.softylasa.smartengineer.ui.activities.SearchActivity
+import com.softylasa.smartengineer.ui.adapters.BrowseAdapter
+import com.softylasa.smartengineer.ui.adapters.FeatureAdapter
 
 class SmartHomeFragment : Fragment() {
 
     private lateinit var binding: FragmentSmartHomeBinding
     private val tagName = "SmartHomeFragment"
     private lateinit var categoryAdapter: CategoryAdapter
-    private lateinit var semesterAdapter: SemesterAdapter
+    private lateinit var browseAdapter: BrowseAdapter
     private var firestoreDB: FirebaseFirestore? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
-    private val databaseRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/Notice")
-    private val loveCountRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/CountNoticeLove")
+    private val databaseRef =
+        FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/Notice")
+    private val loveCountRef = FirebaseDatabase.getInstance()
+        .getReference("UsersDB/$currentUserUid/Favourites/CountNoticeLove")
+
+    private lateinit var featuresDataList: ArrayList<Features>
+    private val browseList = mutableListOf<Browse>()
+
+    // Variable for String Array ---------------------------------------------------------------------------------
+    private lateinit var appFeatureId: Array<String>
+    private lateinit var appFeatureTitle: Array<String>
+    private lateinit var appFeatureImageUrl: Array<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +92,29 @@ class SmartHomeFragment : Fragment() {
         database = FirebaseDatabase.getInstance()
         activity?.let { context ->
             categoryAdapter = CategoryAdapter(emptyList(), context)
-            semesterAdapter = SemesterAdapter(emptyList(), context,"", "")
+            browseAdapter = BrowseAdapter(browseList, context)
+
+            binding.recycleBrowser.layoutManager = LinearLayoutManager(context)
+            browseAdapter = BrowseAdapter(browseList, context)
+            binding.recycleBrowser.setHasFixedSize(true)
+            binding.recycleBrowser.isNestedScrollingEnabled = false
+            binding.recycleBrowser.adapter = browseAdapter
+            getBrowseData()
+        }
+
+        // String Array Hooks ------------------------------------------------------------------------------------
+        appFeatureId = resources.getStringArray(R.array.appFeatureId)
+        appFeatureTitle = resources.getStringArray(R.array.appFeatureTitle)
+        appFeatureImageUrl = resources.getStringArray(R.array.appFeatureImageUrl)
+
+        // Adapter RecyclerView Category -----------------------------------------------------------------------------------
+        activity?.let { context ->
+            binding.recycleFeatures.layoutManager =
+                GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
+            binding.recycleFeatures.setHasFixedSize(true)
+            binding.recycleFeatures.isNestedScrollingEnabled = false;
+            featuresDataList = arrayListOf<Features>()
+            getFeaturesData()
         }
 
         // Enable the marquee effect
@@ -84,22 +126,6 @@ class SmartHomeFragment : Fragment() {
             fetchMarqueeNotices()
         }
 
-        // Category or Department Set Up -----------------------------------------------------------------------------------
-        binding.apply {
-            activity?.let { context ->
-                recycleCategory.layoutManager = GridLayoutManager(context, 3)
-                recycleSemester.layoutManager = LinearLayoutManager(context)
-            }
-
-            recycleCategory.setHasFixedSize(true)
-            recycleSemester.setHasFixedSize(true)
-            recycleCategory.isNestedScrollingEnabled = false
-            recycleSemester.isNestedScrollingEnabled = false
-            fetchDepartments()
-            isShimmerOn(true)
-            getSemesterData()
-        }
-
         // Button Click ----------------------------------------------------------------
         binding.apply {
             activity?.let { context ->
@@ -108,16 +134,70 @@ class SmartHomeFragment : Fragment() {
             }
 
 
-            //btnActivity.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            //btnInstitute.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            //btnRecycling.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            //btnCommunity.setOnClickListener { SmartData.comingSoon(requireActivity()) }
-            //btnCalculator.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            //btnRoutine.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            //btnNotify.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            //btnPosts.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            //btnFavourites.setOnClickListener { SmartData.comingSoon(requireActivity()) }
+            //btnIslamic.setOnClickListener { SmartData.comingSoon(requireActivity()) }
         }
+
+        // Set item click listener ----------------------------------------------------------------
+        browseAdapter.setOnItemClickListener(object : BrowseAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int, name: String) {
+                activity?.let { context ->
+                    when (name) {
+                        "Important Links" -> {
+                            val intent = Intent(context, LinksActivity::class.java)
+                            intent.putExtra("name", name)
+                            intent.putExtra("database", "important_links")
+                            startActivity(intent)
+                        }
+                        "Social Links" -> {
+                            val intent = Intent(context, LinksActivity::class.java)
+                            intent.putExtra("name", name)
+                            intent.putExtra("database", "social_links")
+                            startActivity(intent)
+                        }
+                        else -> comingSoon(context)
+                    }
+                }
+            }
+        })
 
         return binding.root
     }
 
+    // =====================================================================================================================
+    // =====================================       Get Category Data                  ======================================
+    // =====================================================================================================================
+    private fun getFeaturesData() {
+        activity?.let { context ->
+            for (i in appFeatureImageUrl.indices) {
+                val categoryDataClass =
+                    Features(appFeatureId[i], appFeatureTitle[i], appFeatureImageUrl[i])
+                featuresDataList.add(categoryDataClass)
+
+                binding.recycleFeatures.adapter = FeatureAdapter(featuresDataList, context)
+
+                // Set the click listener
+                categoryAdapter.setOnItemClickListener(object :
+                    CategoryAdapter.OnItemClickListener {
+                    override fun onItemClick(position: Int, dataList: Category) {
+                        when (position) {
+                            1 -> startActivity(Intent(context, NoticeBoardActivity::class.java))
+                            2 -> startActivity(Intent(context, AcademicBookActivity::class.java))
+                            3 -> startActivity(Intent(context, SearchActivity::class.java))
+                            else -> comingSoon(context)
+                        }
+
+                        val intent = Intent(context, DepartmentActivity::class.java)
+                        intent.putExtra("DCode", dataList.DCode)
+                        startActivity(intent)
+                    }
+                })
+            }
+        }
+    }
 
     private fun fetchMarqueeNotices() {
         firestoreDB?.collection("polytechnic_notice")
@@ -138,28 +218,39 @@ class SmartHomeFragment : Fragment() {
                             val text = notice.notice
 
                             binding.clMarquee.setOnClickListener {
-                                notice.timestamp?.let { setNoticeDialog(notice, category, it, text) }
+                                notice.timestamp?.let {
+                                    setNoticeDialog(
+                                        notice,
+                                        category,
+                                        it,
+                                        text
+                                    )
+                                }
                             }
 
-                            val limitedText = text.split(" ").take(15).joinToString(" ") // Limit to the first 3 words
+                            val limitedText = text.split(" ").take(15)
+                                .joinToString(" ") // Limit to the first 3 words
                             val clickToSeeMore = "...বিস্তারিত পড়তে ক্লিক করুন।"
-                            val fullText = "$category $limitedText $clickToSeeMore" // Combine them into one string
-                            val spannableString = SpannableString(fullText) // Create a SpannableString
-                           // Set the category part in bold
+                            val fullText =
+                                "$category $limitedText $clickToSeeMore" // Combine them into one string
+                            val spannableString =
+                                SpannableString(fullText) // Create a SpannableString
+                            // Set the category part in bold
                             spannableString.setSpan(
                                 StyleSpan(Typeface.BOLD), // Bold style
                                 0, // Start index of category
                                 category.length, // End index of category
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                             )
-                           // Set the "...See More" part in bold
+                            // Set the "...See More" part in bold
                             spannableString.setSpan(
                                 StyleSpan(Typeface.BOLD),
                                 fullText.length - clickToSeeMore.length, // Start index of "...Click to See More"
                                 fullText.length, // End index of "...Click to See More"
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                             )
-                            binding.marqueeTextView.text = spannableString  // Set the spannable string to the TextView
+                            binding.marqueeTextView.text =
+                                spannableString  // Set the spannable string to the TextView
                         }
                     }
                 }
@@ -167,10 +258,16 @@ class SmartHomeFragment : Fragment() {
     }
 
     @SuppressLint("InflateParams")
-    private fun setNoticeDialog(notice: Notice, category: String, timestamp: Timestamp, text: String){
+    private fun setNoticeDialog(
+        notice: Notice,
+        category: String,
+        timestamp: Timestamp,
+        text: String
+    ) {
         activity?.let { context ->
             val builder = AlertDialog.Builder(context).create()
-            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_marquee_notice, null)
+            val dialogView =
+                LayoutInflater.from(context).inflate(R.layout.dialog_marquee_notice, null)
             val dialogBinding = DialogMarqueeNoticeBinding.bind(dialogView)
             builder.setView(dialogBinding.root)
             builder.show()
@@ -185,6 +282,7 @@ class SmartHomeFragment : Fragment() {
                         val loveCount = snapshot.getValue(Int::class.java) ?: 0
                         tvLovesCount.text = getString(R.string.loves, loveCount.toString())
                     }
+
                     override fun onCancelled(error: DatabaseError) {
                         // Handle error if needed
                     }
@@ -199,7 +297,8 @@ class SmartHomeFragment : Fragment() {
             builder.show()
         }
     }
-    private fun setUpLoveButton(btnLove: AppCompatButton, notice: Notice){
+
+    private fun setUpLoveButton(btnLove: AppCompatButton, notice: Notice) {
         // Load the current like state from Firebase Realtime Database
         databaseRef.child(notice.id).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -214,51 +313,72 @@ class SmartHomeFragment : Fragment() {
         binding.apply {
             // Handle Love button click
             btnLove.setOnClickListener {
-                databaseRef.child(notice.id).addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val isLoved = snapshot.getValue(Boolean::class.java) ?: false
-                        if (isLoved) {
-                            // Remove from favorites
-                            databaseRef.child(notice.id).setValue(false)
-                            updateLoveButtonState(btnLove, false)
+                databaseRef.child(notice.id)
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val isLoved = snapshot.getValue(Boolean::class.java) ?: false
+                            if (isLoved) {
+                                // Remove from favorites
+                                databaseRef.child(notice.id).setValue(false)
+                                updateLoveButtonState(btnLove, false)
 
-                            // Decrement loves count in Realtime Database
-                            loveCountRef.child(notice.id).get().addOnSuccessListener { loveSnapshot ->
-                                val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
-                                loveCountRef.child(notice.id).setValue(currentCount - 1)
-                            }
-                        } else {
-                            // Add to favorites
-                            databaseRef.child(notice.id).setValue(true)
-                            updateLoveButtonState(btnLove, true)
+                                // Decrement loves count in Realtime Database
+                                loveCountRef.child(notice.id).get()
+                                    .addOnSuccessListener { loveSnapshot ->
+                                        val currentCount =
+                                            loveSnapshot.getValue(Int::class.java) ?: 0
+                                        loveCountRef.child(notice.id).setValue(currentCount - 1)
+                                    }
+                            } else {
+                                // Add to favorites
+                                databaseRef.child(notice.id).setValue(true)
+                                updateLoveButtonState(btnLove, true)
 
-                            // Increment loves count in Realtime Database
-                            loveCountRef.child(notice.id).get().addOnSuccessListener { loveSnapshot ->
-                                val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
-                                loveCountRef.child(notice.id).setValue(currentCount + 1)
+                                // Increment loves count in Realtime Database
+                                loveCountRef.child(notice.id).get()
+                                    .addOnSuccessListener { loveSnapshot ->
+                                        val currentCount =
+                                            loveSnapshot.getValue(Int::class.java) ?: 0
+                                        loveCountRef.child(notice.id).setValue(currentCount + 1)
+                                    }
                             }
                         }
-                    }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        // Handle error if needed
-                    }
-                })
+                        override fun onCancelled(error: DatabaseError) {
+                            // Handle error if needed
+                        }
+                    })
             }
         }
     }
+
     private fun updateLoveButtonState(loveButton: AppCompatButton, isLoved: Boolean) {
         activity?.let { context ->
             if (isLoved) {
                 loveButton.setBackgroundResource(R.drawable.bg_notice_item_loved)
                 loveButton.text = getString(R.string.loved)
                 loveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.sl_heart_red, 0, 0, 0)
-                loveButton.setTextColor(ContextCompat.getColor(context, R.color.red)) // Set text color to red
+                loveButton.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.red
+                    )
+                ) // Set text color to red
             } else {
                 loveButton.setBackgroundResource(R.drawable.abc_orange_main)
                 loveButton.text = getString(R.string.love)
-                loveButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.sl_heart_black, 0, 0, 0)
-                loveButton.setTextColor(ContextCompat.getColor(context, R.color.ic_light_only)) // Set text color to red
+                loveButton.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.sl_heart_black,
+                    0,
+                    0,
+                    0
+                )
+                loveButton.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.ic_light_only
+                    )
+                ) // Set text color to red
             }
         }
 
@@ -267,12 +387,23 @@ class SmartHomeFragment : Fragment() {
     @SuppressLint("InflateParams")
     private fun showCustomPopupMenu(anchorView: View, notice: Notice) {
         // Inflate the custom menu layout
-        val popupView = LayoutInflater.from(anchorView.context).inflate(R.layout.popup_menu_layout, null)
+        val popupView =
+            LayoutInflater.from(anchorView.context).inflate(R.layout.popup_menu_layout, null)
         // Create the PopupWindow
-        val popupWindow = PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true) // Focusable, so it will close when touched outside
+        val popupWindow = PopupWindow(
+            popupView,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        ) // Focusable, so it will close when touched outside
         // Set custom background drawable (optional if background is set in XML)
         activity?.let { context ->
-            popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.menu_background))
+            popupWindow.setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.menu_background
+                )
+            )
         }
         // Handle menu item clicks
         val shareNote = popupView.findViewById<LinearLayout>(R.id.share_note)
@@ -299,6 +430,7 @@ class SmartHomeFragment : Fragment() {
         // Show the PopupWindow at the calculated position
         popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, xPos, location[1])
     }
+
     private fun shareNotice(noticeText: String) {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
@@ -309,160 +441,30 @@ class SmartHomeFragment : Fragment() {
     }
 
     // =====================================================================================================================
-    // ===========================================       Get Category Data      ============================================
+    // ===========================================       Get Browse Data     =============================================
     // =====================================================================================================================
-    private fun fetchDepartments() {
-        val departmentList = mutableListOf<Category>()
-        activity?.let { context ->
-            firestoreDB?.collection("departments")
-                ?.orderBy("DId", Query.Direction.ASCENDING) // Or DESCENDING for reverse order
-                ?.get()?.addOnSuccessListener { querySnapshot ->
-                    isShimmerOn(false)
-                    for (document in querySnapshot.documents) {
-                        try {
-                            val department = document.toObject<Category>()
-                            departmentList.add(department!!)
-                            categoryAdapter = CategoryAdapter(departmentList, context)
-                            binding.recycleCategory.adapter = categoryAdapter
-                            // Set the click listener
-                            categoryAdapter.setOnItemClickListener(object :
-                                CategoryAdapter.OnItemClickListener {
-                                override fun onItemClick(position: Int, dataList: Category) {
-                                    val intent = Intent(context, DepartmentActivity::class.java)
-                                    intent.putExtra("DCode", dataList.DCode)
-                                    startActivity(intent)
-                                }
-                            })
-                        } catch (e: IllegalStateException) {
-                            Log.e(tagName, "Error getting documents: ", e)
-                            isShimmerOn(true )
-                        }
-                    }
-                }?.addOnFailureListener { e ->
-                    isShimmerOn(false)
-                    sToast(context, "Failed to fetch books: ${e.message}")
-                }
-        }
-
-    }
-    // =====================================================================================================================
-    // ===========================================       Get Semester Data     =============================================
-    // =====================================================================================================================
-    private fun getSemesterData() {
-        val semesterList = mutableListOf<SemesterTotal>()
-        // Get user saved department name from Firebase Realtime database and convert it to department code
-        firestoreDB?.collection("users")?.document(auth.uid!!)?.get()
-            ?.addOnSuccessListener { document ->
-                val departmentCode = document.getString("department")?.let {
-                    ConvertFB.covertDepartmentToCode(it)
-                }
-
-                // Check user department data available or not.. If user add department then show all semester.. Other wise Show please complete your profile..
-                if (departmentCode?.isEmpty() == true) {
-                    binding.recycleSemester.visibility = View.GONE
-                    binding.tvSemesterInfo.visibility = View.GONE
-                    binding.animationView.visibility = View.VISIBLE
-                    binding.viewFooter.visibility = View.VISIBLE
-                    binding.tvWarningInfo.visibility = View.VISIBLE
-                    binding.tvWarningInfo.text = getString(R.string.just_for_you_warn_text)
-
-                    Log.d(tagName, "Department Code is : Not Found")
-                    activity?.let { context ->
-                        sToast(context, "Please complete your profile..")
-                    }
-                    return@addOnSuccessListener
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getBrowseData() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("browse") // Reference to your 'browser' collection
+            .get()
+            .addOnSuccessListener { result ->
+                if (result.isEmpty) {
+                    Log.d(tagName, "No documents found!")
                 } else {
-                    Log.d(tagName, "Department Code is : $departmentCode")
-                    // If user is from 101 (BSC Engineering) or 102 (Other) department then hide CategoryRecycleView and semester information TextView..
-                    when (departmentCode) {
-                        "101" -> {
-                            binding.recycleSemester.visibility = View.GONE
-                            binding.tvSemesterInfo.visibility = View.GONE
-                            binding.animationView.visibility = View.VISIBLE
-                            binding.viewFooter.visibility = View.VISIBLE
-                            binding.tvWarningInfo.visibility = View.VISIBLE
-                            binding.tvWarningInfo.text = getString(R.string.no_data_was_found_for_the_bsc_engineering_department)
-                        }
-                        "102" -> {
-                            binding.recycleSemester.visibility = View.GONE
-                            binding.tvSemesterInfo.visibility = View.GONE
-                            binding.animationView.visibility = View.VISIBLE
-                            binding.viewFooter.visibility = View.VISIBLE
-                            binding.tvWarningInfo.visibility = View.VISIBLE
-                            binding.tvWarningInfo.text = getString(R.string.no_data_was_found_for_others_department)
-                        }
-                        else -> {
-                            binding.recycleSemester.visibility = View.VISIBLE
-                            binding.tvSemesterInfo.visibility = View.VISIBLE
-                            binding.animationView.visibility = View.GONE
-                            binding.viewFooter.visibility = View.GONE
-                            binding.tvWarningInfo.visibility = View.GONE
-
-                            // Fetch all semester data from Firebase FireStore Database
-                            activity?.let { context ->
-                                firestoreDB?.collection("semester_total")
-                                    ?.get()?.addOnSuccessListener { querySnapshot ->
-                                        for (documentInner in querySnapshot.documents) {
-                                            val department = documentInner.toObject<SemesterTotal>()
-                                            semesterList.add(department!!)
-
-                                            // Get Users save Department all Information.. Like: Department Name, Department Abbr, Department Information, etc..
-                                            departmentCode?.let { it1 ->
-                                                firestoreDB?.collection("departments")
-                                                    ?.document(it1)
-                                                    ?.get()?.addOnSuccessListener { querySnapshotUnder ->
-                                                        val userDep = querySnapshotUnder.toObject<Category>()
-                                                        val dAbbr = userDep!!.DAbbr
-                                                        val depName = userDep.DName
-
-                                                        semesterAdapter = SemesterAdapter(semesterList, context, dAbbr, depName)
-                                                        binding.recycleSemester.adapter = semesterAdapter
-
-                                                        // Set the click listener
-                                                        semesterAdapter.setOnItemClickListener(object :
-                                                            SemesterAdapter.OnItemClickListener {
-                                                            override fun onItemClick(position: Int, dAbbr: String, depName: String, semName: String) {
-                                                                val intent = Intent(context, AllBookActivity::class.java)
-                                                                val no = position+1
-
-                                                                intent.putExtra("abbrNo", "${dAbbr}$no")
-                                                                intent.putExtra("noAbbr", "${no}$dAbbr")
-                                                                intent.putExtra("departmentName", depName)
-                                                                intent.putExtra("semesterName", semName)
-                                                                startActivity(intent)
-                                                            }
-                                                        })
-                                                    }?.addOnFailureListener { lToast(context, "Failed to fetch user saved department data}") }
-                                            }
-                                        }
-                                    }?.addOnFailureListener { lToast(context,"Failed to fetch semester data.") }
-                            }
-
-                        }
+                    for (document in result) {
+                        val browse = document.toObject(Browse::class.java)
+                        Log.d(tagName, "Fetched data: ${browse.Name}, ${browse.Cover}, ${browse.Des}")
+                        browseList.add(browse)
                     }
+                    browseAdapter.notifyDataSetChanged()
                 }
             }
-    }
-    override fun onResume() {
-        super.onResume()
-        fetchDepartments()
-        getSemesterData()
-    }
-    override fun onPause() {
-        isShimmerOn(false)
-        super.onPause()
-    }
-    private fun isShimmerOn(flag: Boolean) {
-        if (flag) {
-            // If data is available then Shimmer Effect will be gone
-            binding.shimmerDepartmentList.startShimmer()
-            binding.shimmerDepartmentList.visibility = View.VISIBLE
-            binding.homeContainer.visibility = View.GONE
-        } else {
-            binding.shimmerDepartmentList.stopShimmer()
-            binding.shimmerDepartmentList.visibility = View.GONE
-            binding.homeContainer.visibility = View.VISIBLE
-        }
+            .addOnFailureListener { exception ->
+                activity?.let { context ->
+                    lToast(context, "Error getting documents: ${exception.message}")
+                }
+            }
     }
 
 }

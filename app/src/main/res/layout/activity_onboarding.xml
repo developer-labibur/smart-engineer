@@ -1,0 +1,91 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/_onboarding_blue"
+    tools:context=".ui.activities.OnboardingActivity">
+
+    <!-- ViewPager2 for onboarding screens -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Dots indicator to show the current page -->
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dots_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:paddingBottom="16dp"
+        app:dotsColor="#FFFFFF"
+        app:dotsSize="13dp"
+        app:dotsSpacing="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cvGetStarted"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cvGetStarted"
+        app:layout_constraintVertical_bias="1.0"
+        app:selectedDotColor="@color/google__Yellow" />
+
+    <!-- Skip Button -->
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/btnSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25sp"
+        android:text="@string/skip_bn"
+        android:textColor="#00CAD0"
+        android:textSize="16sp"
+        android:fontFamily="@font/bengali"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Next/Finish Button -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/btnNext"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="-30dp"
+        android:layout_marginEnd="-20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/next" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvGetStarted"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        android:layout_marginBottom="37dp"
+        android:layout_marginEnd="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="@string/get_started"
+            android:paddingStart="15dp"
+            android:paddingEnd="10dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:textColor="#23d1d7"
+            android:textSize="19sp"
+            app:drawableEndCompat="@drawable/sl_double_alt_arrow_right__light_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

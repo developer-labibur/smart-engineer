@@ -351,6 +351,7 @@ class SmartStudyFragment : Fragment() {
         isShimmerOn(false)
         super.onPause()
     }
+
     private fun isShimmerOn(flag: Boolean) {
         if (flag) {
             // If data is available then Shimmer Effect will be gone

@@ -4,12 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
 
     <application
         android:name=".ads.MyAdmobApp"
@@ -23,6 +17,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartEngineer"
         tools:targetApi="31">
+        <!-- UI => Activities => Splash Screen Activity -->
+        <activity
+            android:name=".ui.activities.SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- UI => Activities => Onboarding Activity -->
+        <activity
+            android:name=".ui.activities.OnboardingActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <!-- UI => Activities => Auth Activity -->
+        <activity
+            android:name=".ui.activities.AuthActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- UI => Activities => Smart Dashboard Activity -->
+        <activity
+            android:name=".ui.activities.SmartDashboardActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <!-- UI => Activities => Smart Dashboard Activity -->
+        <activity
+            android:name=".ui.activities.ProbidhanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.LinksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.AllDepartmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.NewsfeedActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.AcademicBookActivity"
             android:exported="false" />
@@ -34,25 +67,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.activities.SearchActivity"
-            android:exported="false" /> <!-- UI => Activities => Splash Screen Activity -->
-        <activity
-            android:name=".ui.activities.SplashScreenActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- UI => Activities => Auth Activity -->
-        <activity
-            android:name=".ui.activities.AuthActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" /> <!-- UI => Activities => Smart Dashboard Activity -->
-        <activity
-            android:name=".ui.activities.SmartDashboardActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:exported="false" />
         <activity
             android:name=".ui.activities.AboutUsActivity"
             android:exported="false" />

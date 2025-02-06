@@ -32,6 +32,20 @@
     <string name="continue_with_email">Continue with Email</string>
     <string name="continue_with_social_media">Continue with Social Media</string>
 
+    <!-- OnBoarding Screen -->
+    <string name="skip_bn">Skip</string>
+    <string name="get_started">Get Started</string>
+    <string name="onboarding_title_1">Welcome to Smart Engineer!</string>
+    <string name="onboarding_title_2">Your Learning Hub</string>
+    <string name="onboarding_title_3">Instant Academic Updates</string>
+    <string name="onboarding_title_4">Beyond Books</string>
+    <string name="onboarding_description_1">A smarter way to access study materials, tools, and important updates—all in one place!</string>
+    <string name="onboarding_description_2">Download eBooks, access unit-wise PDFs, and read them both online &amp; offline anytime.</string>
+    <string name="onboarding_description_3">Get the latest notices, book lists, and essential academic resources effortlessly.</string>
+    <string name="onboarding_description_4">Join student communities, browse useful websites, and enhance your learning experience.</string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -49,37 +63,30 @@
     <string-array name="appFeatureId">
         <item>news</item>
         <item>notice</item>
-        <item>institute</item>
         <item>book</item>
+        <item>search</item>
         <item>department</item>
-        <item>video</item>
-        <item>result</item>
-        <item>cgpa</item>
-        <item>jobs</item>
+        <item>library</item>
+
         <!-- String[] id = findViewById(R.string.CT) {"news", "notice", "bookology", "book", "department", "video", "result", "cgpa", "institute"}; -->
+
     </string-array>
     <string-array name="appFeatureTitle">
-        <item>News Feed</item>
-        <item>Notice Board</item>
-        <item>All Institute</item>
-        <item>Academic\nBooks</item>
+        <item>News\nFeed</item>
+        <item>Notice\nBoard</item>
+        <item>Academic\nBook</item>
+        <item>Find Your\nBook</item>
         <item>All\nDepartment</item>
-        <item>Video\nClass</item>
-        <item>Diploma\nResult</item>
-        <item>CGPA\nCalculator</item>
-        <item>Search\nJobs</item>
+        <item>My\nLibrary</item>
         <!-- String[] title = {"News Feed", "Notice Board", "Bookology", "Academic\nBooks", "All\nDepartment", "Video\nClass", "Diploma\nResult", "CGPA\nCalculator", "All\nInstitute"}; -->
     </string-array>
     <string-array name="appFeatureImageUrl">
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Dashboard%20Icon%2Fnews.png?alt=media&amp;token=92197abe-5e26-4400-b0d9-537a692bfd93</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Dashboard%20Icon%2Fspeaker.png?alt=media&amp;token=dc625da3-961e-4d94-a4bc-7b276ffaa036</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Dashboard%20Icon%2Funiversity.png?alt=media&amp;token=fb43c68d-b309-42ca-a59a-544e4e14fd95</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Dashboard%20Icon%2Fcourse.png?alt=media&amp;token=adc8536a-f09d-4542-8526-1049d59381be</item>
-        <item>https://i.ibb.co/8PQMPMm/department.png</item>
-        <item>https://i.ibb.co/JCg4LMT/online-meeting.png</item>
-        <item>https://i.ibb.co/TbKqJ3z/grades.png</item>
-        <item>https://i.ibb.co/vhzDDZG/summa-cum-laude.png</item>
-        <item>https://i.ibb.co/Wzshwn7/job-seeker.png</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_social_media.png?alt=media&amp;token=7ed548bc-9599-4203-80a7-29ba522fe02e</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_notification.png?alt=media&amp;token=4251d9a1-0901-45a2-9248-76aa6f9c5d57</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_dictionary.png?alt=media&amp;token=cfcb0a1c-5834-4424-a940-692384bfba56</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_search.png?alt=media&amp;token=198b4ff2-e530-4aca-b348-e2b67d38c61c</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_graduation_cap.png?alt=media&amp;token=4162dd58-971a-4282-a3b0-a4e3c360dd53</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_book_library.png?alt=media&amp;token=2c199e12-352a-4f02-8824-d8445cfcc345</item>
         <!-- String[] imageUrl = {"https://i.ibb.co/8731pPR/news.png", "https://i.ibb.co/cQnjNGn/speaker.png", "https://i.ibb.co/zZ8P5wc/study.png", "https://i.ibb.co/3yhbmXh/course.png", "https://i.ibb.co/8PQMPMm/department.png", "https://i.ibb.co/JCg4LMT/online-meeting.png", "https://i.ibb.co/TbKqJ3z/grades.png", "https://i.ibb.co/vhzDDZG/summa-cum-laude.png", "https://i.ibb.co/51Wcxb1/university.png"}; -->
     </string-array>
 
@@ -174,10 +181,18 @@
     <string name="smart_points">Smart Points</string>
     <string name="_00">0</string>
     <string name="points">Points</string>
-    <string name="activity">Activity</string>
+
+
+    <string name="routine">Routine</string>
+    <string name="notify">Notify</string>
+    <string name="post">Posts</string>
+    <string name="favorites">Favorites</string>
+    <string name="islamic">Islamic</string>
     <string name="recycling">Recycling</string>
     <string name="community">Community</string>
     <string name="calculator">Calculation</string>
+
+
     <string name="cst">CST</string>
     <string name="copyright">© Smart Engineer ♥ Labib UR Rahman</string>
     <string name="ocean_watter_flow_background_color">Ocean watter flow background color</string>
@@ -189,10 +204,6 @@
     <string name="course_structure">Course Structure</string>
     <string name="read_details">Read Details</string>
     <string name="_254">254</string>
-    <string name="j">J</string>
-    <string name="d">D</string>
-    <string name="epartment">epartment</string>
-    <string name="ust_for_you">ust for you</string>
     <string name="ok">OK</string>
     <string name="coming_soon_text">ফিচারটি শীঘ্রই Smart Engineer অ্যাপে যুক্ত হবে। সাথে থাকার জন্য ধন্যবাদ।</string>
     <string name="just_for_you_info_text">Just for you বিভাগটি কেবলমাত্র আপনার প্রোফাইলে যে ডিপার্টমেন্টটি যুক্ত করেছেন তার সমস্ত সেমিস্টার দেখাবে, আপনি আপনার ডিপার্টমেন্ট পরিবর্তন করতে চাইলে, আপনি প্রোফাইল পৃষ্ঠায় যেতে পারেন।</string>
@@ -203,8 +214,6 @@
     <string name="olytechnic">olytechnic Notice</string>
     <string name="search_by_subject_code">Search by subject code</string>
     <string name="search_book">Search books...</string>
-    <string name="b">B</string>
-    <string name="ooks">ooks</string>
     <string name="latest">Latest</string>
     <string name="book_cover">Book Cover</string>
     <string name="subject_code">Subject Code</string>
@@ -377,5 +386,22 @@
     <string name="bteb_notice_content">জাতীয় দক্ষতামান বেসিক (৩৬০ ঘন্টা) শিক্ষাক্রমের জুলাই-ডিসেম্বর, জুলাই-সেপ্টেম্বর ও অক্টোবর-ডিসেম্বর, ২০২৪ সেশনের পরীক্ষার্থীদের TC ও PC নম্বর প্রদানের বিজ্ঞপ্তি</string>
     <string name="bteb_notice_file">PDF</string>
     <string name="bteb_notice_button">View Notice</string>
+
+    <string name="news_feed">News Feed</string>
+
+    <string name="b">B</string>
+    <string name="r">R</string>
+    <string name="f">F</string>
+    <string name="j">J</string>
+    <string name="d">D</string>
+    <string name="ooks">ooks</string>
+    <string name="ecommended_for_you">ecommended for you</string>
+    <string name="eatures">eatures</string>
+    <string name="rowse">rowse</string>
+    <string name="epartment">epartment</string>
+    <string name="ust_for_you">ust for you</string>
+    <string name="all_departments">All Departments</string>
+    <string name="browser_links">Browser Links</string>
+    <string name="visit">Visit Now</string>
 
 </resources>

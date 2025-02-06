@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clickLinkItem"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/abc_orange_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivLinkImage"
+            style="@style/btn_features_image"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/sl_icon"
+            android:src="@drawable/department_cover"
+            android:scaleType="centerCrop"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvLinkName"
+            style="@style/btn_features_text"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="-1dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Important Links"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toStartOf="@+id/ivLinks"
+            app:layout_constraintStart_toEndOf="@+id/ivLinkImage"
+            app:layout_constraintTop_toTopOf="@id/ivLinkImage" />
+
+        <ImageView
+            android:id="@+id/ivLinks"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="-12dp"
+            android:contentDescription="@string/sl_icon"
+            android:padding="10dp"
+            android:src="@drawable/sl_earth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivLinkImage" />
+
+        <TextView
+            android:id="@+id/tvLinkInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="-5dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/main_font_regular_2"
+            android:gravity="center_vertical|start"
+            android:orientation="horizontal"
+            android:lineSpacingExtra="-9dp"
+            android:text="Facebook Page"
+            android:textColor="@color/sl_primary_text"
+            android:textSize="13sp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivLinkImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivLinkImage"
+            app:layout_constraintTop_toBottomOf="@id/tvLinkName" />
+
+        <LinearLayout
+            android:id="@+id/btnReadNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:background="@drawable/abc_orange_main"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:layout_margin="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/main_font_regular_2"
+                android:text="@string/visit"
+                android:textColor="#1C274C"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icLove"
+                app:layout_constraintStart_toEndOf="@+id/icLove"
+                app:layout_constraintTop_toTopOf="@+id/icLove" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:contentDescription="@string/smart_engineer_logo"
+                android:src="@drawable/sl_double_alt_arrow_right__black" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

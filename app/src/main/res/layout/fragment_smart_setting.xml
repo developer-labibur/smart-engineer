@@ -264,12 +264,11 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Department => GONE -->
+            <!-- Department -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/sBtnDepartment"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginTop="3dp">
 
                 <View

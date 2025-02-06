@@ -19,6 +19,8 @@ import com.google.firebase.database.ValueEventListener
 import com.softylasa.smartengineer.ads.MyAdmobApp
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.data.constants.Constants.ADMOB_KEY
+import com.softylasa.smartengineer.data.constants.Constants.IS_FIRST_TIME_KEY
+import com.softylasa.smartengineer.data.constants.Constants.ONBOARDING_KEY
 import com.softylasa.smartengineer.data.constants.Constants.SPLASH_SCREEN
 import com.softylasa.smartengineer.data.constants.Constants.VISIBILITY_KEY
 import com.softylasa.smartengineer.databinding.ActivitySplashScreenBinding
@@ -53,7 +55,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // Preload rewarded ad if ads are visible
         if (isAdsVisible(this)) {
-            //AdManager.loadRewardedAd(this)
             (application as? MyAdmobApp)?.showAdIfAvailable(
                 this@SplashScreenActivity,
                 object : MyAdmobApp.OnShowAdCompleteListener {
@@ -70,12 +71,21 @@ class SplashScreenActivity : AppCompatActivity() {
         }, SPLASH_SCREEN) // 2 seconds delay
     }
     private fun navigateActivity() {
-        if (auth.currentUser != null) {
-            // User is logged in, navigate to the Dashboard
-            startActivity(Intent(this@SplashScreenActivity, SmartDashboardActivity::class.java))
+        val sharedPreferences = getSharedPreferences(ONBOARDING_KEY, MODE_PRIVATE)
+        val isFirstTime = sharedPreferences.getBoolean(IS_FIRST_TIME_KEY, true)
+
+        if (isFirstTime) {
+            // User is opening the app for the first time, navigate to OnboardingActivity
+            startActivity(Intent(this@SplashScreenActivity, OnboardingActivity::class.java))
         } else {
-            // New User => Navigate to AuthActivity
-            startActivity(Intent(this@SplashScreenActivity, AuthActivity::class.java))
+            // Check if the user is logged in
+            if (auth.currentUser != null) {
+                // User is logged in, navigate to the Dashboard
+                startActivity(Intent(this@SplashScreenActivity, DashboardActivity::class.java))
+            } else {
+                // User is logged out, navigate to AuthActivity
+                startActivity(Intent(this@SplashScreenActivity, AuthActivity::class.java))
+            }
         }
         finish() // Close the splash screen
     }

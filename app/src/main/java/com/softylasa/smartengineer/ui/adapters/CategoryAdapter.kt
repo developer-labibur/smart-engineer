@@ -9,7 +9,10 @@ import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.databinding.ItemFeaturesBinding
 import com.softylasa.smartengineer.data.models.Category
 
-class CategoryAdapter (private var dataList: List<Category>, private val context: Context): RecyclerView.Adapter<CategoryAdapter.ViewHolderClass>() {
+class CategoryAdapter (
+    private var dataList: List<Category>,
+    private val context: Context
+): RecyclerView.Adapter<CategoryAdapter.ViewHolderClass>() {
 
     // Define the interface for item click
     interface OnItemClickListener {
@@ -60,5 +63,5 @@ class CategoryAdapter (private var dataList: List<Category>, private val context
         }
 
     }
-    class ViewHolderClass(val binding: ItemFeaturesBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolderClass(val binding: ItemFeaturesBinding) : RecyclerView.ViewHolder(binding.root)
 }

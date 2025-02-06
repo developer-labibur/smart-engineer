@@ -50,6 +50,8 @@
     <color name="ic_secoundary">#183C57</color>
     <color name="ic_optional">#435868</color>
 
+    <color name="_onboarding_blue">#2F49A8</color>
+
     <!-- Bottom Nav Bar color -->
     <color name="bottom_nav_bg">#1B1B1B</color>
 

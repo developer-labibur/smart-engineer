@@ -28,6 +28,7 @@ import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDi
 import com.softylasa.smartengineer.managers.DialogManager.showNegativeInfoDialog
 import com.softylasa.smartengineer.ui.activities.AboutUsActivity
 import com.softylasa.smartengineer.ui.activities.AcademicBookActivity
+import com.softylasa.smartengineer.ui.activities.AllDepartmentActivity
 import com.softylasa.smartengineer.ui.activities.AuthActivity
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy
 import com.softylasa.smartengineer.utils.helpers.SmartData
@@ -44,7 +45,6 @@ class SmartSettingFragment : Fragment() {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val userId = auth.currentUser?.uid
     private var database = FirebaseDatabase.getInstance()
-    private val userRef = database.getReference("Users/$userId")
 
     private val pictureListener: (String) -> Unit = { imageUrl ->
         if (imageUrl.isEmpty()) {
@@ -89,7 +89,7 @@ class SmartSettingFragment : Fragment() {
 
                 // Special Section --------------------------------
                 //sBtnInstitute.setOnClickListener { startActivity(Intent(context, NoticeBoardActivity::class.java)) }
-                //sBtnDepartment.setOnClickListener { SmartData.comingSoon(context) }
+                sBtnDepartment.setOnClickListener { startActivity(Intent(context, AllDepartmentActivity::class.java)) }
                 sBtnBtebNotice.setOnClickListener { startActivity(Intent(context, NoticeBoardActivity::class.java)) }
                 sBtnAcademicBook.setOnClickListener { startActivity(Intent(context, AcademicBookActivity::class.java)) }
                 //sBtnRecycling.setOnClickListener { SmartData.comingSoon(context) }

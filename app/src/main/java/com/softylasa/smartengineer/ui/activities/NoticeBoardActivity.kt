@@ -16,7 +16,6 @@ import com.google.android.gms.ads.AdSize
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.databinding.ActivityNoticeBoardBinding
 import com.softylasa.smartengineer.managers.AdManager.setBannerAds
-import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDialog
 import com.softylasa.smartengineer.network.NoticeResponse
 import com.softylasa.smartengineer.network.RetrofitClient
 import com.softylasa.smartengineer.ui.adapters.BtebNoticeAdapter

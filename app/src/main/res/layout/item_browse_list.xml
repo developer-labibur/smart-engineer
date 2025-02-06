@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv1stLetter">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clickBrowseItem"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/abc_orange_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivBrowseImage"
+            style="@style/btn_features_image"
+            android:layout_margin="8dp"
+            android:background="@drawable/abc_orange_main"
+            android:contentDescription="@string/sl_icon"
+            android:src="@drawable/number_one"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvBrowseName"
+            style="@style/btn_features_text"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="-1dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Important Links"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toStartOf="@+id/ivLinks"
+            app:layout_constraintStart_toEndOf="@+id/ivBrowseImage"
+            app:layout_constraintTop_toTopOf="@id/ivBrowseImage" />
+
+        <ImageView
+            android:id="@+id/ivLinks"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="-12dp"
+            android:contentDescription="@string/sl_icon"
+            android:padding="10dp"
+            android:src="@drawable/sl_link_round_angle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivBrowseImage" />
+
+        <TextView
+            android:id="@+id/tvBrowseInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="-5dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/main_font_regular_2"
+            android:gravity="center_vertical|start"
+            android:orientation="horizontal"
+            android:lineSpacingExtra="-9dp"
+            android:text="Essential government websites for student"
+            android:textColor="@color/sl_primary_text"
+            android:textSize="13sp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivBrowseImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivBrowseImage"
+            app:layout_constraintTop_toBottomOf="@id/tvBrowseName" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

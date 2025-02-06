@@ -1,5 +1,6 @@
 # Keep Google services related classes (required for Firebase, Play Services, etc.)
 -keep class com.google.android.gms.** { *; }
+-keep class com.google.ads.** { *; }
 
 # Keep classes related to Firebase (if you use Firebase in your app)
 -keep class com.google.firebase.** { *; }

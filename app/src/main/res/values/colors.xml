@@ -83,6 +83,8 @@
     <color name="shimmer">#C2C2C2</color>
     <color name="shimmer_light">#EBEBEB</color>
 
+    <color name="_onboarding_blue">#6E93FF</color>
+
     <!-- Bottom Nav Bar color -->
     <color name="bottom_nav_bg">#FFFFFFFF</color>
 
@@ -246,6 +248,7 @@
     <color name="purple_active_color">#A3A7FB</color>
     <color name="purple_light_color">#CED1FF</color>
     <color name="purple_main_color">#8692f7</color>
+    <color name="purple_amain_color">#515CB6</color>
     <color name="purple_text_color">#5B37B7</color>
     <color name="purple_fill_color">#B75B37B7</color>
     <color name="purple_bg_color">#335B37B7</color>
