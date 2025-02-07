@@ -1,7 +1,9 @@
 package com.softylasa.smartengineer.data.models
 
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 
+@Keep
 data class Notice(
         var id: String = "",             // Document ID for the notice
         val category: String = "",        // Category for the notice
@@ -9,4 +11,6 @@ data class Notice(
         val timestamp: Timestamp? = null, // Firebase Timestamp for sorting and display
         var likes: Int = 0,               // Total number of likes
         var userLiked: Boolean = false    // Indicates if the current user has liked the post
-)
+) {
+        constructor() : this("", "", "", null, 0, false) // Required for Firestore deserialization
+}

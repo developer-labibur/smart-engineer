@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.softylasa.smartengineer.data.models.Book
 import com.softylasa.smartengineer.databinding.ActivitySearchBinding
 import com.softylasa.smartengineer.ui.adapters.BookAdapter
-import com.softylasa.smartengineer.managers.AdManager
+import com.softylasa.smartengineer.ads.AdManager
 import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
 
 class SearchActivity : SmartThemeActivity() {

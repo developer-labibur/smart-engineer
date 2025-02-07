@@ -118,7 +118,7 @@ class SmartSettingFragment : Fragment() {
                 }
                 sBtnTerms.setOnClickListener {
                     // Open Terms of Service
-                    openWebView("Terms of Service", "https://sites.google.com/view/techlib-terms-and-conditions")
+                    openWebView("Terms of Service", "https://sites.google.com/view/smartengineer-terms-and-conditions")
                 }
                 //sBtnFAQ.setOnClickListener { SmartData.comingSoon(context) }
                 sBtnAbout.setOnClickListener { startActivity(Intent(context, AboutUsActivity::class.java)) }

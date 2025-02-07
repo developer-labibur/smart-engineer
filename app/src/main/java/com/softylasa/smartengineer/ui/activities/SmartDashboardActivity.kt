@@ -1,10 +1,17 @@
 package com.softylasa.smartengineer.ui.activities
 
+
+import android.content.pm.PackageManager
 import android.graphics.LinearGradient
 import android.graphics.Shader
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -14,9 +21,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.ui.fragments.SmartHomeFragment
-import com.softylasa.smartengineer.utils.helpers.GetSet.sToast
 import com.softylasa.smartengineer.utils.helpers.Converters.dpToPx
 import com.softylasa.smartengineer.utils.helpers.GetSet.getCurrentDate
 import com.softylasa.smartengineer.databinding.ActivitySmartDashboardBinding
@@ -26,8 +33,12 @@ import com.softylasa.smartengineer.managers.CUserManager
 import com.softylasa.smartengineer.ui.fragments.SmartStudyFragment
 import com.softylasa.smartengineer.utils.helpers.EasySdk.setToast
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy
-import com.softylasa.smartengineer.utils.helpers.SmartConfig
 import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 
 class SmartDashboardActivity : SmartThemeActivity() {
 
@@ -60,6 +71,21 @@ class SmartDashboardActivity : SmartThemeActivity() {
             insets
         }
 
+        // Check if the device is running Android 13 (API level 33) or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Check if the app already has permission to post notifications
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // Request permission
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1)
+            }
+        }
+
+        // Check if battery optimizations are enabled for the app
+        if (isBatteryOptimizationEnabled()) {
+            // Prompt the user to open the battery optimization settings
+            requestBatteryOptimizationPermission()
+        }
+
         setJoiningDate()
 
         setupViewPager() // Setup the viewPager
@@ -83,6 +109,39 @@ class SmartDashboardActivity : SmartThemeActivity() {
             picture(pictureListener)
         }
     }
+
+    // Method to check if battery optimization is enabled
+    private fun isBatteryOptimizationEnabled(): Boolean {
+        val pm = applicationContext.getSystemService(POWER_SERVICE) as android.os.PowerManager
+        return pm.isIgnoringBatteryOptimizations(packageName).not()
+    }
+
+    // Method to request battery optimization permission
+    @SuppressLint("BatteryLife")
+    private fun requestBatteryOptimizationPermission() {
+        val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+        intent.data = Uri.parse("package:${packageName}")
+        startActivity(intent)
+    }
+
+    // Handle the result of the permission request
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, you can now show notifications
+                Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show()
+            } else {
+                // Permission denied, handle accordingly
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     private fun setJoiningDate() {
         val firestore = FirebaseFirestore.getInstance()

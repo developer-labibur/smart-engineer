@@ -96,10 +96,10 @@ class HomeFragment : Fragment() {
         binding.dotsIndicator.attachTo(binding.viewPager)
 
         binding.btnMyLibrary.setOnClickListener { startActivity(Intent(requireActivity(), SmartDashboardActivity::class.java)) }
-
-        binding.btnProfile.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_profileActivity)
-        }
+//
+//        binding.btnProfile.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_homeFragment_to_profileActivity)
+//        }
 
         return binding.root
     }

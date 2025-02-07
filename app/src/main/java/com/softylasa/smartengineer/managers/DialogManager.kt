@@ -12,6 +12,7 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import com.softylasa.smartengineer.R
+import com.softylasa.smartengineer.ads.AdManager
 import com.softylasa.smartengineer.databinding.DialogCongratulatuinBinding
 import com.softylasa.smartengineer.databinding.DialogInfoBinding
 import com.softylasa.smartengineer.databinding.DialogNegativeInfoBinding
@@ -23,7 +24,7 @@ import com.softylasa.smartengineer.databinding.DialogWatchVideoBinding
 import com.softylasa.smartengineer.ui.activities.ProfileActivity
 import com.softylasa.smartengineer.data.models.BookUnit
 import com.softylasa.smartengineer.databinding.DialogComingSoonBinding
-import com.softylasa.smartengineer.utils.helpers.SmartConfig
+import com.softylasa.smartengineer.ads.SmartConfig
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -87,17 +88,6 @@ object DialogManager {
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }
-
-
-
-
-
-
-
-
-
-
-
 
     // Congratulation Dialog View ----------------------------------------------------------------
     fun showCongratulationDialog(activity: Activity) {
@@ -175,7 +165,7 @@ object DialogManager {
     }
 
     // EBook Download Dialog View ----------------------------------------------------------------
-    fun showDownloadDialog(activity: Activity, txtHeading: String, txtInfo: String, unit: BookUnit, onItemClick: (BookUnit, String) -> Unit) {
+    /*fun showDownloadDialog(activity: Activity, txtHeading: String, txtInfo: String, unit: BookUnit, onItemClick: (BookUnit, String) -> Unit) {
         val builder = AlertDialog.Builder(activity).create()
         val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_pdf_download, null)
         val dialogBinding = DialogPdfDownloadBinding.bind(dialogView)
@@ -199,6 +189,28 @@ object DialogManager {
             btnDownload.setOnClickListener {
                 builder.dismiss()
                 showDownloadingProgressDialog(activity, unit, onItemClick)
+            }
+            btnClose.setOnClickListener { builder.dismiss() }
+            btnNotNow.setOnClickListener { builder.dismiss() }
+        }
+
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
+    }*/
+    fun Activity.showDownloadDialog(txtHeading: String, txtInfo: String, unit: BookUnit, onItemClick: (BookUnit, String) -> Unit) {
+        val builder = AlertDialog.Builder(this).create()
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_pdf_download, null)
+        val dialogBinding = DialogPdfDownloadBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.setCanceledOnTouchOutside(true)
+        builder.show()
+
+        dialogBinding.apply {
+            tvHeading.text = txtHeading
+            tvInfo.text = txtInfo
+            btnDownload.setOnClickListener {
+                builder.dismiss()
+                showDownloadingProgressDialog(this@showDownloadDialog, unit, onItemClick)
             }
             btnClose.setOnClickListener { builder.dismiss() }
             btnNotNow.setOnClickListener { builder.dismiss() }

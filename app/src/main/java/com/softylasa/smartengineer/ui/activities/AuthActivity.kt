@@ -9,9 +9,13 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
+import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -27,6 +31,7 @@ import com.softylasa.smartengineer.data.repositories.GoogleAuthClient
 import com.softylasa.smartengineer.databinding.ActivityAuthBinding
 import com.softylasa.smartengineer.databinding.BottomSheetLoginBinding
 import com.softylasa.smartengineer.databinding.BottomSheetSignupBinding
+import com.softylasa.smartengineer.utils.helpers.EasySdk.setToast
 import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
 import kotlinx.coroutines.launch
 
@@ -56,37 +61,32 @@ class AuthActivity : SmartThemeActivity() {
         auth = FirebaseAuth.getInstance()
         firebaseFirestore = FirebaseFirestore.getInstance()
 
-        binding.btnContinueWithGoogle.setOnClickListener {
-            showGoogleContinueBottomSheet()
-        }
-        binding.btnLogin.setOnClickListener {
-            showLoginBottomSheet()
-        }
-        binding.btnSignup.setOnClickListener {
-            showSignupBottomSheet()
-        }
+        setupClickListeners()
 
         setTermsPrivacyText()
+    }
+
+    private fun setupClickListeners() {
+        binding.btnContinueWithGoogle.setOnClickListener { showGoogleContinueBottomSheet() }
+        binding.btnLogin.setOnClickListener { showLoginBottomSheet() }
+        binding.btnSignup.setOnClickListener { showSignupBottomSheet() }
     }
 
     private fun showGoogleContinueBottomSheet() {
         lifecycleScope.launch {
             val isSignIn = googleAuthClient.signIn(false)
             if (isSignIn) {
-                val userId = auth.currentUser?.uid
-                val email = auth.currentUser?.email
-                val name = auth.currentUser?.displayName
-                val picture = auth.currentUser?.photoUrl.toString()
-
-                if (userId != null) {
-                    handleFirestoreUserData(userId, name, email, picture)
-                    val intent = Intent(this@AuthActivity, SmartDashboardActivity::class.java)
-                    startActivity(intent)
-                    finish()
-
-                    sToast(this@AuthActivity, "Sign In Successfully")
-                    Log.i(tagLog, "showGoogleContinueBottomSheet: User: $userId")
-                }
+                auth.currentUser?.let { currentUser ->
+                    currentUser.reload().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            navigateToDashboard()
+                            setToast("Signed in successfully")
+                        } else {
+                            Log.e(tagLog, "Error reloading user: ${task.exception?.message}")
+                            setToast("Failed to refresh user data")
+                        }
+                    }
+                } ?: setToast("Google Sign-In failed.")
             }
         }
     }
@@ -148,46 +148,287 @@ class AuthActivity : SmartThemeActivity() {
         }
     }
 
+//    private fun showLoginBottomSheet() {
+//        val dialog = BottomSheetDialog(this)
+//        val bindingLogin = BottomSheetLoginBinding.inflate(layoutInflater)
+//        dialog.setContentView(bindingLogin.root)
+//
+//        bindingLogin.apply {
+//            // Focus and keyboard behavior
+//            etEmail.setOnEditorActionListener { _, actionId, _ ->
+//                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+//                    etPassword.requestFocus()
+//                    true
+//                } else {
+//                    false
+//                }
+//            }
+//
+//            etPassword.setOnEditorActionListener { _, actionId, _ ->
+//                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    // Call the signup function when the user presses "Done" on the keyboard
+//                    validateAndLogin(bindingLogin, dialog)
+//                    true
+//                } else {
+//                    false
+//                }
+//            }
+//
+//            // Handle Signup button click
+//            btnLogin.setOnClickListener {
+//                validateAndLogin(bindingLogin, dialog)
+//            }
+//
+//            // Handle Login button click (dismiss bottom sheet)
+//            btnSignUp.setOnClickListener {
+//                showSignupBottomSheet()
+//                dialog.dismiss() // Close the bottom sheet
+//            }
+//        }
+//
+//        dialog.show()
+//    }
+//
+//    private fun showSignupBottomSheet() {
+//        val dialog = BottomSheetDialog(this)
+//        val bindingSignUp = BottomSheetSignupBinding.inflate(layoutInflater)
+//        dialog.setContentView(bindingSignUp.root)
+//
+//        bindingSignUp.apply {
+//            // Focus and keyboard behavior
+//            etName.setOnEditorActionListener { _, actionId, _ ->
+//                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+//                    etEmail.requestFocus()
+//                    true
+//                } else {
+//                    false
+//                }
+//            }
+//
+//            etEmail.setOnEditorActionListener { _, actionId, _ ->
+//                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+//                    etPassword.requestFocus()
+//                    true
+//                } else {
+//                    false
+//                }
+//            }
+//
+//            etPassword.setOnEditorActionListener { _, actionId, _ ->
+//                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    // Call the signup function when the user presses "Done" on the keyboard
+//                    validateAndSignup(bindingSignUp, dialog)
+//                    true
+//                } else {
+//                    false
+//                }
+//            }
+//
+//            // Handle Signup button click
+//            btnSignupCreate.setOnClickListener {
+//                validateAndSignup(bindingSignUp, dialog)
+//            }
+//
+//            // Handle Login button click (dismiss bottom sheet)
+//            btnLogin.setOnClickListener {
+//                showLoginBottomSheet()
+//                dialog.dismiss() // Close the bottom sheet
+//            }
+//        }
+//
+//        dialog.show()
+//    }
+//
+//    private fun validateAndLogin(binding: BottomSheetLoginBinding, dialog: BottomSheetDialog) {
+//        val email = binding.etEmail.text.toString().trim()
+//        val password = binding.etPassword.text.toString().trim()
+//
+//        // Field validation
+//        if (email.isEmpty()) {
+//            binding.etEmail.error = "Email cannot be empty"
+//        }
+//        if (password.isEmpty()) {
+//            binding.etPassword.error = "Password cannot be empty"
+//        } else if (password.length < 6) {
+//            binding.etPassword.error = "Password must be at least 6 characters"
+//        }
+//
+//        // Proceed only if all fields are filled
+//        if (email.isNotEmpty() && password.isNotEmpty()) {
+//            try {
+//                lifecycleScope.launch {
+//                    Log.d(tagLog, "lifecycleScope")
+//                    val isLoginSuccess = authRepository.login(email, password)
+//                    if (isLoginSuccess) {
+//                        sToast(this@AuthActivity, "Login successfully")
+//                        startActivity(Intent(this@AuthActivity, SmartDashboardActivity::class.java))
+//                        finish()
+//                        dialog.dismiss()
+//                    } else {
+//                        sToast(this@AuthActivity, "Login Failed")
+//                    }
+//                }
+//            } catch (e: IllegalArgumentException) {
+//                lToast(this@AuthActivity, "Login Failed: $e")
+//            } catch (e: Exception) {
+//                lToast(this@AuthActivity, "Login Failed: $e")
+//            }
+//        }
+//    }
+//
+//    private fun validateAndSignup(binding: BottomSheetSignupBinding, dialog: BottomSheetDialog) {
+//        val name = binding.etName.text.toString().trim()
+//        val email = binding.etEmail.text.toString().trim()
+//        val password = binding.etPassword.text.toString().trim()
+//
+//        // Field validation
+//        if (name.isEmpty()) {
+//            binding.etName.error = "Name cannot be empty"
+//        } else if (password.length < 3) {
+//            binding.etPassword.error = "Name must be at least 3 characters"
+//        }
+//        if (email.isEmpty()) {
+//            binding.etEmail.error = "Email cannot be empty"
+//        }
+//        if (password.isEmpty()) {
+//            binding.etPassword.error = "Password cannot be empty"
+//        } else if (password.length < 6) {
+//            binding.etPassword.error = "Password must be at least 6 characters"
+//        }
+//
+//        // Proceed only if all fields are filled
+//        if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+//            try {
+//                lifecycleScope.launch {
+//                    // Register the user via AuthRepository
+//                    val isSignupSuccess = authRepository.register(name, email, password)
+//                    if (isSignupSuccess) {
+//                        lToast(this@AuthActivity, "SignUp Successful")
+//                        showLoginBottomSheet()
+//                        dialog.dismiss()
+//                    } else {
+//                        lToast(this@AuthActivity, "Signup failed. The email may already be in use.")
+//                    }
+//                }
+//            } catch (e: IllegalArgumentException) {
+//                lToast(this@AuthActivity, "The email address is already in use by another account.")
+//            } catch (e: Exception) {
+//                lToast(this@AuthActivity, "An error occurred. Please try again later.")
+//            }
+//        }
+//    }
+//
+//    private fun setTermsPrivacyText(){
+//        val text = "By continuing, you agree to the Terms of Service and confirm that you have read the Privacy Policy"
+//        val spannableString = SpannableString(text)
+//
+//        // "Terms of Service" clickable span
+//        val termsStart = text.indexOf("Terms of Service")
+//        val termsEnd = termsStart + "Terms of Service".length
+//
+//        val termsClickableSpan = object : ClickableSpan() {
+//            override fun onClick(widget: View) {
+//                // Open Terms and Conditions
+//                openWebView("Terms of Service", "https://sites.google.com/view/smartengineer-terms-and-conditions")
+//            }
+//        }
+//        spannableString.setSpan(termsClickableSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        spannableString.setSpan(UnderlineSpan(), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        spannableString.setSpan(getColor(R.color.purple_text_color), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//
+//        // "Privacy Policy" clickable span
+//        val privacyStart = text.indexOf("Privacy Policy")
+//        val privacyEnd = privacyStart + "Privacy Policy".length
+//
+//        val privacyClickableSpan = object : ClickableSpan() {
+//            override fun onClick(widget: View) {
+//                // Open Privacy Policy
+//                openWebView("Privacy Policy", "https://sites.google.com/view/smartengineer-privacy-policy")
+//            }
+//        }
+//        spannableString.setSpan(privacyClickableSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        spannableString.setSpan(UnderlineSpan(), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        spannableString.setSpan(getColor(R.color.purple_text_color), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//
+//        // Set the spannable string to the TextView
+//        binding.tvTermsPrivacy.text = spannableString
+//        binding.tvTermsPrivacy.movementMethod = LinkMovementMethod.getInstance()
+//    }
+//
+//    private fun openWebView(title: String, url: String) {
+//        val intent = Intent(this, WebBrowserActivity::class.java)
+//        intent.putExtra("TITLE", title)
+//        intent.putExtra("URL", url)
+//        startActivity(intent)
+//    }
+
     private fun showLoginBottomSheet() {
         val dialog = BottomSheetDialog(this)
         val bindingLogin = BottomSheetLoginBinding.inflate(layoutInflater)
         dialog.setContentView(bindingLogin.root)
 
         bindingLogin.apply {
-            // Focus and keyboard behavior
-            etEmail.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    etPassword.requestFocus()
-                    true
-                } else {
-                    false
-                }
-            }
-
-            etPassword.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    // Call the signup function when the user presses "Done" on the keyboard
-                    validateAndLogin(bindingLogin, dialog)
-                    true
-                } else {
-                    false
-                }
-            }
-
-            // Handle Signup button click
-            btnLogin.setOnClickListener {
-                validateAndLogin(bindingLogin, dialog)
-            }
-
-            // Handle Login button click (dismiss bottom sheet)
+            setupEditorActionsForLogin(this)
+            btnForgotPassword.setOnClickListener { showForgotPasswordDialog() }
+            btnLogin.setOnClickListener { validateAndLogin(this, dialog) }
             btnSignUp.setOnClickListener {
+                dialog.dismiss()
                 showSignupBottomSheet()
-                dialog.dismiss() // Close the bottom sheet
             }
         }
 
         dialog.show()
     }
+
+    private fun setupEditorActionsForLogin(bindingLogin: BottomSheetLoginBinding) {
+        bindingLogin.etEmail.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                bindingLogin.etPassword.requestFocus()
+                true
+            } else false
+        }
+        bindingLogin.etPassword.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                validateAndLogin(bindingLogin, BottomSheetDialog(this))
+                true
+            } else false
+        }
+    }
+
+    private fun validateAndLogin(binding: BottomSheetLoginBinding, dialog: BottomSheetDialog) {
+        val email = binding.etEmail.text.toString().trim()
+        val password = binding.etPassword.text.toString().trim()
+
+        if (email.isEmpty()) {
+            binding.etEmail.error = "Email cannot be empty"
+            return
+        }
+        if (password.isEmpty()) {
+            binding.etPassword.error = "Password cannot be empty"
+            return
+        }
+        if (password.length < 6) {
+            binding.etPassword.error = "Password must be at least 6 characters"
+            return
+        }
+
+        lifecycleScope.launch {
+            val isLoginSuccess = authRepository.login(email, password)
+            if (isLoginSuccess) {
+                setToast("Login successful")
+                dialog.dismiss()
+                navigateToDashboard()
+            } else {
+                setToast("Login failed")
+            }
+        }
+    }
+
+    private fun navigateToDashboard() {
+        startActivity(Intent(this, SmartDashboardActivity::class.java))
+        finish()
+    }
+
 
     private fun showSignupBottomSheet() {
         val dialog = BottomSheetDialog(this)
@@ -195,84 +436,35 @@ class AuthActivity : SmartThemeActivity() {
         dialog.setContentView(bindingSignUp.root)
 
         bindingSignUp.apply {
-            // Focus and keyboard behavior
-            etName.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    etEmail.requestFocus()
-                    true
-                } else {
-                    false
-                }
-            }
-
-            etEmail.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    etPassword.requestFocus()
-                    true
-                } else {
-                    false
-                }
-            }
-
-            etPassword.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    // Call the signup function when the user presses "Done" on the keyboard
-                    validateAndSignup(bindingSignUp, dialog)
-                    true
-                } else {
-                    false
-                }
-            }
-
-            // Handle Signup button click
-            btnSignupCreate.setOnClickListener {
-                validateAndSignup(bindingSignUp, dialog)
-            }
-
-            // Handle Login button click (dismiss bottom sheet)
+            setupEditorActionsForSignup(this)
+            btnSignupCreate.setOnClickListener { validateAndSignup(this, dialog) }
             btnLogin.setOnClickListener {
+                dialog.dismiss()
                 showLoginBottomSheet()
-                dialog.dismiss() // Close the bottom sheet
             }
         }
 
         dialog.show()
     }
 
-    private fun validateAndLogin(binding: BottomSheetLoginBinding, dialog: BottomSheetDialog) {
-        val email = binding.etEmail.text.toString().trim()
-        val password = binding.etPassword.text.toString().trim()
-
-        // Field validation
-        if (email.isEmpty()) {
-            binding.etEmail.error = "Email cannot be empty"
+    private fun setupEditorActionsForSignup(bindingSignUp: BottomSheetSignupBinding) {
+        bindingSignUp.etName.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                bindingSignUp.etEmail.requestFocus()
+                true
+            } else false
         }
-        if (password.isEmpty()) {
-            binding.etPassword.error = "Password cannot be empty"
-        } else if (password.length < 6) {
-            binding.etPassword.error = "Password must be at least 6 characters"
+        bindingSignUp.etEmail.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                bindingSignUp.etPassword.requestFocus()
+                true
+            } else false
         }
-
-        // Proceed only if all fields are filled
-        if (email.isNotEmpty() && password.isNotEmpty()) {
-            try {
-                lifecycleScope.launch {
-                    Log.d(tagLog, "lifecycleScope")
-                    val isLoginSuccess = authRepository.login(email, password)
-                    if (isLoginSuccess) {
-                        sToast(this@AuthActivity, "Login successfully")
-                        startActivity(Intent(this@AuthActivity, SmartDashboardActivity::class.java))
-                        finish()
-                        dialog.dismiss()
-                    } else {
-                        sToast(this@AuthActivity, "Login Failed")
-                    }
-                }
-            } catch (e: IllegalArgumentException) {
-                lToast(this@AuthActivity, "Login Failed: $e")
-            } catch (e: Exception) {
-                lToast(this@AuthActivity, "Login Failed: $e")
-            }
+        bindingSignUp.etPassword.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                validateAndSignup(bindingSignUp, BottomSheetDialog(this))
+                true
+            } else false
         }
     }
 
@@ -281,40 +473,54 @@ class AuthActivity : SmartThemeActivity() {
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString().trim()
 
-        // Field validation
         if (name.isEmpty()) {
             binding.etName.error = "Name cannot be empty"
-        } else if (password.length < 3) {
-            binding.etPassword.error = "Name must be at least 3 characters"
+            return
         }
         if (email.isEmpty()) {
             binding.etEmail.error = "Email cannot be empty"
+            return
         }
-        if (password.isEmpty()) {
-            binding.etPassword.error = "Password cannot be empty"
-        } else if (password.length < 6) {
+        if (password.isEmpty() || password.length < 6) {
             binding.etPassword.error = "Password must be at least 6 characters"
+            return
         }
 
-        // Proceed only if all fields are filled
-        if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-            try {
-                lifecycleScope.launch {
-                    // Register the user via AuthRepository
-                    val isSignupSuccess = authRepository.register(name, email, password)
-                    if (isSignupSuccess) {
-                        lToast(this@AuthActivity, "SignUp Successful")
-                        showLoginBottomSheet()
-                        dialog.dismiss()
-                    } else {
-                        lToast(this@AuthActivity, "Signup failed. The email may already be in use.")
-                    }
-                }
-            } catch (e: IllegalArgumentException) {
-                lToast(this@AuthActivity, "The email address is already in use by another account.")
-            } catch (e: Exception) {
-                lToast(this@AuthActivity, "An error occurred. Please try again later.")
+        lifecycleScope.launch {
+            val isSignupSuccess = authRepository.register(name, email, password)
+            if (isSignupSuccess) {
+                setToast("Signup successful")
+                dialog.dismiss()
+                showLoginBottomSheet()
+            } else {
+                setToast("Signup failed")
             }
+        }
+    }
+
+    private fun showForgotPasswordDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_forgot_password, null)
+        val emailBox = dialogView.findViewById<EditText>(R.id.emailBox)
+
+        AlertDialog.Builder(this).apply {
+            setView(dialogView)
+            val dialog = create()
+
+            dialogView.findViewById<View>(R.id.btnReset).setOnClickListener {
+                val email = emailBox.text.toString()
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    setToast("Enter a valid email address")
+                    return@setOnClickListener
+                }
+                auth.sendPasswordResetEmail(email).addOnSuccessListener {
+                    setToast("Password reset email sent")
+                    dialog.dismiss()
+                }.addOnFailureListener { e ->
+                    setToast("Error: ${e.message}")
+                }
+            }
+
+            dialog.show()
         }
     }
 
@@ -329,7 +535,7 @@ class AuthActivity : SmartThemeActivity() {
         val termsClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 // Open Terms and Conditions
-                openWebView("Terms of Service", "https://sites.google.com/view/smartengineer-terms-and-conditions")
+                openWebView("Terms of Service", "https://sites.google.com/view/techlib-terms-and-conditions")
             }
         }
         spannableString.setSpan(termsClickableSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -343,7 +549,7 @@ class AuthActivity : SmartThemeActivity() {
         val privacyClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 // Open Privacy Policy
-                openWebView("Privacy Policy", "https://sites.google.com/view/smartengineer-privacy-policy")
+                openWebView("Privacy Policy", "https://sites.google.com/view/techlib-privacy-policy")
             }
         }
         spannableString.setSpan(privacyClickableSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

@@ -1,8 +1,11 @@
 package com.softylasa.smartengineer.data.models
 
+import androidx.annotation.Keep
+
+@Keep
 data class User(
-    val department: String = "",
     val email: String = "",
+    val department: String = "",
     val institute: String = "",
     val lastBonusDate: String = "",
     val name: String = "",
@@ -13,4 +16,7 @@ data class User(
     val semester: String = "",
     val userId: String = "",
     val joiningDate: String = ""
-)
+) {
+    constructor() : this("","","","","","", 0 ,0,"", "", "","")
+// Required for Firestore deserialization
+}

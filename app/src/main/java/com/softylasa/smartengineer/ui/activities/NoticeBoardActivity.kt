@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdSize
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.databinding.ActivityNoticeBoardBinding
-import com.softylasa.smartengineer.managers.AdManager.setBannerAds
+import com.softylasa.smartengineer.ads.AdManager.setBannerAds
 import com.softylasa.smartengineer.network.NoticeResponse
 import com.softylasa.smartengineer.network.RetrofitClient
 import com.softylasa.smartengineer.ui.adapters.BtebNoticeAdapter
@@ -30,6 +30,8 @@ class NoticeBoardActivity : SmartThemeActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var btebNoticeAdapter: BtebNoticeAdapter // Replace with your RecyclerView adapter
 
+    private val tagName = "BtebNoticeAPI"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,7 +42,6 @@ class NoticeBoardActivity : SmartThemeActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
 
         btebNoticeAdapter = BtebNoticeAdapter(emptyList(), this)
 
@@ -54,44 +55,59 @@ class NoticeBoardActivity : SmartThemeActivity() {
         setBannerAds(this, binding.adViewContainer, adSize, false)
 
         isShimmerOn(true)
+        binding.containerNoData.visibility = View.GONE
 
         fetchNotices()
     }
 
     private fun fetchNotices() {
 
+        binding.containerNotice.visibility = View.VISIBLE
+        binding.containerNoData.visibility = View.GONE
+        isShimmerOn(true)
+
+        Log.d(tagName, "Fetching notices from API...")
+        val call = RetrofitClient.apiService.getNotices()
+
         // Retrofit network call
-        RetrofitClient.apiService.getNotices().enqueue(object : Callback<NoticeResponse> {
+        call.enqueue(object : Callback<NoticeResponse> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<NoticeResponse>, response: Response<NoticeResponse>) {
                 if (response.isSuccessful) {
-                    isShimmerOn(false)
-                    btebNoticeAdapter.updateNoticeList(response.body()?.notices ?: emptyList(), false) // Update the adapter
+                    val notices = response.body()?.notices
+                    if (notices?.isEmpty() == true) {
+                        Log.e(tagName, "No data found for notices")
+                        binding.containerNotice.visibility = View.GONE
+                        binding.containerNoData.visibility = View.VISIBLE
+                        binding.btnRetry.setOnClickListener { fetchNotices() }
+                        isShimmerOn(false)
+                    } else {
+                        binding.containerNotice.visibility = View.VISIBLE
+                        Log.d(tagName, "Notices loaded: ${notices?.size}")
+                        btebNoticeAdapter.updateNoticeList(notices ?: emptyList(), false) // Update the adapter
+                        Log.d(tagName, "Success: ${notices?.size} notices")
+                        isShimmerOn(false)
+                        binding.containerNoData.visibility = View.GONE
+                    }
                 } else {
-                    showError("Failed to load notices. Please try again.")
+                    binding.containerNotice.visibility = View.GONE
+                    binding.containerNoData.visibility = View.VISIBLE
+                    Log.e(tagName, "Error: ${response.errorBody()?.string()}")
+                    binding.btnRetry.setOnClickListener { fetchNotices() }
+                    isShimmerOn(false)
                 }
                 btebNoticeAdapter.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<NoticeResponse>, t: Throwable) {
-                Log.e("API_ERROR", t.message ?: "Unknown error")
-                showError("Failed to load notices. Please check your connection and try again.")
+                Log.e(tagName, "Failure: ${t.message}")
+                binding.containerNotice.visibility = View.GONE
+                binding.containerNoData.visibility = View.VISIBLE
+                isShimmerOn(false)
+                binding.btnRetry.setOnClickListener { fetchNotices() }
             }
         })
     }
-
-    private fun showError(message: String) {
-        isShimmerOn(false)
-        // Use an AlertDialog to show error messages
-        runOnUiThread {
-            AlertDialog.Builder(this)
-                .setTitle("Error")
-                .setMessage(message)
-                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-                .show()
-        }
-    }
-
 
     // Get the ad size with screen width.
     private val adSize: AdSize
@@ -108,7 +124,6 @@ class NoticeBoardActivity : SmartThemeActivity() {
             val adWidth = (adWidthPixels / density).toInt()
             return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
         }
-
 
     override fun onPause() {
         super.onPause()

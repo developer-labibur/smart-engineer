@@ -12,6 +12,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import com.softylasa.smartengineer.data.constants.Constants.WEB_CLIENT_ID
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
@@ -20,33 +21,33 @@ class GoogleAuthClient(private val context: Context) {
     private val tag = "GoogleAuthClient"
     private val credentialManager = CredentialManager.create(context)
     private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance() // Firestore instance
 
     fun isSignedIn(): Boolean {
-        if (firebaseAuth.currentUser != null){
+        if (firebaseAuth.currentUser != null) {
             println("$tag => Already signed in")
             return true
         }
         return false
     }
 
-    suspend fun signIn(googleSignIn: Boolean): Boolean{
-        if (isSignedIn()){
+    suspend fun signIn(googleSignIn: Boolean): Boolean {
+        if (isSignedIn()) {
             return true
         }
 
         try {
             val result = buildCredentialRequest(googleSignIn)
             return handleSignIn(result)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             if (e is CancellationException) throw e
             println("$tag => SignIn error: ${e.message}")
             return false
         }
-
     }
 
-    suspend fun signOut(){
+    suspend fun signOut() {
         credentialManager.clearCredentialState(
             ClearCredentialStateRequest()
         )
@@ -54,13 +55,13 @@ class GoogleAuthClient(private val context: Context) {
     }
 
     //===========================================
-    private suspend fun handleSignIn(result: GetCredentialResponse): Boolean{
+    private suspend fun handleSignIn(result: GetCredentialResponse): Boolean {
         val credential = result.credential
 
         if (
             credential is CustomCredential &&
             credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
-        ){
+        ) {
             try {
                 Log.d(tag, "Try Block")
                 val tokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
@@ -68,23 +69,48 @@ class GoogleAuthClient(private val context: Context) {
                 println(tag + "email = ${tokenCredential.id}")
                 println(tag + "image = ${tokenCredential.profilePictureUri}")
 
+                // Sign in with Firebase
                 val authCredential = GoogleAuthProvider.getCredential(
                     tokenCredential.idToken, null
                 )
                 val authResult = firebaseAuth.signInWithCredential(authCredential).await()
 
-                return authResult.user!= null
+                // Get Firebase User
+                val firebaseUser = authResult.user
+                if (firebaseUser != null) {
+                    // Store user data in Firestore
+                    val userId = firebaseUser.uid
+                    val userDocument = firestore.collection("users").document(userId)
 
+                    // Check if the user already exists in Firestore
+                    val documentSnapshot = userDocument.get().await()
+                    if (!documentSnapshot.exists()) {
+                        // Create new user document
+                        val userData = hashMapOf(
+                            "name" to (tokenCredential.displayName ?: ""),
+                            "email" to (tokenCredential.id ?: ""),
+                            "uid" to userId,
+                            "picture" to (tokenCredential.profilePictureUri?.toString() ?: "")
+                        )
+                        userDocument.set(userData).await()
+                        Log.d(tag, "New user document created in Firestore")
+                    } else {
+                        Log.d(tag, "User already exists in Firestore")
+                    }
+                    return true
+                }
+                return false
             } catch (e: GoogleIdTokenParsingException) {
                 println(tag + "GoogleIdTokenParsingException: ${e.message}")
                 return false
             }
-        } else{
+        } else {
             println("$tag => Credential is not GoogleIdTokenCredential")
             return false
         }
     }
-    private suspend fun buildCredentialRequest(googleSignIn: Boolean): GetCredentialResponse{
+
+    private suspend fun buildCredentialRequest(googleSignIn: Boolean): GetCredentialResponse {
         val request = GetCredentialRequest.Builder()
             .addCredentialOption(
                 GetGoogleIdOption.Builder()

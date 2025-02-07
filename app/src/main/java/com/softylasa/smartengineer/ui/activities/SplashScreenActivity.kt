@@ -24,7 +24,7 @@ import com.softylasa.smartengineer.data.constants.Constants.ONBOARDING_KEY
 import com.softylasa.smartengineer.data.constants.Constants.SPLASH_SCREEN
 import com.softylasa.smartengineer.data.constants.Constants.VISIBILITY_KEY
 import com.softylasa.smartengineer.databinding.ActivitySplashScreenBinding
-import com.softylasa.smartengineer.utils.helpers.SmartConfig.Companion.isAdsVisible
+import com.softylasa.smartengineer.ads.SmartConfig.Companion.isAdsVisible
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
@@ -81,7 +81,7 @@ class SplashScreenActivity : AppCompatActivity() {
             // Check if the user is logged in
             if (auth.currentUser != null) {
                 // User is logged in, navigate to the Dashboard
-                startActivity(Intent(this@SplashScreenActivity, DashboardActivity::class.java))
+                startActivity(Intent(this@SplashScreenActivity, SmartDashboardActivity::class.java))
             } else {
                 // User is logged out, navigate to AuthActivity
                 startActivity(Intent(this@SplashScreenActivity, AuthActivity::class.java))

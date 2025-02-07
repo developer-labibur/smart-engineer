@@ -34,6 +34,7 @@ import com.softylasa.smartengineer.ui.activities.SmartViewActivity
 import com.softylasa.smartengineer.ui.adapters.BookGridAdapter
 import com.softylasa.smartengineer.ui.adapters.BookListAdapter
 import com.softylasa.smartengineer.ui.adapters.BtebNoticeAdapter
+import com.softylasa.smartengineer.utils.helpers.EasySdk.lToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,6 +46,8 @@ class SmartUpdatesFragment : Fragment() {
     private lateinit var bookGridAdapter: BookGridAdapter
     private lateinit var bookListAdapter: BookListAdapter
     private var db: FirebaseFirestore? = null
+
+    private val tagName = "SmartUpdateFragment"
 
     // RecyclerView Adapter
     private lateinit var btebNoticeAdapter: BtebNoticeAdapter // Replace with your RecyclerView adapter
@@ -82,13 +85,30 @@ class SmartUpdatesFragment : Fragment() {
 
             containerNotice.visibility = View.VISIBLE
             containerBook.visibility = View.GONE
+            containerNoData.visibility = View.GONE
 
-            btnNotice.setOnClickListener {
+            btnNotice.setOnClickListener { setClickListener(true) }
+            btnBooks.setOnClickListener { setClickListener(false) }
+
+            btnViewAllNotice.visibility = View.GONE
+            btnViewAllNotice.setOnClickListener {
+                val intent = Intent(requireContext(), NoticeBoardActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        return binding.root
+    }
+
+    private fun setClickListener(isNotice: Boolean){
+        binding.apply {
+            if (isNotice){
                 btnNotice.setBackgroundResource(R.drawable.sl_search_box_icon)
                 btnBooks.setBackgroundResource(R.color.transparent)
 
                 containerNotice.visibility = View.VISIBLE
                 containerBook.visibility = View.GONE
+                containerNoData.visibility = View.GONE
 
                 fetchNotices()
                 isShimmerNoticeOn(true)
@@ -98,15 +118,13 @@ class SmartUpdatesFragment : Fragment() {
                     val intent = Intent(requireContext(), NoticeBoardActivity::class.java)
                     startActivity(intent)
                 }
-            }
-
-
-            btnBooks.setOnClickListener {
+            } else {
                 btnNotice.setBackgroundResource(R.color.transparent)
                 btnBooks.setBackgroundResource(R.drawable.sl_search_box_icon)
 
                 containerNotice.visibility = View.GONE
                 containerBook.visibility = View.VISIBLE
+                containerNoData.visibility = View.GONE
 
                 fetchBooks("BUpdates", false)
                 isShimmerOn(true, isGrid = false)
@@ -170,16 +188,9 @@ class SmartUpdatesFragment : Fragment() {
                 btnViewAll.visibility = View.INVISIBLE
                 btnViewAll.setOnClickListener { startActivity(Intent(requireContext(), AcademicBookActivity::class.java)) }
 
-            }
 
-            btnViewAllNotice.visibility = View.GONE
-            btnViewAllNotice.setOnClickListener {
-                val intent = Intent(requireContext(), NoticeBoardActivity::class.java)
-                startActivity(intent)
             }
         }
-
-        return binding.root
     }
 
     private fun fetchNotices() {
@@ -188,11 +199,27 @@ class SmartUpdatesFragment : Fragment() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<NoticeResponse>, response: Response<NoticeResponse>) {
                 if (response.isSuccessful) {
-                    isShimmerNoticeOn(false)
-                    btebNoticeAdapter.updateNoticeList(response.body()?.notices ?: emptyList(), true) // Update the adapter
-                    binding.btnViewAllNotice.visibility = View.VISIBLE
+                    val notices = response.body()?.notices
+                    if (notices?.isEmpty() == true) {
+                        Log.e(tagName, "No data found for notices")
+                        isShimmerNoticeOn(false)
+                        binding.containerNoData.visibility = View.VISIBLE
+                        binding.btnViewAllNotice.visibility = View.GONE
+                        binding.containerNotice.visibility = View.GONE
+                        binding.btnRetry.setOnClickListener { setClickListener(true) }
+                    } else {
+                        Log.d(tagName, "Notices loaded: ${notices?.size}")
+                        btebNoticeAdapter.updateNoticeList(notices ?: emptyList(), true) // Update the adapter
+                        Log.d(tagName, "Success: ${notices?.size} notices")
+                        isShimmerNoticeOn(false)
+                        binding.containerNoData.visibility = View.GONE
+                        binding.btnViewAllNotice.visibility = View.VISIBLE
+                    }
                 } else {
-                    //showError("Failed to load notices. Please try again.")
+                    binding.containerNoData.visibility = View.VISIBLE
+                    binding.btnViewAllNotice.visibility = View.GONE
+                    binding.containerNotice.visibility = View.GONE
+                    binding.btnRetry.setOnClickListener { setClickListener(true) }
                     isShimmerNoticeOn(false)
                 }
                 btebNoticeAdapter.notifyDataSetChanged()
@@ -200,7 +227,10 @@ class SmartUpdatesFragment : Fragment() {
 
             override fun onFailure(call: Call<NoticeResponse>, t: Throwable) {
                 Log.e("API_ERROR", t.message ?: "Unknown error")
-                //showError("Failed to load notices. Please check your connection and try again.")
+                binding.containerNoData.visibility = View.VISIBLE
+                binding.btnViewAllNotice.visibility = View.GONE
+                binding.containerNotice.visibility = View.GONE
+                binding.btnRetry.setOnClickListener { setClickListener(true) }
                 isShimmerNoticeOn(false)
             }
         })

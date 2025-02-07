@@ -329,7 +329,7 @@
     <string name="mail_link">admin@smartengr.rudhashi.xyz</string>
     <string name="web_link">smartengr.rudhashi.xyz</string>
     <string name="download">Download</string>
-    <string name="download_info_text">Do you want to download this unit for offline read? - by using</string>
+    <string name="download_info_text">Do you want to download this unit for offline read?</string>
     <string name="watch">Watch</string>
     <string name="downloading">Downloading...</string>
     <string name="_0">0%</string>
@@ -403,5 +403,12 @@
     <string name="all_departments">All Departments</string>
     <string name="browser_links">Browser Links</string>
     <string name="visit">Visit Now</string>
+    <string name="important_links">Important Links</string>
+    <string name="essential_government_websites_for_student">Essential government websites for student</string>
+    <string name="no_notice_found">No notice found</string>
+    <string name="no_notice_found_info">Failed to load notices. Please check your connection and try again.</string>
+    <string name="retry">Retry</string>
+    <string name="no_book_found">No book found</string>
+    <string name="no_book_found_info">Failed to load books. Please complete your profile and check again.</string>
 
 </resources>

@@ -62,6 +62,7 @@ class BookViewActivity : SmartThemeActivity() {
         setupRecyclerView() // Setup the viewPager
 
         binding.btnBack.setOnClickListener { finish() }
+        binding.containerNoData.visibility = View.GONE
 
     }
 
@@ -76,12 +77,14 @@ class BookViewActivity : SmartThemeActivity() {
                 btnGrid.setBackgroundResource(R.color.transparent)
                 fetchBooks("Library", false)
                 isShimmerOn(true, isGrid = false)
+                containerNoData.visibility = View.GONE
             }
             btnGrid.setOnClickListener {
                 btnList.setBackgroundResource(R.color.transparent)
                 btnGrid.setBackgroundResource(R.drawable.smart_view_active_bg)
                 fetchBooks("Library", true)
                 isShimmerOn(true, isGrid = true)
+                containerNoData.visibility = View.GONE
             }
             btnLibrary.setOnClickListener { setActiveTab("Library") }
             btnFavourite.setOnClickListener { setActiveTab("Favourite") }
@@ -95,6 +98,7 @@ class BookViewActivity : SmartThemeActivity() {
         if (viewType == "Library"){
             if (isGrid){
                 binding.rvBook.layoutManager = GridLayoutManager(this,2)
+                binding.containerNoData.visibility = View.GONE
 
                 val currentUserUID = FirebaseAuth.getInstance().currentUser?.uid
                 if (currentUserUID != null) {
@@ -118,28 +122,53 @@ class BookViewActivity : SmartThemeActivity() {
                                         for (document in querySnapshot) {
                                             val book = document.toObject(Book::class.java)
                                             booksList.add(book)
+                                            if (booksList.isEmpty()){
+                                                isShimmerOn(false, isGrid = true)
+                                                val text = "Sorry! No books were found for your current semester."
+                                                binding.containerNoData.visibility = View.VISIBLE
+                                                binding.tvDesNoData.text = text
+                                                binding.rvBook.visibility = View.GONE
+                                            } else {
+                                                isShimmerOn(false, isGrid = true)
+                                                binding.containerNoData.visibility = View.GONE
+                                            }
                                         }
                                         // Update RecyclerView with the fetched books
                                         booksGridAdapter.setData(booksList, false)
                                     }
                                     .addOnFailureListener { exception ->
                                         isShimmerOn(false, isGrid = true)
+                                        binding.containerNoData.visibility = View.VISIBLE
+                                        binding.rvBook.visibility = View.GONE
                                         Log.e("FirestoreError", "Error fetching books: ${exception.message}")
                                     }
                                 binding.rvBook.adapter = booksGridAdapter
                             } else {
-
-                                Log.e("UserDataError", "Department or Semester is missing for the user.")
+                                isShimmerOn(false, isGrid = true)
+                                val text = "Complete your profile to view all the books for your current semester"
+                                binding.containerNoData.visibility = View.VISIBLE
+                                binding.tvDesNoData.text = text
+                                binding.rvBook.visibility = View.GONE
+                                Log.e("UserDataError", text)
                             }
                         } else {
+                            isShimmerOn(false, isGrid = true)
+                            val text = "Complete your profile to view all the books for your current semester"
+                            binding.containerNoData.visibility = View.VISIBLE
+                            binding.tvDesNoData.text = text
+                            binding.rvBook.visibility = View.GONE
                             Log.e("FirestoreError", "User document does not exist.")
                         }
                     }.addOnFailureListener { exception ->
+                        isShimmerOn(false, isGrid = true)
+                        binding.containerNoData.visibility = View.VISIBLE
+                        binding.rvBook.visibility = View.GONE
                         Log.e("FirestoreError", "Error fetching user data: ${exception.message}")
                     }
                 }
             } else {
                 binding.rvBook.layoutManager = LinearLayoutManager(this)
+                binding.containerNoData.visibility = View.GONE
 
                 // eBook Open and Redeem Points
                 bookListAdapter = BookListAdapter { bookCode ->
@@ -176,23 +205,43 @@ class BookViewActivity : SmartThemeActivity() {
                                         for (document in querySnapshot) {
                                             val book = document.toObject(Book::class.java)
                                             booksList.add(book)
+
+                                            if (booksList.isEmpty()){
+                                                isShimmerOn(false, isGrid = false)
+                                                val text = "Sorry! No books were found for your current semester."
+                                                binding.containerNoData.visibility = View.VISIBLE
+                                                binding.tvDesNoData.text = text
+                                            } else {
+                                                isShimmerOn(false, isGrid = false)
+                                                binding.containerNoData.visibility = View.GONE
+                                            }
                                         }
                                         // Update RecyclerView with the fetched books
                                         bookListAdapter.updateBooks(booksList, false)
                                     }
                                     .addOnFailureListener { exception ->
+                                        binding.containerNoData.visibility = View.VISIBLE
                                         isShimmerOn(false, isGrid = false)
                                         Log.e("FirestoreError", "Error fetching books: ${exception.message}")
                                     }
                                 binding.rvBook.adapter = bookListAdapter
                             } else {
-
-                                Log.e("UserDataError", "Department or Semester is missing for the user.")
+                                isShimmerOn(false, isGrid = false)
+                                val text = "Complete your profile to view all the books for your current semester"
+                                binding.containerNoData.visibility = View.VISIBLE
+                                binding.tvDesNoData.text = text
+                                Log.e("UserDataError", text)
                             }
                         } else {
+                            isShimmerOn(false, isGrid = false)
+                            val text = "Complete your profile to view all the books for your current semester"
+                            binding.containerNoData.visibility = View.VISIBLE
+                            binding.tvDesNoData.text = text
                             Log.e("FirestoreError", "User document does not exist.")
                         }
                     }.addOnFailureListener { exception ->
+                        binding.containerNoData.visibility = View.VISIBLE
+                        isShimmerOn(false, isGrid = false)
                         Log.e("FirestoreError", "Error fetching user data: ${exception.message}")
                     }
                 }
@@ -200,6 +249,7 @@ class BookViewActivity : SmartThemeActivity() {
         } else {
             if (isGrid){
                 binding.rvBook.layoutManager = GridLayoutManager(this,2)
+                binding.containerNoData.visibility = View.GONE
 
                 val currentUserUID = FirebaseAuth.getInstance().currentUser?.uid
                 if (currentUserUID != null) {
@@ -221,22 +271,46 @@ class BookViewActivity : SmartThemeActivity() {
                                                 // Add book to the favoriteBooks list
                                                 favoriteBooks.add(it)
 
+                                                binding.containerNoData.visibility = View.GONE
+                                                isShimmerOn(false, isGrid = true)
+
                                                 // Once all books are fetched, update the RecyclerView
                                                 if (this@BookViewActivity.favoriteBooks.size == favoriteBooks.size) {
                                                     booksGridAdapter.setData(favoriteBooks, false) // Pass your favoriteBooks list to the adapter
                                                 }
                                             }
+                                        } else {
+                                            isShimmerOn(false, isGrid = true)
+                                            val text = "Sorry! No books were found in your favorite lists."
+                                            binding.containerNoData.visibility = View.VISIBLE
+                                            binding.tvDesNoData.text = text
+                                            binding.rvBook.visibility = View.GONE
                                         }
                                     }?.addOnFailureListener { exception ->
                                         isShimmerOn(false, isGrid = true)
+                                        val text = "Sorry! No books were found in your favorite lists."
+                                        binding.containerNoData.visibility = View.VISIBLE
+                                        binding.tvDesNoData.text = text
+                                        binding.rvBook.visibility = View.GONE
                                         Log.e("FirebaseError", "Error fetching book details: ${exception.message}")
                                     }
                                     binding.rvBook.adapter = booksGridAdapter
                                 }
+                            } else {
+                                isShimmerOn(false, isGrid = true)
+                                val text = "Sorry! No books were found in your favorite lists."
+                                binding.containerNoData.visibility = View.VISIBLE
+                                binding.tvDesNoData.text = text
+                                binding.rvBook.visibility = View.GONE
                             }
                         }
 
                         override fun onCancelled(error: DatabaseError) {
+                            isShimmerOn(false, isGrid = true)
+                            val text = "Sorry! No books were found in your favorite lists."
+                            binding.containerNoData.visibility = View.VISIBLE
+                            binding.tvDesNoData.text = text
+                            binding.rvBook.visibility = View.GONE
                             // Handle errors if any
                             Log.e("FirebaseError", "Error fetching favorites: ${error.message}")
                         }
@@ -244,6 +318,7 @@ class BookViewActivity : SmartThemeActivity() {
                 }
             } else {
                 binding.rvBook.layoutManager = LinearLayoutManager(this)
+                binding.containerNoData.visibility = View.GONE
 
                 // eBook Open and Redeem Points
                 bookListAdapter = BookListAdapter { bookCode ->
@@ -276,22 +351,46 @@ class BookViewActivity : SmartThemeActivity() {
                                                 // Add book to the favoriteBooks list
                                                 favoriteBooks.add(it)
 
+                                                isShimmerOn(false, isGrid = false)
+                                                binding.containerNoData.visibility = View.GONE
+
                                                 // Once all books are fetched, update the RecyclerView
                                                 if (this@BookViewActivity.favoriteBooks.size == favoriteBooks.size) {
                                                     bookListAdapter.updateBooks(favoriteBooks, false) // Pass your favoriteBooks list to the adapter
                                                 }
                                             }
+                                        } else {
+                                            isShimmerOn(false, isGrid = false)
+                                            val text = "Sorry! No books were found in your favorite lists."
+                                            binding.containerNoData.visibility = View.VISIBLE
+                                            binding.tvDesNoData.text = text
+                                            binding.rvBook.visibility = View.GONE
                                         }
                                     }?.addOnFailureListener { exception ->
                                         isShimmerOn(false, isGrid = false)
+                                        val text = "Sorry! No books were found in your favorite lists."
+                                        binding.containerNoData.visibility = View.VISIBLE
+                                        binding.tvDesNoData.text = text
+                                        binding.rvBook.visibility = View.GONE
                                         Log.e("FirebaseError", "Error fetching book details: ${exception.message}")
                                     }
                                     binding.rvBook.adapter = bookListAdapter
                                 }
+                            } else {
+                                isShimmerOn(false, isGrid = false)
+                                val text = "Sorry! No books were found in your favorite lists."
+                                binding.containerNoData.visibility = View.VISIBLE
+                                binding.tvDesNoData.text = text
+                                binding.rvBook.visibility = View.GONE
                             }
                         }
 
                         override fun onCancelled(error: DatabaseError) {
+                            isShimmerOn(false, isGrid = false)
+                            val text = "Sorry! No books were found in your favorite lists."
+                            binding.containerNoData.visibility = View.VISIBLE
+                            binding.tvDesNoData.text = text
+                            binding.rvBook.visibility = View.GONE
                             // Handle errors if any
                             Log.e("FirebaseError", "Error fetching favorites: ${error.message}")
                         }
@@ -334,13 +433,16 @@ class BookViewActivity : SmartThemeActivity() {
                     btnList.setBackgroundResource(R.drawable.smart_view_active_bg)
                     btnGrid.setBackgroundResource(R.color.transparent)
                     fetchBooks("Library", false)
+                    containerNoData.visibility = View.GONE
                 }
                 btnGrid.setOnClickListener {
                     btnList.setBackgroundResource(R.color.transparent)
                     btnGrid.setBackgroundResource(R.drawable.smart_view_active_bg)
                     fetchBooks("Library", true)
                     isShimmerOn(true, isGrid = true)
+                    containerNoData.visibility = View.GONE
                 }
+                containerNoData.visibility = View.GONE
             }
         }
         else if (tNo == "Favourite") {
@@ -357,13 +459,16 @@ class BookViewActivity : SmartThemeActivity() {
                     btnGrid.setBackgroundResource(R.color.transparent)
                     fetchBooks("Favourite", false)
                     isShimmerOn(true, isGrid = false)
+                    containerNoData.visibility = View.GONE
                 }
                 btnGrid.setOnClickListener {
                     btnList.setBackgroundResource(R.color.transparent)
                     btnGrid.setBackgroundResource(R.drawable.smart_view_active_bg)
                     fetchBooks("Favourite", true)
                     isShimmerOn(true, isGrid = true)
+                    containerNoData.visibility = View.GONE
                 }
+                containerNoData.visibility = View.GONE
             }
         } else{
             binding.apply {
@@ -387,18 +492,22 @@ class BookViewActivity : SmartThemeActivity() {
                 if (isGrid) {
                     shimmerGrid.startShimmer()
                     shimmerGrid.visibility = View.VISIBLE
+                    shimmerList.visibility = View.GONE
                 } else {
                     shimmerList.startShimmer()
                     shimmerList.visibility = View.VISIBLE
+                    shimmerGrid.visibility = View.GONE
                 }
                 rvBook.visibility = View.GONE
             } else {
                 if (isGrid) {
                     shimmerGrid.stopShimmer()
                     shimmerGrid.visibility = View.GONE
+                    shimmerList.visibility = View.GONE
                 } else {
                     shimmerList.stopShimmer()
                     shimmerList.visibility = View.GONE
+                    shimmerGrid.visibility = View.GONE
                 }
                 rvBook.visibility = View.VISIBLE
             }

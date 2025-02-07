@@ -143,6 +143,7 @@ class SmartStudyFragment : Fragment() {
         }
 
     }
+
     // =====================================================================================================================
     // ===========================================       Get Semester Data     =============================================
     // =====================================================================================================================
@@ -339,19 +340,6 @@ class SmartStudyFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        fetchDepartments()
-        getSemesterData()
-        getLibraryTotalBooksNumber()
-        getFavoriteTotalBooksNumber()
-    }
-
-    override fun onPause() {
-        isShimmerOn(false)
-        super.onPause()
-    }
-
     private fun isShimmerOn(flag: Boolean) {
         if (flag) {
             // If data is available then Shimmer Effect will be gone
@@ -366,6 +354,19 @@ class SmartStudyFragment : Fragment() {
     }
 
     private var safeContext: Context? = null
+
+    override fun onResume() {
+        super.onResume()
+        fetchDepartments()
+        getSemesterData()
+        getLibraryTotalBooksNumber()
+        getFavoriteTotalBooksNumber()
+    }
+
+    override fun onPause() {
+        isShimmerOn(false)
+        super.onPause()
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

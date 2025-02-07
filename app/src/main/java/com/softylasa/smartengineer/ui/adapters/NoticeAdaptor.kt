@@ -24,7 +24,7 @@ import com.google.firebase.ktx.Firebase
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.databinding.ItemNoticeBinding
 import com.softylasa.smartengineer.data.models.Notice
-import com.softylasa.smartengineer.utils.helpers.SmartConfig
+import com.softylasa.smartengineer.ads.SmartConfig
 import com.softylasa.smartengineer.utils.helpers.SmartData
 import com.softylasa.smartengineer.utils.helpers.formatTimestampToRelativeTime
 import kotlin.properties.Delegates

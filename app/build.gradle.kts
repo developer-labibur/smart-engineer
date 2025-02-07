@@ -15,8 +15,8 @@ android {
         applicationId = "com.softylasa.smartengineer"
         minSdk = 25
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 4
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,6 +51,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.crashlytics)
     implementation(libs.core.ktx)
+    implementation(libs.firebase.messaging)
+    implementation(libs.transport.backend.cct)
+    implementation(libs.transport.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -109,8 +112,15 @@ dependencies {
     implementation(libs.pdf.viewer.android) { exclude(group = "com.android.support", module = "support-compat") }
 
     implementation (libs.okhttp) // For downloading the PDF
+    implementation (libs.com.squareup.okhttp.okhttp)
 
     implementation(libs.androidx.browser) //Chrome Custom Tabs
+
+
+    // Add latest gRPC dependencies (needed for Firestore)
+    implementation (libs.grpc.okhttp)
+    implementation (libs.grpc.protobuf.lite)
+    implementation (libs.grpc.stub)
 
 }
 // Apply the Google Services plugin here

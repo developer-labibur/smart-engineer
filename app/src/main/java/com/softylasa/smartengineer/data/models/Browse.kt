@@ -1,8 +1,14 @@
 package com.softylasa.smartengineer.data.models
 
+import androidx.annotation.Keep
+import com.google.firebase.firestore.PropertyName
+
+@Keep
 data class Browse(
-    val Cover: String = "",
-    val ID: String = "",
-    val Des: String = "",
-    val Name: String = ""
-)
+    @PropertyName("Cover") val Cover: String = "",
+    @PropertyName("ID") val ID: String = "",
+    @PropertyName("Des") val Des: String = "",
+    @PropertyName("Name") val Name: String = ""
+) {
+    constructor() : this("", "", "", "") // Ensuring all fields are initialized
+}

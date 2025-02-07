@@ -17,10 +17,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.databinding.ItemBookUnitBinding
-import com.softylasa.smartengineer.managers.DialogManager
 import com.softylasa.smartengineer.managers.PointManager
 import com.softylasa.smartengineer.data.models.Book
 import com.softylasa.smartengineer.data.models.BookUnit
+import com.softylasa.smartengineer.managers.DialogManager.showDownloadDialog
 import com.softylasa.smartengineer.ui.activities.SmartEBookActivity
 import okhttp3.Call
 import okhttp3.Callback
@@ -61,10 +61,9 @@ class UnitAdapter(
         holder.itemView.setOnClickListener { onItemClick(unit, "view") }
         holder.downloadButton.setOnClickListener {
             if (cachedFile.exists()) Log.i("Unit", "File already exists")
-            else DialogManager.showDownloadDialog(
-                context as Activity,
+            else (context as Activity).showDownloadDialog(
                 "Download",
-                "Do you want to download this unit for offline read? - by using",
+                "Do you want to download this unit for offline read?",
                 unit,
                 onItemClick)
         }

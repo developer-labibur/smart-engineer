@@ -1,4 +1,4 @@
-package com.softylasa.smartengineer.utils.helpers
+package com.softylasa.smartengineer.ads
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
@@ -46,10 +46,10 @@ class SmartConfig {
         private const val APP_OPEN_ADS_ID = "ca-app-pub-6550723267014585/3022626493"
         private const val BANNER_ADS_ID = "ca-app-pub-6550723267014585/8365618360"
         private const val FIXED_SIZE_BANNER_ADS_ID = ""
-        private const val INTERSTITIAL_ADS_ID = ""
+        private const val INTERSTITIAL_ADS_ID = "ca-app-pub-6550723267014585/1674523836"
         private const val REWARDED_ADS_ID = "ca-app-pub-6550723267014585/6790217784"
         private const val REWARDED_INTERSTITIAL_ADS_ID = ""
-        private const val NATIVE_ADS_ID = ""
+        private const val NATIVE_ADS_ID = "ca-app-pub-6550723267014585/9856266188"
         private const val NATIVE_VIDEO_ADS_ID = ""
 
         // Server Link ---------------------------------------------------------------------------------------------

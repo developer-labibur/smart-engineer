@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clickItem"
-        android:layout_width="100dp"
+        android:layout_width="95dp"
         android:layout_height="match_parent"
         android:background="@drawable/_category_shape_orange"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +43,7 @@
             android:layout_width="22dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="-2dp"
+            android:layout_marginTop="-5dp"
             android:contentDescription="@string/smart_engineer_logo"
             android:src="@drawable/sl_bookmark_filled"
             app:layout_constraintStart_toStartOf="parent"

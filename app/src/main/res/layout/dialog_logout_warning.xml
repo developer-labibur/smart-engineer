@@ -57,7 +57,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:lottie_url="https://lottie.host/b4890f22-1bb7-4961-b1af-6fe2b9a9c0b6/cLKzLoJ7GW.lottie"
+                    app:lottie_rawRes="@raw/anim_logout"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"/>
 

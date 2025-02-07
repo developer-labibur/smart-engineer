@@ -30,7 +30,7 @@ import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.ui.adapters.UnitAdapter
 import com.softylasa.smartengineer.utils.helpers.Converters.dpToPx
 import com.softylasa.smartengineer.databinding.ActivityBookDetailsBinding
-import com.softylasa.smartengineer.managers.AdManager
+import com.softylasa.smartengineer.ads.AdManager
 import com.softylasa.smartengineer.managers.CUserManager
 import com.softylasa.smartengineer.data.models.Book
 import com.softylasa.smartengineer.data.models.BookUnit

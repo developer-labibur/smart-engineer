@@ -16,7 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.utils.helpers.GetSet.getCurrentDate
 import com.softylasa.smartengineer.databinding.DialogDailyRewardBinding
-import com.softylasa.smartengineer.utils.helpers.SmartConfig
+import com.softylasa.smartengineer.ads.SmartConfig
 import com.softylasa.smartengineer.ui.activities.BookDetailsActivity
 import com.softylasa.smartengineer.ui.activities.SmartPointActivity
 

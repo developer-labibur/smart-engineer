@@ -1,4 +1,4 @@
-package com.softylasa.smartengineer.managers
+package com.softylasa.smartengineer.ads
 
 import android.app.Activity
 import android.content.Context
@@ -14,7 +14,8 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
-import com.softylasa.smartengineer.utils.helpers.SmartConfig
+import com.softylasa.smartengineer.managers.DialogManager
+import com.softylasa.smartengineer.managers.PointManager
 
 object AdManager {
     private const val TAG = "AdManager"

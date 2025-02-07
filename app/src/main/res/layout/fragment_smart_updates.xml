@@ -114,6 +114,89 @@
 
             </LinearLayout>
 
+            <!-- No Notice Container -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerNoData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/updateTab"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="25dp"
+                android:paddingBottom="100dp"
+                app:layout_constraintEnd_toEndOf="parent" >
+
+                <ImageView
+                    android:id="@+id/noDataImage"
+                    android:layout_width="235dp"
+                    android:layout_height="235dp"
+                    android:contentDescription="@string/sl_icon"
+                    android:src="@drawable/cat_with_balloon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTitleNoData"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:gravity="center"
+                    android:lineSpacingExtra="-10dp"
+                    android:text="@string/no_notice_found"
+                    android:textColor="@color/mainContainer_SubHeadingText"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/noDataImage"
+                    app:layout_constraintStart_toStartOf="@+id/noDataImage"
+                    app:layout_constraintTop_toBottomOf="@+id/noDataImage" />
+
+                <TextView
+                    android:id="@+id/tvDesNoData"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="50dp"
+                    android:fontFamily="@font/hind_siliguri"
+                    android:gravity="center"
+                    android:lineSpacingExtra="-2dp"
+                    android:text="@string/no_notice_found_info"
+                    android:textColor="@color/mainContainer_SubHeadingText"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleNoData" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRetry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:focusable="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:fontFamily="@font/roboto"
+                    android:background="@drawable/retry_button"
+                    android:text="@string/retry"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDesNoData"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <!-- Notice Container -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerNotice"
@@ -201,7 +284,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/btnViewAllNotice" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

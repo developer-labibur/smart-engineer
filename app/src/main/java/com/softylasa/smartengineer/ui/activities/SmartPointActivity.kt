@@ -10,7 +10,7 @@ import com.softylasa.smartengineer.databinding.ActivitySmartPointBinding
 import com.softylasa.smartengineer.managers.CUserManager
 import com.softylasa.smartengineer.managers.DialogManager
 import com.softylasa.smartengineer.managers.PointManager
-import com.softylasa.smartengineer.utils.helpers.SmartConfig
+import com.softylasa.smartengineer.ads.SmartConfig
 import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
 
 class SmartPointActivity : SmartThemeActivity() {

@@ -1,6 +1,7 @@
 package com.softylasa.smartengineer.utils.helpers
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -21,6 +22,10 @@ class SmartData {
         // Function to display Toast
         fun lToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
         fun sToast(context: Context, message: String) { Toast.makeText(context, message, Toast.LENGTH_SHORT).show() }
+
+        fun Activity.setToast(text: String){
+            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+        }
 
         @SuppressLint("InflateParams")
         fun comingSoon(context: Context){

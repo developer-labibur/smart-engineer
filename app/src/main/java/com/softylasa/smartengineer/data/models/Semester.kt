@@ -1,5 +1,8 @@
 package com.softylasa.smartengineer.data.models
 
+import androidx.annotation.Keep
+
+@Keep
 data class Semester(
     val SAbbr: String = "",
     val SDep: String = "",
@@ -8,4 +11,6 @@ data class Semester(
     val STag: String = "",
     val SPdf: String = "",
     val SDone: Boolean = false
-)
+) {
+    constructor() : this("", "", "", "", "", "", false) // Correct constructor for Firestore deserialization
+}

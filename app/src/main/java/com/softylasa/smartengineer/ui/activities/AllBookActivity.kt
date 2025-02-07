@@ -15,7 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.softylasa.smartengineer.ui.adapters.BookListAdapter
 import com.softylasa.smartengineer.databinding.ActivityAllBookBinding
-import com.softylasa.smartengineer.managers.AdManager
+import com.softylasa.smartengineer.ads.AdManager
 import com.softylasa.smartengineer.data.models.Book
 import com.softylasa.smartengineer.data.models.Semester
 import com.softylasa.smartengineer.managers.CUserManager

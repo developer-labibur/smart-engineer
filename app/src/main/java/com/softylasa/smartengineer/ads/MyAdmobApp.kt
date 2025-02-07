@@ -11,7 +11,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.softylasa.smartengineer.utils.helpers.SmartConfig
+import com.google.firebase.messaging.FirebaseMessaging
 import java.util.Date
 
 /** Application class that initializes, loads and show ads when activities change states. */
@@ -22,6 +22,9 @@ class MyAdmobApp: Application(), Application.ActivityLifecycleCallbacks  {
 
     override fun onCreate() {
         super.onCreate()
+
+        // Subscribe to FCM topic for push notifications
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
 
         Thread {
             // Initialize the Google Mobile Ads SDK on a background thread.
