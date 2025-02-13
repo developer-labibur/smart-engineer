@@ -45,8 +45,10 @@ class AcademicBookActivity : SmartThemeActivity() {
         db = FirebaseFirestore.getInstance()
 
         // eBook Open and Redeem Points
-        bookGridAdapter = BookGridAdapter { 
-            // Handle book item click
+        bookGridAdapter = BookGridAdapter { bookCode ->
+            val intent = Intent(this, BookDetailsActivity::class.java)
+            intent.putExtra("BOOK_CODE", bookCode)
+            startActivity(intent)
         }
 
         binding.apply {
@@ -141,6 +143,7 @@ class AcademicBookActivity : SmartThemeActivity() {
     private fun fetchBooks(sortBy: String, isGrid: Boolean) {
         if (isGrid){
             binding.rvBook.layoutManager = GridLayoutManager(this@AcademicBookActivity,2)
+
             db?.collection("books")
                 ?.orderBy(sortBy, Query.Direction.DESCENDING) // Or DESCENDING for reverse order
                 ?.get()?.addOnSuccessListener { querySnapshot ->

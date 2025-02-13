@@ -32,15 +32,14 @@
             app:layout_constraintStart_toEndOf="@+id/ll_itemBG"
             app:layout_constraintTop_toTopOf="@+id/ll_itemBG">
 
-            <TextView
+            <View
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginEnd="40dp"
                 android:layout_toStartOf="@id/clBookCode"
                 android:layout_marginStart="16dp"
                 android:layout_alignParentStart="true"
-                android:background="@color/shimmer"
-                android:textColor="@color/black" />
+                android:background="@color/shimmer" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clBookCode"
@@ -48,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true">
 
-                <TextView
+                <View
                     android:id="@+id/bookCode"
                     android:layout_width="60dp"
                     android:layout_height="15dp"
@@ -58,7 +57,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/btnLove"
                     app:layout_constraintTop_toTopOf="@+id/btnLove" />
 
-                <ImageView
+                <View
                     android:id="@+id/btnLove"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
@@ -84,33 +83,29 @@
                 android:layout_toStartOf="@id/btnRead"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <View
                     android:id="@+id/icLove"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="3dp"
                     android:layout_marginStart="16dp"
                     android:background="@color/shimmer"
-                    android:contentDescription="@string/sl_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <View
                     android:id="@+id/bookViewCount"
                     android:layout_width="50dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="10dp"
                     android:background="@color/shimmer"
-                    android:fontFamily="@font/main_font_regular_2"
-                    android:textColor="@color/mainContainer_SubHeadingText"
-                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="@+id/icLove"
                     app:layout_constraintStart_toEndOf="@+id/icLove"
                     app:layout_constraintTop_toTopOf="@+id/icLove" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <View
                 android:id="@+id/btnRead"
                 android:layout_width="120dp"
                 android:layout_height="20dp"
@@ -120,9 +115,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="10dp"
                 android:layout_alignParentEnd="true"
-                android:visibility="visible">
-
-            </LinearLayout>
+                android:visibility="visible"/>
 
         </RelativeLayout>
     </LinearLayout>

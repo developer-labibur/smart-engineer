@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="CGPA Calculator"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/gpa1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="1st Semester GPA"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/gpa2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="2nd Semester GPA"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/gpa3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="3rd Semester GPA"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/gpa4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="4th Semester GPA"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/gpa5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="5th Semester GPA"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/gpa6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="6th Semester GPA"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/gpa7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="7th Semester GPA"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/gpa8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="8th Semester GPA"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/calculateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Calculate CGPA" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

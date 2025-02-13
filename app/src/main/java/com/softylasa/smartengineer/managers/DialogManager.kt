@@ -9,8 +9,12 @@ import android.graphics.drawable.ColorDrawable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.util.Patterns
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import com.google.firebase.auth.FirebaseAuth
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.ads.AdManager
 import com.softylasa.smartengineer.databinding.DialogCongratulatuinBinding
@@ -25,6 +29,9 @@ import com.softylasa.smartengineer.ui.activities.ProfileActivity
 import com.softylasa.smartengineer.data.models.BookUnit
 import com.softylasa.smartengineer.databinding.DialogComingSoonBinding
 import com.softylasa.smartengineer.ads.SmartConfig
+import com.softylasa.smartengineer.databinding.DialogForgotPasswordBinding
+import com.softylasa.smartengineer.databinding.DialogUploadingProgressBinding
+import com.softylasa.smartengineer.utils.helpers.EasySdk.setToast
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -41,9 +48,14 @@ object DialogManager {
     private var spendToDownload = SmartConfig.DOWNLOAD_PDF_REDEEM_POINT
 
 
-
     // Negative Info Dialog ----------------------------------------------------------------
-    fun showNegativeInfoDialog(activity: Activity, lottie: Int, txtHeading: String, txtInfo: String, function: () -> Unit) {
+    fun showNegativeInfoDialog(
+        activity: Activity,
+        lottie: Int,
+        txtHeading: String,
+        txtInfo: String,
+        function: () -> Unit
+    ) {
         val builder = AlertDialog.Builder(activity).create()
         val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_negative_info, null)
         val dialogBinding = DialogNegativeInfoBinding.bind(dialogView)
@@ -98,8 +110,9 @@ object DialogManager {
         builder.setCanceledOnTouchOutside(false)
         builder.show()
 
-        dialogBinding.tv25Point.text = activity.getString(R.string._smart_points, watchVideoBonusPoints.toString())
-        dialogBinding.btnSmartPoint.setOnClickListener {builder.dismiss() }
+        dialogBinding.tv25Point.text =
+            activity.getString(R.string._smart_points, watchVideoBonusPoints.toString())
+        dialogBinding.btnSmartPoint.setOnClickListener { builder.dismiss() }
         dialogBinding.btnClose.setOnClickListener { builder.dismiss() }
 
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
@@ -118,7 +131,8 @@ object DialogManager {
         dialogBinding.apply {
             tvHeading.text = activity.getString(txtHeading)
             tvWatchInfo.text = activity.getString(txtInfo)
-            tv25Point.text = activity.getString(R.string._smart_points, watchVideoBonusPoints.toString())
+            tv25Point.text =
+                activity.getString(R.string._smart_points, watchVideoBonusPoints.toString())
             btnSmartPoint.setOnClickListener {
                 AdManager.showRewardedAd(activity)
                 builder.dismiss()
@@ -197,7 +211,12 @@ object DialogManager {
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }*/
-    fun Activity.showDownloadDialog(txtHeading: String, txtInfo: String, unit: BookUnit, onItemClick: (BookUnit, String) -> Unit) {
+    fun Activity.showDownloadDialog(
+        txtHeading: String,
+        txtInfo: String,
+        unit: BookUnit,
+        onItemClick: (BookUnit, String) -> Unit
+    ) {
         val builder = AlertDialog.Builder(this).create()
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_pdf_download, null)
         val dialogBinding = DialogPdfDownloadBinding.bind(dialogView)
@@ -221,7 +240,11 @@ object DialogManager {
     }
 
     // Downloading Progress Dialog View ----------------------------------------------------------------
-    private fun showDownloadingProgressDialog(activity: Activity, unit: BookUnit, onItemClick: (BookUnit, String) -> Unit) {
+    private fun showDownloadingProgressDialog(
+        activity: Activity,
+        unit: BookUnit,
+        onItemClick: (BookUnit, String) -> Unit
+    ) {
         val builder = AlertDialog.Builder(activity).create()
         val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_progress, null)
         val dialogBinding = DialogProgressBinding.bind(dialogView)
@@ -235,9 +258,11 @@ object DialogManager {
             override fun onFailure(call: Call, e: IOException) {
                 builder.dismiss()
                 (activity).runOnUiThread {
-                    showSuccessfulDialog(activity, "Download Failed",
+                    showSuccessfulDialog(
+                        activity, "Download Failed",
                         "Could not download the unit. Please try again later.",
-                        R.raw.cross, unit, R.color.google__Red, onItemClick)
+                        R.raw.cross, unit, R.color.google__Red, onItemClick
+                    )
                 }
             }
 
@@ -264,9 +289,11 @@ object DialogManager {
                     body.close()
                     builder.dismiss()
                     (activity).runOnUiThread {
-                        showSuccessfulDialog( activity, "Download Complete",
+                        showSuccessfulDialog(
+                            activity, "Download Complete",
                             "The unit has been downloaded successfully.",
-                            R.raw.check, unit, R.color.google__Green, onItemClick)
+                            R.raw.check, unit, R.color.google__Green, onItemClick
+                        )
                     }
                 }
             }
@@ -274,6 +301,21 @@ object DialogManager {
 
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
+    }
+
+
+    // Uploading Progress Dialog View ----------------------------------------------------------------
+    fun showUploadingDialog(activity: Activity) : AlertDialog {
+        val builder = AlertDialog.Builder(activity).create()
+        val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_uploading_progress, null)
+        val dialogBinding = DialogUploadingProgressBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.setCanceledOnTouchOutside(false)
+
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
+
+        return builder
     }
 
     // Successful Dialog View ----------------------------------------------------------------
@@ -310,7 +352,7 @@ object DialogManager {
 
 
     @SuppressLint("InflateParams")
-    fun comingSoon(context: Context){
+    fun comingSoon(context: Context) {
         val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog).create()
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_coming_soon, null)
         val dialogBinding: DialogComingSoonBinding = DialogComingSoonBinding.bind(dialogView)
@@ -318,6 +360,36 @@ object DialogManager {
         builder.show()
 
         dialogBinding.btnOk.setOnClickListener { builder.dismiss() }
+
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
+    }
+
+    fun showForgotPasswordDialog(context: Activity) {
+        val auth = FirebaseAuth.getInstance()
+
+        val builder = AlertDialog.Builder(context).create()
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_forgot_password, null)
+        val dialogBinding = DialogForgotPasswordBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.show()
+
+        dialogBinding.btnReset.setOnClickListener {
+            val email = dialogBinding.emailBox.text.toString()
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                context.setToast("Enter a valid email address")
+                return@setOnClickListener
+            }
+            auth.sendPasswordResetEmail(email).addOnSuccessListener {
+                context.setToast("Password reset email sent")
+                builder.dismiss()
+            }.addOnFailureListener() { e ->
+                context.setToast("Error: ${e.message}")
+            }
+        }
+
+        dialogBinding.btnCancel.setOnClickListener { builder.dismiss() }
 
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()

@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:background="?attr/pdfBackgroundSecoundary"
     android:layout_height="match_parent"
-    android:theme="@style/AppTheme.Light"
     tools:context=".ui.activities.SmartEBookActivity">
 
     <!-- This FrameLayout will be animated -->
@@ -94,7 +93,7 @@
             android:id="@+id/backButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:contentDescription="@string/sl_icon"
+            android:contentDescription="@string/cross_button"
             android:padding="7dp"
             android:src="?attr/pdfIconCross"
             app:layout_constraintBottom_toBottomOf="@+id/tvUnitTitle"

@@ -25,6 +25,7 @@ import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.databinding.ItemNoticeBinding
 import com.softylasa.smartengineer.data.models.Notice
 import com.softylasa.smartengineer.ads.SmartConfig
+import com.softylasa.smartengineer.utils.helpers.EasySdk.lToast
 import com.softylasa.smartengineer.utils.helpers.SmartData
 import com.softylasa.smartengineer.utils.helpers.formatTimestampToRelativeTime
 import kotlin.properties.Delegates
@@ -35,7 +36,7 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
     // ViewHolder class to hold the views
     private val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
     private val databaseRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/Notice")
-    private val loveCountRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/CountNoticeLove")
+    private val loveCountRef = FirebaseDatabase.getInstance().getReference("Count/NoticeLove")
     private var isRandom by Delegates.notNull<Boolean>()
 
     // Create new views (invoked by the layout manager)
@@ -79,6 +80,7 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
                     override fun onCancelled(error: DatabaseError) {
                         // Handle error if needed
                     }
+
                 })
 
                 // Random Gradient Background Color Programmatically
@@ -93,6 +95,8 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
                         6 -> setUpLoveButton(btnLove, notice, R.drawable.abc_red_main, R.drawable.abc_red_main, R.drawable.abc_red_light)
                         else -> setUpLoveButton(btnLove, notice, R.drawable.abc_blue_main, R.drawable.abc_blue_main, R.drawable.abc_blue_light)
                     }
+                } else {
+                    setUpLoveButton(btnLove, notice, R.drawable.abc_orange_main, R.drawable.abc_orange_main, R.drawable.abc_orange_light)
                 }
 
                 // Format and display the timestamp
@@ -120,7 +124,8 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
             binding.apply {
                 // Handle Love button click
                 btnLove.setOnClickListener {
-                    databaseRef.child(notice.id).addListenerForSingleValueEvent(object : ValueEventListener {
+                    databaseRef.child(notice.id)
+                        .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             val isLoved = snapshot.getValue(Boolean::class.java) ?: false
                             if (isLoved) {
@@ -129,22 +134,22 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
                                 updateLoveButtonState(btnLove, false, btnLoveBg)
 
                                 // Decrement loves count in Realtime Database
-                                loveCountRef.child(notice.id).get().addOnSuccessListener { loveSnapshot ->
+                                loveCountRef.child(notice.id).get()
+                                    .addOnSuccessListener { loveSnapshot ->
                                     val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
                                     loveCountRef.child(notice.id).setValue(currentCount - 1)
                                 }
-                                deductPoints(SmartConfig.UNLIKE_DEDUCT_POINT)
                             } else {
                                 // Add to favorites
                                 databaseRef.child(notice.id).setValue(true)
                                 updateLoveButtonState(btnLove, true, btnLoveBg)
 
                                 // Increment loves count in Realtime Database
-                                loveCountRef.child(notice.id).get().addOnSuccessListener { loveSnapshot ->
+                                loveCountRef.child(notice.id).get()
+                                    .addOnSuccessListener { loveSnapshot ->
                                     val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
                                     loveCountRef.child(notice.id).setValue(currentCount + 1)
                                 }
-                                addPoints(SmartConfig.LIKED_BONUS_POINT)
                             }
                         }
 
@@ -201,41 +206,6 @@ class NoticeAdapter(private var noticeList: List<Notice>, var context: Context) 
 
             // Show the PopupWindow at the calculated position
             popupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, xPos, location[1])
-        }
-
-        private fun showPopupMenu(notice: Notice) {
-            val popupMenu = PopupMenu(binding.root.context, binding.menuImageView)
-            val inflater: MenuInflater = popupMenu.menuInflater
-            inflater.inflate(R.menu.menu_notice_item, popupMenu.menu)
-
-            // Adjust menu location using offset if it clips
-            popupMenu.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.share_note -> {
-                        shareNotice(notice.notice)
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-
-            // Show the menu with an offset if it’s close to the screen edge
-            binding.menuImageView.post {
-                val screenWidth = binding.root.context.resources.displayMetrics.widthPixels
-                val location = IntArray(2)
-                binding.menuImageView.getLocationOnScreen(location)
-
-                // Calculate the remaining space on the right side of the menu
-                val remainingSpace = screenWidth - location[0]
-
-                // If remaining space is too narrow, apply offset
-                if (remainingSpace < 200) { // Adjust 200 to control how much space is needed
-                    popupMenu.gravity = Gravity.END
-                }
-
-                popupMenu.show()
-            }
         }
 
         private fun shareNotice(noticeText: String) {

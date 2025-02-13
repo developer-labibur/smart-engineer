@@ -206,14 +206,16 @@ class SmartDashboardActivity : SmartThemeActivity() {
             SmartSettingFragment()
         )
 
-        binding.viewPager.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int = fragments.size
-            override fun createFragment(position: Int): Fragment = fragments[position]
+        val adapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount() = fragments.size
+            override fun createFragment(position: Int) = fragments[position]
         }
+
+        binding.viewPager.adapter = adapter
+        binding.viewPager.isUserInputEnabled = true // Enable swipe gestures if needed
     }
 
     private fun setupBottomNavigation() {
-
         // Set height based on the currently selected page
         binding.apply {
             // Bottom Navigation Buttons Click Listeners
@@ -228,10 +230,39 @@ class SmartDashboardActivity : SmartThemeActivity() {
                 }
             })
         }
-
     }
 
     private fun setActiveTab(position: Int) {
+        binding.viewPager.setCurrentItem(position, true) // Smooth scroll to selected page
+
+        // Define all TextViews and Layouts in Lists for cleaner updates
+        val textViews = listOf(binding.tvHome, binding.tvBook, binding.tvUpdates, binding.tvSetting)
+        val layouts = listOf(binding.llHome, binding.llBook, binding.llUpdates, binding.llSetting)
+        val backgroundResources = listOf(
+            R.drawable.round_back_home_100,
+            R.drawable.round_back_book_100,
+            R.drawable.round_back_updates_100,
+            R.drawable.round_back_setting_100
+        )
+
+        // Hide all text views and reset backgrounds
+        textViews.forEach { it.visibility = View.GONE }
+        layouts.forEach { it.setBackgroundResource(R.color.transparent) }
+
+        // Show selected text and set background
+        textViews[position].visibility = View.VISIBLE
+        layouts[position].setBackgroundResource(backgroundResources[position])
+
+        // Sync ViewPager if needed
+        if (binding.viewPager.currentItem != position) {
+            binding.viewPager.currentItem = position
+        }
+    }
+/*
+    private fun setActiveTab(position: Int) {
+
+        binding.viewPager.setCurrentItem(position, true) // Smooth scroll to the selected page
+
         binding.apply {
             when (position) {
                 0 -> {
@@ -267,7 +298,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
                     llSetting.setBackgroundResource(R.color.transparent)
                 }
 
-                else -> {
+                3 -> {
                     tvHome.visibility = View.GONE
                     tvBook.visibility = View.GONE
                     tvUpdates.visibility = View.GONE
@@ -277,6 +308,17 @@ class SmartDashboardActivity : SmartThemeActivity() {
                     llUpdates.setBackgroundResource(R.color.transparent)
                     llSetting.setBackgroundResource(R.drawable.round_back_setting_100)
                 }
+
+                else -> {
+                    tvHome.visibility = View.VISIBLE
+                    tvBook.visibility = View.GONE
+                    tvUpdates.visibility = View.GONE
+                    tvSetting.visibility = View.GONE
+                    llHome.setBackgroundResource(R.drawable.round_back_home_100)
+                    llBook.setBackgroundResource(R.color.transparent)
+                    llUpdates.setBackgroundResource(R.color.transparent)
+                    llSetting.setBackgroundResource(R.color.transparent)
+                }
             }
 
             // Sync ViewPager position with selected tab
@@ -284,7 +326,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
                 viewPager.currentItem = position
             }
         }
-    }
+    }*/
 
     // =====================================================================================================================
     // ============================================     Gradient Text color     ============================================

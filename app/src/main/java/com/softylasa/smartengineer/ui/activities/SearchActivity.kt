@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.WindowMetrics
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -49,6 +50,11 @@ class SearchActivity : SmartThemeActivity() {
 
         binding.btnBack.setOnClickListener { finish() }
 
+        binding.apply {
+            containerNoData.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        }
+
         // Listen to text changes in the search box
         binding.searchBox.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -56,9 +62,17 @@ class SearchActivity : SmartThemeActivity() {
             override fun afterTextChanged(query: Editable?) {
                 val searchQuery = query.toString()
                 if (searchQuery.isNotEmpty()) {
-                    searchBooks(searchQuery)
+                    binding.apply {
+                        containerNoData.visibility = View.GONE
+                        recyclerView.visibility = View.VISIBLE
+                        searchBooks(searchQuery)
+                    }
                 } else {
-                    adapter.updateBooks(emptyList()) // Clear RecyclerView when query is empty
+                    binding.apply {
+                        containerNoData.visibility = View.VISIBLE
+                        recyclerView.visibility = View.GONE
+                        adapter.updateBooks(emptyList()) // Clear RecyclerView when query is empty
+                    }
                 }
             }
         })
@@ -85,6 +99,11 @@ class SearchActivity : SmartThemeActivity() {
                     if (book != null) books.add(book)
                 }
 
+                binding.apply {
+                    containerNoData.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                }
+
                 // Check books after first query
                 Log.d("SearchActivity", "Books after BName query: $books")
 
@@ -103,12 +122,30 @@ class SearchActivity : SmartThemeActivity() {
                         // Update adapter with results
                         Log.d("SearchActivity", "Final books list: $books")
                         adapter.updateBooks(books)
+
+
+                        binding.apply {
+                            containerNoData.visibility = View.GONE
+                            recyclerView.visibility = View.VISIBLE
+                        }
                     }
                     .addOnFailureListener { e ->
+
+                        binding.apply {
+                            containerNoData.visibility = View.VISIBLE
+                            recyclerView.visibility = View.GONE
+                        }
+
                         Log.e("SearchActivity", "Error fetching BCode results", e)
                     }
             }
             .addOnFailureListener { e ->
+
+                binding.apply {
+                    containerNoData.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                }
+
                 Log.e("SearchActivity", "Error fetching BName results", e)
             }
     }

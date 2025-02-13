@@ -14,5 +14,8 @@ data object Constants {
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
     const val PACKAGE_NAME = "com.softylasa.smartengineer"
     const val APP_LINK = "https://play.google.com/store/apps/details?id=com.softylasa.smartengineer"
+    // === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
+    const val PRIVACY = "https://sites.google.com/view/smartengineer-privacy-policy"
+    const val TERMS = "https://sites.google.com/view/smartengineer-terms"
 
 }

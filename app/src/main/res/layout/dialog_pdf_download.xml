@@ -23,6 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="false"
+            android:contentDescription="@string/close_button"
             app:lottie_rawRes="@raw/cross" />
 
         <com.airbnb.lottie.LottieAnimationView
@@ -46,6 +47,7 @@
             android:lineSpacingExtra="-8dp"
             android:text="@string/download"
             android:textColor="#0068fa"
+            android:contentDescription="@string/download_text"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
@@ -80,6 +82,7 @@
             android:drawableTint="@color/ic_dark_only"
             android:elevation="4dp"
             android:focusable="true"
+            android:contentDescription="@string/download_button_with_icon_and_text"
             android:fontFamily="@font/roboto"
             android:gravity="center_vertical|center_horizontal"
             android:paddingStart="20dp"

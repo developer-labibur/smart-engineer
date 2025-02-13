@@ -32,7 +32,7 @@
         android:fontFamily="@font/hind_siliguri"
         android:text="@string/engineer_pro"
         android:textColor="@color/mainContainer_HeadingText"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/layBlur"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
@@ -49,7 +49,7 @@
         android:textStyle="bold"
         android:text="@string/freemimum_info_text"
         android:textColor="@color/mainContainer_HeadingText"
-        android:textSize="16sp"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="@+id/layBlur"
         app:layout_constraintStart_toStartOf="@+id/tvTitleBonus"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleBonus" />
@@ -57,11 +57,11 @@
 
     <ImageView
         android:id="@+id/btnClose"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_margin="15dp"
         android:background="@drawable/dialog_orange_sub_action"
-        android:contentDescription="@string/sl_icon"
+        android:contentDescription="@string/back_button"
         android:padding="10dp"
         android:src="@drawable/sl_left_arrow_light_only"
         app:layout_constraintBottom_toBottomOf="@+id/layBlur"
@@ -99,7 +99,7 @@
         android:layout_height="160dp"
         android:layout_marginStart="-10dp"
         android:src="@drawable/cat_with_balloon"
-        android:contentDescription="@string/sl_icon"
+        android:contentDescription="@string/cute_cat_with_balloon"
         app:layout_constraintBottom_toTopOf="@+id/layBlur"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/layBlur"/>
@@ -110,7 +110,7 @@
         android:layout_height="65dp"
         android:layout_marginBottom="-20dp"
         android:src="@drawable/cute_cat"
-        android:contentDescription="@string/sl_icon"
+        android:contentDescription="@string/meaw_image"
         app:layout_constraintBottom_toTopOf="@+id/layBlur"
         app:layout_constraintEnd_toEndOf="@+id/layBlur" />
 

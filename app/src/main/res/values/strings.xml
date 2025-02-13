@@ -11,7 +11,6 @@
     <string name="sloganSmartEngineer">\'উৎসর্গ সকল স্মার্ট ইঞ্জিনিয়ারদের প্রতি\'</string>
 
     <!-- Side Bar -->
-    <string name="smart_engineer_logo">Smart Engineer Logo</string>
     <string name="login">LogIn</string>
     <string name="signup">SignUp</string>
     <string name="sl_icon">SL Icon</string>
@@ -33,7 +32,6 @@
     <string name="continue_with_social_media">Continue with Social Media</string>
 
     <!-- OnBoarding Screen -->
-    <string name="skip_bn">Skip</string>
     <string name="get_started">Get Started</string>
     <string name="onboarding_title_1">Welcome to Smart Engineer!</string>
     <string name="onboarding_title_2">Your Learning Hub</string>
@@ -43,7 +41,6 @@
     <string name="onboarding_description_2">Download eBooks, access unit-wise PDFs, and read them both online &amp; offline anytime.</string>
     <string name="onboarding_description_3">Get the latest notices, book lists, and essential academic resources effortlessly.</string>
     <string name="onboarding_description_4">Join student communities, browse useful websites, and enhance your learning experience.</string>
-
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -287,7 +284,8 @@
     <string name="shrink_and_expand_animation">Shrink and Expand Animation</string>
     <string name="carousel_animation">Carousel Animation</string>
     <string name="description">Description</string>
-    <string name="book_details_is_empty">Book descriptions are empty...🙁</string>
+    <string name="book_unit_list_is_empty">Book units list are empty...</string>
+    <string name="book_details_is_empty">Book descriptions are empty...</string>
     <string name="book_details">Book Details</string>
     <string name="reads">%1$s total reads</string>
     <string name="book_name_n_code">%1$s [%2$s]</string>
@@ -410,5 +408,10 @@
     <string name="retry">Retry</string>
     <string name="no_book_found">No book found</string>
     <string name="no_book_found_info">Failed to load books. Please complete your profile and check again.</string>
+
+    <string name="search_books_by_name_code"><![CDATA[Search books by name & code...]]></string>
+    <string name="search_book_by_using_book_name_and_subject_code">Search book by using book name and subject code</string>
+    <string name="version">Version: %1$s</string>
+    <string name="uploading">Uploading...</string>
 
 </resources>

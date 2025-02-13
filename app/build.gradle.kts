@@ -15,8 +15,8 @@ android {
         applicationId = "com.softylasa.smartengineer"
         minSdk = 25
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.0.3"
+        versionCode = 5
+        versionName = "1.0.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.andoidx.credentials)
     implementation(libs.androidx.credential.play.services.auth)
     implementation(libs.googleid)
+    implementation (libs.play.services.auth) // Latest version
 
     // Google ----------------------------------------------------------------
     implementation (libs.play.services.base)
@@ -123,5 +124,6 @@ dependencies {
     implementation (libs.grpc.stub)
 
 }
+
 // Apply the Google Services plugin here
 apply(plugin = "com.google.gms.google-services")

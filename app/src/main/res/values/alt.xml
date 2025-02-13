@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="smart_engineer_logo">Smart Engineer Logo</string>
+    <string name="smart_engineer_logo_splash">Smart Engineer - Splash Logo</string>
+    <string name="smart_engineer_logo_blue">Smart Engineer - Blue Logo</string>
+    <string name="next_button_animation">Next Button Animation</string>
+    <string name="skip_bn">Skip</string>
+    <string name="close_button">Close Button</string>
+    <string name="dot_indicator">Dot Indicator</string>
+    <string name="opens_user_profile">Opens user profile</string>
+    <string name="view_fremimum_screen">View Fremimum Screen</string>
+    <string name="back_button_colorful">Back Button - Colorful</string>
+    <string name="profile_pic_container">Profile Pic Container</string>
+    <string name="profile_pictures_and_change_button">Profile Pictures and Change Button</string>
+    <string name="camera_button">Camera Button</string>
+    <string name="cross_button">Cross button</string>
+    <string name="back_button">Back Button</string>
+    <string name="meaw_image">Meaw Image</string>
+    <string name="cute_cat_with_balloon">Cute Cat with Balloon</string>
+    <string name="download_button_with_icon_and_text">Download button with Icon and Text</string>
+    <string name="download_text">Download Text</string>
+    <string name="love_button">Love Button</string>
+    <string name="eye_icon">Eye Icon</string>
+    <string name="reading_book_image">Reading Book Image</string>
+    <string name="download_from_cloud_icon">Download from cloud Icon</string>
+    <string name="link_icon">Link Icon</string>
+    <string name="menu_button">Menu Button</string>
+    <string name="pdf_icon">PDF Icon</string>
+    <string name="bookmark_icon">Bookmark Icon</string>
+    <string name="earth_icon">Earth Icon</string>
+    <string name="link_image_cover">Link Image Cover</string>
+    <string name="quote_icon">Quote Icon</string>
+    <string name="share_icon">Share Icon</string>
+    <string name="user_profile_picture">User Profile Picture</string>
+    <string name="signal_icon">Signal Icon</string>
+    <string name="marquee_announcement">Marquee Announcement</string>
+    <string name="right_arrow">Right Arrow</string>
+    <string name="fire_icon">Fire Icon</string>
+    <string name="home_icon">Home Icon</string>
+    <string name="book_icon">Book Icon</string>
+
+</resources>

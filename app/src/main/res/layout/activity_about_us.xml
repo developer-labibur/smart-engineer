@@ -82,7 +82,7 @@
                 android:layout_width="170dp"
                 android:layout_height="170dp"
                 android:layout_marginTop="30dp"
-                android:contentDescription="@string/sl_icon"/>
+                android:contentDescription="@string/smart_engineer_logo_blue"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

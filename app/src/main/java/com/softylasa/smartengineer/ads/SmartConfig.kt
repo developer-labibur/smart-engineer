@@ -18,7 +18,7 @@ class SmartConfig {
         const val UNLIKE_DEDUCT_POINT = 10
 
         // AdMob Ad Visibility ----------------------------------------------------------------------------------------
-        private var isTestingMode: Boolean = true // ⚠️ Is testing mode enabled or disabled
+        private var isTestingMode: Boolean = false // ⚠️ Is testing mode enabled or disabled
         fun isAdsVisible(context: Context): Boolean{
             val sharedPreferences = context.getSharedPreferences(ADMOB_KEY, MODE_PRIVATE)
             return sharedPreferences.getBoolean(VISIBILITY_KEY, false)

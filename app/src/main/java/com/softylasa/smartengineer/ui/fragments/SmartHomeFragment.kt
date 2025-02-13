@@ -62,10 +62,8 @@ class SmartHomeFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
-    private val databaseRef =
-        FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/Notice")
-    private val loveCountRef = FirebaseDatabase.getInstance()
-        .getReference("UsersDB/$currentUserUid/Favourites/CountNoticeLove")
+    private val databaseRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/Notice")
+    private val loveCountRef = FirebaseDatabase.getInstance().getReference("Count/NoticeLove")
 
     private lateinit var featuresDataList: ArrayList<Features>
     private val browseList = mutableListOf<Browse>()
@@ -213,12 +211,7 @@ class SmartHomeFragment : Fragment() {
 
                             binding.clMarquee.setOnClickListener {
                                 notice.timestamp?.let {
-                                    setNoticeDialog(
-                                        notice,
-                                        category,
-                                        it,
-                                        text
-                                    )
+                                    setNoticeDialog(notice, category, it, text)
                                 }
                             }
 
@@ -243,8 +236,7 @@ class SmartHomeFragment : Fragment() {
                                 fullText.length, // End index of "...Click to See More"
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                             )
-                            binding.marqueeTextView.text =
-                                spannableString  // Set the spannable string to the TextView
+                            binding.marqueeTextView.text = spannableString  // Set the spannable string to the TextView
                         }
                     }
                 }
@@ -260,8 +252,7 @@ class SmartHomeFragment : Fragment() {
     ) {
         activity?.let { context ->
             val builder = AlertDialog.Builder(context).create()
-            val dialogView =
-                LayoutInflater.from(context).inflate(R.layout.dialog_marquee_notice, null)
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_marquee_notice, null)
             val dialogBinding = DialogMarqueeNoticeBinding.bind(dialogView)
             builder.setView(dialogBinding.root)
             builder.show()
@@ -319,8 +310,7 @@ class SmartHomeFragment : Fragment() {
                                 // Decrement loves count in Realtime Database
                                 loveCountRef.child(notice.id).get()
                                     .addOnSuccessListener { loveSnapshot ->
-                                        val currentCount =
-                                            loveSnapshot.getValue(Int::class.java) ?: 0
+                                        val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
                                         loveCountRef.child(notice.id).setValue(currentCount - 1)
                                     }
                             } else {
@@ -331,8 +321,7 @@ class SmartHomeFragment : Fragment() {
                                 // Increment loves count in Realtime Database
                                 loveCountRef.child(notice.id).get()
                                     .addOnSuccessListener { loveSnapshot ->
-                                        val currentCount =
-                                            loveSnapshot.getValue(Int::class.java) ?: 0
+                                        val currentCount = loveSnapshot.getValue(Int::class.java) ?: 0
                                         loveCountRef.child(notice.id).setValue(currentCount + 1)
                                     }
                             }
@@ -440,17 +429,21 @@ class SmartHomeFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getBrowseData() {
         val db = FirebaseFirestore.getInstance()
-        db.collection("browse") // Reference to your 'browser' collection
+
+        db.collection("browse")   // Reference to 'browser' collection
             .get()
             .addOnSuccessListener { result ->
                 if (result.isEmpty) {
                     Log.d(tagName, "No documents found!")
                 } else {
+                    browseList.clear() // ✅ Clear list to prevent duplicates
+
                     for (document in result) {
                         val browse = document.toObject(Browse::class.java)
                         Log.d(tagName, "Fetched data: ${browse.Name}, ${browse.Cover}, ${browse.Des}")
                         browseList.add(browse)
                     }
+
                     browseAdapter.notifyDataSetChanged()
                 }
             }
@@ -460,5 +453,4 @@ class SmartHomeFragment : Fragment() {
                 }
             }
     }
-
 }

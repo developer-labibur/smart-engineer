@@ -162,6 +162,7 @@
             android:text="@string/select_department"
             android:textColor="@color/mainContainer_HeadingText"
             android:textSize="20sp"
+            android:contentDescription="@string/close_button"
             android:textStyle="bold" />
 
         <!-- SubTitle TextView -->
@@ -205,6 +206,8 @@
                 android:includeFontPadding="false"
                 android:background="@color/transparent"
                 android:textSize="@dimen/_16sp"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textColor="@color/mainContainer_HeadingText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/searchIcon"

@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
 import com.softylasa.smartengineer.R
@@ -48,6 +49,7 @@ class SmartStudyFragment : Fragment() {
     private val dbRealtime = FirebaseDatabase.getInstance().reference
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private var firestoreListener: ListenerRegistration? = null
 
     private val favoriteBooks = mutableListOf<Book>()
     private val booksList = mutableListOf<Book>()
@@ -100,9 +102,6 @@ class SmartStudyFragment : Fragment() {
                     startActivity(intent) }
             }
         }
-
-        getLibraryTotalBooksNumber()
-        getFavoriteTotalBooksNumber()
 
         return binding.root
     }
@@ -163,6 +162,7 @@ class SmartStudyFragment : Fragment() {
                     binding.animationView.visibility = View.VISIBLE
                     binding.viewFooter.visibility = View.VISIBLE
                     binding.tvWarningInfo.visibility = View.VISIBLE
+                    if (!isAdded) return@addOnSuccessListener
                     binding.tvWarningInfo.text = getString(R.string.just_for_you_warn_text)
 
                     Log.d(tagName, "Department Code is : Not Found")
@@ -180,6 +180,7 @@ class SmartStudyFragment : Fragment() {
                             binding.animationView.visibility = View.VISIBLE
                             binding.viewFooter.visibility = View.VISIBLE
                             binding.tvWarningInfo.visibility = View.VISIBLE
+                            if (!isAdded) return@addOnSuccessListener
                             binding.tvWarningInfo.text = getString(R.string.no_data_was_found_for_the_bsc_engineering_department)
                         }
                         "102" -> {
@@ -188,7 +189,9 @@ class SmartStudyFragment : Fragment() {
                             binding.animationView.visibility = View.VISIBLE
                             binding.viewFooter.visibility = View.VISIBLE
                             binding.tvWarningInfo.visibility = View.VISIBLE
-                            binding.tvWarningInfo.text = getString(R.string.no_data_was_found_for_others_department)
+                            activity?.let { context ->
+                                binding.tvWarningInfo.text = context.getString(R.string.no_data_was_found_for_others_department)
+                            }
                         }
                         else -> {
                             binding.recycleSemester.visibility = View.VISIBLE
@@ -278,18 +281,22 @@ class SmartStudyFragment : Fragment() {
                                 }
                             }
                             ?.addOnFailureListener { exception ->
+                                if (!isAdded) return@addOnFailureListener
                                 binding.tvLibNo.text = getString(R.string.total___books, "0")
                                 Log.e("FirestoreError", "Error fetching books: ${exception.message}")
                             }
                     } else {
+                        if (!isAdded) return@addOnSuccessListener
                         binding.tvLibNo.text = getString(R.string.total___books, "0")
                         Log.e("UserDataError", "Department or Semester is missing for the user.")
                     }
                 } else {
+                    if (!isAdded) return@addOnSuccessListener
                     binding.tvLibNo.text = getString(R.string.total___books, "0")
                     Log.e("FirestoreError", "User document does not exist.")
                 }
             }?.addOnFailureListener { exception ->
+                if (!isAdded) return@addOnFailureListener
                 binding.tvLibNo.text = getString(R.string.total___books, "0")
                 Log.e("FirestoreError", "Error fetching user data: ${exception.message}")
             }
@@ -376,6 +383,11 @@ class SmartStudyFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         safeContext = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        firestoreListener?.remove() // Remove Firestore listener
     }
 
 }

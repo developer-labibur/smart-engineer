@@ -57,6 +57,7 @@
                     android:id="@+id/editPro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/profile_pic_container"
                     android:layout_gravity="center">
 
                     <androidx.cardview.widget.CardView
@@ -64,6 +65,7 @@
                         android:layout_width="190dp"
                         android:layout_height="190dp"
                         android:layout_margin="15dp"
+                        android:contentDescription="@string/change_profile_picture"
                         app:cardCornerRadius="100dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +76,7 @@
                             android:id="@+id/proPic"
                             android:layout_width="190dp"
                             android:layout_height="190dp"
-                            android:contentDescription="@string/sl_icon"
+                            android:contentDescription="@string/user_profile_picture"
                             android:scaleType="centerCrop"
                             android:src="@drawable/avatar"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +97,7 @@
                             android:layout_width="42dp"
                             android:layout_height="42dp"
                             android:id="@+id/proCamera"
-                            android:contentDescription="@string/sl_icon"
+                            android:contentDescription="@string/camera_button"
                             android:src="@drawable/camera"/>
 
                     </androidx.cardview.widget.CardView>

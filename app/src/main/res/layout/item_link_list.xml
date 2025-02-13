@@ -25,7 +25,7 @@
             android:id="@+id/ivLinkImage"
             style="@style/btn_features_image"
             android:layout_margin="8dp"
-            android:contentDescription="@string/sl_icon"
+            android:contentDescription="@string/link_image_cover"
             android:src="@drawable/department_cover"
             android:scaleType="centerCrop"
             android:layout_height="50dp"
@@ -42,7 +42,7 @@
             android:layout_marginTop="-1dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="Important Links"
+            android:text="@string/important_links"
             android:textAlignment="viewStart"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintEnd_toStartOf="@+id/ivLinks"
@@ -54,7 +54,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="-12dp"
-            android:contentDescription="@string/sl_icon"
+            android:contentDescription="@string/earth_icon"
             android:padding="10dp"
             android:src="@drawable/sl_earth"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,14 +69,13 @@
             android:layout_weight="1"
             android:fontFamily="@font/main_font_regular_2"
             android:gravity="center_vertical|start"
-            android:orientation="horizontal"
             android:lineSpacingExtra="-9dp"
-            android:text="Facebook Page"
+            android:orientation="horizontal"
+            android:text="@string/essential_government_websites_for_student"
             android:textColor="@color/sl_primary_text"
             android:textSize="13sp"
-            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="@id/ivLinkImage"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnReadNow"
             app:layout_constraintStart_toEndOf="@+id/ivLinkImage"
             app:layout_constraintTop_toBottomOf="@id/tvLinkName" />
 
@@ -109,7 +108,7 @@
             <ImageView
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:contentDescription="@string/smart_engineer_logo"
+                android:contentDescription="@string/right_arrow"
                 android:src="@drawable/sl_double_alt_arrow_right__black" />
 
         </LinearLayout>

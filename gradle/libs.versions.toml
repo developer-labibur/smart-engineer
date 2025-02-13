@@ -24,6 +24,7 @@ okhttp = "4.12.0"
 pdfViewerAndroid = "1.0.3"
 playServicesAds = "23.6.0"
 playServicesAppset = "16.1.0"
+playServicesAuth = "21.3.0"
 playServicesAuthApiPhone = "18.1.0"
 playServicesBase = "18.5.0"
 playServicesMeasurementImpl = "22.2.0"
@@ -78,6 +79,7 @@ andoidx-credentials = { module = "androidx.credentials:credentials", version.ref
 androidx-credential-play-services-auth = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
 googleid = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleid"}
 
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "playServicesBase" }
 play-services-auth-api-phone = { module = "com.google.android.gms:play-services-auth-api-phone", version.ref = "playServicesAuthApiPhone" }
 firebase-appcheck-interop = { module = "com.google.firebase:firebase-appcheck-interop", version.ref = "firebaseAppcheckInterop" }

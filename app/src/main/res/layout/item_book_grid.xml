@@ -47,7 +47,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="-5dp"
         android:padding="10dp"
-        android:contentDescription="@string/sl_icon"
+        android:contentDescription="@string/love_button"
         android:src="@drawable/sl_heart_not_fill"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ll_itemBG" />
@@ -87,7 +87,7 @@
             android:id="@+id/icLove"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:contentDescription="@string/sl_icon"
+            android:contentDescription="@string/eye_icon"
             android:src="@drawable/sl_eye"
             app:layout_constraintBottom_toBottomOf="@+id/btnReadNow"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +137,7 @@
         <ImageView
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:contentDescription="@string/smart_engineer_logo"
+            android:contentDescription="@string/right_arrow"
             android:src="@drawable/sl_double_alt_arrow_right__black" />
 
     </LinearLayout>

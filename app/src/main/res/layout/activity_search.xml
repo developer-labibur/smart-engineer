@@ -61,10 +61,12 @@
                 android:gravity="center_vertical"
                 android:fontFamily="@font/hind_siliguri"
                 android:textStyle="bold"
-                android:hint="@string/search_book"
+                android:hint="@string/search_books_by_name_code"
                 android:includeFontPadding="false"
                 android:background="@color/transparent"
                 android:textSize="@dimen/_16sp"
+                android:inputType="text"
+                android:singleLine="true"
                 android:textColor="@color/mainContainer_HeadingText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/searchIcon"
@@ -98,12 +100,74 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
+
+        <!-- No Book Container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerNoData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/noDataImage"
+                android:layout_width="235dp"
+                android:layout_height="235dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/sl_icon"
+                android:src="@drawable/cat_with_balloon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitleNoData"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/hind_siliguri"
+                android:gravity="center"
+                android:lineSpacingExtra="-10dp"
+                android:text="@string/no_book_found"
+                android:textColor="@color/mainContainer_SubHeadingText"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/noDataImage"
+                app:layout_constraintStart_toStartOf="@+id/noDataImage"
+                app:layout_constraintTop_toBottomOf="@+id/noDataImage" />
+
+            <TextView
+                android:id="@+id/tvDesNoData"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/hind_siliguri"
+                android:gravity="center"
+                android:lineSpacingExtra="-2dp"
+                android:text="@string/search_book_by_using_book_name_and_subject_code"
+                android:textColor="@color/mainContainer_SubHeadingText"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleNoData" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <!-- Book Section -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center_horizontal"
+            android:visibility="gone"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -35,7 +35,7 @@
                 android:contentDescription="@string/smart_engineer_logo"
                 android:padding="7dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/cat_social_media" />
+                android:src="@drawable/logo_orange" />
 
         </LinearLayout>
 
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="-5dp"
-            android:contentDescription="@string/smart_engineer_logo"
+            android:contentDescription="@string/bookmark_icon"
             android:src="@drawable/sl_bookmark_filled"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -25,7 +25,16 @@ interface ApiService {
     fun getNotices(): Call<NoticeResponse>
 }
 
-// ✅ Move `NoticeResponse` outside the interface
+
+//------------------------------  Data Model Class --------------------------------
+// Moved `NoticeResponse` outside the interface for better organization
 data class NoticeResponse(
     val notices: List<BtebNotice>
+)
+
+// Define ImageUploadResponse to handle the JSON response from the server
+data class ImageUploadResponse(
+    val status: Boolean,
+    val url: String?, // URL of the uploaded image
+    val message: String? // Error message (if any)
 )

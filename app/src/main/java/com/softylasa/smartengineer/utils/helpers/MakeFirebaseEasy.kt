@@ -18,6 +18,7 @@ import com.softylasa.smartengineer.network.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -80,12 +81,19 @@ class MakeFirebaseEasy {
                 }
             return allDepartment
         }
+
+
+
         fun uploadProfileImage(
             selectedImage: Uri,
             uid: String,
             onUploadSuccess: (String) -> Unit,
             useFirebaseStorage: Boolean = true
         ) {
+            val firestore = FirebaseFirestore.getInstance()
+            val userRef = firestore.collection("users").document(uid)
+            val TAG = "ProfileImageUpload"
+
             if (useFirebaseStorage) {
                 // Firebase Storage Upload
                 val storageRef = FirebaseStorage.getInstance().reference.child("profileImages/$uid.jpg")
@@ -95,51 +103,54 @@ class MakeFirebaseEasy {
                             val imageUrl = uri.toString()
 
                             // Update Firestore with the image URL
-                            val firestore = FirebaseFirestore.getInstance()
-                            val userRef = firestore.collection("users").document(uid)
-
                             userRef.update("picture", imageUrl)
                                 .addOnSuccessListener {
+                                    Log.d(TAG, "Firestore updated successfully")
                                     onUploadSuccess(imageUrl)
                                 }
                                 .addOnFailureListener { e ->
-                                    Log.e("Firestore", "Failed to update Firestore with image URL: ${e.message}")
+                                    Log.e(TAG, "Failed to update Firestore: ${e.message}", e)
                                 }
                         }.addOnFailureListener { e ->
-                            Log.e("FirebaseStorage", "Failed to retrieve download URL: ${e.message}")
+                            Log.e(TAG, "Failed to retrieve download URL: ${e.message}", e)
                         }
                     }
                     .addOnFailureListener { e ->
-                        Log.e("FirebaseStorage", "Failed to upload image: ${e.message}")
+                        Log.e(TAG, "Failed to upload image: ${e.message}", e)
                     }
             } else {
                 // External Server Upload via Retrofit
-                val file = File(selectedImage.path!!)
+                val file = File(selectedImage.path ?: return) // Prevent crash if path is null
                 val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                val profileImagePart =
-                    MultipartBody.Part.createFormData("profile_image", "$uid.jpg", requestFile)
+                val profileImagePart = MultipartBody.Part.createFormData("profile_image", "$uid.jpg", requestFile)
                 val uidBody = uid.toRequestBody("text/plain".toMediaTypeOrNull())
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val response = RetrofitClient.apiService.uploadProfileImage(profileImagePart, uidBody)
                         if (response.isSuccessful && response.body() != null) {
-                            val userImgURL = response.body()!!.url
+                            val userImgURL = response.body()?.url
 
-                            // Update Firestore with the image URL
-                            val firestore = FirebaseFirestore.getInstance()
-                            val userRef = firestore.collection("users").document(uid)
-
-                            userRef.update("picture", userImgURL)
-                                .addOnSuccessListener {
-                                    userImgURL?.let { onUploadSuccess(it) }
+                            // ✅ Ensure `userImgURL` is not null or empty
+                            if (!userImgURL.isNullOrEmpty()) {
+                                withContext(Dispatchers.Main) {
+                                    userRef.update("picture", userImgURL)
+                                        .addOnSuccessListener {
+                                            Log.d(TAG, "Firestore updated successfully")
+                                            onUploadSuccess(userImgURL)
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.e(TAG, "Failed to update Firestore: ${e.message}", e)
+                                        }
                                 }
-                                .addOnFailureListener { e ->
-                                    Log.e("Firestore", "Failed to update Firestore with image URL: ${e.message}")
-                                }
+                            } else {
+                                Log.e(TAG, "Error: Received null or empty image URL from server")
+                            }
+                        } else {
+                            Log.e(TAG, "Server error: ${response.errorBody()?.string()}")
                         }
                     } catch (e: Exception) {
-                        Log.e("uploadProfileImage", "Error uploading image", e)
+                        Log.e(TAG, "Error uploading image: ${e.message}", e)
                     }
                 }
             }

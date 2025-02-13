@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
+        android:contentDescription="@string/close_button"
         app:lottie_rawRes="@raw/cross" />
 
     <com.airbnb.lottie.LottieAnimationView

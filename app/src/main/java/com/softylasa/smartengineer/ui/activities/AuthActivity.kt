@@ -1,5 +1,6 @@
 package com.softylasa.smartengineer.ui.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -24,6 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.softylasa.smartengineer.R
+import com.softylasa.smartengineer.data.constants.Constants
 import com.softylasa.smartengineer.utils.helpers.GetSet.lToast
 import com.softylasa.smartengineer.utils.helpers.GetSet.sToast
 import com.softylasa.smartengineer.data.repositories.AuthRepository
@@ -31,6 +33,7 @@ import com.softylasa.smartengineer.data.repositories.GoogleAuthClient
 import com.softylasa.smartengineer.databinding.ActivityAuthBinding
 import com.softylasa.smartengineer.databinding.BottomSheetLoginBinding
 import com.softylasa.smartengineer.databinding.BottomSheetSignupBinding
+import com.softylasa.smartengineer.managers.DialogManager
 import com.softylasa.smartengineer.utils.helpers.EasySdk.setToast
 import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
 import kotlinx.coroutines.launch
@@ -369,7 +372,7 @@ class AuthActivity : SmartThemeActivity() {
 
         bindingLogin.apply {
             setupEditorActionsForLogin(this)
-            btnForgotPassword.setOnClickListener { showForgotPasswordDialog() }
+            btnForgotPassword.setOnClickListener { DialogManager.showForgotPasswordDialog(this@AuthActivity) }
             btnLogin.setOnClickListener { validateAndLogin(this, dialog) }
             btnSignUp.setOnClickListener {
                 dialog.dismiss()
@@ -498,32 +501,6 @@ class AuthActivity : SmartThemeActivity() {
         }
     }
 
-    private fun showForgotPasswordDialog() {
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_forgot_password, null)
-        val emailBox = dialogView.findViewById<EditText>(R.id.emailBox)
-
-        AlertDialog.Builder(this).apply {
-            setView(dialogView)
-            val dialog = create()
-
-            dialogView.findViewById<View>(R.id.btnReset).setOnClickListener {
-                val email = emailBox.text.toString()
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    setToast("Enter a valid email address")
-                    return@setOnClickListener
-                }
-                auth.sendPasswordResetEmail(email).addOnSuccessListener {
-                    setToast("Password reset email sent")
-                    dialog.dismiss()
-                }.addOnFailureListener { e ->
-                    setToast("Error: ${e.message}")
-                }
-            }
-
-            dialog.show()
-        }
-    }
-
     private fun setTermsPrivacyText(){
         val text = "By continuing, you agree to the Terms of Service and confirm that you have read the Privacy Policy"
         val spannableString = SpannableString(text)
@@ -535,12 +512,12 @@ class AuthActivity : SmartThemeActivity() {
         val termsClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 // Open Terms and Conditions
-                openWebView("Terms of Service", "https://sites.google.com/view/techlib-terms-and-conditions")
+                openWebView("Terms of Service", Constants.TERMS)
             }
         }
         spannableString.setSpan(termsClickableSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(UnderlineSpan(), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(getColor(R.color.purple_text_color), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(getColor(R.color.google__Blue), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         // "Privacy Policy" clickable span
         val privacyStart = text.indexOf("Privacy Policy")
@@ -549,12 +526,12 @@ class AuthActivity : SmartThemeActivity() {
         val privacyClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 // Open Privacy Policy
-                openWebView("Privacy Policy", "https://sites.google.com/view/techlib-privacy-policy")
+                openWebView("Privacy Policy", Constants.PRIVACY)
             }
         }
         spannableString.setSpan(privacyClickableSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(UnderlineSpan(), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(getColor(R.color.purple_text_color), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(getColor(R.color.google__Blue), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         // Set the spannable string to the TextView
         binding.tvTermsPrivacy.text = spannableString

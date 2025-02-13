@@ -36,6 +36,7 @@ import com.softylasa.smartengineer.databinding.DialogChangePictureBinding
 import com.softylasa.smartengineer.databinding.DialogChangeUsernameBinding
 import com.softylasa.smartengineer.managers.CUserManager
 import com.softylasa.smartengineer.managers.DialogManager.showNegativeInfoDialog
+import com.softylasa.smartengineer.managers.DialogManager.showUploadingDialog
 import com.softylasa.smartengineer.utils.helpers.EasySdk.setToast
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy.Companion.currentUserImage
@@ -118,7 +119,14 @@ class ProfileActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             proBtnNameEdit.setOnClickListener { setProfileUsername() }
-            proBtnEdit.setOnClickListener { startActivity(Intent(this@ProfileActivity, UpdateProfileActivity::class.java)) }
+            proBtnEdit.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this@ProfileActivity,
+                        UpdateProfileActivity::class.java
+                    )
+                )
+            }
             proBtnDelete.setOnClickListener {
                 showNegativeInfoDialog(
                     this@ProfileActivity,
@@ -177,9 +185,13 @@ class ProfileActivity : AppCompatActivity() {
                     .show()
             }
 
+            // Update Profile Picture
             dialogPictureBinding.btnUpdate.setOnClickListener {
                 if (this@ProfileActivity::selectedImage.isInitialized) {
-                    // Step 1: Upload Image to Web Server
+                    // ✅ Show Progress Bar Before Upload Starts
+                    val progressDialog = showUploadingDialog(this@ProfileActivity)
+
+                    // Step 1: Upload Image to Web Server or Firebase Storage
                     uploadProfileImage(
                         selectedImage,
                         currentUser.uid,
@@ -189,15 +201,28 @@ class ProfileActivity : AppCompatActivity() {
                             firestore.collection("users").document(currentUser.uid)
                                 .update(updatedUserInfo)
                                 .addOnSuccessListener {
-                                    Toast.makeText(this@ProfileActivity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
-                                    builder.dismiss()
+                                    Toast.makeText(
+                                        this@ProfileActivity,
+                                        "Profile updated successfully!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    builder.dismiss()  // Close the image selection dialog
                                 }
                                 .addOnFailureListener { e ->
-                                    Toast.makeText(this@ProfileActivity, "Error updating profile: ${e.message}", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        this@ProfileActivity,
+                                        "Error updating profile: ${e.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                .addOnCompleteListener {
+                                    // ✅ Hide Progress Bar When Upload is Done (Success/Failure)
+                                    progressDialog.dismiss()
                                 }
                         },
                         useFirebaseStorage = false
-                    ) // Set true for Firebase Storage, false for Retrofit
+                    )
+                    builder.dismiss()
                 } else {
                     Toast.makeText(this@ProfileActivity, "No image selected", Toast.LENGTH_SHORT).show()
                 }
@@ -211,6 +236,7 @@ class ProfileActivity : AppCompatActivity() {
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }
+
 
     // == == == == == == == == == == ==  Edit Profile Username button Functionality  == == == == == == == == == == == == == ==
     @SuppressLint("InflateParams")
@@ -244,7 +270,7 @@ class ProfileActivity : AppCompatActivity() {
                 val newName = dialogBinding.editProName.text.toString()
                 val updatedUserInfo = mapOf("name" to newName)
 
-                if (newName.isEmpty()){
+                if (newName.isEmpty()) {
                     dialogBinding.editProName.error = "Please enter a valid username"
                     return@setOnClickListener
                 } else {
@@ -284,7 +310,7 @@ class ProfileActivity : AppCompatActivity() {
                         binding.proPic.setImageURI(it)
                         dialogPictureBinding.proPic.setImageURI(it)
                         selectedImage = it
-                       setToast("Image Selected")
+                        setToast("Image Selected")
                     }
                 }
 
@@ -307,31 +333,37 @@ class ProfileActivity : AppCompatActivity() {
 
         if (user != null) {
             val firestore = FirebaseFirestore.getInstance()
-            val userDocumentRef = firestore.collection("users").document(user.uid)
+            val realtimeDb = FirebaseDatabase.getInstance().reference
 
-            // Step 1: Update the Firestore document with type = "delete"
-            userDocumentRef.update("type", "delete")
+            // 1. Delete Firestore Data
+            firestore.collection("users").document(user.uid).delete()
                 .addOnSuccessListener {
-                    // Step 2: Delete the user from Firebase Authentication
-                    user.delete().addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            // User account deleted from Firebase Auth
-                            setToast("Account deleted successfully!")
-
-                            // Optional: Navigate to a different screen
-                            startActivity(Intent(this, AuthActivity::class.java))
-                            finish()
-                        } else {
-                            // Handle deletion failure
-                            val errorMessage = task.exception?.localizedMessage ?: "Failed to delete account."
-                            setToast(errorMessage)
+                    // 2. Delete Realtime Database Data
+                    realtimeDb.child("UsersDB").child(user.uid).removeValue()
+                        .addOnSuccessListener {
+                            // 3. Delete Active Users Data
+                            realtimeDb.child("ActiveUsers").child(user.uid).removeValue()
+                                .addOnSuccessListener {
+                                    user.delete()
+                                        .addOnSuccessListener {
+                                            setToast("Account deleted successfully!")
+                                            startActivity(Intent(this, AuthActivity::class.java))
+                                            finish()
+                                        }
+                                        .addOnFailureListener {
+                                            setToast("Failed to delete authentication")
+                                        }
+                                }
+                                .addOnFailureListener {
+                                    setToast("Failed to delete ActiveUsers data")
+                                }
                         }
-                    }
+                        .addOnFailureListener {
+                            setToast("Failed to delete UsersDB data")
+                        }
                 }
-                .addOnFailureListener { e ->
-                    // Handle Firestore update failure
-                    val errorMessage = e.localizedMessage ?: "Failed to update user data."
-                    setToast(errorMessage)
+                .addOnFailureListener {
+                    setToast("Failed to delete Firestore data")
                 }
         } else {
             setToast("No user is logged in!")
@@ -364,7 +396,10 @@ class ProfileActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d("FirebaseSuccess", "User status updated successfully!")
                 } else {
-                    Log.e("FirebaseError", "Failed to update user status: ${task.exception?.message}")
+                    Log.e(
+                        "FirebaseError",
+                        "Failed to update user status: ${task.exception?.message}"
+                    )
                 }
             }
         }

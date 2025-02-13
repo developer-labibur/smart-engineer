@@ -57,7 +57,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/header_secondary_bg"
-                        android:contentDescription="@string/sl_icon"
+                        android:contentDescription="@string/back_button"
                         android:paddingStart="9dp"
                         android:paddingEnd="11dp"
                         android:src="@drawable/sl_left_arrow_back"

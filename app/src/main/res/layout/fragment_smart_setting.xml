@@ -28,13 +28,15 @@
                 android:id="@+id/btnViewProfile"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:contentDescription="@string/opens_user_profile" />
 
             <View
                 android:id="@+id/btnViewPremium"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:contentDescription="@string/view_fremimum_screen" />
 
         </LinearLayout>
 
@@ -506,10 +508,11 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- CGPA Calculator -->
+            <!-- CGPA Calculator => GONE -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/sBtnCGPA"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp">
 
@@ -1142,6 +1145,7 @@
                         style="@style/setting_item_heading" />
 
                     <TextView
+                        android:id="@+id/tvVersion"
                         android:text="@string/version_1_0_0"
                         style="@style/setting_item_subheading" />
 

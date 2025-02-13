@@ -28,13 +28,15 @@
                 android:id="@+id/btnViewProfile"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:contentDescription="@string/opens_user_profile" />
 
             <View
                 android:id="@+id/btnViewPremium"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:contentDescription="@string/view_fremimum_screen" />
 
         </LinearLayout>
 

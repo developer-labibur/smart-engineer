@@ -173,7 +173,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
 
-        <!-- No Notice Container -->
+        <!-- No Book Container -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/containerNoData"
             android:layout_width="match_parent"

@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.toObject
@@ -20,6 +21,10 @@ class NewsfeedActivity : SmartThemeActivity() {
 
     private lateinit var binding: ActivityNewsfeedBinding
     private var db : FirebaseFirestore? = null
+
+    private val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+    private val databaseRef = FirebaseDatabase.getInstance().getReference("UsersDB/$currentUserUid/Favourites/Notice")
+    private val loveCountRef = FirebaseDatabase.getInstance().getReference("CountNoticeLove")
 
     // RecyclerView Adapter
     private lateinit var noticeAdapter: NoticeAdapter // Replace with your RecyclerView adapter

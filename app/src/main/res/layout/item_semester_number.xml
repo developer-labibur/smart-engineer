@@ -60,7 +60,7 @@
             android:id="@+id/semImage"
             style="@style/btn_features_image"
             android:background="@drawable/abc_orange_main"
-            android:contentDescription="@string/sl_icon"
+            android:contentDescription="@string/book_cover"
             android:src="@drawable/number_one"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

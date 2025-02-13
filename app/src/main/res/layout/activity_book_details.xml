@@ -340,6 +340,7 @@
                                 android:id="@+id/animationView"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
+                                android:contentDescription="@string/engineer_pro"
                                 app:lottie_rawRes="@raw/anim_premium_crown"
                                 app:lottie_autoPlay="true"
                                 app:lottie_loop="true"/>
@@ -538,26 +539,57 @@
                 app:layout_constraintTop_toBottomOf="@+id/clHeader">
 
                 <!-- RecyclerView for Units -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/unitRecyclerView"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/unitContainer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-1dp"
                     android:background="@drawable/bg_book_ber_bottom_right_radius"
-                    android:clipToPadding="false"
-                    android:nestedScrollingEnabled="false"
-                    android:orientation="vertical"
-                    android:overScrollMode="never"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="15dp"
-                    android:scrollbars="none"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:itemCount="2"
-                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_book_unit" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/unitRecyclerView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-1dp"
+                        android:background="@drawable/bg_book_ber_bottom_right_radius"
+                        android:clipToPadding="false"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="15dp"
+                        android:scrollbars="none"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="2"
+                        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_book_unit" />
+
+                    <TextView
+                        android:id="@+id/tvNoUnit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginEnd="30dp"
+                        android:fontFamily="@font/bengali"
+                        android:orientation="horizontal"
+                        android:textColor="@color/mainContainer_HeadingText"
+                        android:textStyle="bold"
+                        android:scrollbars="none"
+                        android:visibility="invisible"
+                        android:paddingBottom="20dp"
+                        android:text="@string/book_unit_list_is_empty"
+                        android:textSize="@dimen/_16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -566,7 +598,7 @@
                     android:layout_marginBottom="-1dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/unitRecyclerView">
+                    app:layout_constraintTop_toBottomOf="@+id/unitContainer">
 
                     <View
                         android:id="@+id/view2"
@@ -615,11 +647,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
                             android:layout_marginEnd="15dp"
-                            android:fontFamily="@font/hind_siliguri"
+                            android:fontFamily="@font/bengali"
                             android:orientation="horizontal"
                             android:scrollbars="none"
                             android:text="@string/book_details_is_empty"
                             android:textSize="@dimen/_16sp"
+                            android:textColor="@color/mainContainer_HeadingText"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/tvDes"
                             app:layout_constraintTop_toBottomOf="@+id/tvDes" />

@@ -130,7 +130,7 @@
                 android:id="@+id/ivUserPic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/sl_icon"
+                android:contentDescription="@string/user_profile_picture"
                 android:src="@drawable/student_avatar" />
 
         </LinearLayout>
@@ -198,6 +198,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 app:lottie_rawRes="@raw/anim_premium_crown"
+                android:contentDescription="@string/engineer_pro"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"/>
 
@@ -267,7 +268,7 @@
                 android:layout_marginEnd="5dp"
                 style="@style/shape_bottom_nav_bar_image"
                 android:background="@drawable/bg_sl_shape_box_golden"
-                android:contentDescription="@string/sl_icon"
+                android:contentDescription="@string/home_icon"
                 android:src="@drawable/sl_f_home" />
 
             <TextView
@@ -290,7 +291,7 @@
                 android:id="@+id/ivBook"
                 style="@style/shape_bottom_nav_bar_image"
                 android:background="@drawable/bg_sl_shape_box_blue"
-                android:contentDescription="@string/sl_icon"
+                android:contentDescription="@string/book_icon"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:padding="4dp"
@@ -318,7 +319,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_sl_shape_box_green"
-                android:contentDescription="@string/sl_icon"
+                android:contentDescription="@string/fire_icon"
                 android:src="@drawable/sl_f_updates" />
 
             <TextView
@@ -343,7 +344,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_sl_shape_box_purple"
-                android:contentDescription="@string/sl_icon"
+                android:contentDescription="@string/setting"
                 android:padding="4dp"
                 android:src="@drawable/sl_f_settings" />
 

@@ -25,6 +25,7 @@
         app:dotsColor="#FFFFFF"
         app:dotsSize="13dp"
         app:dotsSpacing="8dp"
+        android:contentDescription="@string/dot_indicator"
         app:layout_constraintBottom_toBottomOf="@+id/cvGetStarted"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cvGetStarted"
@@ -57,7 +58,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/next" />
+        app:lottie_rawRes="@raw/next"
+        android:contentDescription="@string/next_button_animation" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvGetStarted"

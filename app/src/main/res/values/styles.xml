@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Light Theme -->
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
@@ -11,7 +11,7 @@
 
         <item name="pdfIconLibrary">@drawable/sl_library</item>
         <item name="pdfIconCross">@drawable/sl_cross</item>
-        <item name="pdfIconBack">@drawable/sl_left_arrow_back</item>
+        <item name="pdfIconBack">@drawable/pdf_left_arrow_back_only</item>
         <item name="pdfSeekBarBG">@drawable/pdf_seekbar_bg_light</item>
         <item name="pdfSeekBarIcon">@drawable/pdf_seekbar_icon_light</item>
         <item name="pdfIconTheme">@drawable/pdf_sun</item>
@@ -346,12 +346,16 @@
     <style name="radio_button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item> <!-- Ensures minimum clickable area -->
         <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">3dp</item>
         <item name="android:fontFamily">@font/hind_siliguri</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/mainContainer_HeadingText</item>
         <item name="android:textSize">@dimen/_16sp</item>
+        <item name="android:paddingVertical" tools:targetApi="o">8dp</item>
     </style>
+
 
     <style name="tv_center_heading">
         <item name="android:layout_width">wrap_content</item>

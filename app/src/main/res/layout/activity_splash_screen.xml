@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="#090D0F"
     tools:context=".ui.activities.SplashScreenActivity">
 
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="@dimen/_170dp"
         android:layout_height="@dimen/_260dp"
-        android:contentDescription="@string/smart_engineer_logo"
+        android:contentDescription="@string/smart_engineer_logo_splash"
         android:src="@drawable/logo_red_transparent_with_smart_engineer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

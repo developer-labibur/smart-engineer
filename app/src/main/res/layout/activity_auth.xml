@@ -236,7 +236,6 @@
             android:fontFamily="@font/hind_siliguri"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textColor="@color/mainContainer_SubHeadingText"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -53,7 +53,7 @@ class BookViewActivity : SmartThemeActivity() {
         }
 
         // eBook Open and Redeem Points
-        booksGridAdapter = BookGridAdapter(){ bookCode ->
+        booksGridAdapter = BookGridAdapter{ bookCode ->
             val intent = Intent(this, BookDetailsActivity::class.java)
             intent.putExtra("BOOK_CODE", bookCode)
             startActivity(intent)
@@ -73,7 +73,7 @@ class BookViewActivity : SmartThemeActivity() {
         binding.apply {
 
             btnList.setOnClickListener {
-                btnList.setBackgroundResource(R.drawable.smart_view_active_bg)
+                btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
                 btnGrid.setBackgroundResource(R.color.transparent)
                 fetchBooks("Library", false)
                 isShimmerOn(true, isGrid = false)
@@ -81,7 +81,7 @@ class BookViewActivity : SmartThemeActivity() {
             }
             btnGrid.setOnClickListener {
                 btnList.setBackgroundResource(R.color.transparent)
-                btnGrid.setBackgroundResource(R.drawable.smart_view_active_bg)
+                btnGrid.setBackgroundResource(R.drawable.sl_search_box_icon)
                 fetchBooks("Library", true)
                 isShimmerOn(true, isGrid = true)
                 containerNoData.visibility = View.GONE
@@ -321,7 +321,10 @@ class BookViewActivity : SmartThemeActivity() {
                 binding.containerNoData.visibility = View.GONE
 
                 // eBook Open and Redeem Points
-                bookListAdapter = BookListAdapter { bookCode ->
+                bookListAdapter = BookListAdapter {  bookCode ->
+                    val intent = Intent(this, BookDetailsActivity::class.java)
+                    intent.putExtra("BOOK_CODE", bookCode)
+                    startActivity(intent)
                     //PointManager.redeemPointsOpenEBook(requireActivity(), bookCode)
                 }
 
@@ -423,21 +426,21 @@ class BookViewActivity : SmartThemeActivity() {
             binding.apply {
                 fetchBooks("Library", false)
                 isShimmerOn(true, isGrid = false)
-                btnLibrary.setBackgroundResource(R.drawable.smart_view_active_bg)
+                btnLibrary.setBackgroundResource(R.drawable.sl_search_box_icon)
                 btnFavourite.setBackgroundResource(R.color.transparent)
                 btnGrid.setBackgroundResource(R.color.transparent)
-                btnList.setBackgroundResource(R.drawable.smart_view_active_bg)
+                btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
 
                 btnList.setOnClickListener {
                     isShimmerOn(true, isGrid = false)
-                    btnList.setBackgroundResource(R.drawable.smart_view_active_bg)
+                    btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
                     btnGrid.setBackgroundResource(R.color.transparent)
                     fetchBooks("Library", false)
                     containerNoData.visibility = View.GONE
                 }
                 btnGrid.setOnClickListener {
                     btnList.setBackgroundResource(R.color.transparent)
-                    btnGrid.setBackgroundResource(R.drawable.smart_view_active_bg)
+                    btnGrid.setBackgroundResource(R.drawable.sl_search_box_icon)
                     fetchBooks("Library", true)
                     isShimmerOn(true, isGrid = true)
                     containerNoData.visibility = View.GONE
@@ -450,12 +453,12 @@ class BookViewActivity : SmartThemeActivity() {
                 fetchBooks("Favourite", true)
                 isShimmerOn(true, isGrid = true)
                 btnLibrary.setBackgroundResource(R.color.transparent)
-                btnFavourite.setBackgroundResource(R.drawable.smart_view_active_bg)
+                btnFavourite.setBackgroundResource(R.drawable.sl_search_box_icon)
                 btnList.setBackgroundResource(R.color.transparent)
-                btnGrid.setBackgroundResource(R.drawable.smart_view_active_bg)
+                btnGrid.setBackgroundResource(R.drawable.sl_search_box_icon)
 
                 btnList.setOnClickListener {
-                    btnList.setBackgroundResource(R.drawable.smart_view_active_bg)
+                    btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
                     btnGrid.setBackgroundResource(R.color.transparent)
                     fetchBooks("Favourite", false)
                     isShimmerOn(true, isGrid = false)
@@ -463,7 +466,7 @@ class BookViewActivity : SmartThemeActivity() {
                 }
                 btnGrid.setOnClickListener {
                     btnList.setBackgroundResource(R.color.transparent)
-                    btnGrid.setBackgroundResource(R.drawable.smart_view_active_bg)
+                    btnGrid.setBackgroundResource(R.drawable.sl_search_box_icon)
                     fetchBooks("Favourite", true)
                     isShimmerOn(true, isGrid = true)
                     containerNoData.visibility = View.GONE
@@ -473,7 +476,7 @@ class BookViewActivity : SmartThemeActivity() {
         } else{
             binding.apply {
                 btnGrid.setBackgroundResource(R.color.transparent)
-                btnList.setBackgroundResource(R.drawable.smart_view_active_bg)
+                btnList.setBackgroundResource(R.drawable.sl_search_box_icon)
                 fetchBooks("Library", true)
                 isShimmerOn(true, isGrid = true)
             }

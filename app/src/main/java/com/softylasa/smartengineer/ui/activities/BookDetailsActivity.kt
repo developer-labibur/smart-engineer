@@ -62,7 +62,7 @@ class BookDetailsActivity : SmartThemeActivity() {
         setContentView(binding.root)
 
         // Handle insets for edge-to-edge layout
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -171,6 +171,9 @@ class BookDetailsActivity : SmartThemeActivity() {
                 isShimmerOn(false)
             }
             .addOnFailureListener { exception ->
+                binding.tvNoUnit.visibility = View.VISIBLE
+                binding.unitRecyclerView.visibility = View.GONE
+                isShimmerOn(false)
                 Log.e(tagInfo, "Error loading units: ", exception)
             }
     }
@@ -183,13 +186,20 @@ class BookDetailsActivity : SmartThemeActivity() {
             val unit = document.toObject(BookUnit::class.java)
             unitList.add(unit)
         }
+        // Check if the list is empty
+        if (unitList.isEmpty()) {
+            binding.tvNoUnit.visibility = View.VISIBLE  // Show "No Unit" message
+            binding.unitRecyclerView.visibility = View.GONE  // Hide RecyclerView
+        } else {
+            binding.tvNoUnit.visibility = View.GONE  // Hide "No Unit" message
+            binding.unitRecyclerView.visibility = View.VISIBLE  // Show RecyclerView
+        }
         binding.unitRecyclerView.adapter = UnitAdapter(this, unitList, bookCode) { bookUnit, action ->
             when (action) {
                 "view" -> openSmartEBookActivity(bookUnit)
                 "download" -> loadBooksAndUnits(bookCode)
             }
         }
-        //unitAdapter.notifyDataSetChanged() // Refresh adapter to display new data
     }
 
     private fun openSmartEBookActivity(bookUnit: BookUnit) {

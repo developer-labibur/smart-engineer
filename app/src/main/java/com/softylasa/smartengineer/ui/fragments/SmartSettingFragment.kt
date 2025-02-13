@@ -1,27 +1,23 @@
 package com.softylasa.smartengineer.ui.fragments
 
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.softylasa.smartengineer.R
+import com.softylasa.smartengineer.data.constants.Constants
 import com.softylasa.smartengineer.data.constants.Constants.APP_LINK
 import com.softylasa.smartengineer.data.constants.Constants.PACKAGE_NAME
 import com.softylasa.smartengineer.utils.helpers.Converters.dpToPx
 import com.softylasa.smartengineer.databinding.FragmentSmartSettingBinding
-import com.softylasa.smartengineer.data.models.User
 import com.softylasa.smartengineer.data.repositories.AuthRepository
 import com.softylasa.smartengineer.managers.CUserManager
 import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDialog
@@ -31,7 +27,6 @@ import com.softylasa.smartengineer.ui.activities.AcademicBookActivity
 import com.softylasa.smartengineer.ui.activities.AllDepartmentActivity
 import com.softylasa.smartengineer.ui.activities.AuthActivity
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy
-import com.softylasa.smartengineer.utils.helpers.SmartData
 import com.softylasa.smartengineer.ui.activities.DayNightActivity
 import com.softylasa.smartengineer.ui.activities.NoticeBoardActivity
 import com.softylasa.smartengineer.ui.activities.ProfileActivity
@@ -42,20 +37,15 @@ class SmartSettingFragment : Fragment() {
 
     private lateinit var binding: FragmentSmartSettingBinding
 
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val userId = auth.currentUser?.uid
-    private var database = FirebaseDatabase.getInstance()
-
     private val pictureListener: (String) -> Unit = { imageUrl ->
-        if (imageUrl.isEmpty()) {
-            binding.ivProfilePicture.setImageResource(R.drawable.avatar)
-        } else {
-            if (isAdded) { // Ensure Fragment is attached
-                Glide.with(this)
-                    .load(MakeFirebaseEasy.currentUserImage(imageUrl))
-                    .placeholder(R.drawable.avatar)
-                    .transform(RoundedCorners(dpToPx(requireActivity(), 10f))) // Use requireContext()
-                    .into(binding.ivProfilePicture)
+        activity?.let { context ->
+            if (imageUrl.isNotEmpty()) {
+                if (isAdded) { // Ensure Fragment is attached
+                    Glide.with(this)
+                        .load(MakeFirebaseEasy.currentUserImage(imageUrl))
+                        .transform(RoundedCorners(dpToPx(context, 10f))) // Use requireContext()
+                        .into(binding.ivProfilePicture)
+                }
             }
         }
     }
@@ -80,6 +70,8 @@ class SmartSettingFragment : Fragment() {
                 btnViewProfile.setOnClickListener { startActivity(Intent(context, ProfileActivity::class.java)) }
                 btnViewPremium.setOnClickListener { showFreemiumFeaturesDialog(context) }
 
+                tvVersion.text = getString(R.string.version, getAppVersion(context)) // Get Version Name from Gradle
+
                 // Custom Section --------------------------------
                 sBtnPremium.setOnClickListener { showFreemiumFeaturesDialog(context) }
                 sBtnDark.setOnClickListener {
@@ -94,7 +86,7 @@ class SmartSettingFragment : Fragment() {
                 sBtnAcademicBook.setOnClickListener { startActivity(Intent(context, AcademicBookActivity::class.java)) }
                 //sBtnRecycling.setOnClickListener { SmartData.comingSoon(context) }
                 //sBtnCommunity.setOnClickListener { SmartData.comingSoon(context) }
-                sBtnCGPA.setOnClickListener { SmartData.comingSoon(context) }
+                //sBtnCGPA.setOnClickListener { SmartData.comingSoon(context) }
                 //sBtnContributor.setOnClickListener { SmartData.comingSoon(context) }
 
                 // Management Section --------------------------------
@@ -114,11 +106,11 @@ class SmartSettingFragment : Fragment() {
                 sBtnShare.setOnClickListener { shareApp() }
                 sBtnPrivacyPolicy.setOnClickListener {
                     // Open Privacy Policy
-                    openWebView("Privacy Policy", "https://sites.google.com/view/smartengineer-privacy-policy")
+                    openWebView("Privacy Policy", Constants.PRIVACY)
                 }
                 sBtnTerms.setOnClickListener {
                     // Open Terms of Service
-                    openWebView("Terms of Service", "https://sites.google.com/view/smartengineer-terms-and-conditions")
+                    openWebView("Terms of Service", Constants.TERMS)
                 }
                 //sBtnFAQ.setOnClickListener { SmartData.comingSoon(context) }
                 sBtnAbout.setOnClickListener { startActivity(Intent(context, AboutUsActivity::class.java)) }
@@ -182,6 +174,23 @@ class SmartSettingFragment : Fragment() {
             putExtra(Intent.EXTRA_TEXT, shareText)
         }
         startActivity(Intent.createChooser(intent, "Share Smart Engineer App Via"))
+    }
+
+    // == == == == == == == == == == ==  Get Version Name from Gradle  == == == == == == == == == == == == == ==
+    private fun getAppVersion(context: Activity): String {
+        return try {
+            val packageManager = context.packageManager
+            val packageName = context.packageName
+
+            val versionName = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0)).versionName
+            } else {
+                packageManager.getPackageInfo(packageName, 0).versionName
+            }
+            versionName ?: "Unknown"
+        } catch (e: PackageManager.NameNotFoundException) {
+            "Unknown"
+        }
     }
 
     override fun onDestroy() {

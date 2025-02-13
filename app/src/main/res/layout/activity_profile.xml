@@ -78,7 +78,7 @@
                             android:layout_width="23dp"
                             android:layout_height="23dp"
                             android:layout_marginEnd="6dp"
-                            android:contentDescription="@string/sl_icon"
+                            android:contentDescription="@string/back_button_colorful"
                             android:elevation="20dp"
                             android:src="@drawable/back"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -120,6 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="35dp"
+                        android:contentDescription="@string/profile_pic_container"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -131,6 +132,7 @@
                             android:src="@drawable/avatar"
                             app:civ_border_color="@color/white"
                             app:civ_border_width="2dp"
+                            android:contentDescription="@string/profile_pictures_and_change_button"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -143,6 +145,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             app:cardCornerRadius="50dp"
+                            android:contentDescription="@string/camera_button"
                             android:src="@drawable/camera"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/proPic"/>

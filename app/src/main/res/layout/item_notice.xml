@@ -72,7 +72,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
-        android:contentDescription="@string/sl_icon"
+        android:contentDescription="@string/menu_button"
         android:src="@drawable/sl_dots_horizontal_alt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ll_itemBG"/>
@@ -86,6 +86,7 @@
         android:drawablePadding="5dp"
         android:drawableStart="@drawable/sl_heart"
         android:textSize="15sp"
+        android:contentDescription="@string/love_button"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/btnLove"
         app:layout_constraintStart_toStartOf="parent"
