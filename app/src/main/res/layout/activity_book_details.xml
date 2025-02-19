@@ -253,7 +253,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clHeader"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -268,10 +268,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clInfoBook"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
                     android:background="@drawable/bg_book_ber_bottom_left_radius"
-                    app:layout_constraintBottom_toTopOf="@+id/btnBack3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -315,8 +316,8 @@
                         android:id="@+id/btnPremium"
                         android:layout_width="wrap_content"
                         android:layout_height="44dp"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginTop="20dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_weight="1"
                         android:background="@drawable/abc_orange_light"
                         android:gravity="center_vertical"
@@ -330,8 +331,8 @@
                             android:layout_height="36dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/bg_sl_premium_box_golden"
-                            android:orientation="horizontal"
                             android:gravity="center"
+                            android:orientation="horizontal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -341,19 +342,19 @@
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:contentDescription="@string/engineer_pro"
-                                app:lottie_rawRes="@raw/anim_premium_crown"
                                 app:lottie_autoPlay="true"
-                                app:lottie_loop="true"/>
+                                app:lottie_loop="true"
+                                app:lottie_rawRes="@raw/anim_premium_crown" />
 
                         </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvPremium"
+                            style="@style/dashboard_smart_point_text"
                             android:text="@string/engineer_pro"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ll_premium_icon"
-                            app:layout_constraintTop_toTopOf="@+id/ll_premium_icon"
-                            style="@style/dashboard_smart_point_text" />
+                            app:layout_constraintTop_toTopOf="@+id/ll_premium_icon" />
 
                         <TextView
                             android:id="@+id/tvRole"
@@ -461,14 +462,30 @@
                         app:layout_constraintTop_toTopOf="@+id/icCredit"
                         app:layout_constraintVertical_bias="0.36" />
 
+                    <TextView
+                        android:id="@+id/disclaimerText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/abc_orange_light"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:fontFamily="@font/bengali"
+                        android:text="@string/note_book_details"
+                        android:textColor="@color/sl_primary_text"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bookCoverImage" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/btnBack3"
+                    android:id="@+id/clUnitHeader"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:background="@drawable/bg_book_ber_top_right_radius"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clInfoBook"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
@@ -499,7 +516,7 @@
                         android:layout_height="35dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="15dp"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginEnd="25dp"
                         android:paddingTop="2dp"
                         android:background="@drawable/bg_sl_m_orange"
                         app:cardCornerRadius="50dp"
@@ -728,6 +745,7 @@
                             android:orientation="horizontal"
                             android:paddingBottom="30dp"
                             android:scrollbars="none"
+                            android:contentDescription="@string/semester_tag_name"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/tvSemester"
                             app:layout_constraintTop_toBottomOf="@+id/tvSemester">

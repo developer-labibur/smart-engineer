@@ -35,12 +35,17 @@ import com.softylasa.smartengineer.data.repositories.AuthRepository
 import com.softylasa.smartengineer.databinding.DialogChangePictureBinding
 import com.softylasa.smartengineer.databinding.DialogChangeUsernameBinding
 import com.softylasa.smartengineer.managers.CUserManager
+import com.softylasa.smartengineer.managers.DialogManager.showDeleteProfileDialog
 import com.softylasa.smartengineer.managers.DialogManager.showNegativeInfoDialog
 import com.softylasa.smartengineer.managers.DialogManager.showUploadingDialog
+import com.softylasa.smartengineer.network.RetrofitClient
 import com.softylasa.smartengineer.utils.helpers.EasySdk.setToast
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy.Companion.currentUserImage
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy.Companion.uploadProfileImage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -128,11 +133,9 @@ class ProfileActivity : AppCompatActivity() {
                 )
             }
             proBtnDelete.setOnClickListener {
-                showNegativeInfoDialog(
+                showDeleteProfileDialog(
                     this@ProfileActivity,
-                    R.raw.anim_delete,
-                    "Delete Account",
-                    "Are you sure you want to delete your account? This action cannot be undone."
+                    R.raw.anim_delete
                 ) { deleteUserAccount() }
             }
 
@@ -334,16 +337,32 @@ class ProfileActivity : AppCompatActivity() {
         if (user != null) {
             val firestore = FirebaseFirestore.getInstance()
             val realtimeDb = FirebaseDatabase.getInstance().reference
+            val uid = user.uid
 
-            // 1. Delete Firestore Data
-            firestore.collection("users").document(user.uid).delete()
+            // 1️⃣ Attempt to Delete Profile Picture from Web Server
+            val requestBody = hashMapOf("uid" to uid)
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response = RetrofitClient.apiService.deleteProfilePicture(requestBody)
+                    if (response.isSuccessful && response.body()?.success == true) {
+                        Log.d("DeleteProfile", "Profile picture deleted successfully.")
+                    } else {
+                        Log.e("DeleteProfile", "Profile picture not found or failed to delete.")
+                    }
+                } catch (e: Exception) {
+                    Log.e("DeleteProfile", "Error deleting profile picture: ${e.message}")
+                }
+            }
+
+            // 2️⃣ Delete Firestore User Data
+            firestore.collection("users").document(uid).delete()
                 .addOnSuccessListener {
-                    // 2. Delete Realtime Database Data
-                    realtimeDb.child("UsersDB").child(user.uid).removeValue()
+                    // 3️⃣ Delete Realtime Database Data
+                    realtimeDb.child("UsersDB").child(uid).removeValue()
                         .addOnSuccessListener {
-                            // 3. Delete Active Users Data
-                            realtimeDb.child("ActiveUsers").child(user.uid).removeValue()
+                            realtimeDb.child("ActiveUsers").child(uid).removeValue()
                                 .addOnSuccessListener {
+                                    // 4️⃣ Delete Firebase Authentication
                                     user.delete()
                                         .addOnSuccessListener {
                                             setToast("Account deleted successfully!")

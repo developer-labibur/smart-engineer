@@ -15,7 +15,13 @@ data object Constants {
     const val PACKAGE_NAME = "com.softylasa.smartengineer"
     const val APP_LINK = "https://play.google.com/store/apps/details?id=com.softylasa.smartengineer"
     // === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === === ===
-    const val PRIVACY = "https://sites.google.com/view/smartengineer-privacy-policy"
-    const val TERMS = "https://sites.google.com/view/smartengineer-terms"
+    const val PRIVACY = "https://smartengr.rudhashi.xyz/privacy"
+    const val TERMS = "https://smartengr.rudhashi.xyz/terms"
+
+    // Server Link ---------------------------------------------------------------------------------------------
+    const val SERVER_LINK = "https://smartengr.rudhashi.xyz/apps"
+    const val BASE_URL = "https://smartengr.rudhashi.xyz/apps/api/"
+    const val PDF_SERVER_LINK = "https://smartengr.rudhashi.xyz/apps/pdf"
+    const val PDF_COURSE_STRUCTURE = "https://smartengr.rudhashi.xyz/apps/department"
 
 }

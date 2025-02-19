@@ -38,17 +38,12 @@ import com.softylasa.smartengineer.ui.adapters.CategoryAdapter
 import com.softylasa.smartengineer.databinding.DialogMarqueeNoticeBinding
 import com.softylasa.smartengineer.databinding.FragmentSmartHomeBinding
 import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDialog
-import com.softylasa.smartengineer.data.models.Category
 import com.softylasa.smartengineer.data.models.Features
 import com.softylasa.smartengineer.data.models.Notice
 import com.softylasa.smartengineer.managers.DialogManager.comingSoon
-import com.softylasa.smartengineer.ui.activities.AcademicBookActivity
 import com.softylasa.smartengineer.utils.helpers.Converters.formatTimestampToRelativeTime
-import com.softylasa.smartengineer.ui.activities.DepartmentActivity
 import com.softylasa.smartengineer.ui.activities.LinksActivity
-import com.softylasa.smartengineer.ui.activities.NoticeBoardActivity
 import com.softylasa.smartengineer.ui.activities.ProfileActivity
-import com.softylasa.smartengineer.ui.activities.SearchActivity
 import com.softylasa.smartengineer.ui.adapters.BrowseAdapter
 import com.softylasa.smartengineer.ui.adapters.FeatureAdapter
 
@@ -170,23 +165,6 @@ class SmartHomeFragment : Fragment() {
                 featuresDataList.add(categoryDataClass)
 
                 binding.recycleFeatures.adapter = FeatureAdapter(featuresDataList, context)
-
-                // Set the click listener
-                categoryAdapter.setOnItemClickListener(object :
-                    CategoryAdapter.OnItemClickListener {
-                    override fun onItemClick(position: Int, dataList: Category) {
-                        when (position) {
-                            1 -> startActivity(Intent(context, NoticeBoardActivity::class.java))
-                            2 -> startActivity(Intent(context, AcademicBookActivity::class.java))
-                            3 -> startActivity(Intent(context, SearchActivity::class.java))
-                            else -> comingSoon(context)
-                        }
-
-                        val intent = Intent(context, DepartmentActivity::class.java)
-                        intent.putExtra("DCode", dataList.DCode)
-                        startActivity(intent)
-                    }
-                })
             }
         }
     }

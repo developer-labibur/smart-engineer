@@ -1,19 +1,29 @@
 package com.softylasa.smartengineer.ui.activities
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.firestore.FirebaseFirestore
 import com.softylasa.smartengineer.R
+import com.softylasa.smartengineer.R.layout.layout_disclaimer_dialog
+import com.softylasa.smartengineer.R.layout.layout_warning_dialog
 import com.softylasa.smartengineer.data.models.Links
 import com.softylasa.smartengineer.databinding.ActivityLinksBinding
+import com.softylasa.smartengineer.databinding.LayoutDisclaimerDialogBinding
+import com.softylasa.smartengineer.databinding.LayoutWarningDialogBinding
 import com.softylasa.smartengineer.ui.adapters.LinkAdapter
 import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
 
@@ -49,7 +59,7 @@ class LinksActivity : SmartThemeActivity() {
         // Set a listener for item clicks (to open Chrome Custom Tab with link)
         linkAdapter.setOnItemClickListener(object : LinkAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, link: String) {
-                openChromeCustomTab(link)
+                showWarningDialog(link)
             }
         })
 
@@ -59,6 +69,36 @@ class LinksActivity : SmartThemeActivity() {
         fetchDataFromFirestore(database)
 
     }
+
+    @SuppressLint("InflateParams")
+    private fun showWarningDialog(link: String) {
+        val builder = AlertDialog.Builder(this).create()
+        val dialogView = LayoutInflater.from(this).inflate(layout_warning_dialog, null)
+        val dialogBinding = LayoutWarningDialogBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+
+        // Set custom message
+        dialogBinding.textTitle.text = getString(R.string.note_external_link_warning)
+        dialogBinding.textMessage.text = getString(R.string.note_external_link_warning_info)
+        dialogBinding.buttonYes.text = getString(R.string.agree)
+        dialogBinding.buttonNo.text = getString(R.string.cancel)
+
+        // Handle "Agree" button click
+        dialogBinding.buttonYes.setOnClickListener {
+            openChromeCustomTab(link) // Open the link in Chrome Custom Tab
+            builder.dismiss()
+        }
+
+        // Handle "Cancel" button click
+        dialogBinding.buttonNo.setOnClickListener { builder.dismiss() }
+
+        // Show Dialog
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
+    }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private fun fetchDataFromFirestore(database: String) {
@@ -101,4 +141,6 @@ class LinksActivity : SmartThemeActivity() {
             Toast.makeText(this, "Failed to open Chrome Custom Tab", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 }

@@ -17,6 +17,7 @@ import com.softylasa.smartengineer.ui.adapters.BookListAdapter
 import com.softylasa.smartengineer.databinding.FragmentSmartBooksBinding
 import com.softylasa.smartengineer.managers.DialogManager.showFreemiumFeaturesDialog
 import com.softylasa.smartengineer.data.models.Book
+import com.softylasa.smartengineer.ui.activities.AcademicBookActivity
 import com.softylasa.smartengineer.ui.activities.ProfileActivity
 import com.softylasa.smartengineer.ui.activities.SearchActivity
 import com.softylasa.smartengineer.ui.activities.BookDetailsActivity
@@ -111,9 +112,10 @@ class SmartBooksFragment : Fragment() {
             }
             btnViewAll.visibility = View.INVISIBLE
             btnViewAll.setOnClickListener {
-                val intent = Intent(requireContext(), SmartViewActivity::class.java)
-                intent.putExtra("DISPLAY", "Book")
-                startActivity(intent)
+//                val intent = Intent(requireContext(), SmartViewActivity::class.java)
+//                intent.putExtra("DISPLAY", "Book")
+//                startActivity(intent)
+                startActivity(Intent(requireContext(), AcademicBookActivity::class.java))
             }
         }
         return binding.root

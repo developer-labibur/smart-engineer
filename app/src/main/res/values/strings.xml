@@ -59,7 +59,7 @@
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ App Feature Item ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <string-array name="appFeatureId">
         <item>news</item>
-        <item>notice</item>
+        <item>calculator</item>
         <item>book</item>
         <item>search</item>
         <item>department</item>
@@ -69,9 +69,9 @@
 
     </string-array>
     <string-array name="appFeatureTitle">
-        <item>News\nFeed</item>
-        <item>Notice\nBoard</item>
-        <item>Academic\nBook</item>
+        <item>Newsfeed</item>
+        <item>CGPA</item>
+        <item>Books</item>
         <item>Find Your\nBook</item>
         <item>All\nDepartment</item>
         <item>My\nLibrary</item>
@@ -79,7 +79,8 @@
     </string-array>
     <string-array name="appFeatureImageUrl">
         <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_social_media.png?alt=media&amp;token=7ed548bc-9599-4203-80a7-29ba522fe02e</item>
-        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_notification.png?alt=media&amp;token=4251d9a1-0901-45a2-9248-76aa6f9c5d57</item>
+        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_test.png?alt=media&amp;token=d3d176d2-0fbd-4688-bcc8-5c760470e1c6</item>
+<!--        <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_notification.png?alt=media&amp;token=4251d9a1-0901-45a2-9248-76aa6f9c5d57</item>-->
         <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_dictionary.png?alt=media&amp;token=cfcb0a1c-5834-4424-a940-692384bfba56</item>
         <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_search.png?alt=media&amp;token=198b4ff2-e530-4aca-b348-e2b67d38c61c</item>
         <item>https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/Features%2Fcat_graduation_cap.png?alt=media&amp;token=4162dd58-971a-4282-a3b0-a4e3c360dd53</item>
@@ -134,13 +135,18 @@
     <string name="sign_up_with_google">Sign up with Google</string>
     <string name="we_will_email_you_a_link_to_reset_your_password">We will email you a link to reset your password</string>
     <string name="enter_the_email_address_associated_with_your_account">Enter the email address associated with your account</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_up_with_facebook">Sign up with Facebook</string>
+
+
     <string name="forgot_password">Forgot Password?</string>
     <string name="or">OR</string>
     <string name="login_now">Login Now</string>
-    <string name="already_have_an_account">Already have an account?</string>
-    <string name="sign_up_with_facebook">Sign up with Facebook</string>
     <string name="cancel">Cancel</string>
     <string name="reset">Reset</string>
+    <string name="agree">Agree</string>
+    <string name="okay">Okay</string>
+
     <string name="labib_ur_rahman">Labib UR Rahman</string>
     <string name="my_favorites">My Favorites</string>
     <string name="my_library">My Library</string>
@@ -173,6 +179,7 @@
     <string name="_5th_semester">5th Semester</string>
     <string name="_6th_semester">6th Semester</string>
     <string name="_7th_semester">7th Semester</string>
+    <string name="_8th_semester">8th Semester</string>
     <string name="cst_85">CST  |  85</string>
     <string name="engineer_avatar">Engineer Avatar</string>
     <string name="smart_points">Smart Points</string>
@@ -216,7 +223,7 @@
     <string name="subject_code">Subject Code</string>
     <string name="total_reads">Total Reads</string>
     <string name="units">Units</string>
-    <string name="_07">07</string>
+    <string name="_07">00</string>
     <string name="tag">Tag</string>
     <string name="edit_book_details">Edit Book Details</string>
     <string name="unit_0_unit_name">Unit 0: Unit Name</string>
@@ -318,13 +325,24 @@
     <string name="IconSemester7"><![CDATA[https://firebasestorage.googleapis.com/v0/b/lur-icon.appspot.com/o/semester%2Fnumber_seven.png?alt=media&token=c3de428c-1122-4917-9374-166f93c9b73e]]></string>
     <string name="about_us">About us</string>
     <string name="our_mission">Our mission</string>
-    <string name="our_mission_info_text">Our mission is to provide Diploma in Engineering students in Bangladesh with seamless access to academic resources, innovative learning tools, and a supportive platform that enhances their educational experience. By leveraging technology, we aim to make education more accessible, engaging, and effective for students under the Bangladesh Technical Education Board (BTEB).</string>
-    <string name="about_info">Labib UR Rahman\nShinigdha Akter Shimu</string>
+    <string name="our_mission_info_text_old">Our mission is to provide Diploma in Engineering students in Bangladesh with seamless access to academic resources, innovative learning tools, and a supportive platform that enhances their educational experience. By leveraging technology, we aim to make education more accessible, engaging, and effective for students under the Bangladesh Technical Education Board (BTEB).</string>
+    <string name="our_mission_info_text">“To empower polytechnic students with free, organized, and accessible academic resources, bridging gaps in educational accessibility through technology.”</string>
+    <string name="why_we_exist_info_text">In many regions, diploma engineering students struggle to find structured, up-to-date study materials. While universities often benefit from digital advancements, polytechnic learners frequently rely on scattered PDFs, costly textbooks, or outdated online content. As former students, we experienced this challenge firsthand. Unlike mainstream academic paths, there are few dedicated tools tailored for polytechnic learners, forcing many to juggle incomplete resources or overspend on materials. Smart Engineer was created to solve this problem—providing free, well-organized tools and resources that help students study efficiently and affordably.</string>
+    <string name="what_we_offer_info_text">Smart Engineer provides a suite of features designed to simplify polytechnic education. Our resources include unit-based study guides for all technologies, sourced from publicly available educational materials. These are complemented by tools like the CGPA Calculator, which helps students track their academic progress, and offline access for uninterrupted learning. Prioritizing user privacy, the app operates without data sharing, while features like dark mode and customizable libraries enhance the study experience. All materials are intended for educational purposes, and we do not claim ownership of third-party content.</string>
+    <string name="our_commitment_info_text">We are committed to transparency and student-focused innovation. Smart Engineer is an independent platform, unaffiliated with any educational board or government body. All third-party materials are curated from publicly available sources for educational convenience. Founded by former polytechnic students, our mission is to democratize access to learning resources while safeguarding user privacy and autonomy.</string>
+
+    <string name="about_smart_engineer">About Smart Engineer</string>
+    <string name="why_we_exist">Why We Exist</string>
+    <string name="what_we_offer">What We Offer</string>
+    <string name="our_commitment">Our Commitment</string>
+    <string name="the_duo_behind_smart_engineer">The Duo Behind Smart Engineer</string>
+
+    <string name="about_info">Labib UR Rahman (Developer &amp; Co-Founder) transformed his struggles as a polytechnic student into building Smart Engineer. He oversees the app’s technical development, ensuring secure access to tools like the News feed, CGPA calculator and streamlined data management. \n\nShinigdha Akter Shimu (Content &amp; Design Lead), Labib’s classmate and fellow graduate, designs intuitive interfaces and curates study materials grounded in real student needs. \n\nTogether, their shared vision drives the app: “We built Smart Engineer to solve the challenges we faced—no one should struggle to find reliable study tools.”</string>
     <string name="contact_us">Contact us</string>
     <string name="tv_center_footer">Thank you for choosing Smart Engineer—your academic companion for a brighter future!</string>
     <string name="fb_link">www.facebook.com/smartengineerapp</string>
-    <string name="yt_link">www.youtube.com/softylur</string>
-    <string name="mail_link">admin@smartengr.rudhashi.xyz</string>
+    <string name="yt_link">www.youtube.com/softylasa</string>
+    <string name="mail_link">contact@smartengr.rudhashi.xyz</string>
     <string name="web_link">smartengr.rudhashi.xyz</string>
     <string name="download">Download</string>
     <string name="download_info_text">Do you want to download this unit for offline read?</string>
@@ -342,8 +360,9 @@
     <string name="free_user">Free User</string>
     <string name="pro_user">Pro User</string>
 
-    <string name="delete_account">Delete Account</string>
+    <string name="delete_account">Delete Account?</string>
     <string name="delete_info">Are you sure you want to delete your account? This action cannot be undone.</string>
+    <string name="delete_agreement_info">By proceeding, you acknowledge that you’ve read our Privacy Policy and agree to our Terms of Service.</string>
     <string name="freemimum_info_text">Right now, you can enjoy all the premium features of the Smart Engineer app for free.</string>
     <string name="profile">Profile</string>
     <string name="change_name">Change Name</string>
@@ -364,8 +383,8 @@
     <string name="download_notice">Download Notice</string>
     <string name="do_you_want_to_download_this_notice_file">Do you want to download this notice PDF file?</string>
     <string name="notice_board">Notice Board</string>
-    <string name="see_all_bteb_latest_notice">View all the latest BTEB notices</string>
-    <string name="latest_notice_from_bteb">Latest Notice from BTEB</string>
+    <string name="see_all_bteb_latest_notice">View all the latest notices</string>
+    <string name="latest_notice_from_bteb">Latest Notice</string>
     <string name="explore_all_features_with_premium_membership">Explore all features with premium</string>
     <string name="terms_of_services">Terms of Services</string>
     <string name="see_the_terms_of_services_for_more_information">See the terms of service for more information</string>
@@ -373,13 +392,13 @@
     <string name="share_this_with_your_friends">Share this with your friends</string>
     <string name="total___books">Total %1$s books</string>
     <string name="total_0_books">Total 0 books</string>
-    <string name="bteb_notice">BTEB Notice</string>
+    <string name="bteb_notice">Notice</string>
     <string name="latest_book">Latest Books</string>
     <string name="academic_book">Academic Book</string>
     <string name="view_academic_books_from_all_departments">View academic books from all departments</string>
 
 
-    <string name="bteb_notice_title">বিটিইবি নোটিশ</string>
+    <string name="bteb_notice_title">Notice</string>
     <string name="bteb_notice_date">২০২৫-০২-০৩</string>
     <string name="bteb_notice_content">জাতীয় দক্ষতামান বেসিক (৩৬০ ঘন্টা) শিক্ষাক্রমের জুলাই-ডিসেম্বর, জুলাই-সেপ্টেম্বর ও অক্টোবর-ডিসেম্বর, ২০২৪ সেশনের পরীক্ষার্থীদের TC ও PC নম্বর প্রদানের বিজ্ঞপ্তি</string>
     <string name="bteb_notice_file">PDF</string>
@@ -413,5 +432,24 @@
     <string name="search_book_by_using_book_name_and_subject_code">Search book by using book name and subject code</string>
     <string name="version">Version: %1$s</string>
     <string name="uploading">Uploading...</string>
+    <string name="_2010">2010</string>
+    <string name="_2016">2016</string>
+    <string name="_2022">2022</string>
+    <string name="probidhan_2022">Probidhan: 2022</string>
+    <string name="probidhan">Probidhan: %1$s</string>
+    <string name="total_cgpa_is">Total CGPA is :</string>
+    <string name="calculate">Calculate</string>
+    <string name="note_login_page">Note: This app is not affiliated with any government or educational board.</string>
+    <string name="note_browse_h1">Useful Public Resources (Unofficial Links)</string>
+    <string name="note_browse_h2">Note: These links are provided for reference. We are not responsible for their content or accuracy.</string>
+    <string name="note_links">This is an external link. Smart Engineer is not responsible for its content.</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="disclaimer_">Disclaimer…</string>
+    <string name="note_download_unit">These books are provided for educational purposes only. We do not claim ownership. If you are the copyright holder, contact us for removal.</string>
+    <string name="note_book_details">These materials are provided for educational purposes. Contact us for copyright concerns.</string>
+    <string name="note_disclaimer_home">Smart Engineer is an independent app for polytechnic students. It is not affiliated with any government, educational board, or institution. All external links and resources are provided for convenience only.</string>
+    <string name="note_external_link_warning">External Link Warning</string>
+    <string name="note_external_link_warning_info">This is an external link. Smart Engineer is not responsible for its content. Do you want to proceed?</string>
+    <string name="warning">Warning</string>
 
 </resources>

@@ -8,11 +8,16 @@ import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.softylasa.smartengineer.R
@@ -29,8 +34,12 @@ import com.softylasa.smartengineer.ui.activities.ProfileActivity
 import com.softylasa.smartengineer.data.models.BookUnit
 import com.softylasa.smartengineer.databinding.DialogComingSoonBinding
 import com.softylasa.smartengineer.ads.SmartConfig
+import com.softylasa.smartengineer.data.constants.Constants
+import com.softylasa.smartengineer.databinding.DialogDeleteAccountBinding
 import com.softylasa.smartengineer.databinding.DialogForgotPasswordBinding
+import com.softylasa.smartengineer.databinding.DialogPdfUnitDownloadBinding
 import com.softylasa.smartengineer.databinding.DialogUploadingProgressBinding
+import com.softylasa.smartengineer.ui.activities.WebBrowserActivity
 import com.softylasa.smartengineer.utils.helpers.EasySdk.setToast
 import okhttp3.Call
 import okhttp3.Callback
@@ -78,6 +87,80 @@ object DialogManager {
 
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
+    }
+
+
+    fun showDeleteProfileDialog(
+        activity: Activity,
+        lottie: Int,
+        function: () -> Unit
+    ) {
+        val builder = AlertDialog.Builder(activity).create()
+        val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_delete_account, null)
+        val dialogBinding = DialogDeleteAccountBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.setCanceledOnTouchOutside(true)
+        builder.show()
+
+        setDeleteTermsPrivacyText(activity, dialogBinding.tvAgreement)
+
+        dialogBinding.apply {
+            animView.setAnimation(lottie)
+            animView.playAnimation()
+            btnYes.setOnClickListener {
+                function()
+                builder.dismiss()
+            }
+            btnCross.setOnClickListener { builder.dismiss() }
+            btnCancel.setOnClickListener { builder.dismiss() }
+        }
+
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
+    }
+
+    private fun setDeleteTermsPrivacyText(activity: Activity, tvAgreement: TextView){
+        val text = "By proceeding, you acknowledge that you’ve read our Privacy Policy and agree to our Terms of Service."
+        val spannableString = SpannableString(text)
+
+        // "Terms of Service" clickable span
+        val termsStart = text.indexOf("Terms of Service")
+        val termsEnd = termsStart + "Terms of Service".length
+
+        val termsClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                // Open Terms and Conditions
+                openWebView(activity,"Terms of Service", Constants.TERMS)
+            }
+        }
+        spannableString.setSpan(termsClickableSpan, termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(UnderlineSpan(), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(activity.getColor(R.color.google__Blue), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        // "Privacy Policy" clickable span
+        val privacyStart = text.indexOf("Privacy Policy")
+        val privacyEnd = privacyStart + "Privacy Policy".length
+
+        val privacyClickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                // Open Privacy Policy
+                openWebView(activity,"Privacy Policy", Constants.PRIVACY)
+            }
+        }
+        spannableString.setSpan(privacyClickableSpan, privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(UnderlineSpan(), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(activity.getColor(R.color.google__Blue), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        // Set the spannable string to the TextView
+        tvAgreement.text = spannableString
+        tvAgreement.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    private fun openWebView(activity: Activity, title: String, url: String) {
+        val intent = Intent(activity, WebBrowserActivity::class.java)
+        intent.putExtra("TITLE", title)
+        intent.putExtra("URL", url)
+        activity.startActivity(intent)
     }
 
     // Freemium Features Dialog ----------------------------------------------------------------
@@ -211,25 +294,22 @@ object DialogManager {
         if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
         builder.show()
     }*/
-    fun Activity.showDownloadDialog(
-        txtHeading: String,
-        txtInfo: String,
+
+    fun Activity.showPdfUnitDownloadDialog(
         unit: BookUnit,
         onItemClick: (BookUnit, String) -> Unit
     ) {
         val builder = AlertDialog.Builder(this).create()
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_pdf_download, null)
-        val dialogBinding = DialogPdfDownloadBinding.bind(dialogView)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_pdf_unit_download, null)
+        val dialogBinding = DialogPdfUnitDownloadBinding.bind(dialogView)
         builder.setView(dialogBinding.root)
         builder.setCanceledOnTouchOutside(true)
         builder.show()
 
         dialogBinding.apply {
-            tvHeading.text = txtHeading
-            tvInfo.text = txtInfo
             btnDownload.setOnClickListener {
                 builder.dismiss()
-                showDownloadingProgressDialog(this@showDownloadDialog, unit, onItemClick)
+                showDownloadingProgressDialog(this@showPdfUnitDownloadDialog, unit, onItemClick)
             }
             btnClose.setOnClickListener { builder.dismiss() }
             btnNotNow.setOnClickListener { builder.dismiss() }

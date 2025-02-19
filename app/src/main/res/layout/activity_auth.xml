@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/sl_secondary">
+    android:background="@color/sl_secondary"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:layout_gravity="center">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/authHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="40dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="16dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
+                style="@style/sideBarLogo"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                style="@style/sideBarLogo"
                 android:layout_gravity="center"
                 android:contentDescription="@string/smart_engineer_logo" />
 
             <TextView
+                style="@style/tv_center_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                style="@style/tv_center_heading"
-                android:gravity="center"
-                android:fontFamily="@font/roboto"
-                android:textSize="25sp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textSize="25sp" />
 
             <TextView
+                style="@style/tv_center_paragraph"
+                android:layout_marginStart="22dp"
                 android:layout_marginTop="-10dp"
+                android:layout_marginEnd="22dp"
                 android:text="@string/app_slogan"
                 android:textSize="14sp"
-                android:layout_marginStart="22dp"
-                android:layout_marginEnd="22dp"
-                android:textStyle="bold"
-                style="@style/tv_center_paragraph" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
                 android:id="@+id/btnContinueWithGoogle"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="5dp"
                 app:cardCornerRadius="50dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:padding="10dp"
                     android:foreground="?attr/selectableItemBackground"
-                    android:orientation="horizontal"
                     android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/continue_with_social_media"
-                        android:src="@drawable/sl_google_color"/>
+                        android:src="@drawable/sl_google_color" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/continue_with_google"
                         android:textColor="@color/mainContainer_HeadingText"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto"
-                        android:layout_marginStart="10dp"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -103,8 +103,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="5dp">
 
                 <view
@@ -112,13 +112,13 @@
                     class="android.widget.ImageView"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#D7D7D7"
-                    android:padding="2dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
+                    android:background="#D7D7D7"
+                    android:padding="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/orWith"
@@ -139,32 +139,32 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
                 android:id="@+id/btnSignup"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
                 app:cardBackgroundColor="@color/blue__DeepSkyBlue"
                 app:cardCornerRadius="50dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:padding="10dp"
                     android:foreground="?attr/selectableItemBackground"
-                    android:orientation="horizontal"
                     android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
                     tools:ignore="UseCompoundDrawables">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/continue_with_email"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -224,22 +224,33 @@
 
         </LinearLayout>
 
+        <!-- Add this TextView -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/note_login_page"
+            android:textColor="#FF0000"
+            android:textSize="13sp" />
+
         <TextView
             android:id="@+id/tv_terms_privacy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="13dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="14dp"
             android:fontFamily="@font/hind_siliguri"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:textSize="13sp" />
 
     </LinearLayout>
 

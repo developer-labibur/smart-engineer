@@ -32,7 +32,7 @@
 
         <com.ymg.pdf.viewer.PDFView
             android:id="@+id/pdfView"
-            android:background="?attr/pdfBackgroundSecoundary"
+            android:background="?attr/pdfBackgroundPdfViewBg"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

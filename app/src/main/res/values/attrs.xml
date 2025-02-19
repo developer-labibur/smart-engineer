@@ -6,6 +6,7 @@
 
     <attr name="pdfBackgroundPrimary" format="color" />
     <attr name="pdfBackgroundSecoundary" format="color" />
+    <attr name="pdfBackgroundPdfViewBg" format="color" />
     <attr name="pdfIcon" format="color" />
     <attr name="pdfText" format="color" />
 

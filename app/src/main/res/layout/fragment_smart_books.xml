@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/hind_siliguri"
-                    android:hint="@string/search_by_subject_code"
+                    android:hint="@string/search_books_by_name_code"
                     android:includeFontPadding="false"
                     android:textSize="15sp"
                     android:layout_marginStart="10dp"

@@ -53,7 +53,7 @@
                 android:paddingStart="15dp"
                 android:paddingTop="2dp"
                 android:paddingEnd="15dp"
-                android:text="@string/about_us"
+                android:text="@string/about_smart_engineer"
                 android:textAlignment="viewStart"
                 android:textColor="@color/mainContainer_HeadingText"
                 android:textSize="18sp"
@@ -77,6 +77,7 @@
             android:gravity="center"
             android:layout_height="wrap_content">
 
+            <!-- Logo -->
             <ImageView
                 style="@style/sideBarLogo"
                 android:layout_width="170dp"
@@ -84,6 +85,7 @@
                 android:layout_marginTop="30dp"
                 android:contentDescription="@string/smart_engineer_logo_blue"/>
 
+            <!-- Our Mission -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,8 +113,99 @@
             <TextView
                 android:layout_marginTop="10dp"
                 android:text="@string/our_mission_info_text"
-                style="@style/tv_center_paragraph" />
+                style="@style/tv_center_about_paragraph" />
 
+            <!-- Why We Exist -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:id="@+id/tvWhyWeExist"
+                    style="@style/tv_center_heading"
+                    android:text="@string/why_we_exist"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/mainContainer_SubHeadingText"
+                    app:layout_constraintBottom_toBottomOf="@id/tvWhyWeExist"
+                    app:layout_constraintEnd_toEndOf="@+id/tvWhyWeExist"
+                    app:layout_constraintStart_toStartOf="@+id/tvWhyWeExist" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="@string/why_we_exist_info_text"
+                style="@style/tv_center_about_paragraph" />
+
+            <!-- What We Offer -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:id="@+id/tvWhatWeOffer"
+                    style="@style/tv_center_heading"
+                    android:text="@string/what_we_offer"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/mainContainer_SubHeadingText"
+                    app:layout_constraintBottom_toBottomOf="@id/tvWhatWeOffer"
+                    app:layout_constraintEnd_toEndOf="@+id/tvWhatWeOffer"
+                    app:layout_constraintStart_toStartOf="@+id/tvWhatWeOffer" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="@string/what_we_offer_info_text"
+                style="@style/tv_center_about_paragraph" />
+
+            <!-- Our Commitment -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <TextView
+                    android:id="@+id/tvOurCommitment"
+                    style="@style/tv_center_heading"
+                    android:text="@string/our_commitment"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/mainContainer_SubHeadingText"
+                    app:layout_constraintBottom_toBottomOf="@id/tvOurCommitment"
+                    app:layout_constraintEnd_toEndOf="@+id/tvOurCommitment"
+                    app:layout_constraintStart_toStartOf="@+id/tvOurCommitment" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="@string/our_commitment_info_text"
+                style="@style/tv_center_about_paragraph" />
+
+            <!-- The Duo Behind Smart Engineer -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,7 +214,7 @@
                 <TextView
                     android:id="@+id/tvAboutUs"
                     style="@style/tv_center_heading"
-                    android:text="@string/about_us"
+                    android:text="@string/the_duo_behind_smart_engineer"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +233,7 @@
             <TextView
                 android:layout_marginTop="10dp"
                 android:text="@string/about_info"
-                style="@style/tv_center_paragraph" />
+                style="@style/tv_center_about_paragraph" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -172,7 +265,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/fb_link"
                 android:drawableStart="@drawable/sl_facebook_media_network"
-                style="@style/tv_center_paragraph"
+                style="@style/tv_center_about_paragraph"
                 tools:ignore="UseCompatTextViewDrawableXml" />
 
             <TextView
@@ -180,7 +273,7 @@
                 android:layout_width="wrap_content"
                 android:text="@string/yt_link"
                 android:drawableStart="@drawable/sl_media_network_social"
-                style="@style/tv_center_paragraph"
+                style="@style/tv_center_about_paragraph"
                 tools:ignore="UseCompatTextViewDrawableXml" />
 
             <TextView
@@ -188,7 +281,7 @@
                 android:layout_width="wrap_content"
                 android:text="@string/mail_link"
                 android:drawableStart="@drawable/sl_google_media_network"
-                style="@style/tv_center_paragraph"
+                style="@style/tv_center_about_paragraph"
                 tools:ignore="UseCompatTextViewDrawableXml" />
 
             <TextView
@@ -196,7 +289,7 @@
                 android:layout_width="wrap_content"
                 android:text="@string/web_link"
                 android:drawableStart="@drawable/sl_firefox_media_network"
-                style="@style/tv_center_paragraph"
+                style="@style/tv_center_about_paragraph"
                 tools:ignore="UseCompatTextViewDrawableXml" />
 
             <TextView
@@ -204,7 +297,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 android:text="@string/tv_center_footer"
-                style="@style/tv_center_paragraph" />
+                style="@style/tv_center_about_paragraph" />
 
         </LinearLayout>
 

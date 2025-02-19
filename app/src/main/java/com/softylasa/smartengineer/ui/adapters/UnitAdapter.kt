@@ -20,7 +20,7 @@ import com.softylasa.smartengineer.databinding.ItemBookUnitBinding
 import com.softylasa.smartengineer.managers.PointManager
 import com.softylasa.smartengineer.data.models.Book
 import com.softylasa.smartengineer.data.models.BookUnit
-import com.softylasa.smartengineer.managers.DialogManager.showDownloadDialog
+import com.softylasa.smartengineer.managers.DialogManager.showPdfUnitDownloadDialog
 import com.softylasa.smartengineer.ui.activities.SmartEBookActivity
 import okhttp3.Call
 import okhttp3.Callback
@@ -61,11 +61,7 @@ class UnitAdapter(
         holder.itemView.setOnClickListener { onItemClick(unit, "view") }
         holder.downloadButton.setOnClickListener {
             if (cachedFile.exists()) Log.i("Unit", "File already exists")
-            else (context as Activity).showDownloadDialog(
-                "Download",
-                "Do you want to download this unit for offline read?",
-                unit,
-                onItemClick)
+            else (context as Activity).showPdfUnitDownloadDialog(unit, onItemClick)
         }
 
         FirebaseFirestore.getInstance().collection("books").document(bookCode).get()

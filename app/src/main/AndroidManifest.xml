@@ -60,9 +60,6 @@
             android:name=".ui.activities.AcademicBookActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.NoticeBoardActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.activities.PdfViewerActivity"
             android:exported="false" />
         <activity

@@ -6,7 +6,6 @@ import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -14,21 +13,18 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.messaging.FirebaseMessaging
 import com.softylasa.smartengineer.R
 import com.softylasa.smartengineer.ui.fragments.SmartHomeFragment
 import com.softylasa.smartengineer.utils.helpers.Converters.dpToPx
 import com.softylasa.smartengineer.utils.helpers.GetSet.getCurrentDate
 import com.softylasa.smartengineer.databinding.ActivitySmartDashboardBinding
 import com.softylasa.smartengineer.ui.fragments.SmartSettingFragment
-import com.softylasa.smartengineer.ui.fragments.SmartUpdatesFragment
 import com.softylasa.smartengineer.managers.CUserManager
 import com.softylasa.smartengineer.ui.fragments.SmartStudyFragment
 import com.softylasa.smartengineer.utils.helpers.EasySdk.setToast
@@ -37,8 +33,14 @@ import com.softylasa.smartengineer.utils.themes.SmartThemeActivity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.provider.Settings
+import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
+import com.softylasa.smartengineer.R.layout.layout_disclaimer_dialog
+import com.softylasa.smartengineer.databinding.LayoutDisclaimerDialogBinding
+import com.softylasa.smartengineer.ui.fragments.SmartBooksFragment
 
 class SmartDashboardActivity : SmartThemeActivity() {
 
@@ -108,6 +110,33 @@ class SmartDashboardActivity : SmartThemeActivity() {
             department { binding.tvDepName.text = it }
             picture(pictureListener)
         }
+
+        // Disclaimer Dialogs
+        val sharedPrefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
+        val isFirstLogin = sharedPrefs.getBoolean("is_first_login", true)
+
+        if (isFirstLogin) {
+            showDisclaimerDialog()
+            sharedPrefs.edit().putBoolean("is_first_login", false).apply()
+        }
+    }
+
+    // Disclaimer Dialogs -------------------------------------------------------------------
+    @SuppressLint("InflateParams")
+    private fun showDisclaimerDialog() {
+        val builder = AlertDialog.Builder(this).create()
+        val dialogView = LayoutInflater.from(this).inflate(layout_disclaimer_dialog, null)
+        val dialogBinding = LayoutDisclaimerDialogBinding.bind(dialogView)
+        builder.setView(dialogBinding.root)
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+
+        // Handle Button Click
+        dialogBinding.buttonAction.setOnClickListener { builder.dismiss() }
+
+        // Show Dialog
+        if (builder.window != null) builder.window!!.setBackgroundDrawable(ColorDrawable(0))
+        builder.show()
     }
 
     // Method to check if battery optimization is enabled
@@ -202,7 +231,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
         val fragments = listOf(
             SmartHomeFragment(),
             SmartStudyFragment(),
-            SmartUpdatesFragment(),
+            SmartBooksFragment(),
             SmartSettingFragment()
         )
 
@@ -258,75 +287,7 @@ class SmartDashboardActivity : SmartThemeActivity() {
             binding.viewPager.currentItem = position
         }
     }
-/*
-    private fun setActiveTab(position: Int) {
 
-        binding.viewPager.setCurrentItem(position, true) // Smooth scroll to the selected page
-
-        binding.apply {
-            when (position) {
-                0 -> {
-                    tvHome.visibility = View.VISIBLE
-                    tvBook.visibility = View.GONE
-                    tvUpdates.visibility = View.GONE
-                    tvSetting.visibility = View.GONE
-                    llHome.setBackgroundResource(R.drawable.round_back_home_100)
-                    llBook.setBackgroundResource(R.color.transparent)
-                    llUpdates.setBackgroundResource(R.color.transparent)
-                    llSetting.setBackgroundResource(R.color.transparent)
-                }
-
-                1 -> {
-                    tvHome.visibility = View.GONE
-                    tvBook.visibility = View.VISIBLE
-                    tvUpdates.visibility = View.GONE
-                    tvSetting.visibility = View.GONE
-                    llHome.setBackgroundResource(R.color.transparent)
-                    llBook.setBackgroundResource(R.drawable.round_back_book_100)
-                    llUpdates.setBackgroundResource(R.color.transparent)
-                    llSetting.setBackgroundResource(R.color.transparent)
-                }
-
-                2 -> {
-                    tvHome.visibility = View.GONE
-                    tvBook.visibility = View.GONE
-                    tvUpdates.visibility = View.VISIBLE
-                    tvSetting.visibility = View.GONE
-                    llHome.setBackgroundResource(R.color.transparent)
-                    llBook.setBackgroundResource(R.color.transparent)
-                    llUpdates.setBackgroundResource(R.drawable.round_back_updates_100)
-                    llSetting.setBackgroundResource(R.color.transparent)
-                }
-
-                3 -> {
-                    tvHome.visibility = View.GONE
-                    tvBook.visibility = View.GONE
-                    tvUpdates.visibility = View.GONE
-                    tvSetting.visibility = View.VISIBLE
-                    llHome.setBackgroundResource(R.color.transparent)
-                    llBook.setBackgroundResource(R.color.transparent)
-                    llUpdates.setBackgroundResource(R.color.transparent)
-                    llSetting.setBackgroundResource(R.drawable.round_back_setting_100)
-                }
-
-                else -> {
-                    tvHome.visibility = View.VISIBLE
-                    tvBook.visibility = View.GONE
-                    tvUpdates.visibility = View.GONE
-                    tvSetting.visibility = View.GONE
-                    llHome.setBackgroundResource(R.drawable.round_back_home_100)
-                    llBook.setBackgroundResource(R.color.transparent)
-                    llUpdates.setBackgroundResource(R.color.transparent)
-                    llSetting.setBackgroundResource(R.color.transparent)
-                }
-            }
-
-            // Sync ViewPager position with selected tab
-            if (viewPager.currentItem != position) {
-                viewPager.currentItem = position
-            }
-        }
-    }*/
 
     // =====================================================================================================================
     // ============================================     Gradient Text color     ============================================

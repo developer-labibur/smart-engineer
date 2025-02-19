@@ -51,10 +51,5 @@ class SmartConfig {
         private const val REWARDED_INTERSTITIAL_ADS_ID = ""
         private const val NATIVE_ADS_ID = "ca-app-pub-6550723267014585/9856266188"
         private const val NATIVE_VIDEO_ADS_ID = ""
-
-        // Server Link ---------------------------------------------------------------------------------------------
-        const val SERVER_LINK = "https://app.rudhashi.xyz/apps"
-        const val PDF_SERVER_LINK = "https://app.rudhashi.xyz/apps/pdf"
-        const val PDF_COURSE_STRUCTURE = "https://app.rudhashi.xyz/apps/department"
     }
 }

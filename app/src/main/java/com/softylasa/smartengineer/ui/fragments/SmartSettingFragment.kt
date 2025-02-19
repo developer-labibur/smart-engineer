@@ -82,7 +82,7 @@ class SmartSettingFragment : Fragment() {
                 // Special Section --------------------------------
                 //sBtnInstitute.setOnClickListener { startActivity(Intent(context, NoticeBoardActivity::class.java)) }
                 sBtnDepartment.setOnClickListener { startActivity(Intent(context, AllDepartmentActivity::class.java)) }
-                sBtnBtebNotice.setOnClickListener { startActivity(Intent(context, NoticeBoardActivity::class.java)) }
+                //sBtnBtebNotice.setOnClickListener { startActivity(Intent(context, NoticeBoardActivity::class.java)) }
                 sBtnAcademicBook.setOnClickListener { startActivity(Intent(context, AcademicBookActivity::class.java)) }
                 //sBtnRecycling.setOnClickListener { SmartData.comingSoon(context) }
                 //sBtnCommunity.setOnClickListener { SmartData.comingSoon(context) }

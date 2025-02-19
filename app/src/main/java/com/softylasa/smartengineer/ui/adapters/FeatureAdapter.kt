@@ -13,6 +13,7 @@ import com.softylasa.smartengineer.managers.DialogManager.comingSoon
 import com.softylasa.smartengineer.ui.activities.AcademicBookActivity
 import com.softylasa.smartengineer.ui.activities.AllDepartmentActivity
 import com.softylasa.smartengineer.ui.activities.BookViewActivity
+import com.softylasa.smartengineer.ui.activities.CgpaCalculatorActivity
 import com.softylasa.smartengineer.ui.activities.NewsfeedActivity
 import com.softylasa.smartengineer.ui.activities.NoticeBoardActivity
 import com.softylasa.smartengineer.ui.activities.SearchActivity
@@ -69,7 +70,7 @@ class FeatureAdapter(
         holder.itemView.setOnClickListener {
             when (position) {
                 0 -> context.startActivity(Intent(context, NewsfeedActivity::class.java))
-                1 -> context.startActivity(Intent(context, NoticeBoardActivity::class.java))
+                1 -> context.startActivity(Intent(context, CgpaCalculatorActivity::class.java))
                 2 -> context.startActivity(Intent(context, AcademicBookActivity::class.java))
                 3 -> context.startActivity(Intent(context, SearchActivity::class.java))
                 4 -> context.startActivity(Intent(context, AllDepartmentActivity::class.java))

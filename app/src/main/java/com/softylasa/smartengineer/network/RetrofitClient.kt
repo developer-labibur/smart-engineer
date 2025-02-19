@@ -1,5 +1,6 @@
 package com.softylasa.smartengineer.network
 
+import com.softylasa.smartengineer.data.constants.Constants.BASE_URL
 import okhttp3.Interceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,7 +10,6 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-    private const val BASE_URL = "https://app.rudhashi.xyz/apps/api/"
 
     // Generates a random User-Agent to make requests look like they come from different devices
     private fun getRandomUserAgent(): String {

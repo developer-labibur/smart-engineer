@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutDialogContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:padding="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_background"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:background="@drawable/warning_background"
+            android:padding="10dp"
+            android:text="@string/warning"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/sl_warning"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="@id/textTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textTitle"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/textMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="18sp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonNo"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/button_neutral_background"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:text="@string/cancel"
+        android:textStyle="bold"
+        android:fontFamily="@font/roboto"
+        app:layout_constraintBottom_toBottomOf="@id/layoutDialog"
+        app:layout_constraintEnd_toStartOf="@id/buttonYes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutDialog" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonYes"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/button_warning_background"
+        android:textColor="@color/white"
+        android:fontFamily="@font/roboto"
+        android:text="@string/agree"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/layoutDialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buttonNo"
+        app:layout_constraintTop_toBottomOf="@id/layoutDialog" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

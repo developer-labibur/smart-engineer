@@ -88,6 +88,7 @@ class BookDetailsActivity : SmartThemeActivity() {
         binding.btnPremium.setOnClickListener { showFreemiumFeaturesDialog(this) }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun downloadPdf(bookUnit: BookUnit) {
         val cachedFile = getCachedPdfFile(bookUnit.UName)
         if (cachedFile.exists()) {
@@ -118,7 +119,6 @@ class BookDetailsActivity : SmartThemeActivity() {
                         .load(book?.BCover)
                         .into(bookCoverImage)
                     bookCodes.text = getString(R.string.book_name_n_code, bName, bCode)
-                    bookTotalUnits.text = book?.BTotalU
                     "Credit $bCredit".also { viewCountTextCredit.text = it }
 
                     val fullDescription = book?.BDes ?: ""
@@ -178,7 +178,7 @@ class BookDetailsActivity : SmartThemeActivity() {
             }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     private fun parseUnitData(documents: QuerySnapshot) {
         // Parsing Firestore data and adding it to the list ----------------------------------------------------------------
         unitList.clear() // Clear the list to avoid duplicates
@@ -200,6 +200,8 @@ class BookDetailsActivity : SmartThemeActivity() {
                 "download" -> loadBooksAndUnits(bookCode)
             }
         }
+        val unitNoTotal = unitList.size.toString()
+        binding.bookTotalUnits.text = "0$unitNoTotal"
     }
 
     private fun openSmartEBookActivity(bookUnit: BookUnit) {

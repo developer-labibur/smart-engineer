@@ -1,90 +1,488 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@color/sl_primary"
     android:orientation="vertical"
-    android:padding="16dp">
+    tools:context=".ui.activities.CgpaCalculatorActivity">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="CGPA Calculator"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/gpa1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="1st Semester GPA"
-        android:inputType="numberDecimal" />
+        android:layout_height="0dp"
+        android:background="@color/sl_secondary"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/gpa2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="2nd Semester GPA"
-        android:inputType="numberDecimal" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/gpa3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="3rd Semester GPA"
-        android:inputType="numberDecimal" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clHeader"
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/gpa4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="4th Semester GPA"
-        android:inputType="numberDecimal" />
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/sl_primary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/gpa5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="5th Semester GPA"
-        android:inputType="numberDecimal" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_app_ber_bottom_left_radius"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/gpa6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="6th Semester GPA"
-        android:inputType="numberDecimal" />
+                    <ImageView
+                        android:id="@+id/btnBack"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/header_secondary_bg"
+                        android:contentDescription="@string/back_button"
+                        android:paddingStart="9dp"
+                        android:paddingEnd="11dp"
+                        android:src="@drawable/sl_left_arrow_back"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/gpa7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="7th Semester GPA"
-        android:inputType="numberDecimal" />
+                    <TextView
+                        android:id="@+id/tvHeaderTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:fontFamily="@font/main_font_regular_2"
+                        android:singleLine="true"
+                        android:text="@string/cgpa_calculator"
+                        android:textColor="@color/mainContainer_HeadingText"
+                        android:textSize="23sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+                        app:layout_constraintEnd_toStartOf="@+id/btnInfo"
+                        app:layout_constraintStart_toEndOf="@+id/btnBack"
+                        app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
-    <EditText
-        android:id="@+id/gpa8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="8th Semester GPA"
-        android:inputType="numberDecimal" />
+                    <!-- Info Button -->
+                    <ImageView
+                        android:id="@+id/btnInfo"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/header_secondary_bg"
+                        android:contentDescription="@string/info_button"
+                        android:paddingStart="9dp"
+                        android:visibility="invisible"
+                        android:paddingEnd="11dp"
+                        android:src="@drawable/sl_info"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/calculateBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Calculate CGPA" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="40dp"
+                        android:background="@drawable/header_secondary_bg"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvHeaderTitle">
 
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/btn2010"
+                            style="@style/btn_probidhan"
+                            android:text="@string/_2010" />
 
-</LinearLayout>
+                        <TextView
+                            android:id="@+id/btn2016"
+                            style="@style/btn_probidhan"
+                            android:text="@string/_2016" />
+
+                        <TextView
+                            android:id="@+id/btn2022"
+                            style="@style/btn_probidhan"
+                            android:background="@drawable/header_primary_bg"
+                            android:text="@string/_2022" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:background="@drawable/bg_app_ber_top_right_radius"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvRegulation"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="22dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="-10dp"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/main_font_regular_2"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/probidhan_2022"
+                        android:textColor="@color/mainContainer_HeadingText"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/sl_calculator_fill"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-15dp"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/clHeader"
+                tools:layout_editor_absoluteX="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    tools:ignore="DisableBaselineAlignment">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/semester1Layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/_1st_semester">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSemester1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="numberDecimal"
+                            android:maxLength="4" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/semester2Layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/_2nd_semester">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSemester2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="numberDecimal"
+                            android:maxLength="4" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    tools:ignore="DisableBaselineAlignment">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/semester3Layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/_3rd_semester">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSemester3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="numberDecimal"
+                            android:maxLength="4" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/semester4Layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/_4th_semester">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSemester4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="numberDecimal"
+                            android:maxLength="4" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    tools:ignore="DisableBaselineAlignment">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/semester5Layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/_5th_semester">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSemester5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="numberDecimal"
+                            android:maxLength="4" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/semester6Layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/_6th_semester">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSemester6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="numberDecimal"
+                            android:maxLength="4" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    tools:ignore="DisableBaselineAlignment">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/semester7Layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/_7th_semester">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSemester7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="numberDecimal"
+                            android:maxLength="4" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/semester8Layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/_8th_semester">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSemester8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="numberDecimal"
+                            android:maxLength="4" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnReset"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/profile_delete_button"
+                        android:drawableStart="@drawable/sl_restart"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="@string/reset"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnCalculate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/profile_edit_button"
+                        android:drawableStart="@drawable/sl_calculator"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="@string/calculate"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|bottom"
+                android:orientation="horizontal"
+                android:background="@drawable/header_primary_bg"
+                android:padding="2dp"
+                android:layout_margin="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/header_secondary_bg"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center_vertical|bottom"
+                        android:singleLine="true"
+                        android:text="@string/total_cgpa_is"
+                        android:textColor="@color/google__Green"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvResult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="-10dp"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="0.00"
+                        android:textColor="@color/google__Green"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

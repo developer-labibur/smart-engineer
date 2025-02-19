@@ -279,7 +279,7 @@
                     android:orientation="horizontal"
                     android:foregroundGravity="center"
                     android:overScrollMode="never"
-                    app:spanCount="3"
+                    app:spanCount="1"
                     tools:itemCount="9"
                     android:scrollbars="none"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -329,6 +329,40 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvFullLetter" />
 
+                <!-- Disclaimer Header -->
+                <LinearLayout
+                    android:id="@+id/browseDisclaimer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_setting_item"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvJ"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/note_browse_h1"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/sl_primary_text"
+                        android:fontFamily="@font/hind_siliguri"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/note_browse_h2"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:fontFamily="@font/hind_siliguri"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/sl_primary_text"/>
+
+                </LinearLayout>
+
                 <!-- Browse Cat Section -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleBrowser"
@@ -342,7 +376,7 @@
                     android:scrollbars="none"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvJ"
+                    app:layout_constraintTop_toBottomOf="@+id/browseDisclaimer"
                     tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:listitem="@layout/item_browse_list"
                     tools:itemCount="3"/>

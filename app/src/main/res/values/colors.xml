@@ -32,7 +32,9 @@
     <color name="pdf_light">#f8e9d4</color>
     <color name="pdf_dark">#1A1A1A</color>
     <color name="pdf_s_light">#FFF6EB</color>
+    <color name="pdf_s_lightView">#f4f4f4</color>
     <color name="pdf_s_dark">#262626</color>
+    <color name="pdf_s_darkView">#242424</color>
     <color name="pdf_ic_light">#1C274C</color>
     <color name="pdf_ic_dark">#D5DDFA</color>
     <color name="pdf_text_light">#222222</color>
@@ -385,5 +387,10 @@
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
     <color name="ic_icon">#1C274D</color>
+
+
+    <color name="primary_color">#6200EE</color>
+    <color name="selected_color">#03DAC6</color>
+    <color name="unselected_color">#3700B3</color>
 
 </resources>

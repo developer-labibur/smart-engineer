@@ -39,5 +39,7 @@
     <string name="fire_icon">Fire Icon</string>
     <string name="home_icon">Home Icon</string>
     <string name="book_icon">Book Icon</string>
+    <string name="info_button">Info Button</string>
+    <string name="semester_tag_name">Semester Tag Name</string>
 
 </resources>
