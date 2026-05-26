@@ -28,7 +28,6 @@ import com.softylasa.smartengineer.ui.activities.AllDepartmentActivity
 import com.softylasa.smartengineer.ui.activities.AuthActivity
 import com.softylasa.smartengineer.utils.helpers.MakeFirebaseEasy
 import com.softylasa.smartengineer.ui.activities.DayNightActivity
-import com.softylasa.smartengineer.ui.activities.NoticeBoardActivity
 import com.softylasa.smartengineer.ui.activities.ProfileActivity
 import com.softylasa.smartengineer.ui.activities.UpdateProfileActivity
 import com.softylasa.smartengineer.ui.activities.WebBrowserActivity

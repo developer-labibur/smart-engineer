@@ -107,7 +107,6 @@
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/anim_premium_crown"
                     style="@style/setting_item_image_fill" />
-<!--                app:lottie_url="https://lottie.host/df0c2493-ec27-4695-b347-a0d00097e9da/tIQq69tJYO.lottie"-->
 
                 <LinearLayout
                     app:layout_constraintBottom_toBottomOf="parent"

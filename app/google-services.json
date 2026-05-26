@@ -1,0 +1,130 @@
+{
+  "project_info": {
+    "project_number": "389818419543",
+    "firebase_url": "https://smart-engineer-sl-default-rtdb.firebaseio.com",
+    "project_id": "smart-engineer-sl",
+    "storage_bucket": "smart-engineer-sl.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389818419543:android:6329542a21fe0a1c2f1612",
+        "android_client_info": {
+          "package_name": "com.rudhashi.seadminpanel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389818419543-cpql4ep411nqgvoib9ca0vsi05ha48sn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rudhashi.seadminpanel",
+            "certificate_hash": "ae96363916572b40ef98c4fdb95df64bb6a2f6bd"
+          }
+        },
+        {
+          "client_id": "389818419543-q44b79im2ipg1t78aa03fd57dqel70sa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rudhashi.seadminpanel",
+            "certificate_hash": "c6e9be6f6cfab2a5b44a73edeba51d2807386732"
+          }
+        },
+        {
+          "client_id": "389818419543-r9qn561gllhjj61jfshamlhp7i24l2gv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8l_G0oTGGAatHtgGD7JfTikt5AEGsL-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389818419543-r9qn561gllhjj61jfshamlhp7i24l2gv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389818419543:android:2b40d412eab98ded2f1612",
+        "android_client_info": {
+          "package_name": "com.rudhashi.smartengineer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389818419543-l0qmlr58bufgsekucg4pcf3sjncrodt3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rudhashi.smartengineer",
+            "certificate_hash": "c6e9be6f6cfab2a5b44a73edeba51d2807386732"
+          }
+        },
+        {
+          "client_id": "389818419543-mkgipso3sq3bvigtci3r3d9qrmnknu4r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rudhashi.smartengineer",
+            "certificate_hash": "ae96363916572b40ef98c4fdb95df64bb6a2f6bd"
+          }
+        },
+        {
+          "client_id": "389818419543-r9qn561gllhjj61jfshamlhp7i24l2gv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8l_G0oTGGAatHtgGD7JfTikt5AEGsL-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389818419543-r9qn561gllhjj61jfshamlhp7i24l2gv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389818419543:android:0a1b4250a636ee022f1612",
+        "android_client_info": {
+          "package_name": "com.softylasa.smartengineer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389818419543-r9qn561gllhjj61jfshamlhp7i24l2gv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8l_G0oTGGAatHtgGD7JfTikt5AEGsL-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389818419543-r9qn561gllhjj61jfshamlhp7i24l2gv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

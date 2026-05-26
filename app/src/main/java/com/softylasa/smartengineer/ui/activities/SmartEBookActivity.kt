@@ -97,7 +97,7 @@ class SmartEBookActivity : AppCompatActivity() {
         bookName = intent.getStringExtra("BName") ?: "N/A"
         key = intent.getStringExtra("Key") ?: ""
 
-        cachedFile = if (cachedFilePath != null) File(cachedFilePath) else null
+        cachedFile = File(cachedFilePath)
         displayPDF(pdfUrl, cachedFile)
 
         binding.apply {
@@ -299,12 +299,12 @@ class SmartEBookActivity : AppCompatActivity() {
     // Handle page change ------------------------------------------------------------------------------------------------
     private fun handlePageChange(page: Int, pageCount: Int) {
         runOnUiThread {
-            val nextPage = page + 1
             val isForward = page > currentPage // Determine navigation direction
 
             currentPage = page  // Update currentPage whenever the user scrolls manually
+            val pageNo = page+1
 
-            binding.pageNumberTextView.text = "${page + 1}/$pageCount"
+            binding.pageNumberTextView.text = getString(R.string.pageNumberText, pageNo.toString(), pageCount.toString())
             updateScrollBar(page, pageCount)
             setupSeekBar(pageCount) // Call this here after page count is known
             // Apply animation based on saved preference

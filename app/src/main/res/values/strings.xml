@@ -451,5 +451,6 @@
     <string name="note_external_link_warning">External Link Warning</string>
     <string name="note_external_link_warning_info">This is an external link. Smart Engineer is not responsible for its content. Do you want to proceed?</string>
     <string name="warning">Warning</string>
+    <string name="pageNumberText">%1$s/%2$s</string>
 
 </resources>

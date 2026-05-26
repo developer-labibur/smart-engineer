@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainContainer_Bg"
-    tools:context=".ui.activities.DashboardActivity">
+    android:background="@color/mainContainer_Bg">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navHostDashboardFragmentContainerView"
